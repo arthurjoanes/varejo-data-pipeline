@@ -1,0 +1,32 @@
+name: Verificação local Spark e Delta
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construir runtime fixado e executar smoke real
+        run: sh scripts/pipeline.sh setup
+      - name: Lint, formato e tipos
+        run: sh scripts/pipeline.sh check
+      - name: Regras e integração real (inclui recuperação)
+        run: sh scripts/pipeline.sh test -q --junitxml=/app/artifacts/tests.xml
+      - name: Preservar resultado de testes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-result
+          path: artifacts/tests.xml
+          if-no-files-found: ignore
+      - name: Encerrar recursos desta execução
+        if: always()
+        run: docker compose --profile report down
