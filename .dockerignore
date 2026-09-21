@@ -1,0 +1,12 @@
+.git
+.env
+.venv
+.visual-tools
+**/__pycache__
+.pytest_cache
+.mypy_cache
+.ruff_cache
+artifacts
+data/generated
+build
+dist
