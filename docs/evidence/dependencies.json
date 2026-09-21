@@ -1,0 +1,87 @@
+{
+  "source": "https://api.osv.dev/v1/querybatch",
+  "packages": [
+    {
+      "package": "delta-spark",
+      "version": "3.2.1",
+      "advisories": []
+    },
+    {
+      "package": "importlib_metadata",
+      "version": "8.5.0",
+      "advisories": []
+    },
+    {
+      "package": "iniconfig",
+      "version": "2.0.0",
+      "advisories": []
+    },
+    {
+      "package": "mypy",
+      "version": "1.11.2",
+      "advisories": []
+    },
+    {
+      "package": "mypy_extensions",
+      "version": "1.0.0",
+      "advisories": []
+    },
+    {
+      "package": "packaging",
+      "version": "24.1",
+      "advisories": []
+    },
+    {
+      "package": "pluggy",
+      "version": "1.5.0",
+      "advisories": []
+    },
+    {
+      "package": "py4j",
+      "version": "0.10.9.7",
+      "advisories": []
+    },
+    {
+      "package": "pygments",
+      "version": "2.21.0",
+      "advisories": []
+    },
+    {
+      "package": "pyspark",
+      "version": "3.5.9",
+      "advisories": []
+    },
+    {
+      "package": "pytest",
+      "version": "9.0.3",
+      "advisories": []
+    },
+    {
+      "package": "ruff",
+      "version": "0.6.9",
+      "advisories": []
+    },
+    {
+      "package": "setuptools",
+      "version": "84.0.0",
+      "advisories": []
+    },
+    {
+      "package": "typing_extensions",
+      "version": "4.12.2",
+      "advisories": []
+    },
+    {
+      "package": "wheel",
+      "version": "0.48.0",
+      "advisories": []
+    },
+    {
+      "package": "zipp",
+      "version": "3.20.2",
+      "advisories": []
+    }
+  ],
+  "scope": "Exact PyPI pins in requirements.lock and requirements-build.lock; not an OS image or JVM transitive dependency scan.",
+  "queried_at": "2026-09-21T03:42:01.2219758Z"
+}

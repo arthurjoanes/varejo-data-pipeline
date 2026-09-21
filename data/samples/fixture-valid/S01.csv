@@ -1,0 +1,4 @@
+source_system,store_id,sale_id,line_id,revision,operation,product_id,sold_at,quantity,unit_price_brl,line_discount_brl,source_updated_at
+synthetic-pos,S01,A1,1,1,UPSERT,P01,2026-01-01T12:00:00-03:00,2,10.00,1.00,2026-01-02T08:00:00-03:00
+synthetic-pos,S01,A1,2,1,UPSERT,P02,2026-01-01T12:00:00-03:00,1,5.00,0.00,2026-01-02T08:00:00-03:00
+synthetic-pos,S01,A2,1,1,UPSERT,P03,2026-01-01T12:00:00-03:00,3,7.50,2.50,2026-01-02T08:00:00-03:00

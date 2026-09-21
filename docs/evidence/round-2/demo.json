@@ -1,0 +1,524 @@
+{
+  "data_dir": "/data/demos/779a66917c684583871c7832efdd9cef",
+  "duration_seconds": 83.119,
+  "quality_check": {
+    "batch_id": "quality-review",
+    "coverage": {
+      "expected": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "missing": [],
+      "received": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "zero_movement": [
+        "S03"
+      ]
+    },
+    "duration_seconds": 12.138,
+    "issues": [
+      {
+        "code": "UNKNOWN_PRODUCT",
+        "count": 1,
+        "file": "S01.csv",
+        "line": 5,
+        "scope": "row",
+        "severity": "ERROR"
+      },
+      {
+        "code": "INVALID_QUANTITY",
+        "count": 1,
+        "file": "S01.csv",
+        "line": 5,
+        "scope": "row",
+        "severity": "ERROR"
+      },
+      {
+        "code": "INVALID_UNIT_PRICE_BRL",
+        "count": 1,
+        "file": "S01.csv",
+        "line": 5,
+        "scope": "row",
+        "severity": "ERROR"
+      },
+      {
+        "code": "INVALID_SOLD_AT",
+        "count": 1,
+        "file": "S01.csv",
+        "line": 5,
+        "scope": "row",
+        "severity": "ERROR"
+      }
+    ],
+    "publication_id": null,
+    "run_id": "d5af9c477e1f47a7afd353e144f52ed4",
+    "stages": {
+      "ingestion": 12.1363
+    },
+    "started_at": "2026-09-21T04:38:46.109270+00:00",
+    "state": "BLOCKED",
+    "stats": {
+      "conflicts": 0,
+      "duplicates": 0,
+      "received": 5,
+      "rejected": 1,
+      "revision_checks_executed": 0,
+      "stale": 0,
+      "valid": 4,
+      "violations": 4
+    }
+  },
+  "report": "/app/artifacts/report.html",
+  "steps": [
+    {
+      "result": {
+        "batch_id": "fixture-valid",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 13.6126,
+        "issues": [],
+        "publication_id": "acf431dfae6741d1afd39b179f015850",
+        "run_id": "3a745aecc750430f8ac4c244e706a446",
+        "stages": {
+          "gold": 1.4157,
+          "ingestion": 1.8498,
+          "publication": 0.7797,
+          "quality": 2.6577,
+          "reconciliation": 1.8321,
+          "silver": 5.0758
+        },
+        "started_at": "2026-09-21T04:38:58.264642+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 0,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 0,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "64.00",
+      "step": "fixture-valid"
+    },
+    {
+      "result": {
+        "batch_id": "fixture-valid",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 3.5179,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 4,
+            "message": "Evento preservado para diagnóstico, sem regressão do estado.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "acf431dfae6741d1afd39b179f015850",
+        "run_id": "b7f8cab5fcd4452a97b42246c32cb55b",
+        "stages": {
+          "ingestion": 1.2373,
+          "quality": 2.2801
+        },
+        "started_at": "2026-09-21T04:39:13.434309+00:00",
+        "state": "NO_CHANGE",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 4,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 0,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "64.00",
+      "step": "repeat"
+    },
+    {
+      "result": {
+        "batch_id": "missing-delivery",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [
+            "S02"
+          ],
+          "received": [
+            "S01",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 1.2612,
+        "issues": [
+          {
+            "code": "MISSING_FILE",
+            "file": "S02.csv",
+            "severity": "ERROR",
+            "store_id": "S02"
+          },
+          {
+            "code": "MISSING_STORE",
+            "severity": "ERROR",
+            "store_id": "S02"
+          }
+        ],
+        "publication_id": null,
+        "run_id": "3026ff758c564f6abecf528ff1ef0881",
+        "stages": {
+          "ingestion": 1.2608
+        },
+        "started_at": "2026-09-21T04:39:17.394198+00:00",
+        "state": "BLOCKED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 0,
+          "received": 3,
+          "rejected": 0,
+          "revision_checks_executed": 0,
+          "stale": 0,
+          "valid": 3,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "64.00",
+      "step": "missing-delivery"
+    },
+    {
+      "result": {
+        "batch_id": "missing-delivery",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 10.8898,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 4,
+            "message": "Evento preservado para diagnóstico, sem regressão do estado.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "5445fc73750443939911cfd743ab05ff",
+        "run_id": "944f253c952d4348bfd7db2658798374",
+        "stages": {
+          "gold": 1.1924,
+          "ingestion": 0.816,
+          "publication": 0.4828,
+          "quality": 1.7837,
+          "reconciliation": 1.7832,
+          "silver": 4.8305
+        },
+        "started_at": "2026-09-21T04:39:19.587231+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 4,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 0,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "64.00",
+      "step": "complete-delivery"
+    },
+    {
+      "result": {
+        "batch_id": "late-correction",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 9.1228,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 3,
+            "message": "Evento preservado para diagnóstico, sem regressão do estado.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "51cd50e5d379485b8605955cd3d77703",
+        "run_id": "b433e3f094db4be39cb118d1c611fe8e",
+        "stages": {
+          "gold": 1.0936,
+          "ingestion": 0.941,
+          "publication": 0.481,
+          "quality": 1.9526,
+          "reconciliation": 1.2985,
+          "silver": 3.3546
+        },
+        "started_at": "2026-09-21T04:39:30.751237+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 3,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 0,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "77.00",
+      "step": "late-correction"
+    },
+    {
+      "result": {
+        "batch_id": "late-cancellation",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 8.8378,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 3,
+            "message": "Evento preservado para diagnóstico, sem regressão do estado.",
+            "severity": "INFO"
+          },
+          {
+            "code": "STALE_REVISION",
+            "count": 1,
+            "message": "Evento preservado para diagnóstico, sem regressão do estado.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "9a37f2bd3b294397a0ccbb0fe357f73d",
+        "run_id": "ea542ca153d54309900f501a05925b9a",
+        "stages": {
+          "gold": 1.1115,
+          "ingestion": 0.9186,
+          "publication": 0.4312,
+          "quality": 1.6429,
+          "reconciliation": 1.5052,
+          "silver": 3.2271
+        },
+        "started_at": "2026-09-21T04:39:40.002623+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 3,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 1,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "57.00",
+      "step": "late-cancellation"
+    },
+    {
+      "result": {
+        "batch_id": "recoverable",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 8.975,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 3,
+            "message": "Evento preservado para diagnóstico, sem regressão do estado.",
+            "severity": "INFO"
+          },
+          {
+            "code": "STALE_REVISION",
+            "count": 1,
+            "message": "Evento preservado para diagnóstico, sem regressão do estado.",
+            "severity": "INFO"
+          },
+          {
+            "code": "TECHNICAL_FAILURE",
+            "message": "Falha controlada de demonstração: before_publish.",
+            "severity": "ERROR",
+            "type": "InjectedFailure"
+          }
+        ],
+        "publication_id": null,
+        "run_id": "6a8660e3b4774d369d30d4ff6351ba7f",
+        "stages": {
+          "gold": 1.1476,
+          "ingestion": 1.0367,
+          "publication": 0.5633,
+          "quality": 1.5587,
+          "reconciliation": 1.5098,
+          "silver": 3.1576
+        },
+        "started_at": "2026-09-21T04:39:48.983747+00:00",
+        "state": "TECHNICAL_FAILURE",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 3,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 1,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "57.00",
+      "step": "recoverable"
+    },
+    {
+      "result": {
+        "batch_id": "recoverable",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 8.6072,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 3,
+            "message": "Evento preservado para diagnóstico, sem regressão do estado.",
+            "severity": "INFO"
+          },
+          {
+            "code": "STALE_REVISION",
+            "count": 1,
+            "message": "Evento preservado para diagnóstico, sem regressão do estado.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "86e5d887f4f6418daa895e3d2500bee3",
+        "run_id": "675622b7149c4cb38dba56b54822a644",
+        "stages": {
+          "gold": 1.1484,
+          "ingestion": 0.9216,
+          "publication": 0.4565,
+          "quality": 1.7596,
+          "reconciliation": 1.149,
+          "silver": 3.1708
+        },
+        "started_at": "2026-09-21T04:39:59.733878+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 3,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 1,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "77.00",
+      "step": "recovery"
+    }
+  ]
+}

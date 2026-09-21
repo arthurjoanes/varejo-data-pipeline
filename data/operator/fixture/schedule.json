@@ -1,0 +1,1 @@
+{"schema_version":1,"windows":[{"ends_at":"2026-03-01T00:00:00-03:00","source_system":"synthetic-pos","starts_at":"2026-01-01T00:00:00-03:00","stores":["S01","S02","S03"],"window_id":"jan-2026"}]}

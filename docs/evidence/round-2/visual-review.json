@@ -1,0 +1,102 @@
+{
+  "captured_at": "2026-09-21T04:41:29.780Z",
+  "browser": "153.0.4234.48",
+  "playwright": "1.62.1",
+  "results": [
+    {
+      "width": 1440,
+      "viewport": 1440,
+      "document": 1440,
+      "background": "rgb(237, 241, 246)",
+      "mainWidth": 1440,
+      "bodyFont": "16px",
+      "navigationFont": "15px",
+      "dataFont": "14px",
+      "coverage": "12 de 12 lojas com entrega confirmada",
+      "hasFalseTabs": false,
+      "detailRows": 360,
+      "dailyRows": 30
+    },
+    {
+      "width": 1366,
+      "viewport": 1366,
+      "document": 1366,
+      "background": "rgb(237, 241, 246)",
+      "mainWidth": 1366,
+      "bodyFont": "16px",
+      "navigationFont": "15px",
+      "dataFont": "14px",
+      "coverage": "12 de 12 lojas com entrega confirmada",
+      "hasFalseTabs": false,
+      "detailRows": 360,
+      "dailyRows": 30
+    },
+    {
+      "width": 768,
+      "viewport": 768,
+      "document": 768,
+      "background": "rgb(237, 241, 246)",
+      "mainWidth": 768,
+      "bodyFont": "16px",
+      "navigationFont": "15px",
+      "dataFont": "14px",
+      "coverage": "12 de 12 lojas com entrega confirmada",
+      "hasFalseTabs": false,
+      "detailRows": 360,
+      "dailyRows": 30
+    },
+    {
+      "width": 390,
+      "viewport": 390,
+      "document": 390,
+      "background": "rgb(237, 241, 246)",
+      "mainWidth": 390,
+      "bodyFont": "16px",
+      "navigationFont": "15px",
+      "dataFont": "14px",
+      "coverage": "12 de 12 lojas com entrega confirmada",
+      "hasFalseTabs": false,
+      "detailRows": 360,
+      "dailyRows": 30
+    },
+    {
+      "width": 320,
+      "viewport": 320,
+      "document": 320,
+      "background": "rgb(237, 241, 246)",
+      "mainWidth": 320,
+      "bodyFont": "16px",
+      "navigationFont": "15px",
+      "dataFont": "14px",
+      "coverage": "12 de 12 lojas com entrega confirmada",
+      "hasFalseTabs": false,
+      "detailRows": 360,
+      "dailyRows": 30
+    }
+  ],
+  "contrast": [
+    {
+      "name": "primary",
+      "ratio": 14.141
+    },
+    {
+      "name": "muted",
+      "ratio": 5.482
+    },
+    {
+      "name": "blue",
+      "ratio": 6.004
+    },
+    {
+      "name": "success",
+      "ratio": 6.42
+    },
+    {
+      "name": "failure",
+      "ratio": 6.385
+    }
+  ],
+  "keyboard": "Anchor focus, daily table expansion and provenance navigation passed, including with JavaScript disabled.",
+  "clipboard": "Exact ID delivered to intercepted Clipboard API; unavailable fallback selects full ID. System clipboard not used.",
+  "limits": "Not a screen-reader audit or a native browser-zoom check."
+}
