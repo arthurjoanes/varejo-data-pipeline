@@ -18,7 +18,7 @@ flowchart LR
 ```
 
 ## Runtime e recursos
-Python 3.11.16, Java Temurin 17.0.20+8, PySpark 3.5.9, Delta Lake 3.2.1 (Scala 2.12). Matriz oficial permite Delta 3.2.x + Spark 3.5.x; Spark 3.5 suporta Java 17/Python >=3.8. Versões exatas no build/lock. Jars embutidos na imagem, sem Maven em execução. O smoke verifica sessão, escrita, leitura, MERGE e versionAsOf.
+Python 3.11.16, OpenJDK 17.0.20+8 (Alpine 17.0.20_p8-r0), PySpark 3.5.9, Delta Lake 3.2.1 (Scala 2.12). Matriz oficial permite Delta 3.2.x + Spark 3.5.x; Spark 3.5 suporta Java 17/Python >=3.8. Versões exatas no build/lock. Jars embutidos na imagem, sem Maven em execução. O smoke verifica sessão, escrita, leitura, MERGE e versionAsOf.
 
 Docker Compose `pf-varejo-data`; volume nomeado exclusivo para entrada gerada, Delta, temporários e logs. Exportação pequena em `artifacts/`. Spark local[2], shuffle 2, UI desabilitada, JVM inicialmente 1 GiB e container limitado a 3 GiB/2 CPUs. Execução sob demanda. HTML local, servidor opcional 127.0.0.1:3103.
 
@@ -55,7 +55,9 @@ Riscos: caminho host com Unicode/espaços (somente fontes/exportações em bind)
 
 ## Detalhes de implementação
 
-O pipeline executa com network_mode:none depois do build. SHA-256 dos jars e digests das imagens base estão fixados. Gerador e validação física usam streaming Python; transformações tipadas e financeiras usam expressões Spark e SQL no módulo transformations.py, evitando um diretório SQL sem uso. Após a troca do ponteiro, uma falha de auditoria é sinalizada como WARNING mantendo PUBLISHED, pois o manifesto é a autoridade de visibilidade. Memória máxima e duração ficam em artifacts/benchmark.json a cada execução.
+O pipeline executa com network_mode:none depois do build. Código e raiz do container são somente leitura; escrita fica em dados e exportações. O batch mantém somente `DAC_OVERRIDE` para escrever exportações no bind do usuário Linux, sem alterar a propriedade dos arquivos do host; novos privilégios são proibidos. SHA-256 dos jars e digest da imagem base estão fixados. `gcompat` fornece a compatibilidade nativa necessária ao Snappy no Alpine; o smoke real exercita leitura e escrita comprimidas. Pip é removido do runtime após a instalação. Os achados JVM e as condições de isolamento estão em [segurança](security.md).
+
+Gerador e validação física usam streaming Python; transformações tipadas e financeiras usam expressões Spark e SQL no módulo transformations.py. Após a troca do ponteiro, uma falha de auditoria é sinalizada como WARNING mantendo PUBLISHED, pois o manifesto é a autoridade de visibilidade. `scripts/benchmark.py` registra a duração e a memória máxima de sua execução em `artifacts/benchmark.json`.
 
 ## Módulos
 

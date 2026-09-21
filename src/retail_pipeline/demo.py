@@ -40,7 +40,7 @@ def run_demo(spark: SparkSession, data_dir: Path, export_dir: Path) -> dict[str,
         or load_snapshot(quality_root) is not None
     ):
         raise RuntimeError("Demonstração de qualidade sem publicação divergiu do contrato.")
-    generate_report(spark, quality_root, export_dir / "quality-review.html")
+    generate_report(spark, quality_root, export_dir / "quality-review.html", synthetic_data=True)
 
     def revenue() -> Decimal:
         snapshot = load_snapshot(root)
@@ -77,7 +77,7 @@ def run_demo(spark: SparkSession, data_dir: Path, export_dir: Path) -> dict[str,
         raise RuntimeError("Repetição alterou o resultado de negócio.")
     steps.append({"step": "repeat", "result": asdict(repeated), "revenue_brl": str(revenue())})
     incomplete = run("missing-delivery", "missing", "BLOCKED", "64.00")
-    generate_report(spark, root, export_dir / "blocked-report.html")
+    generate_report(spark, root, export_dir / "blocked-report.html", synthetic_data=True)
     generate_scenario(incomplete, batch_id="missing-delivery", scenario="valid")
     completed = process_batch(spark, root, incomplete)
     if completed.state != "PUBLISHED" or revenue() != Decimal("64.00"):
@@ -93,12 +93,12 @@ def run_demo(spark: SparkSession, data_dir: Path, export_dir: Path) -> dict[str,
     )
     if load_snapshot(root) != snapshot_before:
         raise RuntimeError("Falha tornou candidato visível.")
-    generate_report(spark, root, export_dir / "failure-report.html")
+    generate_report(spark, root, export_dir / "failure-report.html", synthetic_data=True)
     recovered = process_batch(spark, root, pending)
     if recovered.state != "PUBLISHED" or revenue() != Decimal("77.00"):
         raise RuntimeError("Retomada não recuperou o total esperado.")
     steps.append({"step": "recovery", "result": asdict(recovered), "revenue_brl": str(revenue())})
-    generate_report(spark, root, export_dir / "report.html")
+    generate_report(spark, root, export_dir / "report.html", synthetic_data=True)
     evidence: dict[str, object] = {
         "data_dir": str(root),
         "duration_seconds": round(time.perf_counter() - started, 3),

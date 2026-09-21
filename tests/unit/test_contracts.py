@@ -255,12 +255,13 @@ def test_reordering_manifest_lists_keeps_logical_identity(tmp_path: Path) -> Non
     assert first.manifest_hash == second.manifest_hash
 
 
-def test_unexpected_file_is_kept_but_blocks(tmp_path: Path) -> None:
+@pytest.mark.parametrize("filename", ["extra.txt", "external.avro", "external.parquet"])
+def test_unexpected_file_is_kept_but_blocks(tmp_path: Path, filename: str) -> None:
     folder = generate_scenario(tmp_path / "input")
-    (folder / "extra.txt").write_text("unexpected", encoding="utf-8")
+    (folder / filename).write_text("unexpected", encoding="utf-8")
     prepared = prepare_batch(folder, tmp_path / "evidence", "run-1")
     assert "UNEXPECTED_FILE" in codes(prepared)
-    assert (tmp_path / "evidence/raw/extra.txt").read_text() == "unexpected"
+    assert (tmp_path / "evidence/raw" / filename).read_text() == "unexpected"
 
 
 @pytest.mark.parametrize(
@@ -269,6 +270,7 @@ def test_unexpected_file_is_kept_but_blocks(tmp_path: Path) -> None:
         '{"schema_version":NaN}',
         '{"schema_version":1,"schema_version":2}',
         '{"batch_id":"\\ud800"}',
+        '{"nested":' + "[" * 1500 + "0" + "]" * 1500 + "}",
     ],
 )
 def test_invalid_json_never_escapes_as_technical_error(tmp_path: Path, text: str) -> None:

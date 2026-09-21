@@ -1,7 +1,7 @@
 {
-  "captured_at": "2026-09-21T04:41:29.780Z",
+  "captured_at": "2026-09-21T23:41:01.169Z",
   "browser": "153.0.4234.48",
-  "playwright": "1.62.1",
+  "playwright": "1.63.0",
   "results": [
     {
       "width": 1440,

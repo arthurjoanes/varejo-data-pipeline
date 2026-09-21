@@ -1,0 +1,65 @@
+{
+  "container_limit": "3 GiB / 2 CPUs; Spark local[2], driver 1 GiB, shuffle 2",
+  "container_peak_memory_bytes": 1031995392,
+  "data_dir": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc",
+  "elapsed_including_report_seconds": 76.962,
+  "generation_seconds": 0.344,
+  "generator_version": 2,
+  "memory_scope": "cgroup memory.peak: container inteiro, inclusive cache de páginas",
+  "network": "none (Compose)",
+  "pipeline_seconds": 69.4526,
+  "publication": {
+    "accepted_batches": [
+      "demo30k"
+    ],
+    "publication_id": "b2661dd0bc9640a58698cd3decee0506",
+    "published_at": "2026-09-21T23:40:14.059620+00:00",
+    "run_id": "0708e3fbc61d47518642137080bb3b52",
+    "sources": [
+      {
+        "batch_id": "demo30k",
+        "bronze_path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/runs/0708e3fbc61d47518642137080bb3b52/bronze",
+        "bronze_version": 0,
+        "operator_reference_hash": "676ef04feeefb29cff40e901477750705660d1e4e6fc6988762d875c4f6c0df3",
+        "reference_hashes": {
+          "catalog.json": "9485a487b8f53360fc62586c856159f14cee5ce946de5ea0e8b0d152d719e2bc",
+          "schedule.json": "958632609f8bdf3b1928c7b3918f9d809c2783512e8bc0d8011e6595cc01e8f5"
+        },
+        "run_id": "0708e3fbc61d47518642137080bb3b52"
+      }
+    ],
+    "tables": {
+      "bronze": {
+        "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/runs/0708e3fbc61d47518642137080bb3b52/bronze",
+        "version": 0
+      },
+      "gold_product_day": {
+        "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/tables/gold_product_day",
+        "version": 0
+      },
+      "gold_store_day": {
+        "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/tables/gold_store_day",
+        "version": 0
+      },
+      "history": {
+        "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/tables/history",
+        "version": 0
+      },
+      "silver": {
+        "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/tables/silver",
+        "version": 0
+      }
+    }
+  },
+  "python": "3.11.16",
+  "rows": 30000,
+  "seed": 42,
+  "spark": "3.5.9",
+  "totals": {
+    "days": 30,
+    "net_revenue_brl": "1141858.51",
+    "sales_count": 10008,
+    "stores": 12,
+    "units": 89903
+  }
+}

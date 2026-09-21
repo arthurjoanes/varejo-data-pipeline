@@ -63,13 +63,17 @@ def _read_published_tables(
     return snapshot, frames
 
 
-def generate_report(spark: SparkSession, root: Path, output: Path) -> Path:
+def generate_report(
+    spark: SparkSession, root: Path, output: Path, *, synthetic_data: bool = False
+) -> Path:
     from pyspark.sql import functions as F
 
     snapshot, frames = _read_published_tables(spark, root, ("gold_store_day", "gold_product_day"))
     latest, failed = _read_attempts(root, snapshot)
     if snapshot is None:
-        payload = ReportPayload(latest_attempt=latest, last_failed_attempt=failed)
+        payload = ReportPayload(
+            synthetic_data=synthetic_data, latest_attempt=latest, last_failed_attempt=failed
+        )
     else:
         store_frame = frames["gold_store_day"]
         product_frame = frames["gold_product_day"]
@@ -106,6 +110,7 @@ def generate_report(spark: SparkSession, root: Path, output: Path) -> Path:
             PRODUCT_LIMIT,
         )
         payload = ReportPayload(
+            synthetic_data=synthetic_data,
             snapshot=snapshot,
             latest_attempt=latest,
             last_failed_attempt=failed,

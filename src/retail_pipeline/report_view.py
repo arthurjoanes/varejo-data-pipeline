@@ -650,6 +650,7 @@ def build_report_html(payload: ReportPayload) -> str:
 <meta name="description" content="Relatório de vendas do pipeline local.">
 <title>Varejo Data Pipeline · relatório de vendas</title><style>{CSS}</style></head><body><main>
 <header><div><h1>Consolidação de vendas</h1>
+{'<p class="meta">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else ''}
 </div>
 <div class="header-context">
 <p class="meta">Janela comercial publicada<br><strong class="window">{_text(window)}</strong></p></div></header>

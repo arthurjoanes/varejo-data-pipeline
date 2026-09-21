@@ -82,7 +82,10 @@ def test_report_keeps_current_publication_separate_from_failed_attempt() -> None
 def test_report_is_self_contained_and_handles_empty_publication() -> None:
     html = build_report_html(ReportPayload())
     assert '<html lang="pt-BR">' in html
-    assert "DADOS SINTÉTICOS" not in html
+    assert "Demonstração com dados sintéticos." not in html
+    assert "Demonstração com dados sintéticos." in build_report_html(
+        ReportPayload(synthetic_data=True)
+    )
     assert "Sem publicação" in html
     assert "Nenhuma tentativa registrada" in html
     assert html.count("<strong>—</strong>") == 4
@@ -367,4 +370,8 @@ def test_report_nav_includes_products_anchor() -> None:
     assert ">Produtos<" in html
     assert 'id="produtos"' in html
     # A ordem na nav: produtos entre indicadores e lojas.
-    assert html.index('href="#indicadores"') < html.index('href="#produtos"') < html.index('href="#lojas"')
+    assert (
+        html.index('href="#indicadores"')
+        < html.index('href="#produtos"')
+        < html.index('href="#lojas"')
+    )

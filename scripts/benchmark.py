@@ -53,7 +53,7 @@ def main() -> None:
         )
         if totals is None or totals["stores"] != 12 or totals["days"] != 30:
             raise RuntimeError("Escopo de 12 lojas/30 dias não reconciliado.")
-        generate_report(spark, root, output / "demo30k-report.html")
+        generate_report(spark, root, output / "demo30k-report.html", synthetic_data=True)
         memory = Path("/sys/fs/cgroup/memory.peak")
         evidence = {
             "data_dir": str(root),

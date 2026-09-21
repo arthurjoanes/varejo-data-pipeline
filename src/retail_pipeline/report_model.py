@@ -8,6 +8,7 @@ PRODUCT_LIMIT = 20
 
 @dataclass(frozen=True)
 class ReportPayload:
+    synthetic_data: bool = False
     snapshot: Mapping[str, object] | None = None
     latest_attempt: Mapping[str, object] | None = None
     last_failed_attempt: Mapping[str, object] | None = None

@@ -2,19 +2,34 @@
 
 Arquivos em artifacts são gerados localmente e não são pré-requisitos do clone. O comando `scripts/verify_problem.py` grava os resultados em `artifacts/`; passos em [demo.md](demo.md).
 
+## Verificação de publicação em 21/09/2026
+
+Uma cópia contendo somente arquivos públicos candidatos foi construída e executada em Docker Linux, sem `.env`, caches ou dados da instalação anterior. [Registro da execução](evidence/publication.json).
+
+| Verificação | Resultado |
+| --- | --- |
+| Suíte completa | 156 aprovados, zero falhas e zero pulados; 15 integrações, sendo 14 com Spark/Delta e uma de lock entre processos. [JUnit](evidence/publication-tests.xml). |
+| Ruff, formato e mypy | Aprovados; 32 arquivos Python formatados e 15 módulos verificados por tipos. |
+| Demo CLI | Oito passos e totais manuais conferidos; publicação final R$ 77,00, preservação durante bloqueio/falha e retomada sem duplicação. |
+| Volume demonstrativo | 30 mil registros, 12 lojas e 30 dias; pipeline em 69,45 s, 76,96 s incluindo geração e relatório, pico do container de 984,2 MiB. [Medição](evidence/benchmark.json). |
+| Relatório | Dez capturas em cinco larguras; teclado, cópia, fallback sem JavaScript e servidor HTTP local aprovados. Dados sintéticos identificados no HTML. |
+| Publicação e dependências | Actionlint e Gitleaks aprovados; scan integral e triagem JVM em [segurança](security.md). |
+
+As medições são desta execução, com limite de 3 GiB/2 CPUs; não são uma previsão de desempenho para outros computadores ou produção. O CI repete a suíte, o scanner e os verificadores no commit publicado.
+
 ## Runtime
 
 | Componente | Versão fixada |
 | --- | --- |
 | Python | 3.11.16 |
-| Java | Temurin 17.0.20+8 |
+| Java | OpenJDK 17.0.20+8 (Alpine 17.0.20_p8-r0) |
 | PySpark / Spark | 3.5.9 |
 | Delta Lake / Scala | 3.2.1 / 2.12 |
 | pytest | 9.0.3 |
 
 A [matriz oficial Delta](https://docs.delta.io/releases/) admite Delta 3.2.x com Spark 3.5.x. A [manutenção Spark 3.5.9](https://spark.apache.org/releases/spark-release-3-5-9.html) preserva essa linha. Os digests das imagens oficiais estão no Dockerfile; dependências Python têm versão e SHA-256 em requirements.lock e requirements-build.lock. O build instala ferramentas de construção antes dos pacotes, sem resolução isolada implícita. Os dois jars Delta são conferidos por SHA-256 em scripts/download_jars.py.
 
-Base e dependências fixadas não significam imagem reproduzível byte a byte: apt instala procps a partir dos repositórios Debian durante o build. O resultado da consulta OSV de 16 pins Python está em [dependencies.json](evidence/dependencies.json); isso não é uma varredura das bibliotecas transitivas JVM nem dos pacotes do sistema operacional.
+Base e dependências fixadas não significam imagem reproduzível byte a byte: apk instala as dependências do runtime a partir dos repositórios Alpine durante o build. A consulta histórica OSV de 16 pins Python está em [dependencies.json](evidence/dependencies.json). A varredura atual inclui sistema operacional, Python e bibliotecas JVM: [resultado e triagem](security.md).
 
 ## Comandos verificáveis
 
@@ -51,7 +66,7 @@ O Compose limita o batch a 3 GiB e 2 CPUs, Spark local[2], driver 1 GiB, duas pa
 O HTML não depende de Node. Para repetir apenas as capturas, instale Playwright em um diretório de ferramentas ignorado:
 
 ~~~powershell
-npm install --prefix .visual-tools --no-save --package-lock=false playwright@1.62.1
+npm install --prefix .visual-tools --no-save --package-lock=false playwright@1.63.0
 .\.visual-tools\node_modules\.bin\playwright.cmd install chromium
 $env:NODE_PATH = (Join-Path (Get-Location) '.visual-tools/node_modules')
 node scripts/visual-review.cjs

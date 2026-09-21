@@ -13,19 +13,32 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Construir runtime fixado e executar smoke real
         run: sh scripts/pipeline.sh setup
       - name: Lint, formato e tipos
         run: sh scripts/pipeline.sh check
       - name: Regras e integração real (inclui recuperação)
         run: sh scripts/pipeline.sh test -q --junitxml=/app/artifacts/tests.xml
+      - name: Inventário de vulnerabilidades OS, JVM e Python
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "${{ runner.temp }}/trivy-cache:/root/.cache/" \
+            -v "$PWD/artifacts:/out" \
+            aquasec/trivy:0.74.0@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969 \
+            image --scanners vuln --ignorefile /dev/null --format json \
+            --output /out/security-scan.json pf-varejo-data:local
+      - name: Bloquear vulnerabilidades graves sem triagem aplicável
+        run: python3 scripts/check_image_scan.py artifacts/security-scan.json
       - name: Preservar resultado de testes
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: pytest-result
-          path: artifacts/tests.xml
+          path: |
+            artifacts/tests.xml
+            artifacts/security-scan.json
           if-no-files-found: ignore
       - name: Encerrar recursos desta execução
         if: always()

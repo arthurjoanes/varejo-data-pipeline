@@ -1,10 +1,9 @@
-# Runtime fixado de propósito na combinação documentada em docs/architecture.md.
-FROM eclipse-temurin:17.0.20_8-jre-jammy@sha256:e85989f3e4d136b3d7dde921e157fddb9c7016805a225c1ec483326b825b3ca5 AS java
-FROM python:3.11.16-slim-bookworm@sha256:a36c24f9cbdf4fd0f52d67f0823eeac19c2028c637cecc392d97f980d4fec56b
-
-COPY --from=java /opt/java/openjdk /opt/java/openjdk
-ENV JAVA_HOME=/opt/java/openjdk \
-    PATH="/opt/java/openjdk/bin:${PATH}" \
+# Runtime local sem acesso de rede após o build.
+FROM python:3.11.16-alpine3.24@sha256:cd04730b8511def3fbf14204d66a0c1536f290b8e896ed5a94cd64cb15ac1356
+RUN apk add --no-cache bash procps-ng openjdk17-jre-headless=17.0.20_p8-r0
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk \
+    JAVA_TOOL_OPTIONS="-Djava.io.tmpdir=/data/tmp" \
+    PATH="/usr/lib/jvm/java-17-openjdk/bin:${PATH}" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONPATH=/app/src \
@@ -29,9 +28,9 @@ RUN python /tmp/download_jars.py \
     && mkdir -p /data/tmp/spark /app/artifacts \
     && java -version \
     && python --version
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends procps \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache gcompat \
+    && python -m pip uninstall -y pip \
+    && rm -rf /usr/local/lib/python3.11/ensurepip
 COPY . /app
 ENTRYPOINT ["python", "-m", "retail_pipeline.cli"]
 CMD ["--help"]
