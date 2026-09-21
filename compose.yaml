@@ -1,0 +1,51 @@
+name: pf-varejo-data
+
+services:
+  pipeline:
+    build: .
+    image: pf-varejo-data:local
+    init: true
+    network_mode: none
+    hostname: varejo-batch
+    extra_hosts:
+      - "varejo-batch:127.0.0.1"
+    mem_limit: ${PIPELINE_MEMORY_LIMIT:-3g}
+    cpus: ${PIPELINE_CPUS:-2.0}
+    environment:
+      PYTHONPATH: /app/src
+      RETAIL_DATA_DIR: /data
+      RETAIL_EXPORT_DIR: /app/artifacts
+      SPARK_LOCAL_DIRS: /data/tmp/spark
+      TMPDIR: /data/tmp
+      SPARK_DRIVER_MEMORY: ${SPARK_DRIVER_MEMORY:-1g}
+      SPARK_LOCAL_HOSTNAME: localhost
+      RUFF_CACHE_DIR: /data/cache/ruff
+      MYPY_CACHE_DIR: /data/cache/mypy
+      PYTHONDONTWRITEBYTECODE: "1"
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+      - type: volume
+        source: data
+        target: /data
+    command: ["--help"]
+
+  report-server:
+    image: pf-varejo-data:local
+    profiles: ["report"]
+    init: true
+    mem_limit: 128m
+    cpus: 0.25
+    entrypoint: ["python", "-m", "http.server"]
+    command: ["3103", "--bind", "0.0.0.0", "--directory", "/app/artifacts"]
+    ports:
+      - "127.0.0.1:${REPORT_PORT:-3103}:3103"
+    volumes:
+      - type: bind
+        source: ./artifacts
+        target: /app/artifacts
+        read_only: true
+
+volumes:
+  data:
