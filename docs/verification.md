@@ -18,6 +18,12 @@ O runtime verificado é a imagem `sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8e
 
 Os testes de componentes não equivalem a executar todas as suítes upstream. Em especial, os 44 casos de `ClassUtils` passaram, mas a suíte histórica completa de Commons Lang mantém 29 problemas de compatibilidade/expectativas no Java 17. A matriz distingue regressões com controle negativo, verificações de compatibilidade, atualização de versão e remoção integral. As receitas reproduziram os hashes dos três JARs; não há promessa de imagem inteira idêntica byte a byte.
 
+## Revisão de explicações e jornadas — 22/09/2026
+
+README, problema/solução e decisões técnicas foram conferidos contra as funções e testes citados. Os exemplos distinguem a demo que termina em R$ 77,00 do teste de negócio que termina em R$ 74,00. As contas, entradas e limites são os desses cenários existentes; nenhuma nova execução Spark é atribuída a esta revisão.
+
+O Edge percorreu bloqueio, falha e retomada em três larguras, comparando receita, linhas por loja, IDs, versões e caminhos com os payloads. Foram 13 registros de verificação de jornada/estado, com três novas capturas, teclado/foco/histórico, rolagem interna, sem JavaScript e visibilidade dos painéis na impressão. [Registro e hashes dos inputs/capturas](evidence/interface-journeys/review.json), [roteiro e imagens](interface.md#jornada-de-leitura-conferida-em-2209). Não foi encontrada regressão funcional nesse escopo; fontes da aplicação e interface não precisaram mudar. A ampliação foi CSS de 200% e reflow a 640 CSS px, sem zoom nativo nem leitor de tela. As provas de runtime abaixo permanecem históricas.
+
 ## Interface do fechamento em 22/09/2026 (UTC)
 
 A interface separa Execução, Indicadores e Arquivos. A publicação vigente continua visível ao consultar uma tentativa bloqueada ou com falha. Etapas mostram somente medições existentes; contadores indisponíveis não viram zero. O código de captura e replay permite repetir esta revisão sem executar novos lotes. [Comportamento e reprodução](interface.md).

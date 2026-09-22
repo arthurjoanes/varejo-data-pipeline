@@ -37,3 +37,11 @@ A opção `--capture` do script é de desenvolvimento: exige o volume que conté
 A verificação de navegador é `node scripts/visual-review.cjs`, com Playwright disponível no ambiente. `PLAYWRIGHT_MODULE` permite indicar um módulo instalado fora do repositório; `PLAYWRIGHT_CHANNEL=msedge` seleciona Edge. A biblioteca não é dependência do HTML. Resultados, escopo e limitações ficam em [verificação](verification.md).
 
 Capturas: [execução](images/interface/report.png), [bloqueio](images/interface/blocked.png), [indicadores](images/interface/indicators.png), [arquivos](images/interface/files.png) e [tela estreita](images/interface/report-390.png). As imagens `audit.png`, `empty.png` e `running.png` demonstram as fixtures de apresentação identificadas acima.
+
+## Jornada de leitura conferida em 22/09
+
+No fechamento bloqueado, abra **Execução** e confira S02 ausente, duas de três lojas confirmadas e somente Ingestão medida. Em **Indicadores**, a publicação anterior conserva R$ 64,00. Em **Arquivos**, o ID da publicação e suas versões são distintos dos IDs da tentativa bloqueada. O mesmo percurso mantém R$ 57,00 no snapshot de falha anterior à publicação e R$ 77,00 depois da retomada.
+
+A [revisão de jornadas](evidence/interface-journeys/review.json) conferiu esses três percursos em 1440, 390 e 320 px, incluindo valores por loja, versões e caminhos Delta, navegação por teclado, foco, histórico e rolagem interna das tabelas. Também conferiu ausência de publicação, execução sem resultado final, auditoria incompleta, leitura sem JavaScript, impressão dos três painéis e reflow. Não houve nova execução de lote: os payloads históricos foram renderizados offline pela fonte atual.
+
+Capturas dessa revisão: [bloqueio no celular](images/interface/journey-blocked-390.png), [indicadores após retomada](images/interface/journey-recovered-indicators.png) e [origem da publicação](images/interface/journey-published-files.png). Elas complementam as imagens anteriores; não substituem sua evidência histórica.

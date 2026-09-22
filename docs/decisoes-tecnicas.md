@@ -2,6 +2,19 @@
 
 Resultados dos testes em [verification.md](verification.md).
 
+## Onde as decisões aparecem no código
+
+| Problema enfrentado | Decisão e motivo | Limite e como conferir |
+|---|---|---|
+| O remetente pode omitir S02 tanto dos arquivos quanto de seu calendário. | [`configure_references`](../src/retail_pipeline/references.py) fixa a expectativa fora da entrega. A cobertura passa a comparar o que chegou com o que o operador aprovou. | Configuração local, sem aprovação multiusuário. Mudá-la exige novo estado. [`test_sender_cannot_reduce_independently_approved_coverage`](../tests/unit/test_operator_references.py). |
+| A mesma revisão chega duas vezes; outra chega com conteúdo conflitante. | [`conflicting_keys`, `eligible_history` e `current_state`](../src/retail_pipeline/transformations.py) separam conflito, replay e ordenação por revisão. O hash normalizado de negócio evita que arquivo ou horário de chegada mudem a identidade do evento. | Revisões dependem do contrato da origem; o pipeline não decide qual payload conflitante é verdadeiro. [Contrato e normalização](../src/retail_pipeline/contracts.py), [replay e revisões](../tests/integration/test_pipeline.py). |
+| Corrigir só um item muda a contagem de vendas sem mudar a receita. | [`_process`](../src/retail_pipeline/pipeline.py) verifica os dias de todos os itens ativos da venda antes das saídas candidatas. Bloquear permite corrigir a venda inteira. | Estorno parcial e múltiplos dias para uma mesma venda não fazem parte do contrato. [Contraexemplo executável](../tests/integration/test_business_thesis.py). |
+| O processo pode parar entre dois commits Delta. | [`publish` e `read_table`](../src/retail_pipeline/publication.py) usam um manifesto e `versionAsOf`; [`generate_report`](../src/retail_pipeline/reporting.py) captura a referência uma vez. Isso preserva uma visão coerente mesmo com candidatos incompletos. | Um escritor no filesystem Linux local, sem transação distribuída. [Falhas antes da publicação](../tests/integration/test_pipeline.py), [falha após o ponteiro](../tests/integration/test_commit_boundary.py) e [leitor com ponteiro alterado](../tests/unit/test_reporting.py). |
+| Corrigir data ou cancelar item afeta mais de um agregado. | [`merge_state` e `gold_tables`](../src/retail_pipeline/transformations.py) recompõem a projeção do histórico aceito. A mesma regra serve à primeira execução e à retomada. | Custo proporcional ao histórico; não é implementação incremental. A equivalência entre projeção e tabela persistida é conferida em `merge_state`. |
+| Falta de medição pode parecer zero e uma falha recente pode parecer perda da publicação. | [`_publication_context`, `_duration_panel` e `_quality_diagnostics`](../src/retail_pipeline/report_view.py) distinguem tentativa, publicação, ausência e não avaliação. As três vistas compartilham o mesmo payload capturado. | HTML sem consulta ao vivo; não contém todas as execuções. [Testes de apresentação](../tests/unit/test_reporting.py) e [jornadas de navegador](../scripts/visual-review.cjs). |
+
+As seções abaixo detalham os compromissos dessas escolhas. Os links apontam para a implementação e as regressões existentes; as execuções e seus limites ficam no [registro de verificação](verification.md).
+
 ## Grão, chaves e revisões
 
 O grão de entrada é uma imagem completa de uma revisão de um item de venda. A chave de negócio é `(source_system, store_id, sale_id, line_id)`. A revisão é inteira positiva e ordena o estado da mesma chave; chegada mais recente não significa informação mais atual.
