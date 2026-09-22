@@ -4,8 +4,6 @@ Um HTML de fechamento ou a última tabela gold não bastam para recuperar o pipe
 
 **A restauração local e as seis amostras de recomputação passaram em 22/09/2026.** Três publicações foram recuperadas em volume novo, com IDs, versões, linhas e totais iguais à origem. A medição tem execução e limites próprios. [Índice de evidências](evidence/state-proof/index.json).
 
-Fontes desta seção, conferidas em **22/09/2026**: [index.json](evidence/state-proof/index.json).
-
 ## O conjunto que precisa sobreviver
 
 A prova copia a árvore de estado e entradas de seu ambiente sintético sem escritores ativos. O inventário registra caminhos, tamanhos e SHA-256; o arquivo tar é local, sem compressão. O restore confere a cópia antes de criar o estado, recusa destino ocupado e mantém o mesmo caminho interno: os manifestos existentes contêm caminhos absolutos.
@@ -14,8 +12,6 @@ O [contrato de retenção](../scripts/proof_contracts.py) percorre a publicaçã
 
 Copiar apenas arquivos que parecem recentes seria menor, mas poderia apagar versões ainda utilizadas por uma publicação anterior. A abordagem conservadora custa espaço e não resolve retenção acumulada. O limite de cópia desta ferramenta é 2 GiB, além do limite de entradas; não é uma quota do disco de produção.
 
-Fontes desta seção, conferidas em **22/09/2026**: [proof_contracts.py](../scripts/proof_contracts.py).
-
 ## Cenário funcional e recusa
 
 O roteiro desta prova é pequeno: publicação de **R$ 64**, entrega ausente que preserva **R$ 64**, reposição que mantém **R$ 64** e correção que publica **R$ 77**. É diferente da sequência histórica de oito estados descrita no [demo](demo.md). Os valores são literais da fixture, não metas ajustadas depois da medição.
@@ -23,8 +19,6 @@ O roteiro desta prova é pequeno: publicação de **R$ 64**, entrega ausente que
 O aceite exige ler a publicação vigente e as anteriores no destino por `load_snapshot`/`read_table`, comparando IDs, versões, linhas e totais com a origem. A cópia deve preservar os bytes da origem; controles negativos precisam recusar tar adulterado antes de criar o estado e destino ocupado sem alterar os arquivos já restaurados. Os relatórios reais de publicação, bloqueio, reposição e correção guardam seus próprios IDs.
 
 O projeto já protegia a publicação contra falha de processo. Esta prova acrescenta recuperação a partir de uma cópia. **Não é recuperação em outro computador**, proteção contra perda do disco, backup agendado ou um objetivo de RPO/RTO cumprido.
-
-Fontes desta seção, conferidas em **22/09/2026**: [prove_state.py](../scripts/prove_state.py) · [proof_contracts.py](../scripts/proof_contracts.py) · [index.json](evidence/state-proof/index.json).
 
 ## O que foi observado
 
@@ -61,8 +55,6 @@ A primeira tentativa usou uma imagem histórica; o scan posterior não é atribu
 
 Depois, `642c291` revisou a interface e `44cd017` corrigiu a leitura de publicação vazia; `93d80c0` acrescentou a origem dos assets. Em relação às 282 fontes das operações, essa versão mantém 271 blobs Git iguais e altera 11; acrescenta seis arquivos de apresentação. Os 20 arquivos das provas históricas, incluindo seis PNGs, permanecem intactos. A [associação das versões](evidence/state-proof-followup/association.json) identifica as diferenças. Restore, medição e suas capturas descrevem a fonte executada naquela ocasião; não são novas execuções da interface atual. A revisão de apresentação e seus limites estão em [qualidade da interface](frontend-quality.md).
 
-Fontes desta seção, conferidas em **22/09/2026**: [restore.json](evidence/state-proof/restore.json) · [captures.json](evidence/state-proof/captures.json) · [regressions.json](evidence/state-proof/regressions.json).
-
 ## Medir antes de escolher processamento incremental
 
 Recompor silver/gold facilita lidar com revisão, mudança de dia, cancelamento e retomada, mas relê o histórico. A medição foi definida com dois históricos sintéticos, **3.600 e 10.800 linhas**, e um lote novo de **360 linhas** com chaves disjuntas. Cada tamanho tem três repetições em volumes novos derivados da mesma baseline daquele tamanho. Seed 42, limite de 3 GiB, 2 CPUs e 1.024 processos/threads, prazo de 600 s por amostra e 1.800 s para a medição completa são registrados antes de executar.
@@ -90,8 +82,6 @@ A chamada `create_spark` levou 34,466–34,569 s, separadamente do processamento
 
 O dado útil para a decisão atual é que startup e processamento têm custos visíveis mesmo nesse volume pequeno. A prova sustenta manter uma implementação conferível e medir uma alternativa antes de acrescentar estado incremental. Não estabelece que Spark seja a opção mais barata ou mais rápida.
 
-Fontes desta seção, conferidas em **22/09/2026**: [measurement.json](evidence/state-proof/measurement.json).
-
 ## Reproduzir sem reconstruir dependências desnecessariamente
 
 Use uma imagem local previamente construída e seu ID SHA-256 completo. O [executor](../scripts/prove_state.py) cria volumes próprios, monta o código somente para leitura e executa sem rede. O diretório de saída deve ser novo, fora do repositório e do OneDrive; não coloque cópias privadas em Git.
@@ -103,12 +93,8 @@ python scripts/prove_state.py measure --image sha256:ID-COMPLETO --output D:/pri
 
 São comandos de reprodução com placeholders, não resultados executados. O runner registra fontes, identidade de imagem, limites e recursos. A limpeza remove somente seus containers; **volumes ficam preservados para inspeção**. Não há prune global nem interrupção de serviços externos.
 
-Fontes desta seção, conferidas em **22/09/2026**: [prove_state.py](../scripts/prove_state.py).
-
 ## Por que manter essa arquitetura
 
 Uma alternativa menor, como Python com SQLite, merece comparação para esse volume. Spark/Delta exercita histórico versionado e publicação entre tabelas; o tamanho sintético sozinho não exige um cluster. O manifesto é necessário porque transações Delta individuais não tornam várias tabelas uma única transação. Essas garantias dependem do filesystem Linux local e do escritor exclusivo; não se transferem automaticamente para armazenamento remoto.
 
 O runtime também tem um custo de manutenção concreto: três builds JVM próprios, receitas, ferramentas e regressões. A [política de substituição](runtime-upgrade.md) exige procedência, compatibilidade, testes e scan de um artefato oficial candidato antes de removê-los. O aviso MEDIUM conhecido do backport continua visível; não há alegação de zero vulnerabilidades.
-
-Fontes desta seção, conferidas em **22/09/2026**: [prove_state.py](../scripts/prove_state.py) · [proof_contracts.py](../scripts/proof_contracts.py) · [index.json](evidence/state-proof/index.json).

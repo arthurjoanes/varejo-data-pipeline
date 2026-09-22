@@ -1,10 +1,8 @@
 # Segurança do runtime local
 
-O [commit oficial Apache 904afa78](https://github.com/apache/commons-lang/commit/904afa78cc58e2897f47eeac0781c3ba6f95b5e6) foi consultado em **22/09/2026** para conferir a origem da substituição da recursão. A aplicação local do patch e seus limites são sustentados pelo [registro de triagem](evidence/security-triage.json), não pela mera existência do commit upstream.
+O [commit oficial Apache 904afa78](https://github.com/apache/commons-lang/commit/904afa78cc58e2897f47eeac0781c3ba6f95b5e6) documenta a substituição da recursão. A aplicação local do patch e seus limites são sustentados pelo [registro de triagem](evidence/security-triage.json), não pela mera existência do commit upstream.
 
 O escopo suportado é o batch Docker local com o Compose deste repositório. A entrega contém CSV e três documentos JSON; a leitura oficial usa somente tabelas Delta geradas pelo próprio pipeline. O volume de estado, a configuração do operador e o código precisam permanecer sob controle do operador. Este projeto não é uma sandbox para executar código, abrir tabelas arbitrárias ou receber tráfego de clientes remotos.
-
-Fontes desta seção, conferidas em **22/09/2026**: [security-triage.json](evidence/security-triage.json).
 
 ## Isolamento
 
@@ -15,8 +13,6 @@ Fontes desta seção, conferidas em **22/09/2026**: [security-triage.json](evide
 - JSON externo é processado por Python. Spark recebe NDJSON produzido por `json.dumps`, com schema explícito; campos do CSV são dados escapados. As configurações não habilitam desserialização polimórfica Java. Parquet e logs Delta lidos pelo pipeline foram escritos pelo próprio runtime.
 
 Os testes de contrato verificam arquivos externos, symlinks, FIFO, caminhos e JSON profundamente aninhado. O smoke real verifica master local, driver loopback, ausência de UI, catálogo em memória, MERGE e leitura por versão. A suíte também cobre escape do conteúdo no HTML. Esses controles reduzem a superfície de entrada; não corrigem bibliotecas de terceiros.
-
-Fontes desta seção, conferidas em **22/09/2026**: [compose.yaml](../compose.yaml) · [Dockerfile](../Dockerfile) · [security-triage.json](evidence/security-triage.json).
 
 ## Dependências e builds identificados
 
@@ -30,13 +26,9 @@ O scan comparativo continua apontando CVE-2025-48924/MEDIUM por versão no origi
 
 O [scan histórico integral da imagem](evidence/security-scan.json) `sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3`, em 22/09/2026, identificou 441 pacotes JVM e manteve somente CVE-2025-48924/MEDIUM no JAR corrigido de Commons Lang: zero HIGH/CRITICAL. Os 52 pacotes Alpine e 28 Python tiveram zero achados. Trivy 0.74.0 usou a base de vulnerabilidades atualizada em 21/09/2026 às 19:11 UTC; não houve filtro de severidade, exclusão de achados ou `ignore-unfixed`. Os 18 achados anteriores estão preservados na [triagem histórica](evidence/security-triage-before-rebuild.json), com [tratamento individual e limites de cobertura](evidence/security-triage.json). A suíte dessa imagem, antes de incorporar a revisão posterior da interface, passou em 188 testes, incluindo 15 integrações Spark/Delta, sem falhas ou casos pulados; a fonte ficou inalterada durante a execução. [Resultado e hashes da fonte](evidence/jvm-rebuild-full-suite.json) · [JUnit](evidence/jvm-rebuild-tests.xml).
 
-Fontes desta seção, conferidas em **22/09/2026**: [security.json](evidence/editorial-20260922/security.json) · [security-scan.json](evidence/security-scan.json) · [security-triage-before-rebuild.json](evidence/security-triage-before-rebuild.json).
-
 ## Orçamento de entrada
 
 Por padrão: 1 MiB por JSON, 64 MiB por arquivo, 256 MiB por tentativa e 1.000 arquivos. Os bytes são contados enquanto são copiados, e JSON é limitado antes de parsing. `snapshot.json` marca a evidência parcial e a tentativa é bloqueada sem mudar a publicação anterior. [Configuração, códigos e retenção](data-contract.md). O orçamento por tentativa não é quota acumulada do disco.
-
-Fontes desta seção, conferidas em **22/09/2026**: [compose.yaml](../compose.yaml) · [Dockerfile](../Dockerfile) · [security-triage.json](evidence/security-triage.json).
 
 ## Reprodução e CI
 
@@ -58,10 +50,6 @@ A configuração Gitleaks mantém todas as regras padrão e uma exceção por ca
 
 A cobertura depende das bases públicas do scanner. O aviso de Trivy sobre a versão Alpine não constar na tabela de EOL não impede a análise de pacotes; ele não é uma prova de suporte nem de ausência de vulnerabilidades desconhecidas.
 
-Fontes desta seção, conferidas em **22/09/2026**: [compose.yaml](../compose.yaml) · [Dockerfile](../Dockerfile) · [security-triage.json](evidence/security-triage.json).
-
 ## Integridade da cópia e recuperação
 
 A [prova de restauração](state-recovery.md) acrescenta inventário por SHA-256, limite de tamanho/entradas, recusa de links e caminhos fora da raiz, destino vazio e validação antes de instalar o estado. Controles reais recusaram tar adulterado e destino ocupado. A origem e suas publicações permaneceram iguais. O contrato protege referências de publicações, sem executar exclusão ou VACUUM. São controles de integridade de uma cópia local: não incluem criptografia, agendamento ou sobrevivência à perda do computador.
-
-Fontes desta seção, conferidas em **22/09/2026**: [compose.yaml](../compose.yaml) · [Dockerfile](../Dockerfile) · [security-triage.json](evidence/security-triage.json).

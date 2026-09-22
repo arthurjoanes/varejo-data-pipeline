@@ -18,8 +18,6 @@ O comando cria estado temporário novo, testa Spark/Delta real e gera `artifacts
 
 O relatório final desse teste é pequeno e permite conferir cada valor mentalmente. Ele verifica correção e recuperação, não desempenho. O teste multiprocesso adicional da suíte completa disputa a entrada `process_batch` enquanto outro processo mantém o lock; a tentativa concorrente é recusada antes de criar uma execução, e o kernel libera o lock ao terminar o detentor.
 
-Fontes desta seção, conferidas em **22/09/2026**: [verify_problem.py](../scripts/verify_problem.py) · [demo.py](../src/retail_pipeline/demo.py) · [execution.json](evidence/editorial-20260922/execution.json).
-
 ## Jornada operacional
 
 Depois do setup, execute `scripts/pipeline.ps1 demo` (ou `sh scripts/pipeline.sh demo`). O comando cria uma pasta UUID em `/data/demos/` dentro do volume; preserva demos anteriores e não pede reset. Não usa rede. O caminho efetivo fica em `artifacts/demo-evidence.json` e `/data/last-demo.json`.
@@ -39,8 +37,6 @@ A demo contém asserts dos estados e valores. Antes da jornada principal, gera t
 
 A jornada aprova as referências sintéticas separadamente antes de criar entregas. Para comandos individuais, execute `configure --catalog /app/data/operator/fixture/catalog.json --schedule /app/data/operator/fixture/schedule.json` uma vez. Sem configuração o processamento bloqueia. Mudanças no calendário aprovado exigem um novo `--data-dir` e reprocessamento; isso evita reinterpretar silenciosamente a história.
 
-Fontes desta seção, conferidas em **22/09/2026**: [verify_problem.py](../scripts/verify_problem.py) · [demo.py](../src/retail_pipeline/demo.py) · [execution.json](evidence/editorial-20260922/execution.json).
-
 ## Ver resultados
 
 1. Abra `artifacts/report.html`: em **Execução**, confira a última tentativa; em **Indicadores**, confira a receita final de R$ 77,00. **Arquivos** identifica a publicação e suas versões.
@@ -50,8 +46,6 @@ Fontes desta seção, conferidas em **22/09/2026**: [verify_problem.py](../scrip
 5. Veja `tests/integration/test_pipeline.py`: correção de data, revisão antiga, conflito, lote rejeitado, concorrência real e leitura por versão também são exercitados.
 
 Servidor opcional: `scripts/pipeline.ps1 serve` → http://localhost:3103/report.html. Os três HTML também abrem diretamente como arquivo. `scripts/pipeline.ps1 stop` encerra o servidor sem remover dados.
-
-Fontes desta seção, conferidas em **22/09/2026**: [verify_problem.py](../scripts/verify_problem.py) · [demo.py](../src/retail_pipeline/demo.py) · [execution.json](evidence/editorial-20260922/execution.json).
 
 ## Inspecionar uma demo específica
 
@@ -64,8 +58,6 @@ docker compose run --rm pipeline --data-dir <diretorio> report --output /app/art
 
 Leitores carregam o manifesto uma única vez e usam `versionAsOf` em todas as tabelas. Não use leitura Delta latest para conferir a publicação oficial: latest pode ser um candidato interrompido.
 
-Fontes desta seção, conferidas em **22/09/2026**: [verify_problem.py](../scripts/verify_problem.py) · [demo.py](../src/retail_pipeline/demo.py) · [execution.json](evidence/editorial-20260922/execution.json).
-
 ## Cenário de 30 mil linhas
 
 O roteiro manual usa poucas linhas para permitir cálculo mental. O experimento maior é independente:
@@ -76,8 +68,6 @@ docker compose run --rm --entrypoint python pipeline scripts/benchmark.py
 
 Gera 30 mil registros, 12 lojas e 30 dias com seed 42 em estado isolado; valida, publica, mede a memória máxima do container e produz `artifacts/benchmark.json` e `artifacts/demo30k-report.html`. Não aumenta escala automaticamente. Limites do container em [verification.md](verification.md).
 
-Fontes desta seção, conferidas em **22/09/2026**: [verify_problem.py](../scripts/verify_problem.py) · [demo.py](../src/retail_pipeline/demo.py) · [execution.json](evidence/editorial-20260922/execution.json).
-
 ## Diagnosticar e retomar
 
 Para acompanhar uma cópia e restauração já executadas, leia a [sequência de recuperação](state-recovery.md). Ela usa quatro estados de uma fixture pequena e conserva os relatórios reais: publicação, bloqueio, reposição e correção. Os comandos de reprodução criam volumes novos; não operam sobre o estado persistente desta demo.
@@ -86,8 +76,6 @@ Para acompanhar uma cópia e restauração já executadas, leia a [sequência de
 - Exit 3: confira logs estruturados e `runs/<run_id>/attempt.json`; reexecute a mesma entrada após corrigir a causa. O manifesto continua sendo a autoridade sobre visibilidade.
 - Injeção manual: `run <entrada> --demo-mode --fail-at before_publish` (alternativas: `after_ingestion` e `after_gold`). Sem `--demo-mode`, a CLI recusa a simulação.
 - Não há reset destrutivo automático. Não execute VACUUM em tabelas que tenham versões referenciadas pelos manifestos.
-
-Fontes desta seção, conferidas em **22/09/2026**: [verify_problem.py](../scripts/verify_problem.py) · [demo.py](../src/retail_pipeline/demo.py) · [execution.json](evidence/editorial-20260922/execution.json).
 
 ## Demonstração editorial executada
 
@@ -108,5 +96,3 @@ Todas as chaves da tabela estão em [business-thesis.json](evidence/editorial-20
 As cinco imagens vêm dos HTMLs exportados imediatamente após cada operação, abertos no Edge a 1120 × 960 CSS px, zoom normal, fonte carregada. Usei somente navegação e expansão nativas; não substituí texto, números ou estados no DOM. Os recortes de indicadores mantêm a identificação da publicação e a tabela exata. [Registro das capturas](evidence/editorial-20260922/captures.json). As imagens da interface anteriores continuam documentando suas próprias versões e não foram sobrescritas.
 
 Para repetir, use o comando `verify_problem.py --thesis-only` do início deste guia. A variável `RETAIL_THESIS_EVIDENCE_DIR` ativa os exports no teste; o script já a configura. Estado temporário novo não significa diretório de saída novo: escolha outro `--output` para conservar uma rodada anterior. Os HTMLs são snapshots, sem atualização automática; não são um painel de execução ao vivo.
-
-Fontes desta seção, conferidas em **22/09/2026**: [execution.json](evidence/editorial-20260922/execution.json) · [verification.json](evidence/editorial-20260922/verification.json) · [smoke.xml](evidence/editorial-20260922/smoke.xml).

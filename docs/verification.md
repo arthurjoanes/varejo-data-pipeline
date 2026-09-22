@@ -34,8 +34,6 @@ Os logs, JUnit e scans desta rodada foram conservados fora do repositório na pa
 
 A demonstração editorial posterior usou a imagem `95abfa120b95…`, construída do código da base `93d80c0` com a exportação de HTML do teste. Seu [scan próprio](evidence/editorial-20260922/security.json), com base de 22/09 às 07:24 UTC, registrou zero HIGH/CRITICAL e um MEDIUM. A imagem `3cc3b95c…` e os resultados JVM abaixo permanecem históricos; não identificam o artefato dessa demonstração.
 
-Fontes desta seção, conferidas em **22/09/2026**: [security.json](evidence/editorial-20260922/security.json).
-
 ## Correção posterior da publicação vazia — 22/09/2026
 
 O [CI de `939f2b7`](https://github.com/arthurjoanes/varejo-data-pipeline/actions/runs/35708715138) teve 241 testes aprovados e uma falha. `Spark.sum` devolvia `None` para a publicação confirmada sem linhas, e o relatório exibia ausência em vez de totais aditivos zero. Os scans de imagem desse job não rodaram após a falha. A correção conta linhas e define zero somente quando não há nenhuma; ticket e datas continuam indefinidos sem vendas.
@@ -43,8 +41,6 @@ O [CI de `939f2b7`](https://github.com/arthurjoanes/varejo-data-pipeline/actions
 Para conferir a causa, uma cópia isolada de `939f2b7` recebeu somente o leitor corrigido. Os **43 testes de relatório e três integrações de fronteira passaram**, mantendo as assertions HTML originais: vazio e cancelamento total têm receita zero e ticket indefinido; três vendas gratuitas têm ticket zero. A execução usou a imagem 3cc identificada abaixo, sem rede, fonte somente leitura, 3 GiB/2 CPUs/1.024 PIDs. Pytest levou 173,731 s; o ensaio completo, incluindo preparação e limpeza, 176,719 s. [Resultado, identidade e limites](evidence/state-proof-followup/empty-publication.json) · [JUnit](evidence/state-proof-followup/targeted.xml).
 
 Esse teste dirigido usa o renderer anterior. A fonte integrada em `44cd017` inclui a interface nova e testes por métricas nomeadas; sua suíte completa pertence ao CI do respectivo commit. As provas anteriores de restore e medição não foram reexecutadas nem tiveram seus hashes substituídos. [Associação das fontes históricas](state-recovery.md).
-
-Fontes desta seção, conferidas em **22/09/2026**: [empty-publication.json](evidence/state-proof-followup/empty-publication.json) · [targeted.xml](evidence/state-proof-followup/targeted.xml).
 
 ## Recuperação e medição local — 22/09/2026
 
@@ -58,8 +54,6 @@ O [índice desta entrega](evidence/state-proof/index.json) separa a restauraçã
 Containers próprios removidos, volumes preservados. Recuperação externa, retenção destrutiva, desempenho de produção e estudo com usuários não foram executados.
 
 Arquivos em artifacts são gerados localmente e não são pré-requisitos do clone. O comando `scripts/verify_problem.py` grava os resultados em `artifacts/`; passos em [demo.md](demo.md).
-
-Fontes desta seção, conferidas em **22/09/2026**: [index.json](evidence/state-proof/index.json).
 
 ## Reconstruções JVM históricas em 22/09/2026 (UTC)
 
@@ -77,15 +71,11 @@ O runtime verificado **nessa rodada histórica** foi a imagem `sha256:3cc3b95c19
 
 Os testes de componentes não equivalem a executar todas as suítes upstream. Em especial, os 44 casos de `ClassUtils` passaram, mas a suíte histórica completa de Commons Lang mantém 29 problemas de compatibilidade/expectativas no Java 17. A matriz distingue regressões com controle negativo, verificações de compatibilidade, atualização de versão e remoção integral. As receitas reproduziram os hashes dos três JARs; não há promessa de imagem inteira idêntica byte a byte.
 
-Fontes desta seção, conferidas em **22/09/2026**: [security-triage.json](evidence/security-triage.json) · [jvm-rebuild-tests.xml](evidence/jvm-rebuild-tests.xml) · [jvm-rebuild-full-suite.json](evidence/jvm-rebuild-full-suite.json).
-
 ## Revisão de explicações e jornadas — 22/09/2026
 
 README, problema/solução e decisões técnicas foram conferidos contra as funções e testes citados. Os exemplos distinguem a demo que termina em R$ 77,00 do teste de negócio que termina em R$ 74,00. As contas, entradas e limites são os desses cenários existentes; nenhuma nova execução Spark é atribuída a esta revisão.
 
 O Edge percorreu bloqueio, falha e retomada em três larguras, comparando receita, linhas por loja, IDs, versões e caminhos com os payloads. Foram 13 registros de verificação de jornada/estado, com três novas capturas, teclado/foco/histórico, rolagem interna, sem JavaScript e visibilidade dos painéis na impressão. [Registro e hashes dos inputs/capturas](evidence/interface-journeys/review.json), [roteiro e imagens](interface.md#revisão-anterior-de-jornadas-em-2209). Não foi encontrada regressão funcional nesse escopo; fontes da aplicação e interface não precisaram mudar. A ampliação foi CSS de 200% e reflow a 640 CSS px, sem zoom nativo nem leitor de tela. As provas de runtime abaixo permanecem históricas.
-
-Fontes desta seção, conferidas em **22/09/2026**: [review.json](evidence/interface-journeys/review.json).
 
 ## Interface do fechamento em 22/09/2026 (UTC)
 
@@ -103,8 +93,6 @@ A interface separa Execução, Indicadores e Arquivos. A publicação vigente co
 As capturas usam publicações da demonstração histórica de 21/09, originalmente processadas em Spark 3.5.9/Delta 3.2.1. O runtime atual apenas releu suas versões. Nos estados intermediários de bloqueio/falha, a apresentação foi reconstituída a partir do manifesto imutável e da tentativa registrada, sem modificar o ponteiro no volume. Os payloads registram o hash da evidência de origem e o modo de seleção. Testes de captura não substituem a suíte de integração do runtime descrita abaixo.
 
 Os [hashes da fonte verificada](evidence/interface/source.json) identificam os arquivos desta revisão histórica. A pasta [images/interface](images/interface) conserva as três capturas de jornadas vinculadas por hash. Os exports antigos sem referências foram arquivados fora do repositório; a [conferência posterior](image-review.md) registra a classificação e a apresentação atual.
-
-Fontes desta seção, conferidas em **22/09/2026**: [unit.xml](evidence/interface/unit.xml) · [payloads](evidence/interface/payloads) · [visual-review.json](evidence/interface/visual-review.json).
 
 ## Revisão anterior de segurança em 22/09/2026 (UTC)
 
@@ -124,8 +112,6 @@ A suíte completa, a demo e o benchmark usaram a imagem `bfef20f37677…`; o aju
 
 Os registros distinguem SHA-256 dos arquivos locais e OIDs dos blobs Git após normalização por `.gitattributes`. Parte do checkout Windows tinha CRLF; o conteúdo publicado usa LF. Portanto, o hash local não é apresentado como hash dos bytes do clone público. Esta revisão do runtime não refez capturas; a revisão posterior da interface está descrita acima.
 
-Fontes desta seção, conferidas em **22/09/2026**: [remediation.json](evidence/remediation.json) · [remediation-tests.xml](evidence/remediation-tests.xml) · [remediation-final-unit.xml](evidence/remediation-final-unit.xml).
-
 ## Evidência histórica de publicação em 21/09/2026
 
 Esta execução usou Spark 3.5.9/Delta 3.2.1. Uma cópia contendo somente arquivos públicos candidatos foi construída e executada em Docker Linux, sem `.env`, caches ou dados da instalação anterior. [Registro da execução](evidence/publication.json).
@@ -141,8 +127,6 @@ Esta execução usou Spark 3.5.9/Delta 3.2.1. Uma cópia contendo somente arquiv
 
 As medições são desta execução, com limite de 3 GiB/2 CPUs; não são uma previsão de desempenho para outros computadores ou produção. O CI repete a suíte, o scanner e os verificadores no commit publicado.
 
-Fontes desta seção, conferidas em **22/09/2026**: [publication.json](evidence/publication.json) · [publication-tests.xml](evidence/publication-tests.xml) · [benchmark.json](evidence/benchmark.json).
-
 ## Runtime
 
 | Componente         | Versão fixada                            |
@@ -156,8 +140,6 @@ Fontes desta seção, conferidas em **22/09/2026**: [publication.json](evidence/
 As [notas Delta 4.4.0](https://github.com/delta-io/delta/releases/tag/v4.4.0) confirmam suporte ao Spark 4.2.0; o JAR específico é `delta-spark_4.2_2.13`. Os digests estão no Dockerfile; dependências Python têm hashes nos locks; os JARs Delta são conferidos por SHA-256 em `scripts/download_jars.py`. O build instala ferramentas de construção antes dos pacotes, sem resolução isolada implícita. O [lock JVM](../runtime-jars.lock.json) registra substituições completas e componentes opcionais removidos; [motivos e pendências](runtime-upgrade.md).
 
 Base e dependências fixadas não significam imagem reproduzível byte a byte: apk instala as dependências do runtime a partir dos repositórios Alpine durante o build. A consulta OSV de 16 pins Python está em [dependencies.json](evidence/dependencies.json). A varredura atual inclui sistema operacional, Python e bibliotecas JVM: [resultado e triagem](security.md).
-
-Fontes desta seção, conferidas em **22/09/2026**: [runtime-jars.lock.json](../runtime-jars.lock.json) · [dependencies.json](evidence/dependencies.json).
 
 ## Comandos verificáveis
 
@@ -176,8 +158,6 @@ No Linux, substitua o wrapper por sh scripts/pipeline.sh. Setup baixa as depend�
 
 O Compose limita o batch a 3 GiB e 2 CPUs, Spark local[2], driver 1 GiB, duas partições de shuffle/snapshot. Testes e demos executam um runtime Spark por vez. Dados, cache, temporários e logs ficam no volume Linux; o bind do código e as exportações pequenas ficam no diretório do clone. O workflow usa o mesmo runtime e permissões contents:read.
 
-Fontes desta seção, conferidas em **22/09/2026**: [ci.yml](../.github/workflows/ci.yml) · [execution.json](evidence/editorial-20260922/execution.json) · [security.json](evidence/editorial-20260922/security.json).
-
 ## O que os testes verificam
 
 - Totais manuais independentes por loja e produto: R$ 44,00 + R$ 20,00 = R$ 64,00; sete unidades, quatro linhas e três vendas.
@@ -190,8 +170,6 @@ Fontes desta seção, conferidas em **22/09/2026**: [ci.yml](../.github/workflow
 - Publicação sem vendas com ticket indisponível; venda gratuita com ticket zero; mesmo sale_id em origens distintas; datas históricas e limite monetário gravados em Delta.
 - HTML sem execução de conteúdo de origem; ausência de publicação distinta de zero; indicadores associados a versões fixadas; gráfico com tabela equivalente.
 - Aliases de caminho com .. não permitem copiar a entrada recursivamente para dentro dela mesma.
-
-Fontes desta seção, conferidas em **22/09/2026**: [ci.yml](../.github/workflows/ci.yml) · [execution.json](evidence/editorial-20260922/execution.json) · [security.json](evidence/editorial-20260922/security.json).
 
 ## Verificação visual opcional
 
@@ -212,13 +190,9 @@ node scripts/visual-review.cjs
 
 Não é necessário repetir a demo nem o benchmark. O script verifica três vistas em 1440, 1366, 768, 390 e 320 CSS px, foco e histórico de âncoras, expansão por teclado, 30 totais diários equivalentes ao gráfico e 360 linhas loja/dia em detalhe. A cópia é testada com Clipboard API interceptada e fallback indisponível, sem escrever no clipboard real. Uma sessão sem JavaScript verifica leitura e expansão nativa. Novas capturas ficam em `artifacts/interface-review/images` e as medições em `artifacts/interface-review/evidence`; as pastas `docs/evidence/interface*` conservam registros históricos e payloads de origem. [Saídas externas e conferência atual](image-review.md). O registro distingue ampliação CSS, viewport equivalente e as limitações de acessibilidade.
 
-Fontes desta seção, conferidas em **22/09/2026**: [ci.yml](../.github/workflows/ci.yml) · [execution.json](evidence/editorial-20260922/execution.json) · [security.json](evidence/editorial-20260922/security.json).
-
 ## Limites
 
 Não há VACUUM automático nem backup agendado ou externo. A [prova posterior de recuperação](state-recovery.md) acrescentou cópia local, restauração e contrato conservador de retenção, sem remover dados antigos. Fabric ainda não foi executado. Duração e memória estão registradas por execução.
-
-Fontes desta seção, conferidas em **22/09/2026**: [ci.yml](../.github/workflows/ci.yml) · [execution.json](evidence/editorial-20260922/execution.json) · [security.json](evidence/editorial-20260922/security.json).
 
 ## Refinamento da interface — 22/09/2026
 
@@ -229,8 +203,6 @@ Esta rodada altera apresentação e seleção de texto do relatório, sem altera
 - Teclado, foco, histórico, link de salto, IDs/copiar/fallback, equivalência gráfico/tabela, conteúdo longo, alinhamento dos painéis, coluna de expansão, borda da ocorrência aberta, contadores e redução de movimento verificados. Impressão expõe painéis e detalhes; sem JavaScript, os detalhes nativos continuam acessíveis.
 
 A ampliação foi feita por CSS a 200% e viewport equivalente de 683 CSS px/DPR 2; não é uma prova de zoom nativo. As amostras de contraste atendem 4,5:1, sem equivaler a auditoria completa de acessibilidade. Não houve leitor de tela nem revisão de paginação integral de PDF. [Escopo e hashes da fonte](evidence/interface-v2/review-manifest.json). As contagens e provas de runtime anteriores descrevem suas próprias revisões.
-
-Fontes desta seção, conferidas em **22/09/2026**: [reporting-tests.xml](evidence/interface-v2/reporting-tests.xml) · [visual-review.json](evidence/interface-v2/visual-review.json) · [review-manifest.json](evidence/interface-v2/review-manifest.json).
 
 ## Demonstração editorial — 22/09/2026
 
@@ -243,5 +215,3 @@ Cinco capturas explicam cobertura, revisão parcial/integral, falha e replay. S�
 ### Scan da imagem da demonstração editorial
 
 O [scan novo](evidence/editorial-20260922/security.json) examinou o ID da imagem usada nesta demonstração, com Trivy 0.74.0 e base de 22/09/2026 às 07:24 UTC. Incluiu pacotes do sistema, Python e Java, todas as severidades e achados sem correção, sem nova exceção: HIGH/CRITICAL ficaram em zero. Há um MEDIUM em `commons-lang:commons-lang` 2.6 (CVE-2025-48924), sem versão corrigida informada nesse relatório; ele permanece visível. Não substituí JARs nesta revisão editorial nem tratei esse resultado como ausência de qualquer vulnerabilidade. O relatório identifica o artefato atual, separado do scan histórico do CI.
-
-Fontes desta seção, conferidas em **22/09/2026**: [verification.json](evidence/editorial-20260922/verification.json) · [business-thesis.json](evidence/editorial-20260922/business-thesis.json) · [execution.json](evidence/editorial-20260922/execution.json).

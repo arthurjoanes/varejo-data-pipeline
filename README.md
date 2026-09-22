@@ -13,7 +13,7 @@ Conferência de entregas e revisões de vendas antes de publicar um fechamento.
 
 ## Visão geral
 
-O projeto responde a três perguntas: o total está completo, quais revisões foram aceitas e a qual publicação cada indicador pertence? Desenvolvi a ingestão, as regras de revisão, a publicação por manifesto e o relatório para uma rede fictícia. Os dados são sintéticos; não há adoção comercial nem ganho financeiro medido. Fontes conferidas em **22/09/2026**: [pipeline](src/retail_pipeline/pipeline.py), [publicação](src/retail_pipeline/publication.py) e [gerador](src/retail_pipeline/generation.py).
+O projeto responde a três perguntas: o total está completo, quais revisões foram aceitas e a qual publicação cada indicador pertence? Desenvolvi a ingestão, as regras de revisão, a [publicação por manifesto](src/retail_pipeline/publication.py) e o relatório para uma rede fictícia. Os dados são sintéticos; não há adoção comercial nem ganho financeiro medido.
 
 <a id="na-prática"></a>
 <a id="como-uma-falha-aparece-para-quem-consulta"></a>
@@ -22,7 +22,7 @@ O projeto responde a três perguntas: o total está completo, quais revisões fo
 
 ![Página principal do Varejo Data Pipeline](docs/readme/home.png)
 
-_Imagem versionada da página principal, conferida nesta revisão documental em 22/09/2026. A imagem apresenta o relatório; os resultados de execução são sustentados pelos registros abaixo._
+_Página principal do relatório. Os registros abaixo identificam os cenários e resultados demonstrados._
 
 ![Recorte da cobertura: S01 confirmada, S02 pendente e S03 com zero movimento confirmado](docs/images/current-20260922/coverage-focus.png)
 
@@ -37,7 +37,7 @@ Na execução de **22/09/2026, 12:06–12:09 UTC**, o lote inicial publicou **R$
 | Processo falha entre as duas tabelas finais | Leitores oficiais continuam em R$ 64,00/R$ 64,00           |
 | Retomada e repetição                        | R$ 74,00; repetição `NO_CHANGE`, mesma publicação          |
 
-Fonte da tabela: [prova do caso](docs/evidence/editorial-20260922/business-thesis.json), executada em **22/09/2026**; conferência documental em **22/09/2026**. A demonstração histórica que termina em R$ 77,00 tem outra sequência e permanece separada no [roteiro](docs/demo.md).
+A demonstração histórica que termina em R$ 77,00 tem outra sequência e permanece separada no [roteiro](docs/demo.md).
 
 <a id="implementação"></a>
 <a id="como-protejo-a-publicação"></a>
@@ -53,9 +53,9 @@ flowchart TB
     Publish --> HTML[Relatório e explain]
 ```
 
-O processo escreve versões candidatas e só troca o manifesto oficial depois das validações. O leitor captura esse manifesto uma vez; uma gravação interrompida não autoriza ler a versão física mais nova de cada tabela. O escritor é único e usa lock do filesystem Linux local. Fontes conferidas em **22/09/2026**: [pipeline](src/retail_pipeline/pipeline.py), [manifesto e lock](src/retail_pipeline/publication.py), [leitor](src/retail_pipeline/reporting.py) e [teste da interrupção](tests/integration/test_commit_boundary.py).
+O [pipeline](src/retail_pipeline/pipeline.py) escreve versões candidatas e só troca o manifesto oficial depois das validações. O [leitor](src/retail_pipeline/reporting.py) captura esse manifesto uma vez; uma gravação interrompida não autoriza ler a versão física mais nova de cada tabela. O escritor é único e usa lock do filesystem Linux local, exercitado no [teste de interrupção](tests/integration/test_commit_boundary.py).
 
-O [Compose](compose.yaml) separa o batch sem rede do servidor opcional do HTML em loopback. O relatório é um snapshot e não executa o pipeline ao ser aberto. [Renderer](src/retail_pipeline/report_view.py), conferido em **22/09/2026**. [Arquitetura completa](docs/architecture.md).
+O [Compose](compose.yaml) separa o batch sem rede do servidor opcional do HTML em loopback. O relatório é um snapshot e não executa o pipeline ao ser aberto. Veja a [arquitetura completa](docs/architecture.md).
 
 <a id="o-que-eu-implementei"></a>
 <a id="stack"></a>
@@ -77,16 +77,16 @@ O [Compose](compose.yaml) separa o batch sem rede do servidor opcional do HTML e
 | Docker Compose                | Estado local isolado e servidor opcional do relatório                       |
 | HTML, CSS e JavaScript locais | Relatório portátil com leitura básica sem JavaScript                        |
 
-Fontes conferidas em **22/09/2026**: [dependências Python](pyproject.toml), [Dockerfile](Dockerfile), [Compose](compose.yaml) e [renderer](src/retail_pipeline/report_view.py). O projeto fixa **Spark 4.2.0 e Delta 4.4.0**; a compatibilidade declarada foi conferida nas [notas oficiais Delta](https://github.com/delta-io/delta/releases/tag/v4.4.0), consultadas em **22/09/2026**. Os artefatos JVM reconstruídos localmente não são apresentados como releases oficiais.
+O projeto fixa **Spark 4.2.0 e Delta 4.4.0** nas [dependências Python](pyproject.toml), combinação prevista nas [notas oficiais Delta](https://github.com/delta-io/delta/releases/tag/v4.4.0). O [Dockerfile](Dockerfile) define o runtime; os artefatos JVM reconstruídos localmente não são apresentados como releases oficiais.
 
-Recalcular o histórico simplifica revisões e retomadas, mas exige processamento e armazenamento adicionais. Não houve comparação que prove vantagem sobre uma solução menor. [Código da projeção](src/retail_pipeline/transformations.py), conferido em **22/09/2026**; [alternativas e compromissos](docs/decisoes-tecnicas.md).
+Recalcular o histórico simplifica revisões e retomadas, mas exige processamento e armazenamento adicionais. Não houve comparação que prove vantagem sobre uma solução menor. [Código da projeção](src/retail_pipeline/transformations.py); [alternativas e compromissos](docs/decisoes-tecnicas.md).
 
 <a id="executar-e-verificar"></a>
 <a id="executar-no-windows"></a>
 
 ## Executar localmente
 
-Use Docker Desktop com containers Linux, Compose e PowerShell no Windows. Python e Java do batch são instalados pela imagem. O primeiro build precisa de rede; o batch configurado executa sem rede. Fontes conferidas em **22/09/2026**: [wrapper](scripts/pipeline.ps1), [Dockerfile](Dockerfile) e [Compose](compose.yaml).
+Use Docker Desktop com containers Linux, Compose e PowerShell no Windows. Python e Java do batch são instalados pela imagem. O primeiro build precisa de rede; o batch configurado executa sem rede. O [wrapper](scripts/pipeline.ps1) reúne os comandos abaixo.
 
 ```powershell
 .\scripts\pipeline.ps1 setup
@@ -94,7 +94,7 @@ Use Docker Desktop com containers Linux, Compose e PowerShell no Windows. Python
 .\scripts\pipeline.ps1 serve
 ```
 
-Abra [localhost:3103/report.html](http://localhost:3103/report.html). No Linux, use `sh scripts/pipeline.sh` com os mesmos comandos. `demo` cria estado com UUID; as exportações em `artifacts/` representam a execução mais recente do comando. [Wrapper Linux](scripts/pipeline.sh) e [demo](src/retail_pipeline/demo.py), conferidos em **22/09/2026**. [Roteiro completo e limpeza](docs/demo.md).
+Abra [localhost:3103/report.html](http://localhost:3103/report.html). No Linux, use `sh scripts/pipeline.sh` com os mesmos comandos. `demo` cria estado com UUID; as exportações em `artifacts/` representam a execução mais recente do comando. [Wrapper Linux](scripts/pipeline.sh) e [demo](src/retail_pipeline/demo.py). [Roteiro completo e limpeza](docs/demo.md).
 
 <a id="ler-e-verificar-o-fechamento"></a>
 
@@ -106,7 +106,7 @@ Para executar a prova de negócio em estado temporário:
 docker compose run --rm --entrypoint python pipeline scripts/verify_problem.py --thesis-only --output /app/artifacts/thesis
 ```
 
-O [runner](scripts/verify_problem.py) chama o [teste de negócio](tests/integration/test_business_thesis.py), que confere resultados com Spark/Delta. Comando conferido em **22/09/2026**; esta revisão de documentação não repetiu o processamento.
+O [runner](scripts/verify_problem.py) chama o [teste de negócio](tests/integration/test_business_thesis.py), que confere resultados com Spark/Delta.
 
 | Evidência                                                                   | Data e alcance                                                                 |
 | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
@@ -115,16 +115,16 @@ O [runner](scripts/verify_problem.py) chama o [teste de negócio](tests/integrat
 | [Recuperação](docs/evidence/state-proof/restore.json)                       | Execução histórica identificada no registro; restauração em destino local novo |
 | [Scan da revisão editorial](docs/evidence/editorial-20260922/security.json) | 22/09/2026; resultado vinculado à imagem examinada                             |
 
-Conferência documental: **22/09/2026**. Resultados antigos não certificam commits posteriores. [Inventário das verificações](docs/verification.md) · [fontes e afirmações](docs/fontes-e-afirmacoes.md).
+Resultados antigos não certificam commits posteriores. [Inventário das verificações](docs/verification.md) · [fontes e afirmações](docs/fontes-e-afirmacoes.md).
 
 <a id="limites-e-manutenção"></a>
 <a id="limites-que-mantive-explícitos"></a>
 
 ## Limites e segurança
 
-O escopo é local: sem autenticação multiusuário, streaming ou implantação Fabric executada. A publicação depende do filesystem Linux e de um único escritor. Não há limpeza automática de versões Delta nem prova de recuperação fora do computador. Fontes conferidas em **22/09/2026**: [Compose](compose.yaml), [publicação](src/retail_pipeline/publication.py) e [prova de restauração](docs/evidence/state-proof/restore.json).
+O escopo é local: sem autenticação multiusuário, streaming ou implantação Fabric executada. A [publicação](src/retail_pipeline/publication.py) depende do filesystem Linux e de um único escritor. Não há limpeza automática de versões Delta nem prova de recuperação fora do computador; o [ensaio de restauração](docs/evidence/state-proof/restore.json) usa um novo destino local.
 
-Os limites de entrada são parâmetros configuráveis, não capacidade medida: por padrão, **1 MiB por JSON, 64 MiB por arquivo, 256 MiB por entrega e 1.000 arquivos**. [Implementação dos limites](src/retail_pipeline/input_limits.py) e [configuração](compose.yaml), conferidas em **22/09/2026**. O scan preserva achados e suas datas; “zero HIGH/CRITICAL” em uma imagem não significa ausência de vulnerabilidades. [Registro do scan](docs/evidence/editorial-20260922/security.json), de **22/09/2026**.
+Os limites de entrada são parâmetros configuráveis, não capacidade medida: por padrão, **1 MiB por JSON, 64 MiB por arquivo, 256 MiB por entrega e 1.000 arquivos**. [Implementação dos limites](src/retail_pipeline/input_limits.py) e [configuração](compose.yaml). O scan preserva achados e suas datas; “zero HIGH/CRITICAL” em uma imagem não significa ausência de vulnerabilidades. [Registro do scan](docs/evidence/editorial-20260922/security.json), de **22/09/2026**.
 
 ## Documentação
 
@@ -143,4 +143,4 @@ Os limites de entrada são parâmetros configuráveis, não capacidade medida: p
 
 <p><a href="https://www.linkedin.com/in/arthur-joanes-6a2967373/"><img src="docs/contact/linkedin.svg" width="24" height="24" alt=""> <strong>Arthur Joanes no LinkedIn</strong></a></p>
 
-[Licença MIT](LICENSE). Ícones da stack e LinkedIn: [Devicon, licença MIT](docs/stack/LICENSE.devicon). Licenças conferidas nos arquivos em **22/09/2026**.
+[Licença MIT](LICENSE). Ícones da stack e LinkedIn: [Devicon, licença MIT](docs/stack/LICENSE.devicon).
