@@ -1,0 +1,66 @@
+{
+  "recorded_at": "2026-09-22T03:48:02.2581046Z",
+  "base_commit": "60e0ff335efe6b119cac238aef9ffa8df69c035c",
+  "scope": "Uncommitted interface candidate over baseline. No pipeline/runtime changes. Files below identify tested source; Git normalized blob OIDs are not commit IDs.",
+  "checks": {
+    "unit_tests": 160,
+    "ruff": "passed",
+    "ruff_format_python_files": 37,
+    "mypy_application_modules": 16,
+    "visual_record": "docs/evidence/interface/visual-review.json",
+    "spark": "Read-only snapshot capture only, no new pipeline or benchmark execution.",
+    "navigation_followup": "Static replay and Edge review repeated after the skip-link fix; 15 view/width checks, keyboard focus and back/forward passed. Python tests were not repeated; Python sources are unchanged."
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "sha256_worktree": "7659e5e10f46f5c47940ac5d3f2cf4fcd6375303b3a2541b12728e6243482042",
+      "git_blob_oid_normalized": "9f3206079d1b80fdc5fa021d6b947980ce9fff0c"
+    },
+    {
+      "path": "docs/demo.md",
+      "sha256_worktree": "545c4d1144e53c5e14ae4bb672746da05a35123cbbfd9a1bb6f447c78212aef3",
+      "git_blob_oid_normalized": "fd23c14e8bd892bcc0403a03ec0cdbddc49e12bd"
+    },
+    {
+      "path": "docs/interface.md",
+      "sha256_worktree": "da06d442c8c8bac78751751072c72fbe38208f5050f56505694d4c67bf9e0c6c",
+      "git_blob_oid_normalized": "04b5d4d728557b46d9f11a7ae846409a70a8bdbb"
+    },
+    {
+      "path": "docs/verification.md",
+      "sha256_worktree": "ffceac40ad54aa39cd79840414dbe8b11c2a5579498df9e66ffcd635c65bfd23",
+      "git_blob_oid_normalized": "59fc2fabd74e4a2a5bafe1f81200dc959186e88c"
+    },
+    {
+      "path": "src/retail_pipeline/report_view.py",
+      "sha256_worktree": "dd1fc0c6cb7a132f1d3313fc0defa239efb5e4e229edac6efa96be329713037a",
+      "git_blob_oid_normalized": "6e4fbe3b28dd260b8434388ab97ce36bff780399"
+    },
+    {
+      "path": "src/retail_pipeline/report.css",
+      "sha256_worktree": "160f74c727fa982186b7f035a46dcb6d2c848b2a17667b9ee8010896a54763af",
+      "git_blob_oid_normalized": "cb03ce47c03f841bdb3c431c93cf679f6a66f06c"
+    },
+    {
+      "path": "src/retail_pipeline/report.js",
+      "sha256_worktree": "333b42a324bd554b814a1407d664ff13b1c0977f391ac44680ca1231e909dec5",
+      "git_blob_oid_normalized": "7d27e8888b64b6698fc10f1f2f99cce259e8ca05"
+    },
+    {
+      "path": "scripts/render_review.py",
+      "sha256_worktree": "aa8072eb311707f98b2619fa0a36b9a64a18f49e8e36be6aba27ba74a27c75a7",
+      "git_blob_oid_normalized": "b66fea4262bb8e61145f6aa0aae2691ef6d10e5f"
+    },
+    {
+      "path": "scripts/visual-review.cjs",
+      "sha256_worktree": "48457a65908f890edfde405b2387a060657fdfd132d49338c172bfe145ab9dcc",
+      "git_blob_oid_normalized": "3312f6f4b965321624dc23239c673c5f05790673"
+    },
+    {
+      "path": "tests/unit/test_reporting.py",
+      "sha256_worktree": "12227c23b9407f87be48d7d8680b7a386ed212a867f692160995984e046b1dbc",
+      "git_blob_oid_normalized": "95b03f0cb2e6dcd24979edb7f918b6f65476f763"
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "captured_at": "2026-09-22T03:21:55.324089+00:00",
+  "method": "Leitura Delta por versão; nenhum lote executado.",
+  "source_evidence": "docs/evidence/round-2/demo.json",
+  "source_sha256": "475dc3a69b772d2319d9488e3241a4b9f12f5670027bd272936cc5bbbcd6965e",
+  "payload": {
+    "synthetic_data": true,
+    "snapshot": {
+      "accepted_batches": [
+        "fixture-valid",
+        "missing-delivery",
+        "late-correction",
+        "late-cancellation",
+        "recoverable"
+      ],
+      "publication_id": "8c16b42bd9c2491596b7e92442047123",
+      "published_at": "2026-09-21T23:38:59.297556+00:00",
+      "run_id": "874516e802244c43828c932367132272",
+      "sources": [
+        {
+          "batch_id": "fixture-valid",
+          "bronze_path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/runs/51110df82e6244f5962382acef816da8/bronze",
+          "bronze_version": 0,
+          "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+          "reference_hashes": {
+            "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+            "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+          },
+          "run_id": "51110df82e6244f5962382acef816da8"
+        },
+        {
+          "batch_id": "missing-delivery",
+          "bronze_path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/runs/2729467719f24a6abdd98f785541b4b6/bronze",
+          "bronze_version": 0,
+          "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+          "reference_hashes": {
+            "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+            "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+          },
+          "run_id": "2729467719f24a6abdd98f785541b4b6"
+        },
+        {
+          "batch_id": "late-correction",
+          "bronze_path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/runs/409b12220b66433da05b80c6d2df889b/bronze",
+          "bronze_version": 0,
+          "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+          "reference_hashes": {
+            "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+            "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+          },
+          "run_id": "409b12220b66433da05b80c6d2df889b"
+        },
+        {
+          "batch_id": "late-cancellation",
+          "bronze_path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/runs/f3c116dba78f411fad4c0ced7f558f79/bronze",
+          "bronze_version": 0,
+          "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+          "reference_hashes": {
+            "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+            "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+          },
+          "run_id": "f3c116dba78f411fad4c0ced7f558f79"
+        },
+        {
+          "batch_id": "recoverable",
+          "bronze_path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/runs/874516e802244c43828c932367132272/bronze",
+          "bronze_version": 0,
+          "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+          "reference_hashes": {
+            "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+            "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+          },
+          "run_id": "874516e802244c43828c932367132272"
+        }
+      ],
+      "tables": {
+        "bronze": {
+          "path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/runs/874516e802244c43828c932367132272/bronze",
+          "version": 0
+        },
+        "gold_product_day": {
+          "path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/tables/gold_product_day",
+          "version": 5
+        },
+        "gold_store_day": {
+          "path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/tables/gold_store_day",
+          "version": 5
+        },
+        "history": {
+          "path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/tables/history",
+          "version": 5
+        },
+        "silver": {
+          "path": "/data/demos/f24c262c3b46462c9ae43b0a2f393f5c/tables/silver",
+          "version": 5
+        }
+      }
+    },
+    "latest_attempt": {
+      "batch_id": "recoverable",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 20.2166,
+      "issues": [
+        {
+          "code": "EXACT_DUPLICATE",
+          "count": 3,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        },
+        {
+          "code": "STALE_REVISION",
+          "count": 1,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        }
+      ],
+      "publication_id": "8c16b42bd9c2491596b7e92442047123",
+      "run_id": "874516e802244c43828c932367132272",
+      "stages": {
+        "gold": 2.7433,
+        "ingestion": 2.6975,
+        "publication": 2.0102,
+        "quality": 5.0474,
+        "reconciliation": 1.7856,
+        "silver": 5.9303
+      },
+      "started_at": "2026-09-21T23:38:41.087287+00:00",
+      "state": "PUBLISHED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 3,
+        "received": 4,
+        "rejected": 0,
+        "revision_checks_executed": 1,
+        "stale": 1,
+        "valid": 4,
+        "violations": 0
+      }
+    },
+    "last_failed_attempt": {
+      "batch_id": "recoverable",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 23.4598,
+      "issues": [
+        {
+          "code": "EXACT_DUPLICATE",
+          "count": 3,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        },
+        {
+          "code": "STALE_REVISION",
+          "count": 1,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        },
+        {
+          "code": "TECHNICAL_FAILURE",
+          "message": "Falha de teste: before_publish",
+          "severity": "ERROR",
+          "type": "InjectedFailure"
+        }
+      ],
+      "publication_id": null,
+      "run_id": "10334528e2444071b576418cd0e721de",
+      "stages": {
+        "gold": 3.4455,
+        "ingestion": 3.1262,
+        "publication": 2.4237,
+        "quality": 4.7605,
+        "reconciliation": 2.4225,
+        "silver": 7.279
+      },
+      "started_at": "2026-09-21T23:38:13.621038+00:00",
+      "state": "TECHNICAL_FAILURE",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 3,
+        "received": 4,
+        "rejected": 0,
+        "revision_checks_executed": 1,
+        "stale": 1,
+        "valid": 4,
+        "violations": 0
+      }
+    },
+    "summary": {
+      "net_revenue_brl": "77.00",
+      "units": 8,
+      "item_lines": 4,
+      "sales_count": 3,
+      "first_date": "2026-01-01",
+      "last_date": "2026-01-01",
+      "average_ticket_brl": "25.66666666666666666666666667"
+    },
+    "daily": [
+      {
+        "business_date": "2026-01-01",
+        "net_revenue_brl": "77.00"
+      }
+    ],
+    "stores": [
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S01",
+        "net_revenue_brl": "57.00",
+        "units": 7,
+        "item_lines": 3,
+        "sales_count": 2,
+        "average_ticket_brl": "28.50"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S02",
+        "net_revenue_brl": "20.00",
+        "units": 1,
+        "item_lines": 1,
+        "sales_count": 1,
+        "average_ticket_brl": "20.00"
+      }
+    ],
+    "products": [
+      {
+        "product_id": "P01",
+        "units": 4,
+        "net_revenue_brl": "52.00"
+      },
+      {
+        "product_id": "P03",
+        "units": 3,
+        "net_revenue_brl": "20.00"
+      },
+      {
+        "product_id": "P02",
+        "units": 1,
+        "net_revenue_brl": "5.00"
+      }
+    ],
+    "daily_truncated": false,
+    "stores_truncated": false,
+    "products_truncated": false
+  },
+  "selection": "Manifesto e registros presentes no volume histórico no momento da captura.",
+  "read_runtime": {
+    "spark": "4.2.0"
+  }
+}

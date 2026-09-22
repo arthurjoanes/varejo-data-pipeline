@@ -1,19 +1,21 @@
 # Varejo Data Pipeline
 
-Pipeline local de fechamento de vendas com PySpark, Delta Lake e Spark SQL. Valida arquivos, cobertura de lojas e revisões antes de publicar indicadores: uma soma correta pode esconder uma loja faltando ou contar a mesma venda em dois dias. A demonstração usa apenas dados sintéticos.
+Valide a entrega das lojas e as revisões de vendas antes de publicar o fechamento. O relatório mostra a tentativa mais recente, a publicação vigente e as ocorrências que explicam o resultado. A demonstração usa dados sintéticos.
 
-![Relatório de vendas](docs/images/round-2/report.png)
+![Fechamento bloqueado por loja ausente, com a publicação anterior preservada](docs/images/interface/blocked.png)
 
-O operador aprova um calendário de lojas esperadas, e o pipeline valida as revisões por inteiro antes de fechar. Falha ou lote bloqueado mantém a publicação anterior. [Problema e solução](docs/problem-solution.md).
+Uma soma correta pode esconder uma loja faltando ou contar a mesma venda em dois dias. O operador aprova o calendário de lojas esperadas; o pipeline confere a entrega e as revisões antes de fechar. Um bloqueio ou uma falha antes da publicação mantém os indicadores anteriores. [Problema e solução](docs/problem-solution.md).
 
-## Regras de publicação
+## O que conferir na demonstração
 
-- Silver e gold são recalculadas a partir do histórico aceito a cada lote, simplificando correção e recuperação. A demonstração de volume usa 30 mil linhas.
-- Um lote novo não pode diminuir as lojas esperadas; mudar isso exige estado novo.
-- CANCEL preserva o histórico e retira o item dos indicadores. Somente um UPSERT de revisão maior pode reativá-lo; revisões antigas não alteram o estado.
-- Erro financeiro ou de cobertura bloqueia o lote inteiro.
+| Situação | Resultado observável |
+| --- | --- |
+| Repetir uma entrega | A mesma receita, sem efeito duplicado |
+| Uma loja não entrega | Fechamento bloqueado; a publicação anterior continua disponível |
+| Corrigir ou cancelar um item | Revisão maior altera o estado; o histórico é preservado |
+| Falhar antes de publicar e retomar | Candidato interrompido não aparece nos totais; a retomada publica sem duplicar |
 
-Os testes cobrem falha entre tabelas, retomada sem duplicação e lock entre processos. A revisão do runtime passou na suíte de 166 testes, com 15 integrações; o ajuste posterior de preservação de evidência foi validado por 151 unitários e uma integração real. [Resultados, fontes e limites da verificação](docs/verification.md).
+O roteiro pequeno usa valores conferidos à mão: **64 → 64 → 64 → 64 → 77 → 57 → 57 → 77 reais**. O experimento de 30 mil linhas é separado e demonstra volume; não substitui a conferência desses casos. [Roteiro e evidências](docs/demo.md).
 
 ## Rodar no Windows
 
@@ -27,15 +29,27 @@ Docker Desktop em modo Linux, Compose v2 e PowerShell. Não precisa de Java nem 
 
 Abra [o relatório local](http://localhost:3103/report.html). No Linux, substitua `.\scripts\pipeline.ps1` por `sh scripts/pipeline.sh` nos mesmos comandos.
 
-## A demo mostra o caso difícil
+## Ler o fechamento
 
-`demo` roda a sequência num estado isolado: lote válido, repetição, loja ausente, reposição, correção, cancelamento, falha antes de publicar e retomada. As receitas conferidas à mão são 64,00 → 64,00 → 64,00 → 64,00 → 77,00 → 57,00 → 57,00 → 77,00, com assert em cada passo. Compare `artifacts/report.html`, `blocked-report.html` e `failure-report.html` para ver a consequência de cada caso. [Roteiro](docs/demo.md).
+O HTML é uma leitura dos dados capturados na geração, sem atualização automática. Abre também como arquivo local e mantém o conteúdo acessível sem JavaScript.
 
-A CLI devolve 0 para publicação ou lote sem mudança, 2 para bloqueio de qualidade ou argumento inválido e 3 para falha técnica. [Comandos e contrato](docs/data-contract.md).
+- **Execução:** resultado da última tentativa, etapas medidas, cobertura e ocorrências com contexto.
+- **Indicadores:** receita, vendas, unidades, ticket e recortes por dia, produto e loja. Os números pertencem à publicação identificada no topo.
+- **Arquivos:** IDs completos, versões Delta, fontes bronze e hashes das referências aprovadas.
 
-## Limites
+Compare `artifacts/report.html`, `blocked-report.html` e `failure-report.html`. O relatório distingue publicação concluída com auditoria incompleta de falha anterior à publicação; um tempo medido não prova sozinho o sucesso de uma etapa. [Comportamento e validação da interface](docs/interface.md).
 
-Delta faz transação por tabela; o manifesto e o lock do volume mantêm a consistência entre as tabelas. Não há VACUUM automático. O relatório mostra até 500 linhas e 20 produtos, com os totais do conjunto inteiro. Estorno parcial, orquestrador e monitoramento contínuo estão fora do escopo. [Código](src/retail_pipeline/pipeline.py) · [arquitetura](docs/architecture.md) · [decisões técnicas](docs/decisoes-tecnicas.md) · [proposta para Fabric](docs/fabric-mapping.md).
+## Como a publicação é protegida
+
+Silver e gold são recalculadas a partir do histórico aceito a cada lote. Erro financeiro ou de cobertura bloqueia o lote inteiro. Uma entrega nova não pode reduzir as lojas esperadas; alterar esse calendário exige estado novo.
+
+`CANCEL` mantém o histórico e retira o item dos indicadores. Somente `UPSERT` com revisão maior pode reativá-lo. A CLI retorna 0 para publicação ou lote sem mudança, 2 para bloqueio de qualidade ou argumento inválido e 3 para falha técnica. [Contrato](docs/data-contract.md) · [Arquitetura](docs/architecture.md).
+
+## Evidências e limites
+
+A revisão do runtime passou em 166 testes, incluindo 15 integrações; o ajuste posterior de preservação de evidência teve 151 unitários e uma integração real aprovados. A revisão desta interface tem validação própria, sem transformar esses resultados históricos em uma nova execução integral. [Resultados, revisões examinadas e limites](docs/verification.md).
+
+Delta faz transação por tabela; o manifesto e o lock do volume mantêm a consistência entre tabelas. Não há VACUUM automático. O relatório mostra até 500 linhas, 20 produtos e 366 dias, com os totais do conjunto inteiro. Não contém histórico completo de execuções. Estorno parcial, orquestração e monitoramento contínuo estão fora do escopo. [Código](src/retail_pipeline/pipeline.py) · [Decisões técnicas](docs/decisoes-tecnicas.md) · [Proposta para Fabric](docs/fabric-mapping.md).
 
 Python, PySpark, Delta Lake, Spark SQL e Docker. Licença MIT.
 
