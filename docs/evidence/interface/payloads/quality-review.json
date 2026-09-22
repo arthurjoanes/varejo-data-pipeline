@@ -1,0 +1,163 @@
+{
+  "captured_at": "2026-09-22T03:22:04.341393+00:00",
+  "method": "Leitura Delta por versão; nenhum lote executado.",
+  "source_evidence": "docs/evidence/round-2/demo.json",
+  "source_sha256": "475dc3a69b772d2319d9488e3241a4b9f12f5670027bd272936cc5bbbcd6965e",
+  "payload": {
+    "synthetic_data": true,
+    "snapshot": null,
+    "latest_attempt": {
+      "batch_id": "quality-review",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 15.1687,
+      "issues": [
+        {
+          "code": "UNKNOWN_PRODUCT",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_QUANTITY",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_UNIT_PRICE_BRL",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_SOLD_AT",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        }
+      ],
+      "publication_id": null,
+      "run_id": "2cf99f37afbf4cc9b91c5921bcb60a6e",
+      "stages": {
+        "ingestion": 15.1674
+      },
+      "started_at": "2026-09-21T23:36:17.756151+00:00",
+      "state": "BLOCKED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 0,
+        "received": 5,
+        "rejected": 1,
+        "revision_checks_executed": 0,
+        "stale": 0,
+        "valid": 4,
+        "violations": 4
+      }
+    },
+    "last_failed_attempt": {
+      "batch_id": "quality-review",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 15.1687,
+      "issues": [
+        {
+          "code": "UNKNOWN_PRODUCT",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_QUANTITY",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_UNIT_PRICE_BRL",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_SOLD_AT",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        }
+      ],
+      "publication_id": null,
+      "run_id": "2cf99f37afbf4cc9b91c5921bcb60a6e",
+      "stages": {
+        "ingestion": 15.1674
+      },
+      "started_at": "2026-09-21T23:36:17.756151+00:00",
+      "state": "BLOCKED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 0,
+        "received": 5,
+        "rejected": 1,
+        "revision_checks_executed": 0,
+        "stale": 0,
+        "valid": 4,
+        "violations": 4
+      }
+    },
+    "summary": {},
+    "daily": [],
+    "stores": [],
+    "products": [],
+    "daily_truncated": false,
+    "stores_truncated": false,
+    "products_truncated": false
+  },
+  "selection": "Passo histórico reconstituído do manifesto imutável e da tentativa registrada.",
+  "read_runtime": {
+    "spark": "4.2.0"
+  }
+}
