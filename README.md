@@ -20,6 +20,17 @@ Os dados são sintéticos. Este é um laboratório local, sem clientes, operaç�
 - Construí a CLI, a rastreabilidade por arquivo/linha/revisão, os cenários verificáveis e o relatório HTML offline. Configurei Spark e Delta para processamento e armazenamento versionado; essas ferramentas são dependências do projeto, não produtos de minha autoria.
 - Acrescentei o contrato e a prova de cópia/restauração do estado completo, com recusa de cópia adulterada e destino ocupado. O limite atual é recuperação local no mesmo computador.
 
+## Stack
+
+<p>
+  <img src="docs/stack/python.svg" alt="Python" width="72" height="72">
+  <img src="docs/stack/apachespark.svg" alt="Apache Spark" width="72" height="72">
+  <img src="docs/stack/java.svg" alt="Java" width="72" height="72">
+  <img src="docs/stack/docker.svg" alt="Docker" width="72" height="72">
+</p>
+
+Python/PySpark processa os lotes e Delta Lake mantém as tabelas versionadas. Java fornece o runtime do Spark; Docker fixa o ambiente. O relatório usa HTML, CSS e JavaScript locais, sem serviço de frontend.
+
 ## Como uma falha aparece para quem consulta
 
 A demonstração pequena usa quatro itens: `19 + 5 + 20 + 20 = R$ 64`, sete unidades e três vendas. Depois da correção integral de data, a receita continua em R$ 64. Uma nova revisão aumenta a quantidade do primeiro item de dois para três: o esperado passa a **R$ 74**.
@@ -75,3 +86,5 @@ O escritor é único, protegido por lock no filesystem Linux local. Não há tra
 Não há limpeza automática de versões Delta. A [prova anterior de restauração](docs/state-recovery.md) recuperou 187 arquivos e três publicações em volume novo, mas não demonstra recuperação fora do computador. A [medição de recomputação](docs/state-recovery.md) é local e separada das fixtures pequenas; não a apresento como capacidade de produção.
 
 Spark 4.2.0 e Delta 4.4.0 têm dependências JVM fixadas por hash e builds locais identificados para componentes específicos. Receitas, correções, licenças e condições de isolamento estão em [segurança](docs/security.md) e [runtime](docs/runtime-upgrade.md). Licença MIT do projeto; licenças de terceiros preservadas.
+
+Ícones da stack: [Devicon — licença MIT](docs/stack/LICENSE.devicon).
