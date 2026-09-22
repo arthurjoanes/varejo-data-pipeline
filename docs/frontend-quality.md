@@ -30,7 +30,7 @@ As fontes abaixo foram abertas e suas figuras/interfaces inspecionadas em navega
 | [Source Sans, Adobe](https://github.com/adobe-fonts/source-sans) e [IBM Plex](https://www.ibm.com/plex/) — projetos oficiais | Famílias próprias para interfaces, com numerais e acentos verificáveis | [Comparação renderizada](images/interface-v4/tipografia.png): Source Sans 3 escolhida para a leitura comercial. Plex foi alternativa, não asset do produto. |
 | [Swavee, Tobi Victor e Nifemi Adelana](https://www.behance.net/gallery/241721015/Visual-Identity-design-for-Swavee) — portfólio conceitual dos autores, abril de 2026 | Palavra, símbolo e aplicações formam um sistema coerente | Inspiração somente para consistência entre marca completa, compacta e mono. Nenhuma forma, cor proprietária, imagem ou código foi copiado; efeitos de vidro e argumentos promocionais foram rejeitados. |
 
-Prefect/GX continuam explicando a proximidade entre tentativa, resultado e regra nas revisões anteriores. Nesta rodada, não foram usados como justificativa para repetir a mesma estrutura. A [Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md) foi relida: semântica nativa, foco, movimento reduzido, texto longo, carregamento de fonte e estados. As skills `frontend-design` e `web-design-guidelines` orientaram plano, construção e crítica; React não se aplica ao renderer Python.
+Prefect/GX continuam explicando a proximidade entre tentativa, resultado e regra nas revisões anteriores. Nesta rodada, não foram usados como justificativa para repetir a mesma estrutura. A [Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md) foi relida: semântica nativa, foco, movimento reduzido, texto longo, carregamento de fonte e estados. A revisão aplicou critérios de composição, semântica, foco e interação; React não se aplica ao renderer Python.
 
 ## Identidade, fonte, superfícies e movimento
 
@@ -98,23 +98,40 @@ A matriz mantém rolagem horizontal local em telas estreitas. Isso preserva eixo
 
 ## Matriz de onze dimensões — antes e depois
 
-“Conforme” refere-se ao escopo testado, não a certificação universal. A coluna anterior é o baseline v3, que já tinha funções úteis; não as creditamos como novas.
+Legenda: **C** = Conforme no escopo descrito; **PC** = Parcialmente conforme; **NC** = Não conforme; **NV** = Não verificado; **NA** = Não aplicável, com motivo. Cada célula compara **antes → depois**. Não há nota média nem certificação. A classificação é uma avaliação técnica das provas, não aprovação de usuários.
 
-| Dimensão | Antes | Execução atual | Indicadores atuais | Arquivos atuais |
+O antes é exclusivamente o baseline visual `636e8408f1108ce387ddc291318d2d1ebe042dee`; o depois é a fonte v4 identificada no manifesto. Os [14 pares](evidence/interface-v4/comparison.json) usam os mesmos cinco payloads, estados e dimensões. As [provas v3](evidence/interface-v3/review-manifest.json) descrevem as capacidades já existentes no baseline; não se creditam navegação, separação tentativa/publicação ou tabelas exatas como funcionalidades novas. A demonstração editorial posterior tem outros dados e não substitui essa comparação.
+
+| Dimensão | Execução | Indicadores | Arquivos | Fundamento e limite da classificação |
 | --- | --- | --- | --- | --- |
-| 1. Público e tarefa | Conforme na separação tentativa/publicação; aparência pouco própria | Decisão e cobertura como conferência | Distribuição e comparação da publicação | Identidade e origem como consulta documental |
-| 2. Hierarquia | Parcial: superfícies semelhantes e análise escondida | Causa/ação/contexto separados dos contadores | Publicação+totais; matriz cedo; exatidão por tabela | Identidade contextual; versões e fontes legíveis |
-| 3. Layout e densidade | Parcial: lista alta, geometria uniforme | Contexto e conferência em colunas; ordem móvel explícita | Matriz usa largura; série/ranking têm altura natural | Duas superfícies com espaçamento; uma coluna ≤900 px |
-| 4. Identidade, tipo e cor | Parcial: marca genérica e fonte do SO | Marca original, Source Sans carregada, estados textuais | Números consistentes; cor de dados não é estado | IDs mono, conteúdo humano na fonte local |
-| 5. Dados e visualização | Tabelas exatas, comparação visual limitada | Zero movimento distinto de pendência | Ranking zero-base, matriz exata, lacunas e limites | Versões/caminhos íntegros; gráfico não aplicável |
-| 6. Navegação e ações | Conforme: hash, foco, cópia e detalhes | Mesmo destino para causa e registro | Matriz roving+setas, âncora para linha; sem filtro fictício | Cópia/fallback e IDs completos preservados |
-| 7. Estados e atualização | Conforme nos estados já capturados | Bloqueio/falha/unknown/auditoria separados | Zero/ausência/sem publicação/recorte extremo explícitos | Ausência não gera botão para copiar ID vazio |
-| 8. A11y e responsividade | Parcial: limites de auditoria documentados | Teclado, 320–1440, reflow, axe e contraste | Tabelas equivalentes, roving, semJS e fonte offline | Foco/seleção/cópia e rolagem local; sem leitor de tela completo |
-| 9. Desempenho | Local sem rede; sem benchmark de produção | Sem polling/animação infinita | Matriz limitada antes de alocar; custo da fonte explícito | Sem chamadas remotas; sem alegação de Web Vitals |
-| 10. Manutenção e reuso | Renderer/CSS separados, sem biblioteca | Estrutura local e estados existentes preservados | Helpers de visualização testados; fonte/brand no wheel | Helper de campos e fontes preservado; licença empacotada |
-| 11. Regras, origem e permissões | Modelo correto; leitor vazio expunha ausência no CI | Cobertura não é taxa de erros | Cinco payloads iguais; nenhuma fórmula de domínio nova | IDs/fontes iguais; permissão/edição não aplicáveis |
+| 1. Público e tarefa | C→C | C→C | C→C | Tentativa, publicação e origem já eram separadas; a composição reforça essas tarefas. Não houve estudo com usuários. |
+| 2. Hierarquia e organização | PC→C | PC→C | PC→C | Os pares mostram superfícies antes semelhantes; agora decisão/cobertura, publicação/análise e registro documental têm grupos próprios. |
+| 3. Layout e densidade | PC→C | PC→C | PC→C | Matriz ocupa a largura, série/ranking têm altura natural e as três vistas reorganizam-se em telas estreitas. [Geometria e capturas](evidence/interface-v4/visual-review.json). |
+| 4. Identidade, tipografia e cor | PC→C | PC→C | PC→C | Fonte do SO e marca anterior substituídas por assets locais; fonte efetiva, glifos, contraste amostrado e estados textuais conferidos. Não é certificação integral de contraste. |
+| 5. Indicadores, gráficos e tabelas | C→C | PC→C | C→C | Cobertura e referências exatas preservadas; ranking zero-base, matriz e tabela equivalente acrescentam comparação. Gráfico em Arquivos é NA: a tarefa é consultar IDs/versões. |
+| 6. Navegação e ações | C→C | C→C | C→C | Hash, foco, retorno e detalhes preservados; roving/setas e âncora da matriz exercitados, cópia/fallback conferidos. Não há filtro remoto ou ação de pipeline. |
+| 7. Estados e atualização | C→C | PC→C | C→C | Fixtures distinguem bloqueio, falha, unknown, zero e ausência. Em Indicadores, a publicação vazia real exigiu correção separada do leitor, descrita abaixo; não é mérito apenas do redesign. |
+| 8. Acessibilidade e responsividade | PC→PC | PC→PC | PC→PC | Teclado, foco, 320–1440 px, reflow, sem JS, contraste selecionado e [axe](evidence/interface-v4/accessibility.json) conferidos. Leitor de tela, outros motores e zoom nativo permanecem NV. |
+| 9. Desempenho | PC→PC | PC→PC | PC→PC | Relatório local sem polling; tamanho/custo da fonte e limite da matriz documentados. Hardware lento e Web Vitals permanecem NV; não se afirma ganho de velocidade. |
+| 10. Manutenção e reutilização | C→C | C→C | C→C | Renderer/CSS separados já existiam; helpers e recursos no wheel mantêm essa separação. [Pacote e checks da fonte integrada](evidence/interface-v4/merged/checks.json). |
+| 11. Dados, regras e permissões | C→C | PC→C | C→C | Valores, tabelas, IDs e fontes dos cinco payloads são equivalentes. Zero aditivo de publicação vazia foi corrigido e testado separadamente; ticket/datas ausentes continuam ausentes. Autorização/edição de tela são NA no snapshot. |
 
-A dimensão 8 continua **parcialmente conforme** quanto a leitor de tela, outros motores e zoom nativo; os checks citados passaram, mas não cobrem esses casos. A dimensão 9 é **parcialmente conforme** quanto a performance de produção, não medida. Autenticação, edição, paginação remota e ações de pipeline não se aplicam a este relatório estático.
+“C” nas dimensões visuais limita-se aos estados e larguras conferidos. Carregamento remoto, respostas fora de ordem, formulários, permissões de tela e paginação remota são **NA**: o HTML não consulta uma API nem modifica dados. A apresentação sem JavaScript, a impressão e os links locais são aplicáveis. A paginação completa do PDF permanece **NV**.
+
+### Problemas tratados e prioridades
+
+As prioridades abaixo expressam o impacto do problema observado, sem transformar refinamentos em falhas de domínio. Validação visual não substitui os testes de preservação dos valores.
+
+| Tela/componente | Evidência e impacto no baseline ou na primeira iteração | Prioridade | Correção | Validação existente |
+| --- | --- | --- | --- | --- |
+| Todas / contexto e análise | Superfícies semelhantes faziam identidade, decisão e análise competir | P2 | Contexto, análise e documento com papéis e eixos próprios | Pares do mesmo baseline e três vistas em cinco larguras |
+| Indicadores / produtos e loja×dia | Lista alta e 360 observações recolhidas exigiam percorrer a tabela para comparar distribuição | P2 | Matriz, ranking horizontal e tabelas exatas; limites antes de alocar células | Comparação de dados, `matrixChecks` e `baselineComparisons` no registro do navegador |
+| Indicadores / matriz sem JS | Cabeçalho agrupado sobrepôs colunas na primeira iteração; a âncora precisava alcançar a linha exata | P1 | Colunas explícitas e disclosure nativo; uma célula no percurso Tab com JS | `matrixChecks`, `no_script` e navegação por teclado |
+| Todas / números extensos em 320 px | Centavos quebravam de linha na primeira iteração, prejudicando a leitura monetária | P1 | Número íntegro e rolagem local focável, sem abreviar | Fixture de valor grande, `long_content` e captura de 320 px |
+| Todas / contexto móvel | O header compacto ocultava a condição de snapshot | P2 | “Snapshot · somente leitura” junto do título de contexto | Capturas móveis e `refinements` no registro do navegador |
+| Indicadores / publicação vazia | O leitor retornava `None` para soma de zero linhas; o novo formatter revelou a ausência indevida | P1, preexistente no leitor | Contagem explícita de linhas e zero apenas para totais aditivos vazios; correção separada | Integrações de fronteiras e checks integrados, sem reatribuir o resultado à mudança visual |
+
+Próxima validação segura: **P2**, tecnologia assistiva, zoom nativo e outro motor de navegador; **P3**, hardware lento e PDF página a página. A dimensão 8 permanece PC, a 9 permanece PC e a paginação integral do PDF permanece NV. Axe, tamanho do arquivo e screenshots não substituem essas verificações.
 
 ## Verificação, origem e limites
 

@@ -1,0 +1,113 @@
+{
+  "browser": "153.0.4234.48",
+  "type": "Actual HTML exported at the named execution state; browser navigation only; no data or DOM replacement",
+  "checks": [
+    {
+      "file": "coverage-blocked",
+      "view": "qualidade",
+      "expected": "S02",
+      "expectedVisible": true,
+      "text": "Publicação bloqueada\n\nA entrega tem pendências que impedem publicar o fechamento.\n\nConferir pendência\nComo retomar\n\nLote da tentativa\n\nsender-r…ndar\n\nInício registrado\n22/09/2026 · 12:07:50 UTC\nPeríodo da entrega\nNão informado no snapshot\nCobertura da entrega\n\n2 de 3 lojas com entrega confirmada\n\nS01\nEntrega confirmada\nS02\nPendente\nS03\nZero movimento confirmado\nListas registradas da cobertura\nOcorrências da entrega\nLoja sem entrega confirmada\nS02\n\nLoja sem entrega ou confirmação de zero movimento. loja: S02.\n\nContexto técnico\nContadores e validações técnicas\nTempos medidos desta tentativa\nVer registro da tentativa\n\nPublicação anterior preservada. Fechamento bloqueado por cobertura. Os indicadores exibidos pertencem à publicação anterior.\n\nVer a publicação disponível\nRegistro do bloqueio ou falha desta tentativa",
+      "viewport": {
+        "width": 1120,
+        "height": 960
+      },
+      "fonts": [
+        {
+          "family": "Source Sans 3",
+          "status": "loaded"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "file": "partial-date-blocked",
+      "view": "qualidade",
+      "expected": "Venda dividida entre dias",
+      "expectedVisible": true,
+      "text": "Publicação bloqueada\n\nA entrega tem pendências que impedem publicar o fechamento.\n\nConferir pendência\nComo retomar\n\nLote da tentativa\n\npartial-date-99\n\nInício registrado\n22/09/2026 · 12:08:05 UTC\nPeríodo da entrega\nNão informado no snapshot\nCobertura da entrega\n\n3 de 3 lojas com entrega confirmada\n\nS01\nEntrega confirmada\nS02\nEntrega confirmada\nS03\nZero movimento confirmado\nListas registradas da cobertura\nOcorrências da entrega\nVenda dividida entre dias\n1 ocorrência\n\nItens ativos da mesma origem/loja/venda têm dias comerciais diferentes. Corrija a venda integralmente.\n\nContexto técnico\nReenvio sem efeito adicional\n3 ocorrências\nContadores e validações técnicas\nTempos medidos desta tentativa\nVer registro da tentativa\n\nPublicação anterior preservada. Fechamento bloqueado pelas regras de qualidade. Os indicadores exibidos pertencem à publicação anterior.\n\nVer a publicação disponível\nRegistro do bloqueio ou falha desta tentativa",
+      "viewport": {
+        "width": 1120,
+        "height": 960
+      },
+      "fonts": [
+        {
+          "family": "Source Sans 3",
+          "status": "loaded"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "file": "whole-sale-corrected",
+      "view": "indicadores",
+      "expected": "64,00",
+      "expectedVisible": true,
+      "text": "Indicadores de vendas\n\n01/01/2026 a 02/01/2026\n\nPublicação 6209e1a4…0298 · 22/09/2026 · 12:08:32 UTC\n\nReceita líquida\n\nR$ 64,00\n\nBRL · descontos aplicados · cancelados excluídos\n\nUnidades vendidas\n\n7\n\n4 itens de venda ativos\n\nVendas\n\n3\n\nDistintas por loja e dia comercial\n\nTicket médio\n\nR$ 21,33\n\nReceita ÷ vendas no período\n\nPublicação disponível. Confira a entrega das lojas, as revisões aceitas e os indicadores do fechamento publicado.\n\nLoja / dia\nReceita por dia\nProdutos\nReceita por loja e dia\n\nReceita líquida em BRL · cada célula é uma loja em um dia comercial.\n\nR$ 0,00\nR$ 24,00\n\nSelecione uma célula para consultar o valor. Use as setas para percorrer a matriz.\n\nMês\t01/2026\nLoja / dia\t01\t02\nS01\t\nR$ 20,00\n\t\nR$ 24,00\n\nS02\t\nR$ 20,00\n\t\n—\nS01 · 01/01/2026 · R$ 20,00\nConsultar linha na tabela\n\n0\nReceita zero registrada\n—\nSem observação ou receita não informada\n\nValores por loja e dia (3 linhas exibidas)\nReceita por dia\nBRL · dia comercial\nR$ 40,00\nR$ 30,00\nR$ 20,00\nR$ 10,00\nR$ 0,00\n01/01/2026\n02/01/2026\n\nDia comercial em America/Sao_Paulo.\n\nValores por dia (2 dias exibidos)\nProdutos mais vendidos\n\nOrdem: unidades, receita e ID. Cancelados excluídos.\n\nUnidades · escala a partir de zero\n\nP01\n3\nP03\n3\nP02\n1\nValores por produto (3)",
+      "viewport": {
+        "width": 1120,
+        "height": 960
+      },
+      "fonts": [
+        {
+          "family": "Source Sans 3",
+          "status": "loaded"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "file": "failure-before-publication",
+      "view": "indicadores",
+      "expected": "64,00",
+      "expectedVisible": true,
+      "text": "Indicadores de vendas\n\n01/01/2026 a 02/01/2026\n\nPublicação 6209e1a4…0298 · 22/09/2026 · 12:08:32 UTC\n\nReceita líquida\n\nR$ 64,00\n\nBRL · descontos aplicados · cancelados excluídos\n\nUnidades vendidas\n\n7\n\n4 itens de venda ativos\n\nVendas\n\n3\n\nDistintas por loja e dia comercial\n\nTicket médio\n\nR$ 21,33\n\nReceita ÷ vendas no período\n\nPublicação anterior preservada. A tentativa falhou antes de publicar. Os indicadores da publicação anterior continuam disponíveis.\n\nLoja / dia\nReceita por dia\nProdutos\nReceita por loja e dia\n\nReceita líquida em BRL · cada célula é uma loja em um dia comercial.\n\nR$ 0,00\nR$ 24,00\n\nSelecione uma célula para consultar o valor. Use as setas para percorrer a matriz.\n\nMês\t01/2026\nLoja / dia\t01\t02\nS01\t\nR$ 20,00\n\t\nR$ 24,00\n\nS02\t\nR$ 20,00\n\t\n—\nS01 · 01/01/2026 · R$ 20,00\nConsultar linha na tabela\n\n0\nReceita zero registrada\n—\nSem observação ou receita não informada\n\nValores por loja e dia (3 linhas exibidas)\nReceita por dia\nBRL · dia comercial\nR$ 40,00\nR$ 30,00\nR$ 20,00\nR$ 10,00\nR$ 0,00\n01/01/2026\n02/01/2026\n\nDia comercial em America/Sao_Paulo.\n\nValores por dia (2 dias exibidos)\nProdutos mais vendidos\n\nOrdem: unidades, receita e ID. Cancelados excluídos.\n\nUnidades · escala a partir de zero\n\nP01\n3\nP03\n3\nP02\n1\nValores por produto (3)",
+      "viewport": {
+        "width": 1120,
+        "height": 960
+      },
+      "fonts": [
+        {
+          "family": "Source Sans 3",
+          "status": "loaded"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "file": "report",
+      "view": "indicadores",
+      "expected": "74,00",
+      "expectedVisible": true,
+      "text": "Indicadores de vendas\n\n01/01/2026 a 02/01/2026\n\nPublicação dae6c02c…d89d · 22/09/2026 · 12:09:08 UTC\n\nReceita líquida\n\nR$ 74,00\n\nBRL · descontos aplicados · cancelados excluídos\n\nUnidades vendidas\n\n8\n\n4 itens de venda ativos\n\nVendas\n\n3\n\nDistintas por loja e dia comercial\n\nTicket médio\n\nR$ 24,67\n\nReceita ÷ vendas no período\n\nPublicação disponível. A tentativa não alterou o fechamento. Os indicadores continuam vinculados à publicação vigente.\n\nLoja / dia\nReceita por dia\nProdutos\nReceita por loja e dia\n\nReceita líquida em BRL · cada célula é uma loja em um dia comercial.\n\nR$ 0,00\nR$ 34,00\n\nSelecione uma célula para consultar o valor. Use as setas para percorrer a matriz.\n\nMês\t01/2026\nLoja / dia\t01\t02\nS01\t\nR$ 20,00\n\t\nR$ 34,00\n\nS02\t\nR$ 20,00\n\t\n—\nS01 · 01/01/2026 · R$ 20,00\nConsultar linha na tabela\n\n0\nReceita zero registrada\n—\nSem observação ou receita não informada\n\nValores por loja e dia (3 linhas exibidas)\nReceita por dia\nBRL · dia comercial\nR$ 40,00\nR$ 30,00\nR$ 20,00\nR$ 10,00\nR$ 0,00\n01/01/2026\n02/01/2026\n\nDia comercial em America/Sao_Paulo.\n\nValores por dia (2 dias exibidos)\nProdutos mais vendidos\n\nOrdem: unidades, receita e ID. Cancelados excluídos.\n\nUnidades · escala a partir de zero\n\nP01\n4\nP03\n3\nP02\n1\nValores por produto (3)",
+      "viewport": {
+        "width": 1120,
+        "height": 960
+      },
+      "fonts": [
+        {
+          "family": "Source Sans 3",
+          "status": "loaded"
+        }
+      ],
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "source_html_sha256": {
+    "coverage-blocked.html": "68eda51aa37759980628b3cc133d185256cf72a86266dd2fc3a05f2bd4a249ab",
+    "failure-before-publication.html": "47a5b4658bfbb523fdc74ca3970b690228800762810ce2304460dfe43bdebcb1",
+    "partial-date-blocked.html": "38fe8aa480a89a713756bc72943e9d6d137e257435159e2e7ea5945d67d4a097",
+    "published-initial.html": "f076118054770236e26f03ae65f9fc645f09de12f3f961336b7ed985c0d62b0d",
+    "report.html": "fe2781bf067b1fda16004942e19bf883e029b38578f428b604218b107e4425b0",
+    "whole-sale-corrected.html": "93ccecf940285599ec290101c7255802a03aca043fa390e25f9b49ccadadaad9"
+  },
+  "screenshots": {
+    "coverage-blocked.png": "5069eab3d0e2632da0fca350b933af2d01e1db01d033bdb3120a4b27f87906d5",
+    "failure-before-publication.png": "3e9907b77c04e0ed709184fa2742cd60fb3e5fa6c00a45ffb3582af3e70d0d55",
+    "partial-date-blocked.png": "c15ad3afbfe6f2cd8d6cd0beca9a356bbf43eb675949197eeb7cd6082e593415",
+    "recovered.png": "a86557d675c456a9490ab77db0485f25d482f79247ee964fae636ecef9c852bc",
+    "whole-sale-corrected.png": "c8804257bcfa350b78129172f4d6ba2616065eedd15301b5849b83f1d7bb52e7"
+  },
+  "crop": "Execution screenshots full-page. Indicator screenshots cropped after expanded store/day table; full originals retained externally."
+}

@@ -1,0 +1,97 @@
+{
+  "date": "2026-09-22",
+  "base_commit": "93d80c02fc038c51e421bec9de911eda9b23e64c",
+  "local_source_changes": [
+    "tests/integration/test_business_thesis.py: optional actual-state HTML exports only; assertions and runtime unmodified"
+  ],
+  "image": "sha256:95abfa120b95f32f5c3df29b69731c1d7656588c9ba444a7096db7a36309d924",
+  "source_hash_method": "SHA-256 of raw source bytes baked into Docker image; see verification.json. No claim that later editorial Markdown was baked into that image.",
+  "installation": {
+    "build": {
+      "command": [
+        "docker",
+        "build",
+        "--pull=false",
+        "--progress",
+        "plain",
+        "-t",
+        "pf-varejo-editorial:20260922",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 11.641,
+      "scope": "Current Dockerfile and working source; own image tag; local cache allowed; normal build network for dependency installation; no running services or shared volumes touched.",
+      "image": "sha256:95abfa120b95f32f5c3df29b69731c1d7656588c9ba444a7096db7a36309d924"
+    },
+    "offline_attempt": {
+      "command": "docker build --network none --pull=false --progress plain -t pf-varejo-editorial:20260922 .",
+      "status": "failed",
+      "reason": "apk index unavailable without network/cache",
+      "limitation": "First setup requires network. Normal documented build passed with cache; not a cold build."
+    }
+  },
+  "functional_execution": {
+    "started_at": "2026-09-22T12:06:49.555522+00:00",
+    "completed_at": "2026-09-22T12:09:20.655716+00:00",
+    "network": "none",
+    "memory": "3g",
+    "cpus": 2,
+    "state": "new owned Linux volume; no shared state",
+    "commands": [
+      {
+        "name": "smoke",
+        "command": [
+          "-m",
+          "pytest",
+          "tests/integration/test_smoke.py",
+          "-q",
+          "--junitxml=/out/smoke.xml"
+        ],
+        "exit_code": 0,
+        "seconds": 24.234
+      },
+      {
+        "name": "thesis",
+        "command": [
+          "scripts/verify_problem.py",
+          "--thesis-only",
+          "--output",
+          "/out/thesis"
+        ],
+        "exit_code": 0,
+        "seconds": 126.75
+      }
+    ],
+    "cleanup": "Both disposable containers exited and were removed by --rm. Inspected own volume label portfolio.task=editorial-data-ops-20260922; removed only pf-varejo-editorial-d03a7d726e73-data after exported evidence was present. No shared volume touched."
+  },
+  "checks": {
+    "smoke": {
+      "tests": 1,
+      "failures": 0,
+      "skipped": 0,
+      "artifact": "smoke.xml",
+      "warning": "pytest cache directory /app read-only; assertions passed"
+    },
+    "business_thesis": {
+      "tests": 1,
+      "failures": 0,
+      "skipped": 0,
+      "artifact": "tests.xml"
+    },
+    "test_format": "ruff format ran before Docker build; executed source fingerprint recorded by verification.json"
+  },
+  "reports": {
+    "coverage-blocked.html": "68eda51aa37759980628b3cc133d185256cf72a86266dd2fc3a05f2bd4a249ab",
+    "failure-before-publication.html": "47a5b4658bfbb523fdc74ca3970b690228800762810ce2304460dfe43bdebcb1",
+    "partial-date-blocked.html": "38fe8aa480a89a713756bc72943e9d6d137e257435159e2e7ea5945d67d4a097",
+    "published-initial.html": "f076118054770236e26f03ae65f9fc645f09de12f3f961336b7ed985c0d62b0d",
+    "report.html": "fe2781bf067b1fda16004942e19bf883e029b38578f428b604218b107e4425b0",
+    "whole-sale-corrected.html": "93ccecf940285599ec290101c7255802a03aca043fa390e25f9b49ccadadaad9"
+  },
+  "limits": [
+    "Small synthetic data executed by real local Spark and Delta; not production throughput.",
+    "Prior CI 249 tests and image scan at 93d80c0 remain historical; no scan or full suite rerun credited to new screenshots.",
+    "Screenshots show visible results; Delta assertions and business-thesis.json verify internal publication boundaries.",
+    "Full raw build/execution logs and HTML originals retained in external review directory; no private host paths or runtime volumes published."
+  ]
+}

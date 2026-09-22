@@ -34,6 +34,14 @@ def test_independent_coverage_whole_sale_correction_and_recovery(
     root = tmp_path / "state"
     base = write_batch(tmp_path / "base", fixture_rows(), batch_id="base")
     steps = []
+    evidence_dir = os.getenv("RETAIL_THESIS_EVIDENCE_DIR")
+
+    def capture_step(name: str) -> None:
+        # Exporta a publicação e a tentativa presentes nesse instante, sem reconstruir
+        # estados antigos para screenshots. Só roda quando a prova pede evidências.
+        if evidence_dir:
+            generate_report(spark, root, Path(evidence_dir) / name, synthetic_data=True)
+
     result = process_batch(spark, root, base)
     steps.append(asdict(result))
     assert result.state == "PUBLISHED", result.issues
@@ -44,6 +52,7 @@ def test_independent_coverage_whole_sale_correction_and_recovery(
         (date(2026, 1, 1), "S02", Decimal("20.00"), 1, Decimal("20.00")),
     ]
     assert rows(spark, frozen) == initial
+    capture_step("published-initial.html")
     omitted = write_batch(
         tmp_path / "omitted",
         fixture_rows()[:3],
@@ -56,6 +65,7 @@ def test_independent_coverage_whole_sale_correction_and_recovery(
     assert result.coverage["expected"] == ["S01", "S02", "S03"]
     assert result.coverage["missing"] == ["S02"]
     assert load_snapshot(root) == frozen
+    capture_step("coverage-blocked.html")
 
     partial_rows = fixture_rows()
     partial_rows[0].update(revision="99", sold_at="2026-01-02T12:00:00-03:00")
@@ -87,6 +97,7 @@ def test_independent_coverage_whole_sale_correction_and_recovery(
         assert "SALE_DATE_CONFLICT" in {issue["code"] for issue in result.issues}
         assert result.stats["rejected"] == 2
         assert load_snapshot(root) == frozen
+    capture_step("partial-date-blocked.html")
     complete_rows = fixture_rows()
     for row in complete_rows[:2]:
         row.update(revision="2", sold_at="2026-01-02T12:00:00-03:00")
@@ -104,6 +115,7 @@ def test_independent_coverage_whole_sale_correction_and_recovery(
     assert rows(spark, corrected) == expected
     assert read_table(spark, corrected, "history").filter("revision = 99").count() == 0
 
+    capture_step("whole-sale-corrected.html")
     changed_rows = [dict(row) for row in complete_rows]
     changed_rows[0].update(revision="3", quantity="3")
     changed = write_batch(tmp_path / "recovery", changed_rows, batch_id="recoverable-3")
@@ -134,6 +146,7 @@ def test_independent_coverage_whole_sale_correction_and_recovery(
         "gold_product_day": Decimal("64.00"),
     }
     assert read_table(spark, corrected, "history").filter("revision = 3").count() == 0
+    capture_step("failure-before-publication.html")
     result = process_batch(spark, root, changed)
     steps.append(asdict(result))
     assert result.state == "PUBLISHED", result.issues
@@ -150,12 +163,22 @@ def test_independent_coverage_whole_sale_correction_and_recovery(
     assert replay.state == "NO_CHANGE"
     assert load_snapshot(root) == recovered
     assert rows(spark, frozen) == initial
-    if evidence_dir := os.getenv("RETAIL_THESIS_EVIDENCE_DIR"):
-        generate_report(spark, root, Path(evidence_dir) / "report.html")
+    if evidence_dir:
+        capture_step("report.html")
         atomic_json(
             Path(evidence_dir) / "business-thesis.json",
             {
                 "status": "passed",
+                "data_origin": "Synthetic manual fixture executed with real Spark and Delta",
+                "report_capture": "Each HTML reads the actual state immediately after its named step",
+                "reports": [
+                    "published-initial.html",
+                    "coverage-blocked.html",
+                    "partial-date-blocked.html",
+                    "whole-sale-corrected.html",
+                    "failure-before-publication.html",
+                    "report.html",
+                ],
                 "baseline_partial_date": {
                     "method": "Agrupamento direto da imagem recebida por origem/loja/venda/dia, Python independente",
                     "net_revenue_brl": naive_revenue,

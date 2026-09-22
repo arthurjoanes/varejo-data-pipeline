@@ -1,5 +1,7 @@
 # Verificação e reprodução
 
+A demonstração editorial posterior usou a imagem `95abfa120b95…`, construída do código da base `93d80c0` com a exportação de HTML do teste. Seu [scan próprio](evidence/editorial-20260922/security.json), com base de 22/09 às 07:24 UTC, registrou zero HIGH/CRITICAL e um MEDIUM. A imagem `3cc3b95c…` e os resultados JVM abaixo permanecem históricos; não identificam o artefato dessa demonstração.
+
 ## Recuperação e medição local — 22/09/2026
 
 O [índice desta entrega](evidence/state-proof/index.json) separa a restauração, a medição e as tentativas de regressão. A [história operacional](state-recovery.md) explica o problema, as escolhas, as capturas e os limites.
@@ -13,7 +15,7 @@ Containers próprios removidos, volumes preservados. Recuperação externa, rete
 
 Arquivos em artifacts são gerados localmente e não são pré-requisitos do clone. O comando `scripts/verify_problem.py` grava os resultados em `artifacts/`; passos em [demo.md](demo.md).
 
-## Reconstruções JVM em 22/09/2026 (UTC)
+## Reconstruções JVM históricas em 22/09/2026 (UTC)
 
 Spark core, Hadoop runtime e Commons Lang têm builds identificados, com fontes e ferramentas fixadas, proveniência e hashes. O scan da imagem combinada registra **zero HIGH/CRITICAL e um MEDIUM**, mantido por versão no Commons Lang com backport. [Decisões, receitas e limites](runtime-upgrade.md) · [tratamento individual dos 18 achados anteriores](evidence/security-triage.json).
 
@@ -25,7 +27,7 @@ Spark core, Hadoop runtime e Commons Lang têm builds identificados, com fontes 
 | Migração da imagem anterior para os rebuilds | A imagem `91f08a83dbb7…` criou R$ 64,00 em volume novo. A imagem `3cc3b95c1985…`, já com a fonte da interface incorporada, leu esse estado, respondeu `NO_CHANGE` ao reenvio e publicou R$ 77,00. A versão anterior continuou em R$ 64,00 e o HTML foi gerado. Ambas usam Spark 4.2.0/Delta 4.4.0; esta prova verifica a troca dos componentes JVM. [Seed](evidence/jvm-rebuild-migration-seed.json) · [retomada](evidence/jvm-rebuild-migration-resume.json). |
 | Scan integral | 52 pacotes Alpine e 28 Python sem achados; 441 pacotes JVM, com CVE-2025-48924/MEDIUM. Sem exclusões de achados ou filtros de severidade; o gate reprova qualquer HIGH/CRITICAL. [Relatório bruto](evidence/security-scan.json). |
 
-O runtime verificado é a imagem `sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3`; os testes usam a fonte do checkout montada somente leitura, rede desabilitada, 2 CPUs e 3 GiB. A suíte de 188 precedeu a interface incorporada posteriormente: os testes unitários, a demo e a migração da fonte combinada são registrados separadamente, sem somar execuções como casos distintos. O CI repetirá a suíte integral no commit publicado. [Registro consolidado](evidence/jvm-rebuild.json) · [fontes e materiais da suíte inicial](evidence/jvm-rebuild-source-before-interface.json) · [fontes depois da interface](evidence/jvm-rebuild-source-after-interface.json).
+O runtime verificado **nessa rodada histórica** foi a imagem `sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3`; os testes usam a fonte do checkout montada somente leitura, rede desabilitada, 2 CPUs e 3 GiB. A suíte de 188 precedeu a interface incorporada posteriormente: os testes unitários, a demo e a migração da fonte combinada são registrados separadamente, sem somar execuções como casos distintos. O CI repetirá a suíte integral no commit publicado. [Registro consolidado](evidence/jvm-rebuild.json) · [fontes e materiais da suíte inicial](evidence/jvm-rebuild-source-before-interface.json) · [fontes depois da interface](evidence/jvm-rebuild-source-after-interface.json).
 
 Os testes de componentes não equivalem a executar todas as suítes upstream. Em especial, os 44 casos de `ClassUtils` passaram, mas a suíte histórica completa de Commons Lang mantém 29 problemas de compatibilidade/expectativas no Java 17. A matriz distingue regressões com controle negativo, verificações de compatibilidade, atualização de versão e remoção integral. As receitas reproduziram os hashes dos três JARs; não há promessa de imagem inteira idêntica byte a byte.
 
@@ -161,3 +163,16 @@ Esta rodada altera apresentação e seleção de texto do relatório, sem altera
 - Teclado, foco, histórico, link de salto, IDs/copiar/fallback, equivalência gráfico/tabela, conteúdo longo, alinhamento dos painéis, coluna de expansão, borda da ocorrência aberta, contadores e redução de movimento verificados. Impressão expõe painéis e detalhes; sem JavaScript, os detalhes nativos continuam acessíveis.
 
 A ampliação foi feita por CSS a 200% e viewport equivalente de 683 CSS px/DPR 2; não é uma prova de zoom nativo. As amostras de contraste atendem 4,5:1, sem equivaler a auditoria completa de acessibilidade. Não houve leitor de tela nem revisão de paginação integral de PDF. [Escopo e hashes da fonte](evidence/interface-v2/review-manifest.json). As contagens e provas de runtime anteriores descrevem suas próprias revisões.
+
+## Demonstração editorial — 22/09/2026
+
+A [rodada editorial](demo.md#demonstração-editorial-executada) acrescenta evidência nova sem substituir os testes ou medições históricos: build do Dockerfile atual, smoke (**1 teste**) e tese de negócio (**1 teste**, com oito tentativas e leituras reais Delta). Ambos passaram. O aviso de cache do pytest ocorreu porque `/app` estava somente leitura; não houve teste ignorado por isso.
+
+A exportação opcional de seis HTMLs no teste é a única alteração de código desta rodada. Não muda asserções, publicação nem cálculos. A base é `93d80c0` mais essa alteração; o [manifesto](evidence/editorial-20260922/verification.json) registra os hashes da fonte executada. Build com cache não equivale a build frio nem reprodução binária. O primeiro build sem rede falhou por falta de índice apk, e o build documentado com rede passou.
+
+Cinco capturas explicam cobertura, revisão parcial/integral, falha e replay. São imagens de uma execução funcional com dados sintéticos, não provas isoladas da consistência interna. O [JSON de negócio](evidence/editorial-20260922/business-thesis.json) e os dois JUnit sustentam os valores. Não repeti a suíte de 249 testes nem o scan de imagem do [CI da base](https://github.com/arthurjoanes/varejo-data-pipeline/actions/runs/35722366378), aprovado antes desta edição documental. A revisão editorial e seus limites estão no [registro próprio](evidence/editorial-20260922/execution.json).
+
+
+### Scan da imagem da demonstração editorial
+
+O [scan novo](evidence/editorial-20260922/security.json) examinou o ID da imagem usada nesta demonstração, com Trivy 0.74.0 e base de 22/09/2026 às 07:24 UTC. Incluiu pacotes do sistema, Python e Java, todas as severidades e achados sem correção, sem nova exceção: HIGH/CRITICAL ficaram em zero. Há um MEDIUM em `commons-lang:commons-lang` 2.6 (CVE-2025-48924), sem versão corrigida informada nesse relatório; ele permanece visível. Não substituí JARs nesta revisão editorial nem tratei esse resultado como ausência de qualquer vulnerabilidade. O relatório identifica o artefato atual, separado do scan histórico do CI.

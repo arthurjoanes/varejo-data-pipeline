@@ -1,6 +1,8 @@
 # Decisões técnicas
 
-Resultados dos testes em [verification.md](verification.md).
+Aqui explico as decisões implementadas e seus compromissos atuais. Não atribuo a elas uma história de produção: os casos são reproduções locais controladas. Resultados em [verification.md](verification.md).
+
+Na demonstração de 22/09/2026, eu conferi três fronteiras diferentes: **quem define a entrega esperada**, **qual revisão pode entrar no histórico** e **quando o candidato passa a ser oficial**. Os [exemplos com capturas](problem-solution.md) ligam essas fronteiras a números pequenos. Os [registros da execução](evidence/editorial-20260922/execution.json) distinguem build, teste e imagem de navegador.
 
 ## Onde as decisões aparecem no código
 
@@ -52,7 +54,7 @@ Registro rejeitado é uma linha com pelo menos uma violação. Se uma linha tem 
 
 ## O que torna a publicação consistente
 
-Delta fornece transações por tabela. Gravar dois gold em sequência não cria uma transação única entre eles. A decisão deste projeto é manter um escritor exclusivo durante toda a execução mutante, gravar candidatos, reconciliar e trocar um único manifesto no filesystem Linux local. Caminho e `versionAsOf` de cada saída ficam registrados nele.
+Delta fornece transações por tabela. Gravar dois gold em sequência não cria uma transação única entre eles. Implementei um fluxo com escritor exclusivo durante toda a execução mutante: gravar candidatos, reconciliar e trocar um único manifesto no filesystem Linux local. Caminho e `versionAsOf` de cada saída ficam registrados nele.
 
 Todos os leitores oficiais capturam o manifesto uma vez. Reconsultá-lo entre leituras poderia misturar silver de uma publicação e gold de outra. A falha depois do primeiro gold deixa candidatos físicos, mas preserva a visão oficial anterior. A retomada parte dessa visão oficial e reconstrói o candidato. `flock` é liberado pelo sistema operacional quando o processo termina; um mero arquivo de sinalização poderia ficar órfão.
 
@@ -62,10 +64,10 @@ A garantia demonstrável é de consistência diante das falhas de processo testa
 
 Idempotência significa igualdade dos dados de negócio e indicadores ao reapresentar a mesma entrada. Tentativas, logs e versões técnicas podem ser diferentes. Reordenar fisicamente o CSV modifica seu hash de arquivo: esse teste usa novo lote e manifesto correto, mantendo os mesmos eventos lógicos.
 
-Recompor silver e recalcular gold reduz estados intermediários e simplifica correções de data, cancelamentos e recuperação. O custo cresce com todo o histórico aceito, e o startup do Spark pesa no volume pequeno. É uma decisão proporcional a uma demonstração de cerca de 30 mil linhas.
+Escolhi recompor silver e recalcular gold: isso reduz estados intermediários e simplifica correções de data, cancelamentos e recuperação. O custo cresce com todo o histórico aceito, e o startup do Spark pesa no volume pequeno. É uma decisão proporcional a uma demonstração de cerca de 30 mil linhas.
 
 Uma evolução incremental precisa guardar o estado anterior e o novo de cada chave, identificar ambos os dias afetados, tratar chaves canceladas/reativadas, proteger o histórico elegível e preservar o mesmo protocolo de publicação. O teste de equivalência é comparar o incremental à recomputação completa em cenários gerados e fixtures manuais.
 
 ## Recuperar antes de descartar histórico
 
-A [prova local](state-recovery.md) preserva diretórios Delta completos. É uma escolha conservadora: ocupa mais espaço, mas evita escolher arquivos descartáveis sem saber quais versões antigas ainda dependem deles. Cópia fria, sem escritor concorrente, e destino novo permitem comparar bytes e publicações. O custo de recomputação é medido separadamente com históricos fixos; não usamos o volume sintético como justificativa automática para cluster ou processamento incremental.
+A [prova local](state-recovery.md) preserva diretórios Delta completos. É uma escolha conservadora: ocupa mais espaço, mas evita escolher arquivos descartáveis sem saber quais versões antigas ainda dependem deles. Cópia fria, sem escritor concorrente, e destino novo permitem comparar bytes e publicações. O custo de recomputação é medido separadamente com históricos fixos; não uso o volume sintético como justificativa automática para cluster ou processamento incremental.

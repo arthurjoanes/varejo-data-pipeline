@@ -1,7 +1,6 @@
 {
   "created_at": "2026-09-22T08:17:41.063915+00:00",
   "baseline_commit": "bff7a4ac5e9563c0a94fa81def27f3f4c7250853",
-  "branch": "codex/design-v3-20260922",
   "scope": "Offline frontend redesign; no new Spark, demo, benchmark or operational execution. Not committed or published at capture time.",
   "normalization": "sha256_raw hashes local bytes. sha256_lf replaces CRLF with LF without other transformations; text hashes can therefore be reproduced from Git-normalized blobs. PNG/WHL hashes are binary. Embedded CSS/JS use Python text reading, which normalizes CRLF. Worktree paths in comparison.json record the capture station.",
   "sources": [
@@ -87,13 +86,6 @@
       "bytes": 25622,
       "sha256_raw": "fdeb02036a2d4c36c4fb29aedcf42747da649ef3af0db600e708b08bdbb32bf3",
       "sha256_lf": "fdeb02036a2d4c36c4fb29aedcf42747da649ef3af0db600e708b08bdbb32bf3",
-      "crlf_count": 0
-    },
-    {
-      "path": "AGENTS.md",
-      "bytes": 1139,
-      "sha256_raw": "2b187b14cceb04891cbe9d8ce7591d5093c722d97c97c0903619f24c3a764351",
-      "sha256_lf": "2b187b14cceb04891cbe9d8ce7591d5093c722d97c97c0903619f24c3a764351",
       "crlf_count": 0
     }
   ],
@@ -649,5 +641,10 @@
     "Local file timings are not a production performance benchmark.",
     "Fixtures for incomplete, unknown, large and gap data test presentation only and are visibly labeled."
   ],
-  "visual_review": "Decision moved before metadata on mobile; one closure sheet; store coverage visible; publication identity within Indicators; store/day under chart at desktop without forced chart height; large values retain exact digits; single observed day remains visible; chronological gaps break the line; complete issue border and aligned toggles; files use labeled IDs and local table scrolling."
+  "visual_review": "Decision moved before metadata on mobile; one closure sheet; store coverage visible; publication identity within Indicators; store/day under chart at desktop without forced chart height; large values retain exact digits; single observed day remains visible; chronological gaps break the line; complete issue border and aligned toggles; files use labeled IDs and local table scrolling.",
+  "publication_note": {
+    "scope": "Public copy omits local branch metadata and one local workflow-instruction file from the source inventory. Operational facts, runtime source hashes, screenshot hashes and verification results are unchanged.",
+    "original_record_sha256": "c12ae6d987c2fbcf2c0705ae177e9c2c138e508714a9b2658dd7712224844bbe",
+    "original_retained": "Complete original preserved in the external publication audit; this edited copy is not the original record byte for byte."
+  }
 }
