@@ -4,6 +4,8 @@ O relatório é um snapshot: a geração consulta o manifesto uma vez, lê as ve
 
 A composição atual e a matriz completa das três vistas estão em [Qualidade da interface](frontend-quality.md). A [conferência das imagens](image-review.md) revalidou essa composição com a fonte atual. As capturas v2 e de jornadas abaixo documentam revisões anteriores, preservadas como histórico.
 
+Fontes desta seção, conferidas em **22/09/2026**: [report_view.py](../src/retail_pipeline/report_view.py) · [reporting.py](../src/retail_pipeline/reporting.py) · [review-manifest.json](evidence/interface-v4/review-manifest.json).
+
 ## Navegação
 
 **Execução** começa pela decisão da última tentativa. Quando falta S02.csv, o título informa o bloqueio, a linha seguinte identifica arquivo e loja, e **Conferir pendência** leva o foco à ocorrência. **Como retomar** explica a reposição dos bytes originais ou a criação de outro lote, conforme o caso. A publicação anterior fica em uma faixa neutra, com sua própria identidade.
@@ -18,6 +20,8 @@ As etapas medidas formam uma lista de tempos, sem um painel repetido para a etap
 
 Com JavaScript, a navegação seleciona um painel e conserva âncoras e histórico do navegador. Sem JavaScript, os três painéis aparecem em sequência e os detalhes nativos continuam disponíveis. Nenhuma biblioteca externa, fonte remota ou API é necessária. Source Sans 3 é embutida no HTML com sua licença OFL; a marca SVG é original e local.
 
+Fontes desta seção, conferidas em **22/09/2026**: [report_view.py](../src/retail_pipeline/report_view.py) · [reporting.py](../src/retail_pipeline/reporting.py) · [review-manifest.json](evidence/interface-v4/review-manifest.json).
+
 ## Estados que não podem se confundir
 
 - Tentativa bloqueada ou falha antes da publicação: a publicação anterior continua identificada, se existir; sem publicação, os indicadores ficam indisponíveis.
@@ -25,6 +29,8 @@ Com JavaScript, a navegação seleciona um painel e conserva âncoras e históri
 - Sem mudança: a tentativa preserva a publicação vigente.
 - Última falha anterior: fica separada da última tentativa e acessível como ocorrência histórica.
 - Execução sem resultado final: reflete o registro consultado, sem sugerir acompanhamento ao vivo.
+
+Fontes desta seção, conferidas em **22/09/2026**: [report_view.py](../src/retail_pipeline/report_view.py) · [reporting.py](../src/retail_pipeline/reporting.py) · [review-manifest.json](evidence/interface-v4/review-manifest.json).
 
 ## Capturas e reprodução
 
@@ -44,6 +50,8 @@ A verificação de navegador é `node scripts/visual-review.cjs`, com Playwright
 
 Layout atual com dados históricos: [execução](images/interface-v4/report.png), [bloqueio](images/interface-v4/blocked.png), [indicadores](images/interface-v4/indicators.png), [arquivos](images/interface-v4/files.png) e [tela estreita](images/interface-v4/report-390.png). Essas cinco imagens coincidiram byte a byte com a nova captura da fonte atual. As imagens `audit.png`, `empty.png` e `running.png` demonstram fixtures de apresentação, não novas execuções. [Conferência e limites](image-review.md), [evidência v4 original](evidence/interface-v4/review-manifest.json).
 
+Fontes desta seção, conferidas em **22/09/2026**: [demo.json](evidence/round-2/demo.json) · [benchmark.json](evidence/benchmark.json) · [payloads](evidence/interface/payloads).
+
 ## Revisão anterior de jornadas em 22/09
 
 No fechamento bloqueado, abra **Execução** e confira S02 ausente, duas de três lojas confirmadas e somente Ingestão medida. Em **Indicadores**, a publicação anterior conserva R$ 64,00. Em **Arquivos**, o ID da publicação e suas versões são distintos dos IDs da tentativa bloqueada. O mesmo percurso mantém R$ 57,00 no snapshot de falha anterior à publicação e R$ 77,00 depois da retomada.
@@ -52,12 +60,18 @@ A [revisão de jornadas](evidence/interface-journeys/review.json) conferiu esses
 
 Capturas dessa revisão: [bloqueio no celular](images/interface/journey-blocked-390.png), [indicadores após retomada](images/interface/journey-recovered-indicators.png) e [origem da publicação](images/interface/journey-published-files.png). Elas complementam as imagens anteriores; não substituem sua evidência histórica.
 
+Fontes desta seção, conferidas em **22/09/2026**: [review.json](evidence/interface-journeys/review.json).
+
 ## Refinamento anterior da apresentação em 22/09 (v2)
 
 A composição v2 usou navegação horizontal, diagnóstico no eixo principal e uma lista secundária de medições. Em telas estreitas, os painéis ocupam a mesma largura; títulos longos deixam o sinal de expansão em sua própria coluna. A borda de severidade pertence à ocorrência inteira, inclusive com o registro técnico aberto. A tipografia distingue decisão, conteúdo e metadados; valores não recebem animação. Hover e foco usam transições de 180 ms, removidas com `prefers-reduced-motion`.
 
 [Revisão do navegador](evidence/interface-v2/visual-review.json), [bloqueio com detalhes em desktop](images/interface-v2/blocked-expanded-1366.png), [o mesmo estado em 390 px](images/interface-v2/blocked-expanded-390.png) e [erros em registros](images/interface-v2/quality-mobile.png). A impressão mostra os três painéis e o conteúdo dos detalhes; a captura verifica CSS de impressão, sem certificar paginação de PDF. As provas anteriores e suas imagens continuam preservadas.
 
+Fontes desta seção, conferidas em **22/09/2026**: [visual-review.json](evidence/interface-v2/visual-review.json).
+
 ## Limpeza de regras sem consumidores
 
 Foram removidos dois seletores que não correspondiam ao HTML gerado e uma variável CSS sem uso. A composição e as capturas permanecem as mesmas. O [registro da limpeza](evidence/interface-v2/cleanup.json) descreve o delta e as verificações estáticas; as provas anteriores não foram reexecutadas nem substituídas.
+
+Fontes desta seção, conferidas em **22/09/2026**: [cleanup.json](evidence/interface-v2/cleanup.json).

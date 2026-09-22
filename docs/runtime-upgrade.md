@@ -1,6 +1,10 @@
 # Atualização do runtime — 22/09/2026
 
+Compatibilidade Spark 4.2/Delta 4.4 e artefato Scala 2.13 conferidos nas [notas oficiais Delta 4.4.0](https://github.com/delta-io/delta/releases/tag/v4.4.0) e no [runtime oficial Spark 4.2](https://spark.apache.org/docs/4.2.0/), consultados em **22/09/2026**. O suporte do upstream não certifica os rebuilds locais; estes dependem dos artefatos e testes identificados abaixo.
+
 O batch passou de Spark 3.5.9/Delta 3.2.1 para Spark 4.2.0/Delta 4.4.0, Scala 2.13 e Java 17. A combinação é publicada nas [notas oficiais Delta 4.4.0](https://github.com/delta-io/delta/releases/tag/v4.4.0). O artefato Java usado é `delta-spark_4.2_2.13`, específico para Spark 4.2. Nenhuma tabela é convertida ou apagada pelo build. A fixture de migração também foi exercitada: Spark 3.5.9/Delta 3.2.1 publicou R$ 64,00; o runtime novo releu esses arquivos, respondeu NO_CHANGE ao reenvio e publicou a correção de R$ 77,00, preservando leitura por versão anterior de R$ 64,00 e gerando HTML. [Resultado](evidence/runtime-migration.json) · [script reproduzível em duas fases](../scripts/verify_runtime_migration.py).
+
+Fontes desta seção, conferidas em **22/09/2026**: [runtime-migration.json](evidence/runtime-migration.json) · [verify_runtime_migration.py](../scripts/verify_runtime_migration.py).
 
 ## O que mudou fisicamente
 
@@ -10,16 +14,18 @@ O batch passou de Spark 3.5.9/Delta 3.2.1 para Spark 4.2.0/Delta 4.4.0, Scala 2.
 - A aplicação continua com Spark SQL, catálogo em memória, Delta por caminho, CLI Python, relatório, reprocessamento, cancelamento e recuperação. Hive metastore, servidor Thrift, Spark Connect REPL, Derby SQL/LDAP e shell Telnet não fazem parte desse runtime. Não use esta imagem como distribuição Spark genérica.
 - A ingestão ganhou orçamento configurável por arquivo/JSON/entrega e número de arquivos, contado durante a cópia. A evidência parcial é identificada explicitamente; veja [contrato](data-contract.md).
 
+Fontes desta seção, conferidas em **22/09/2026**: [Dockerfile](../Dockerfile) · [runtime-jars.lock.json](../runtime-jars.lock.json) · [jvm-rebuild.json](evidence/jvm-rebuild.json).
+
 ## Resultado do scan
 
 Trivy 0.74.0, sistema operacional + Python + JVM, sem filtro de severidade, exclusões de achados ou `ignore-unfixed`:
 
-| Imagem | Ocorrências JVM | IDs distintos | Critical | High | Medium | Low |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Anterior, Spark 3.5.9 | 145 | 111 | 5 | 61 | 69 | 10 |
-| Candidata Spark 4.2.0 sem os ajustes JVM | 94 | 54 | 3 | 35 | 56 | 0 |
-| Revisão anterior, antes dos rebuilds | 18 | 18 | 0 | 7 | 11 | 0 |
-| Imagem integrada atual, após os três rebuilds | 1 | 1 | 0 | 0 | 1 | 0 |
+| Imagem                                        | Ocorrências JVM | IDs distintos | Critical | High | Medium | Low |
+| --------------------------------------------- | --------------: | ------------: | -------: | ---: | -----: | --: |
+| Anterior, Spark 3.5.9                         |             145 |           111 |        5 |   61 |     69 |  10 |
+| Candidata Spark 4.2.0 sem os ajustes JVM      |              94 |            54 |        3 |   35 |     56 |   0 |
+| Revisão anterior, antes dos rebuilds          |              18 |            18 |        0 |    7 |     11 |   0 |
+| Imagem integrada atual, após os três rebuilds |               1 |             1 |        0 |    0 |      1 |   0 |
 
 As três primeiras linhas são históricas: o runtime Spark 3.5.9 foi medido em 21/09, e os candidatos Spark 4.2.0, em 22/09. A [comparação histórica dos scans](evidence/runtime-upgrade-scans.json), a [verificação anterior de hashes/remoções](evidence/runtime-jar-verification.json) e a [triagem antes dos rebuilds](evidence/security-triage-before-rebuild.json) preservam esse estado, quando os 18 achados ainda estavam presentes.
 
@@ -28,6 +34,8 @@ A última linha corresponde ao [scan integral atual](evidence/security-scan.json
 A [triagem atual](evidence/security-triage.json) acompanha individualmente os **18 achados originais**: 15 tratados por atualização de dependências, dois pela remoção integral de Jetty 9 do Hadoop e um pelo backport oficial de Commons Lang. Dezessete não aparecem no scan atual. **CVE-2025-48924/MEDIUM permanece visível** porque Commons Lang conserva os metadados 2.6; sua correção é sustentada pelo patch, hash e regressão comparativa descritos abaixo. Não é um resultado de zero achados, nem prova de ausência de vulnerabilidades.
 
 A suíte completa Spark/Delta passou na mesma imagem: **188 testes, zero falhas, erros ou testes ignorados**, em 1.003,963 segundos no JUnit. O executor registrou 1.005,949 segundos e confirmou que as fontes não mudaram durante a execução. [Resultado e hashes do snapshot](evidence/jvm-rebuild-full-suite.json) · [JUnit integral](evidence/jvm-rebuild-tests.xml). Essa prova corresponde à fonte **anterior à integração da UI `899c9f368aab100f0f41c1327161992149cfd2a3`**. Os 182 unitários, a demo e a migração da fonte combinada passaram; o CI integral do commit publicado é acompanhado separadamente. Não se atribuem os 188 testes à fonte posterior.
+
+Fontes desta seção, conferidas em **22/09/2026**: [runtime-upgrade-scans.json](evidence/runtime-upgrade-scans.json) · [runtime-jar-verification.json](evidence/runtime-jar-verification.json) · [security-triage-before-rebuild.json](evidence/security-triage-before-rebuild.json).
 
 ## Reconstruções identificadas
 
@@ -45,6 +53,8 @@ Os três artefatos têm nome e manifesto próprios. Nenhum é apresentado como u
 
 O primeiro build exige mais tempo, rede e espaço, pois recompila componentes. A manutenção dessas receitas é responsabilidade do projeto: cada atualização demanda revisar locks, repetir controles dirigidos e validar Spark/Delta, migração, demo, recuperação e scan integral. O CI reprova qualquer HIGH/CRITICAL, sem as exceções anteriores de perfil. O scan da imagem combinada passou esse gate e manteve o MEDIUM documentado. A suíte integrada passou em 188 casos antes de incorporar a interface. Depois da integração, passaram 182 unitários, demo completa e migração da imagem anterior, com publicação e leitura por versão preservadas. O CI repete a suíte integral do commit publicado. [Provas da fonte combinada](evidence/jvm-rebuild.json).
 
+Fontes desta seção, conferidas em **22/09/2026**: [security-triage.json](evidence/security-triage.json) · [jvm-rebuild.json](evidence/jvm-rebuild.json).
+
 ## Operação e verificação
 
 `setup` recompila o runtime e roda o smoke; `check` e `test` repetem as verificações do repositório. O scan e o gate de segurança continuam no CI. A comparação de hashes também garante que uma mudança futura do pacote PySpark interrompa os overrides em vez de misturar famílias silenciosamente.
@@ -53,6 +63,8 @@ Faça backup do volume de estado antes de atualizar uma instalação existente. 
 
 As evidências históricas constam em [verificação](verification.md), incluindo a suíte de 166 testes e o reteste focal após a preservação da referência aprovada em tentativas bloqueadas por orçamento. Esses resultados precedem os três rebuilds; os 188 testes vinculados acima validam as reconstruções no snapshot pré-UI. O [ensaio funcional de 30 mil linhas](evidence/remediation-benchmark.json) manteve os totais esperados; sua execução concorrente não permite comparar desempenho diretamente. As medições de benchmark e capturas de 21/09 também continuam históricas.
 
+Fontes desta seção, conferidas em **22/09/2026**: [remediation-benchmark.json](evidence/remediation-benchmark.json).
+
 ## Quando retirar uma reconstrução própria
 
 O objetivo de manutenção é voltar a um artefato oficial compatível quando ele carregar as correções necessárias. A existência de uma versão mais nova, isoladamente, não basta para substituir os JARs: é preciso conferir compatibilidade Spark/Delta/Hadoop, classes sombreadas e o perfil local suportado.
@@ -60,3 +72,5 @@ O objetivo de manutenção é voltar a um artefato oficial compatível quando el
 Para cada candidata, registrar origem e hash; comparar inventário/classes/APIs contra o contrato do componente; repetir suas regressões dirigidas e os controles negativos pertinentes; depois validar leitura das publicações anteriores, demo, migração, recuperação e suíte Spark/Delta. O scan integral precisa conservar os metadados e os achados, com o gate HIGH/CRITICAL existente. Somente após esses resultados o lock e a receita podem adotar a candidata e retirar a substituição local correspondente.
 
 Essa é uma condição de evolução, não uma nova release encontrada ou validada nesta rodada. A manutenção custa revisão de dependências, build, armazenamento e testes; não há tempo de atualização comercial medido. O MEDIUM por versão de Commons Lang continua visível no scan identificado acima, sustentado separadamente por patch e regressão. “Zero HIGH/CRITICAL” não significa “zero vulnerabilidades”.
+
+Fontes desta seção, conferidas em **22/09/2026**: [Dockerfile](../Dockerfile) · [runtime-jars.lock.json](../runtime-jars.lock.json) · [jvm-rebuild.json](evidence/jvm-rebuild.json).
