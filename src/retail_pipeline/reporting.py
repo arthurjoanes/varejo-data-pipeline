@@ -79,6 +79,7 @@ def generate_report(
         product_frame = frames["gold_product_day"]
         summary = (
             store_frame.agg(
+                F.count(F.lit(1)).alias("_store_day_rows"),
                 F.sum("net_revenue_brl").alias("net_revenue_brl"),
                 F.sum("units").alias("units"),
                 F.sum("item_lines").alias("item_lines"),
@@ -90,6 +91,11 @@ def generate_report(
             .collect()[0]
             .asDict()
         )
+        # SUM over a confirmed empty publication returns null in Spark. These
+        # additive totals are known zeros; an absent metric in a nonempty
+        # publication must remain absent. Dates and the undefined ticket stay null.
+        if summary.pop("_store_day_rows") == 0:
+            summary.update(net_revenue_brl=Decimal("0.00"), units=0, item_lines=0, sales_count=0)
         sales = Decimal(str(summary.get("sales_count") or 0))
         summary["average_ticket_brl"] = (
             Decimal(str(summary.get("net_revenue_brl") or 0)) / sales if sales else None
