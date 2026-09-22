@@ -6,6 +6,8 @@ Valide a entrega das lojas e as revisões de vendas antes de publicar o fechamen
 
 Uma soma correta pode esconder uma loja faltando ou contar a mesma venda em dois dias. O operador aprova o calendário de lojas esperadas; o pipeline confere a entrega e as revisões antes de fechar. Um bloqueio ou uma falha antes da publicação mantém os indicadores anteriores. [Problema e solução](docs/problem-solution.md).
 
+**Exemplo:** a venda A1 tem dois itens, de R$ 19,00 e R$ 5,00. Mover só o primeiro para o dia seguinte mantém R$ 24,00, mas passa a contar a mesma venda nos dois dias. O projeto bloqueia essa revisão com `SALE_DATE_CONFLICT`. Corrigir os dois itens juntos mantém uma venda e move os R$ 24,00 para o dia correto. O [caso completo](docs/problem-solution.md#exemplo-uma-soma-certa-com-a-contagem-errada) liga a entrada, a regra e o teste que a verifica.
+
 ## O que conferir na demonstração
 
 | Situação | Resultado observável |
@@ -42,6 +44,8 @@ Compare `artifacts/report.html`, `blocked-report.html` e `failure-report.html`. 
 ## Como a publicação é protegida
 
 Silver e gold são recalculadas a partir do histórico aceito a cada lote. Erro financeiro ou de cobertura bloqueia o lote inteiro. Uma entrega nova não pode reduzir as lojas esperadas; alterar esse calendário exige estado novo.
+
+A saída oficial é um manifesto que aponta para versões exatas das tabelas. Isso resolve a falha em que a tabela por loja já foi gravada, mas a tabela por produto ainda não: leitores continuam nas versões anteriores até a troca do manifesto. Recompor o histórico simplifica essa recuperação e as correções de data, ao custo de reler mais dados a cada lote. [Decisões, motivos, código e limites](docs/decisoes-tecnicas.md#onde-as-decisões-aparecem-no-código).
 
 `CANCEL` mantém o histórico e retira o item dos indicadores. Somente `UPSERT` com revisão maior pode reativá-lo. A CLI retorna 0 para publicação ou lote sem mudança, 2 para bloqueio de qualidade ou argumento inválido e 3 para falha técnica. [Contrato](docs/data-contract.md) · [Arquitetura](docs/architecture.md).
 

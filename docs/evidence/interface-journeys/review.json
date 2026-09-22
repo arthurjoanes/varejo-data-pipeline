@@ -1,0 +1,167 @@
+{
+  "reviewed_at": "2026-09-22T04:34:31.845Z",
+  "browser": "153.0.4234.48",
+  "project": "varejo-data-pipeline",
+  "scope": "Offline rendering and browser user journeys; no Spark, database, Docker operations, build or live services.",
+  "widths": [
+    1440,
+    390,
+    320
+  ],
+  "checks": [
+    {
+      "journey": "blocked-report",
+      "width": 1440,
+      "revenue": 64,
+      "publication_id": "621d7fb736634744b8f3eec3936ad812",
+      "table_rows": 2,
+      "versions": "matched",
+      "keyboard_scroll": false
+    },
+    {
+      "journey": "failure-report",
+      "width": 1440,
+      "revenue": 57,
+      "publication_id": "bb07bb8cdc4440b48c2a2fc7cc867747",
+      "table_rows": 1,
+      "versions": "matched",
+      "keyboard_scroll": false
+    },
+    {
+      "journey": "report",
+      "width": 1440,
+      "revenue": 77,
+      "publication_id": "8c16b42bd9c2491596b7e92442047123",
+      "table_rows": 2,
+      "versions": "matched",
+      "keyboard_scroll": false
+    },
+    {
+      "journey": "blocked-report",
+      "width": 390,
+      "revenue": 64,
+      "publication_id": "621d7fb736634744b8f3eec3936ad812",
+      "table_rows": 2,
+      "versions": "matched",
+      "keyboard_scroll": false
+    },
+    {
+      "journey": "failure-report",
+      "width": 390,
+      "revenue": 57,
+      "publication_id": "bb07bb8cdc4440b48c2a2fc7cc867747",
+      "table_rows": 1,
+      "versions": "matched",
+      "keyboard_scroll": false
+    },
+    {
+      "journey": "report",
+      "width": 390,
+      "revenue": 77,
+      "publication_id": "8c16b42bd9c2491596b7e92442047123",
+      "table_rows": 2,
+      "versions": "matched",
+      "keyboard_scroll": false
+    },
+    {
+      "journey": "blocked-report",
+      "width": 320,
+      "revenue": 64,
+      "publication_id": "621d7fb736634744b8f3eec3936ad812",
+      "table_rows": 2,
+      "versions": "matched",
+      "keyboard_scroll": true
+    },
+    {
+      "journey": "failure-report",
+      "width": 320,
+      "revenue": 57,
+      "publication_id": "bb07bb8cdc4440b48c2a2fc7cc867747",
+      "table_rows": 1,
+      "versions": "matched",
+      "keyboard_scroll": true
+    },
+    {
+      "journey": "report",
+      "width": 320,
+      "revenue": 77,
+      "publication_id": "8c16b42bd9c2491596b7e92442047123",
+      "table_rows": 2,
+      "versions": "matched",
+      "keyboard_scroll": true
+    },
+    {
+      "fixture": "empty-fixture",
+      "context": "Nenhum fechamento publicado. Consulte a tentativa para entender o resultado da entrega."
+    },
+    {
+      "fixture": "running-fixture",
+      "context": "Execução sem resultado final no registro consultado. Esta página não acompanha a execução em tempo real."
+    },
+    {
+      "fixture": "audit-fixture",
+      "context": "Publicação disponível, com registro final da tentativa incompleto. As métricas ausentes estão indicadas como indisponíveis."
+    },
+    {
+      "journey": "volume/no-JS/print/reflow",
+      "store_rows": 360,
+      "amount": 1141858.51,
+      "panels_no_js": 3,
+      "print_panels": 3
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/images/interface/journey-blocked-390.png",
+      "sha256": "3a272571363866b894a2c3ec30dd2a9aff55f89f91a5c7c4d2ec34d882a0ea9d"
+    },
+    {
+      "path": "docs/images/interface/journey-recovered-indicators.png",
+      "sha256": "7d072911397cc40152a6eca15b078fe656b0325e01af136e88616c28a95f2312"
+    },
+    {
+      "path": "docs/images/interface/journey-published-files.png",
+      "sha256": "1446aaa57cbe42deb9ffc0fe52c3def14204ce88320dcddb6421a09042fe1b0a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/evidence/interface/payloads/blocked-report.json",
+      "sha256": "0d68964b7b94aabd4e40c2bba7af63042bdb55d7b0d6447e846a58dfef1de2d6"
+    },
+    {
+      "path": "docs/evidence/interface/payloads/failure-report.json",
+      "sha256": "59bfb9a4d8782468871fbb812d1a785fe23ab63716e99d9e34a75d7d1dca927e"
+    },
+    {
+      "path": "docs/evidence/interface/payloads/report.json",
+      "sha256": "6c2867579c88fdf76650ecc4ed70feae2cfd295f2ea0c3fc13fbcc789fa32dca"
+    }
+  ],
+  "errors": [],
+  "limits": "Keyboard and browser DOM checks, not a screen reader audit. CSS zoom 200% and 640px reflow, not native browser zoom. Historical runtime proofs were not repeated.",
+  "status": "passed",
+  "source_revision": "899c9f368aab100f0f41c1327161992149cfd2a3",
+  "source_files": [
+    {
+      "path": "src/retail_pipeline/report_view.py",
+      "sha256": "dd1fc0c6cb7a132f1d3313fc0defa239efb5e4e229edac6efa96be329713037a"
+    },
+    {
+      "path": "src/retail_pipeline/report_model.py",
+      "sha256": "cbeae3a60a1a32c2cdcec2fea1bb0e94fd65ff4d81131b0cadec1aebf1f39f00"
+    },
+    {
+      "path": "src/retail_pipeline/report.css",
+      "sha256": "160f74c727fa982186b7f035a46dcb6d2c848b2a17667b9ee8010896a54763af"
+    },
+    {
+      "path": "src/retail_pipeline/report.js",
+      "sha256": "333b42a324bd554b814a1407d664ff13b1c0977f391ac44680ca1231e909dec5"
+    },
+    {
+      "path": "scripts/render_review.py",
+      "sha256": "aa8072eb311707f98b2619fa0a36b9a64a18f49e8e36be6aba27ba74a27c75a7"
+    }
+  ]
+}

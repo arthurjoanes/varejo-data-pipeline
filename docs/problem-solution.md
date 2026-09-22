@@ -4,6 +4,26 @@ Uma rede precisa fechar vendas sem transformar uma entrega incompleta ou uma cor
 
 O operador aprova cadastro/calendário separadamente da entrega; o pipeline aceita apenas revisões de lotes publicados mais o candidato integralmente aprovado, mantém os itens ativos da mesma venda no mesmo dia comercial e publica um manifesto com versões Delta fixas. O consumidor captura esse manifesto uma vez. A decisão observável é publicar o fechamento ou bloquear e continuar servindo o anterior, com motivo e origem de cada indicador.
 
+## Da entrega ao indicador
+
+As quatro linhas de [`fixture_rows`](../src/retail_pipeline/generation.py) permitem conferir o fechamento sem Spark: S01/A1 tem `2 × 10 − 1 = 19` e `1 × 5 = 5`; S01/A2 tem `3 × 7,50 − 2,50 = 20`; S02/B1 tem `1 × 20 = 20`. São **R$ 64,00, sete unidades e três vendas**, embora existam quatro itens. S03 confirma zero movimento; ela não é uma loja esquecida no cálculo.
+
+A ingestão preserva os arquivos e confere o contrato em [`prepare_batch`](../src/retail_pipeline/ingestion.py). A execução valida o estado candidato em [`_process`](../src/retail_pipeline/pipeline.py); [`current_state` e `gold_tables`](../src/retail_pipeline/transformations.py) escolhem a revisão de cada item e calculam os recortes. Só depois da reconciliação, [`publish`](../src/retail_pipeline/publication.py) torna as versões visíveis. O [teste da fixture](../tests/unit/test_generation.py) confere a aritmética; a [jornada integrada](../tests/integration/test_pipeline.py) verifica publicação, replay, correção, cancelamento e reativação.
+
+## Exemplo: uma soma certa com a contagem errada
+
+Na entrada inicial, os dois itens de A1 pertencem a 01/01. Uma revisão 99 muda apenas o item de R$ 19,00 para 02/01. Somar a entrada ainda dá R$ 64,00, mas agrupar vendas por dia passa de três para quatro: A1 aparece nos dois dias. Comparar somente totais financeiros deixaria o erro passar.
+
+O pipeline agrupa o estado candidato por origem, loja e venda, antes de gravar as saídas candidatas. Se seus itens ativos ocupam mais de um dia comercial, bloqueia o lote inteiro com `SALE_DATE_CONFLICT`. A última publicação continua em R$ 64,00 e três vendas. Uma revisão 2 posterior que move **os dois** itens de A1 é aceita: a revisão 99 rejeitada não faz parte do histórico elegível. O resultado é S01/01-01 = R$ 20,00, S02/01-01 = R$ 20,00 e S01/02-01 = R$ 24,00, uma venda em cada linha. O [teste de negócio](../tests/integration/test_business_thesis.py), `test_independent_coverage_whole_sale_correction_and_recovery`, executa o contraexemplo e a correção.
+
+## Exemplo: gravar uma tabela não publica o fechamento
+
+No mesmo teste, aumentar a quantidade do primeiro item de A1 de dois para três deveria elevar o total a R$ 74,00. Uma falha injetada após gravar o gold por loja deixa fisicamente **R$ 74,00 por loja e R$ 64,00 por produto** nas versões mais recentes. Consultar `latest` diretamente misturaria resultados incompatíveis.
+
+O manifesto ainda aponta para as duas versões anteriores, ambas com R$ 64,00. A retomada reconstrói o candidato e publica R$ 74,00; repetir a mesma entrega retorna `NO_CHANGE`. Um leitor que guardou o manifesto inicial continua lendo R$ 64,00. Isso é verificado com leituras reais de versões Delta no [mesmo teste](../tests/integration/test_business_thesis.py). O exemplo é distinto da [demo de cancelamento e reativação](demo.md), que termina em R$ 77,00.
+
+Para conferir a decisão na interface, comece em **Execução**, leia a ocorrência e a cobertura, depois abra **Indicadores** e **Arquivos**. A tentativa explica o que aconteceu; o ID e as versões da publicação dizem a quais dados os números pertencem. [Guia da interface](interface.md).
+
 ## Regras adotadas
 
 | Situação | Regra | Resultado esperado |
