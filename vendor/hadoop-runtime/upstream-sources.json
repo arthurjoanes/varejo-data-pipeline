@@ -1,0 +1,25 @@
+{
+  "tag": "rel/release-3.5.0",
+  "sources": [
+    {
+      "path": "upstream/runtime.pom.xml",
+      "url": "https://raw.githubusercontent.com/apache/hadoop/rel/release-3.5.0/hadoop-client-modules/hadoop-client-runtime/pom.xml",
+      "sha256": "f5a1580fde7a4fd89513c6ed94027236b6a4e27eaf5147e1e8711d72c468c8de"
+    },
+    {
+      "path": "upstream/project.pom.xml",
+      "url": "https://raw.githubusercontent.com/apache/hadoop/rel/release-3.5.0/hadoop-project/pom.xml",
+      "sha256": "592faadca05d91d7339323b02494d39955a8f08909ecbe893518debbf58453d7"
+    },
+    {
+      "path": "upstream/LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/apache/hadoop/rel/release-3.5.0/LICENSE.txt",
+      "sha256": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+    },
+    {
+      "path": "upstream/NOTICE.txt",
+      "url": "https://raw.githubusercontent.com/apache/hadoop/rel/release-3.5.0/NOTICE.txt",
+      "sha256": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+    }
+  ]
+}

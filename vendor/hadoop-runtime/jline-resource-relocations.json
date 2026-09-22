@@ -1,0 +1,30 @@
+[
+  {
+    "input_artifact": "org.jline:jline:3.30.17",
+    "resource": "META-INF/jline/providers/dumb",
+    "original_sha256": "48252719e3f40a0eb6197ce9ad989c179103b807e91b17f31868c0835ce08056",
+    "relocated_sha256": "cae213d2925cf5a1524845ce57d75e40e1cc623eaef6e55ce40b648a72150a5f",
+    "change": "Relocate provider class value to the existing Hadoop shading namespace. Preserve complete provider resource."
+  },
+  {
+    "input_artifact": "org.jline:jline:3.30.17",
+    "resource": "META-INF/jline/providers/exec",
+    "original_sha256": "cc3e8b83e01f2550d8e9369b3763ab42b88122667cfa3f85998d252871e18b86",
+    "relocated_sha256": "4eef99f09893d7ed87b335e6ca6f75fbcc97231d84e33bc7e53f723c02cd89cc",
+    "change": "Relocate provider class value to the existing Hadoop shading namespace. Preserve complete provider resource."
+  },
+  {
+    "input_artifact": "org.jline:jline:3.30.17",
+    "resource": "META-INF/jline/providers/ffm",
+    "original_sha256": "ada38b6c74ee716d369c9f462f719d1872425b09809859d7531da53c1b6d991c",
+    "relocated_sha256": "73e5477155c4ee5d3dc386bfcdda6356c7ceb97c93c5ef96bc8cec73d7a17603",
+    "change": "Relocate provider class value to the existing Hadoop shading namespace. Preserve complete provider resource."
+  },
+  {
+    "input_artifact": "org.jline:jline:3.30.17",
+    "resource": "META-INF/jline/providers/jni",
+    "original_sha256": "7ec5c51d27102bdc4a083a76de447eb2c519424f4d8caf72e2ab9bbeebd52757",
+    "relocated_sha256": "20bede744e2758bcad25cc43c1833a79d15cdde4017d7c592c115f316d563f6f",
+    "change": "Relocate provider class value to the existing Hadoop shading namespace. Preserve complete provider resource."
+  }
+]

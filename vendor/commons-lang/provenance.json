@@ -1,0 +1,58 @@
+{
+  "artifacts": {
+    "baseline": {
+      "filename": "commons-lang-2.6.jar",
+      "sha256": "50f11b09f877c294d56f24463f47d28f929cf5044f648661c0f0cfbae9a2f49c",
+      "size_bytes": 284220,
+      "url": "https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"
+    },
+    "junit": {
+      "filename": "junit-3.8.2.jar",
+      "sha256": "ecdcc08183708ea3f7b0ddc96f19678a0db8af1fb397791d484aed63200558b0",
+      "size_bytes": 120640,
+      "url": "https://repo.maven.apache.org/maven2/junit/junit/3.8.2/junit-3.8.2.jar"
+    },
+    "patch": {
+      "filename": "CVE-2025-48924.patch",
+      "sha256": "f91b65239f657ebe759fe9c94dfe1f79d9967ea53f527c5f88c00c2aab050856",
+      "size_bytes": 4363,
+      "url": "https://github.com/apache/commons-lang/commit/904afa78cc58e2897f47eeac0781c3ba6f95b5e6.patch"
+    },
+    "source": {
+      "filename": "commons-lang-source.tar.gz",
+      "sha256": "2cbd1ae1d523522355cae48a029a4da96b56439d88be14f257f0e4a2f4b9dedc",
+      "size_bytes": 556298,
+      "url": "https://codeload.github.com/apache/commons-lang/tar.gz/0fe6a434f20b45c027badd89bd393dd4085cf1f2"
+    },
+    "test_compiler": {
+      "filename": "ecj-3.33.0.jar",
+      "scope": "Test-only compiler: unmodified legacy org.apache.commons.lang.enum package requires pre-Java-5 source syntax; runtime ClassUtils is compiled with javac 17.0.20 --release 8",
+      "sha256": "f7686c4960cf70c2ebc5c500a73a8cfc04541b730c18f1c5c21329889b137f45",
+      "size_bytes": 3160927,
+      "url": "https://repo.maven.apache.org/maven2/org/eclipse/jdt/ecj/3.33.0/ecj-3.33.0.jar"
+    }
+  },
+  "class_sha256": "0c86237834fe82ad21d411fdd0a73570a0a4980d2e621b11cc8ef8095f98b159",
+  "cve": "CVE-2025-48924",
+  "fixed_timestamp": "2025-11-13T17:00:26Z",
+  "patch_identity": "varejo-commons-lang-2.6-classutils-v1",
+  "patched_source_sha256": {
+    "src/main/java/org/apache/commons/lang/ClassUtils.java": "1b86834739df2a8df3883c7d97ac9a99b7d773133f6594ac6b900e37fa82fd87",
+    "src/test/java/org/apache/commons/lang/ClassUtilsTest.java": "029f8d980c619f3e081f0c6eb020665337c2acbe717a19efbc5001c5823e176e"
+  },
+  "schema_version": 1,
+  "scope": "Official ClassUtils.getClass recursion fix only; all other upstream members retained byte-for-byte.",
+  "toolchain": {
+    "base_image": "python:3.11.16-alpine3.24@sha256:cd04730b8511def3fbf14204d66a0c1536f290b8e896ed5a94cd64cb15ac1356",
+    "compiler_modules_sha256": "1da311e1793207684176733fb97d8cfdda693fec3a47e8248c4509a56aeed25d",
+    "java": "openjdk version \"17.0.20\" 2026-07-21\nOpenJDK Runtime Environment (build 17.0.20+8-alpine-r0)\nOpenJDK 64-Bit Server VM (build 17.0.20+8-alpine-r0, mixed mode, sharing)",
+    "javac": "javac 17.0.20",
+    "javac_binary_sha256": "f25287fad9d135bff9077cc54f9e50efcbba9a758e5cea31f63734db88859f4e",
+    "jdk_package": "openjdk17-jdk=17.0.20_p8-r0",
+    "release": 8
+  },
+  "upstream_commit": "0fe6a434f20b45c027badd89bd393dd4085cf1f2",
+  "upstream_patch_commit": "904afa78cc58e2897f47eeac0781c3ba6f95b5e6",
+  "upstream_tag": "LANG_2_6",
+  "upstream_version": "2.6"
+}

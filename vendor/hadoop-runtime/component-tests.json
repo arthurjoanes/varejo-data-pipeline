@@ -1,0 +1,32 @@
+{
+  "returncode": 0,
+  "network": "none",
+  "memory_limit_mib": 512,
+  "stdout": "PASS local-fs sequence-file jackson-roundtrip jackson-chunk-budget yaml-hierarchy-normal yaml-hierarchy-cycle jline-dumb jetty-absent\n",
+  "source_sha256": "91ff512fcb933312dac850ef7e55b7031776b013ed51883a283f66627807001a",
+  "external_dependencies": {
+    "matches_runtime_image": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
+    "artifacts": [
+      {
+        "artifact": "hadoop-client-api-3.5.0.jar",
+        "url": "https://repo.maven.apache.org/maven2/org/apache/hadoop/hadoop-client-api/3.5.0/hadoop-client-api-3.5.0.jar",
+        "sha256": "cc59446ec9ebaceae56fdb8d8c21477766dc5d426325642151c796bec5c4e6b7"
+      },
+      {
+        "artifact": "jcl-over-slf4j-2.0.17.jar",
+        "url": "https://repo.maven.apache.org/maven2/org/slf4j/jcl-over-slf4j/2.0.17/jcl-over-slf4j-2.0.17.jar",
+        "sha256": "affd06771589ebfe454bb11315a4f466ecaa135b95f3e7939534cf1d2fd7064c"
+      },
+      {
+        "artifact": "slf4j-api-2.0.17.jar",
+        "url": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar",
+        "sha256": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832"
+      },
+      {
+        "artifact": "snappy-java-1.1.10.8.jar",
+        "url": "https://repo.maven.apache.org/maven2/org/xerial/snappy/snappy-java/1.1.10.8/snappy-java-1.1.10.8.jar",
+        "sha256": "50485d06037fea3d6e40c968386feeca6338cc9872e25549593ff3eb352cefcc"
+      }
+    ]
+  }
+}

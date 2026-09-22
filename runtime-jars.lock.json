@@ -1,7 +1,7 @@
 {
   "reviewed_at": "2026-09-22",
   "base": "pyspark==4.2.0",
-  "policy": "Replace complete upstream artifacts, preserve Maven metadata; all replacements require full Spark/Delta integration tests and image scan.",
+  "policy": "Replace complete upstream artifacts or explicitly identified reproducible local rebuilds; preserve actual Maven identities and embedded provenance. Original, replacement and provenance hashes are mandatory. Require full Spark/Delta integration tests and unfiltered image scan; any HIGH/CRITICAL finding fails CI.",
   "replacements": [
     {
       "source": "jackson-core-2.21.2.jar",
@@ -429,6 +429,35 @@
       "path": "jline-2.14.6.jar",
       "sha256": "97d1acaac82409be42e622d7a54d3ae9d08517e8aefdea3d2ba9791150c2f02d",
       "reason": "Interactive JVM shell and Telnet server are not used by the Python batch CLI."
+    }
+  ],
+  "rebuilt_components": [
+    {
+      "component": "commons-lang",
+      "source": "commons-lang-2.6.jar",
+      "source_sha256": "50f11b09f877c294d56f24463f47d28f929cf5044f648661c0f0cfbae9a2f49c",
+      "target": "commons-lang-2.6-retail-classutils-v1.jar",
+      "sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05",
+      "provenance_path": "META-INF/varejo-commons-lang.json",
+      "provenance_sha256": "cde6bb4d78ceddc14812dcee5a8064815b45366cdfcff1dc3fd9fae515dbe07d"
+    },
+    {
+      "component": "spark-core",
+      "source": "spark-core_2.13-4.2.0.jar",
+      "source_sha256": "8e0a03b66338a4a38c9089d9f798ab6a6c6583aefe93f910311704a5ec90ffc4",
+      "target": "spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+      "sha256": "5f0a0669ad6b7e3fda0d46fab28522d59b5d6accda78cf559457b719b2744901",
+      "provenance_path": "META-INF/varejo-spark-core.json",
+      "provenance_sha256": "78f441f425fdc5542009d2f57a3b91939f93aaad5d7f3d2fe0ae90a43389cbaa"
+    },
+    {
+      "component": "hadoop-runtime",
+      "source": "hadoop-client-runtime-3.5.0.jar",
+      "source_sha256": "b7db3e60c5df1cd37c2995b3e0142e57487260706834e5325bbe0a5e683eedf1",
+      "target": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d"
     }
   ]
 }

@@ -1,379 +1,1044 @@
 {
-  "reviewed_at": "2026-09-22",
-  "image_id": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
-  "method": "Análise das precondições dos advisories, configuração local e testes de isolamento; não é reprodução de cada CVE. Todos os achados abaixo permanecem no binário.",
-  "scope": "Batch Docker local, sem rede, catálogo em memória, estado Delta produzido pelo pipeline e controlado pelo operador.",
+  "schema_version": 1,
+  "status": "INTEGRATED_SCAN_AND_SUITE_PASSED_PRE_UI",
+  "updated_at_utc": "2026-09-22T04:11:12.448370+00:00",
+  "base_commit": "60e0ff335efe6b119cac238aef9ffa8df69c035c",
+  "candidate_commit": null,
+  "original_triage_image_id": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
+  "method": "Mapeamento individual dos 18 achados originais para código e versões presentes nos JARs reconstruídos, hashes, proveniência, provas de componente e scan da imagem integrada. Não é reprodução de todos os CVEs.",
+  "scope": "Produto original: batch local Spark/Delta. Remoção Jetty 9 não certifica funcionalidades Hadoop de servidor/Hive/Connect fora desse escopo. A suíte completa aprovada corresponde ao snapshot anterior à integração de UI 899c9f3, identificado na evidência publicada.",
+  "summary": {
+    "original_findings": 18,
+    "original_severity": {
+      "HIGH": 7,
+      "MEDIUM": 11
+    },
+    "treatments": {
+      "upstream_dependency_upgrade": 15,
+      "official_backport_version_match_retained": 1,
+      "whole_component_removal": 2
+    },
+    "original_findings_absent_from_final_scan": 17,
+    "original_findings_still_reported": 1,
+    "still_reported_ids": [
+      "CVE-2025-48924"
+    ],
+    "zero_findings_claim": false
+  },
+  "final_image_scan": {
+    "status": "COMPLETED",
+    "file": {
+      "evidence_ref": "final_image_scan",
+      "path": "security-scan.json",
+      "published": true,
+      "sha256_exact": "407549ed22a8e964d587edd6359562989c1c9cc84d769228eeeb839da8d47143"
+    },
+    "image_id": "sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3",
+    "created_at": "2026-09-22T03:52:56.391082936Z",
+    "scanner": "Trivy 0.74.0",
+    "inventory": [
+      {
+        "type": "alpine",
+        "package_count": 52,
+        "findings": 0
+      },
+      {
+        "type": "jar",
+        "package_count": 441,
+        "findings": 1
+      },
+      {
+        "type": "python-pkg",
+        "package_count": 28,
+        "findings": 0
+      }
+    ],
+    "severities": {
+      "MEDIUM": 1
+    },
+    "high_critical_count": 0,
+    "invocation": "Scan integral sem exclusões de achados; atualização da base não desabilitada. Gate estrito para HIGH/CRITICAL; o MEDIUM permanece no relatório."
+  },
+  "full_pipeline_validation": {
+    "status": "PASSED_PRE_UI_SOURCE",
+    "same_image_id": "sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3",
+    "result": "passed",
+    "tests": 188,
+    "note": "Os 188 testes foram executados na imagem identificada e no snapshot source_sha256 de jvm-rebuild-full-suite.json, antes de incorporar o commit UI 899c9f368aab100f0f41c1327161992149cfd2a3. Não atribuir este resultado a fontes posteriores.",
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_duration_seconds": 1003.963,
+    "wrapper_duration_seconds": 1005.949,
+    "source_unchanged": true,
+    "evidence_ref": "integrated_full_suite",
+    "junit_evidence_ref": "integrated_full_suite_junit",
+    "source_fingerprint_scope": "source_sha256 conserva os hashes do snapshot registrados pelo executor; não é uma afirmação de igualdade com fontes posteriores ou com blobs Git após normalização de quebras de linha."
+  },
+  "component_evidence": {
+    "commons-lang": {
+      "component": "commons-lang",
+      "source": "commons-lang-2.6.jar",
+      "source_sha256": "50f11b09f877c294d56f24463f47d28f929cf5044f648661c0f0cfbae9a2f49c",
+      "target": "commons-lang-2.6-retail-classutils-v1.jar",
+      "sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05",
+      "provenance_path": "META-INF/varejo-commons-lang.json",
+      "provenance_sha256": "cde6bb4d78ceddc14812dcee5a8064815b45366cdfcff1dc3fd9fae515dbe07d",
+      "jar_and_embedded_provenance_hashes_verified_in_this_review": true,
+      "upstream_base": "commons-lang:commons-lang:2.6",
+      "patch_commit": "904afa78cc58e2897f47eeac0781c3ba6f95b5e6",
+      "changed_class": "org/apache/commons/lang/ClassUtils.class",
+      "unchanged_original_entries": 154,
+      "public_protected_api_unchanged": true,
+      "component_test_count": 44,
+      "regression_included_in_44": true,
+      "negative_control": "Original apresenta StackOverflowError em testGetClassSOE; o candidato passa.",
+      "full_upstream_suite": {
+        "tests": 1974,
+        "baseline_failures": 21,
+        "baseline_errors": 9,
+        "patched_failures": 21,
+        "patched_errors": 8,
+        "status": "FAILED",
+        "interpretation": "Os mesmos 29 problemas de caso/tipo permanecem além da regressão corrigida; não é uma aprovação da suíte completa."
+      },
+      "current_recipe_retest_scope": "44 casos ClassUtils e regressão oficial; suíte completa histórica, antes das alterações equivalentes de formatação documentadas em verification.json."
+    },
+    "spark-core": {
+      "component": "spark-core",
+      "source": "spark-core_2.13-4.2.0.jar",
+      "source_sha256": "8e0a03b66338a4a38c9089d9f798ab6a6c6583aefe93f910311704a5ec90ffc4",
+      "target": "spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+      "sha256": "5f0a0669ad6b7e3fda0d46fab28522d59b5d6accda78cf559457b719b2744901",
+      "provenance_path": "META-INF/varejo-spark-core.json",
+      "provenance_sha256": "78f441f425fdc5542009d2f57a3b91939f93aaad5d7f3d2fe0ae90a43389cbaa",
+      "jar_and_embedded_provenance_hashes_verified_in_this_review": true,
+      "upstream_base": "org.apache.spark:spark-core_2.13:4.2.0",
+      "jetty_modules": 14,
+      "jetty_version": "12.1.13",
+      "component_tests": [
+        {
+          "baseline_regression_detected": true,
+          "uri_cases_correct": 0
+        },
+        {
+          "uri_regressions": 3,
+          "in_memory_http_cases": 3,
+          "network_listener": false,
+          "result": "passed"
+        }
+      ],
+      "spark_class_inventory": {
+        "upstream_count": 2981,
+        "rebuilt_count": 2981,
+        "missing": [],
+        "added": []
+      },
+      "reproduction": "Compilação limpa sem rede reproduziu o SHA do JAR; Maven package 7m17s.",
+      "changed_security_relevant_classes": {
+        "org/sparkproject/jetty/security/authentication/DigestAuthenticator.class": {
+          "original_sha256": "6415a08785216aecb7eeb85da5862229df01578070307001fe59f4c7ede0b139",
+          "rebuilt_sha256": "5dcac646573459393fa67d0c04ab9eec2fd62526e9e35b7cc9a39a171897388b"
+        },
+        "org/sparkproject/jetty/server/internal/HttpConnection$RequestHandler.class": {
+          "original_sha256": "a3b8760fd16d53c7661b349d00bdb2b4751736cda48ed995ed4beee04e183696",
+          "rebuilt_sha256": "acdd4d166913d39562db907cb7dbf1b3f16be06b15a3a854e067cc94eeebc579"
+        },
+        "org/sparkproject/jetty/server/internal/HttpChannelState.class": {
+          "original_sha256": "d2a637096aee352998734cb6d7bc1cc99952c06d5789613edcc2010e580f944e",
+          "rebuilt_sha256": "ae78bda0f6268515ea137e4e3963738fdc122c9d4ce0d9cbef8be1af8cbd0d81"
+        },
+        "org/sparkproject/jetty/util/URIUtil.class": {
+          "original_sha256": "0c27e48b7a8833cc1d2231032e8a9552595fb76ed1624f4e63d02cb33358d804",
+          "rebuilt_sha256": "8789f09bcd025c5c02b4a1afdae77f8dd3fdba75c6e7d1f84137bd4dfcfda6e3"
+        }
+      }
+    },
+    "hadoop-runtime": {
+      "component": "hadoop-runtime",
+      "source": "hadoop-client-runtime-3.5.0.jar",
+      "source_sha256": "b7db3e60c5df1cd37c2995b3e0142e57487260706834e5325bbe0a5e683eedf1",
+      "target": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "jetty_class_and_maven_entries": [],
+      "jar_and_embedded_provenance_hashes_verified_in_this_review": true,
+      "upstream_base": "org.apache.hadoop:hadoop-client-runtime:3.5.0",
+      "upstream_api_jar_unchanged": true,
+      "component_tests": "PASS local-fs sequence-file jackson-roundtrip jackson-chunk-budget yaml-hierarchy-normal yaml-hierarchy-cycle jline-dumb jetty-absent",
+      "reproduction": {
+        "same_sha256": true,
+        "artifact": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+        "sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+        "toolchain": {
+          "image": "maven:3.9.11-eclipse-temurin-17@sha256:e4a7ace3dc0d645ed97f8d9ad0b0d3f0b14fa8d150138f27f116d7105a639b82",
+          "maven": "3.9.11",
+          "java": "Temurin 17.0.17+10",
+          "source_date_epoch": 1790035200,
+          "project_build_output_timestamp": "2026-09-22T00:00:00Z"
+        },
+        "replay_network": "none",
+        "maven_offline": true,
+        "maven_cache_input_files": 666,
+        "maven_cache_initial_state": "Only locked POM/JAR files; no Maven resolver markers, checksums or metadata. Fresh project with no target directory.",
+        "definition_sha256": "dc04a3576fefd25719d0f18116d148aaa07442d0fedf9fcadfa0b813250a02bd",
+        "inputs_sha256": "bd05f7ee0d6a0c8c47636474d8fc66172be607f557bf6c17f0fa0e41a17e6e5d",
+        "first_build_log": "artifacts/hadoop-runtime/build-clean-legal.log",
+        "replay_build_log": "artifacts/hadoop-runtime/stage-replay-final.log",
+        "replay_duration_seconds": 172,
+        "runtime_api_modified": false,
+        "log_artifacts_published": false,
+        "log_artifacts_note": "Os caminhos artifacts/ identificam saídas locais reproduzíveis, não arquivos publicados no repositório."
+      },
+      "whole_components_excluded": [
+        "org.eclipse.jetty:*",
+        "org.eclipse.jetty.websocket:*"
+      ],
+      "license_entries_retained": 61
+    }
+  },
   "findings": [
     {
       "VulnerabilityID": "GHSA-r7wm-3cxj-wff9",
-      "PkgName": "com.fasterxml.jackson.core:jackson-core",
-      "InstalledVersion": "2.18.6",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "HIGH",
-      "FixedVersion": "2.18.8, 2.21.4",
-      "Title": "jackson-core: Async parser maxNumberLength bypass via chunked digit accumulation (incomplete fix for GHSA-72hv-8253-57qq)",
-      "PrimaryURL": "https://github.com/advisories/GHSA-r7wm-3cxj-wff9",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O parser assíncrono sombreado do Hadoop não recebe fluxo JSON remoto neste batch. Entrega é lida por Python com orçamento; NDJSON tem schema explícito e strings escapadas. Não há cliente HDFS/WebHDFS nem JSON externo de estado.",
-      "upstream_references": [
-        "https://github.com/FasterXML/jackson-core",
+      "original": {
+        "PkgName": "com.fasterxml.jackson.core:jackson-core",
+        "InstalledVersion": "2.18.6",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "HIGH",
+        "FixedVersion": "2.18.8, 2.21.4",
+        "Title": "jackson-core: Async parser maxNumberLength bypass via chunked digit accumulation (incomplete fix for GHSA-72hv-8253-57qq)",
+        "PrimaryURL": "https://github.com/advisories/GHSA-r7wm-3cxj-wff9"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "2.18.11",
+      "upstream_fixed_branch_release": "2.18.8",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "com.fasterxml.jackson.core:jackson-core",
+          "version": "2.18.11",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.18.11"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "jackson-chunk-budget aceita rejeição durante os dígitos OU no terminador/EOF. É smoke de rejeição eventual, não distingue o bypass de limite durante acúmulo assíncrono; não houve controle vulnerável/corrigido específico.",
+      "primary_sources": [
         "https://github.com/FasterXML/jackson-core/commit/050b429804dce2a7e08f0be1b0b4c3d040fdb9cd",
         "https://github.com/FasterXML/jackson-core/commit/4cdd529749da396cc7edf6d4a2aad41d47902641",
         "https://github.com/FasterXML/jackson-core/commit/c5941e5aae7fd5aeac55d66933cfb82b9aabeef8",
-        "https://github.com/FasterXML/jackson-core/pull/1611",
         "https://github.com/FasterXML/jackson-core/security/advisories/GHSA-r7wm-3cxj-wff9"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-54512",
-      "PkgName": "com.fasterxml.jackson.core:jackson-databind",
-      "InstalledVersion": "2.18.6",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "HIGH",
-      "FixedVersion": "2.18.8, 3.1.4, 2.21.4",
-      "Title": "jackson-databind: jackson-databind: Arbitrary code execution via PolymorphicTypeValidator bypass",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54512",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O binding sombreado do Hadoop não recebe objetos/tipos Java do remetente. Não há polimorfismo, InetSocketAddress, views ou records fornecidos como contrato público; estado Delta é controlado pelo operador. É uma inferência da arquitetura, não uma prova para toda API Hadoop.",
-      "upstream_references": [
-        "https://github.com/FasterXML/jackson-databind",
+      "original": {
+        "PkgName": "com.fasterxml.jackson.core:jackson-databind",
+        "InstalledVersion": "2.18.6",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "HIGH",
+        "FixedVersion": "2.18.8, 3.1.4, 2.21.4",
+        "Title": "jackson-databind: jackson-databind: Arbitrary code execution via PolymorphicTypeValidator bypass",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54512"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "2.18.11",
+      "upstream_fixed_branch_release": "2.18.8",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "com.fasterxml.jackson.core:jackson-databind",
+          "version": "2.18.11",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Sem reprodução do bypass de PolymorphicTypeValidator/genéricos; roundtrip JSON é somente compatibilidade.",
+      "primary_sources": [
         "https://github.com/FasterXML/jackson-databind/commit/434d6c511de7fdd9872f29157aafb6162d12d8d5",
-        "https://github.com/FasterXML/jackson-databind/issues/5988",
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-j3rv-43j4-c7qm"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-54513",
-      "PkgName": "com.fasterxml.jackson.core:jackson-databind",
-      "InstalledVersion": "2.18.6",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "HIGH",
-      "FixedVersion": "2.18.8, 2.21.4, 3.1.4",
-      "Title": "jackson-databind: Jackson-databind: Security bypass allows arbitrary code execution",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54513",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O binding sombreado do Hadoop não recebe objetos/tipos Java do remetente. Não há polimorfismo, InetSocketAddress, views ou records fornecidos como contrato público; estado Delta é controlado pelo operador. É uma inferência da arquitetura, não uma prova para toda API Hadoop.",
-      "upstream_references": [
-        "https://github.com/FasterXML/jackson-databind",
+      "original": {
+        "PkgName": "com.fasterxml.jackson.core:jackson-databind",
+        "InstalledVersion": "2.18.6",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "HIGH",
+        "FixedVersion": "2.18.8, 2.21.4, 3.1.4",
+        "Title": "jackson-databind: Jackson-databind: Security bypass allows arbitrary code execution",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54513"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "2.18.11",
+      "upstream_fixed_branch_release": "2.18.8",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "com.fasterxml.jackson.core:jackson-databind",
+          "version": "2.18.11",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Sem reprodução do bypass allowIfSubTypeIsArray; roundtrip JSON é somente compatibilidade.",
+      "primary_sources": [
         "https://github.com/FasterXML/jackson-databind/commit/01d1692c8d0ed03e51a0e3c4f8a9e6908e4931e5",
         "https://github.com/FasterXML/jackson-databind/commit/24529da29fdf46ff94ca38de9ebf31cd188f5e8e",
-        "https://github.com/FasterXML/jackson-databind/issues/5981",
-        "https://github.com/FasterXML/jackson-databind/issues/5983",
-        "https://github.com/FasterXML/jackson-databind/pull/5984",
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-rmj7-2vxq-3g9f"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-54514",
-      "PkgName": "com.fasterxml.jackson.core:jackson-databind",
-      "InstalledVersion": "2.18.6",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "2.18.8, 2.21.4, 3.1.4",
-      "Title": "jackson-databind: jackson-databind: Information Disclosure via Eager DNS Resolution",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54514",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O binding sombreado do Hadoop não recebe objetos/tipos Java do remetente. Não há polimorfismo, InetSocketAddress, views ou records fornecidos como contrato público; estado Delta é controlado pelo operador. É uma inferência da arquitetura, não uma prova para toda API Hadoop.",
-      "upstream_references": [
-        "https://github.com/FasterXML/jackson-databind",
+      "original": {
+        "PkgName": "com.fasterxml.jackson.core:jackson-databind",
+        "InstalledVersion": "2.18.6",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "2.18.8, 2.21.4, 3.1.4",
+        "Title": "jackson-databind: jackson-databind: Information Disclosure via Eager DNS Resolution",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54514"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "2.18.11",
+      "upstream_fixed_branch_release": "2.18.8",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "com.fasterxml.jackson.core:jackson-databind",
+          "version": "2.18.11",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Sem teste InetSocketAddress/resolução DNS; nenhuma conclusão de comportamento específico desse CVE a partir do roundtrip.",
+      "primary_sources": [
         "https://github.com/FasterXML/jackson-databind/commit/1f5a1037b1e9e05920e755cb35f198bcd46667e4",
-        "https://github.com/FasterXML/jackson-databind/pull/5951",
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-hgj6-7826-r7m5"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-54515",
-      "PkgName": "com.fasterxml.jackson.core:jackson-databind",
-      "InstalledVersion": "2.18.6",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "3.1.4, 2.18.9, 2.21.5, 2.22.1",
-      "Title": "jackson-databind: jackson-databind: Ignored properties can be unexpectedly modified",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54515",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O binding sombreado do Hadoop não recebe objetos/tipos Java do remetente. Não há polimorfismo, InetSocketAddress, views ou records fornecidos como contrato público; estado Delta é controlado pelo operador. É uma inferência da arquitetura, não uma prova para toda API Hadoop.",
-      "upstream_references": [
-        "https://github.com/FasterXML/jackson-databind",
+      "original": {
+        "PkgName": "com.fasterxml.jackson.core:jackson-databind",
+        "InstalledVersion": "2.18.6",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "3.1.4, 2.18.9, 2.21.5, 2.22.1",
+        "Title": "jackson-databind: jackson-databind: Ignored properties can be unexpectedly modified",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54515"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "2.18.11",
+      "upstream_fixed_branch_release": "2.18.9",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "com.fasterxml.jackson.core:jackson-databind",
+          "version": "2.18.11",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Sem teste JsonIgnoreProperties com comparação case-insensitive.",
+      "primary_sources": [
         "https://github.com/FasterXML/jackson-databind/commit/0e1b0b211f7a53baa62ba2f4c9bd006c7bf4d5fa",
-        "https://github.com/FasterXML/jackson-databind/issues/5962",
-        "https://github.com/FasterXML/jackson-databind/issues/5964",
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-5jmj-h7xm-6q6v"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-59888",
-      "PkgName": "com.fasterxml.jackson.core:jackson-databind",
-      "InstalledVersion": "2.18.6",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "2.18.8, 2.21.4",
-      "Title": "com.fasterxml.jackson.core/jackson-databind: tools.jackson.core/jackson-databind: jackson-databind: @JsonIgnore bypass in Java Records",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-59888",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O binding sombreado do Hadoop não recebe objetos/tipos Java do remetente. Não há polimorfismo, InetSocketAddress, views ou records fornecidos como contrato público; estado Delta é controlado pelo operador. É uma inferência da arquitetura, não uma prova para toda API Hadoop.",
-      "upstream_references": [
-        "https://github.com/FasterXML/jackson-databind",
+      "original": {
+        "PkgName": "com.fasterxml.jackson.core:jackson-databind",
+        "InstalledVersion": "2.18.6",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "2.18.8, 2.21.4",
+        "Title": "com.fasterxml.jackson.core/jackson-databind: tools.jackson.core/jackson-databind: jackson-databind: @JsonIgnore bypass in Java Records",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-59888"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "2.18.11",
+      "upstream_fixed_branch_release": "2.18.8",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "com.fasterxml.jackson.core:jackson-databind",
+          "version": "2.18.11",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Sem teste de Record combinado com PropertyNamingStrategy.",
+      "primary_sources": [
         "https://github.com/FasterXML/jackson-databind/commit/baa2cdf5ca2b2717fbb88d91955d69d8651df3e4",
         "https://github.com/FasterXML/jackson-databind/commit/c7c678360624da5bc7eed2152789fa522880db9d",
-        "https://github.com/FasterXML/jackson-databind/pull/5974",
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-3pjw-73gf-8qr5"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-59889",
-      "PkgName": "com.fasterxml.jackson.core:jackson-databind",
-      "InstalledVersion": "2.18.6",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "2.21.5, 2.18.9, 2.22.1",
-      "Title": "com.fasterxml.jackson.core/jackson-databind: Jackson-databind: Privilege escalation via improper handling of @JsonUnwrapped properties",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-59889",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O binding sombreado do Hadoop não recebe objetos/tipos Java do remetente. Não há polimorfismo, InetSocketAddress, views ou records fornecidos como contrato público; estado Delta é controlado pelo operador. É uma inferência da arquitetura, não uma prova para toda API Hadoop.",
-      "upstream_references": [
-        "https://github.com/FasterXML/jackson-databind",
+      "original": {
+        "PkgName": "com.fasterxml.jackson.core:jackson-databind",
+        "InstalledVersion": "2.18.6",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "2.21.5, 2.18.9, 2.22.1",
+        "Title": "com.fasterxml.jackson.core/jackson-databind: Jackson-databind: Privilege escalation via improper handling of @JsonUnwrapped properties",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-59889"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "2.18.11",
+      "upstream_fixed_branch_release": "2.18.9",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "com.fasterxml.jackson.core:jackson-databind",
+          "version": "2.18.11",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Sem teste JsonUnwrapped/JsonView em containers.",
+      "primary_sources": [
         "https://github.com/FasterXML/jackson-databind/commit/d627a8a86fcb062429282f79f3f256f181ed2c7b",
-        "https://github.com/FasterXML/jackson-databind/issues/6060",
-        "https://github.com/FasterXML/jackson-databind/pull/6056",
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-5gvw-p9qm-jgwh"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "GHSA-mhm7-754m-9p8w",
-      "PkgName": "com.fasterxml.jackson.core:jackson-databind",
-      "InstalledVersion": "2.18.6",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "2.18.9, 2.21.5",
-      "Title": "jackson-databind: `@JsonView` bypass for creator properties with `@JsonTypeInfo(include=As.EXTERNAL_PROPERTY)`",
-      "PrimaryURL": "https://github.com/advisories/GHSA-mhm7-754m-9p8w",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O binding sombreado do Hadoop não recebe objetos/tipos Java do remetente. Não há polimorfismo, InetSocketAddress, views ou records fornecidos como contrato público; estado Delta é controlado pelo operador. É uma inferência da arquitetura, não uma prova para toda API Hadoop.",
-      "upstream_references": [
-        "https://github.com/FasterXML/jackson-databind",
+      "original": {
+        "PkgName": "com.fasterxml.jackson.core:jackson-databind",
+        "InstalledVersion": "2.18.6",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "2.18.9, 2.21.5",
+        "Title": "jackson-databind: `@JsonView` bypass for creator properties with `@JsonTypeInfo(include=As.EXTERNAL_PROPERTY)`",
+        "PrimaryURL": "https://github.com/advisories/GHSA-mhm7-754m-9p8w"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "2.18.11",
+      "upstream_fixed_branch_release": "2.18.9",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "com.fasterxml.jackson.core:jackson-databind",
+          "version": "2.18.11",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Sem teste external-type-id/creator view. O campo Patched versions do advisory ainda diz None; a atribuição à correção 2.18.9 usa release notes oficial/#6054 e commit upstream.",
+      "primary_sources": [
         "https://github.com/FasterXML/jackson-databind/commit/c628b357ed143d8492756d5c1458cfb9fbeb29ed",
         "https://github.com/FasterXML/jackson-databind/commit/dea7eb466e98cc226c4ac65587581fb49926820c",
-        "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-mhm7-754m-9p8w"
-      ]
+        "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-mhm7-754m-9p8w",
+        "https://github.com/FasterXML/jackson/wiki/Jackson-Release-2.18.9"
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2025-48924",
-      "PkgName": "commons-lang:commons-lang",
-      "InstalledVersion": "2.6",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/commons-lang-2.6.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "",
-      "Title": "commons-lang/commons-lang: org.apache.commons/commons-lang3: Uncontrolled Recursion vulnerability in Apache Commons Lang",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-48924",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "Nomes de classes Java não são campos aceitos da entrega. Não há passagem de texto do CSV/JSON a ClassUtils.getClass; plugins e configuração de classes estão fora do escopo suportado.",
-      "upstream_references": [
-        "https://lists.apache.org/thread/bgv0lpswokgol11tloxnjfzdl7yrc1g1"
-      ]
+      "original": {
+        "PkgName": "commons-lang:commons-lang",
+        "InstalledVersion": "2.6",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/commons-lang-2.6.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "",
+        "Title": "commons-lang/commons-lang: org.apache.commons/commons-lang3: Uncontrolled Recursion vulnerability in Apache Commons Lang",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-48924"
+      },
+      "component": "commons-lang",
+      "treatment": "official_backport_version_match_retained",
+      "current_embedded_version": "2.6",
+      "upstream_fixed_branch_release": null,
+      "target_jar": "commons-lang-2.6-retail-classutils-v1.jar",
+      "target_jar_sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05",
+      "provenance_path": "META-INF/varejo-commons-lang.json",
+      "provenance_sha256": "cde6bb4d78ceddc14812dcee5a8064815b45366cdfcff1dc3fd9fae515dbe07d",
+      "verified_final_image_packages": [
+        {
+          "name": "commons-lang:commons-lang",
+          "version": "2.6",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/commons-lang-2.6-retail-classutils-v1.jar",
+          "purl": "pkg:maven/commons-lang/commons-lang@2.6"
+        }
+      ],
+      "final_image_scanner_status": "STILL_REPORTED_MEDIUM_VERSION_MATCH",
+      "final_image_scanner_finding_retained": true,
+      "behavioral_evidence_kind": "component_regression_with_vulnerable_control",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "O teste oficial reproduz a falha no original e passa no backport; os 44 casos incluem esse teste, não somar 44+1. Suíte upstream completa continua com 29 problemas preexistentes no JDK 17. Scanner mantém o CVE por coordenadas/versão 2.6.",
+      "primary_sources": [
+        "https://lists.apache.org/thread/bgv0lpswokgol11tloxnjfzdl7yrc1g1",
+        "https://github.com/apache/commons-lang/commit/904afa78cc58e2897f47eeac0781c3ba6f95b5e6"
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "official_patch_commit": "904afa78cc58e2897f47eeac0781c3ba6f95b5e6",
+      "changed_class_sha256": "0c86237834fe82ad21d411fdd0a73570a0a4980d2e621b11cc8ef8095f98b159",
+      "scanner_disposition": "Manter o MEDIUM visível. Evidência de backport por hash/proveniência/regressão; não alterar versão, metadados, base de CVEs ou allowlist para produzir zero.",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-45205",
-      "PkgName": "org.apache.commons:commons-configuration2",
-      "InstalledVersion": "2.10.1",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "2.15.0",
-      "Title": "commons-configuration: Apache Commons Configuration: Denial of Service via uncontrolled recursion with crafted YAML input",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45205",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "Não há ingestão de YAML externo; o remetente só entrega CSV/JSON. Configuração Hadoop é controlada pelo operador. Entrada YAML cíclica não é enviada a esse leitor.",
-      "upstream_references": [
-        "https://lists.apache.org/thread/q3q3j10ohcqhs6o0rg1v7kz6kk27vtkk"
-      ]
+      "original": {
+        "PkgName": "org.apache.commons:commons-configuration2",
+        "InstalledVersion": "2.10.1",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "2.15.0",
+        "Title": "commons-configuration: Apache Commons Configuration: Denial of Service via uncontrolled recursion with crafted YAML input",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45205"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "2.15.1",
+      "upstream_fixed_branch_release": "2.15.0",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "org.apache.commons:commons-configuration2",
+          "version": "2.15.1",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/org.apache.commons/commons-configuration2@2.15.1"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "internal_mechanism_check_without_baseline",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Probe chama loadMap com HashMap autocíclico e propriedade normal, testando o mecanismo constructHierarchy. Não executa parsing de YAML textual/SnakeYAML nem comparação contra a versão vulnerável.",
+      "primary_sources": [
+        "https://lists.apache.org/thread/q3q3j10ohcqhs6o0rg1v7kz6kk27vtkk",
+        "https://commons.apache.org/proper/commons-configuration/changes.html",
+        "https://raw.githubusercontent.com/apache/commons-configuration/rel/commons-configuration-2.15.1/src/main/java/org/apache/commons/configuration2/AbstractYAMLBasedConfiguration.java"
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-2332",
-      "PkgName": "org.eclipse.jetty:jetty-http",
-      "InstalledVersion": "9.4.58.v20250814",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "HIGH",
-      "FixedVersion": "12.1.7, 12.0.33, 11.0.29, 10.0.28, 9.4.60",
-      "Title": "org.eclipse.jetty/jetty-http: HTTP request smuggling via chunked extension quoted-string parsing",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-2332",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "Spark UI desabilitada e nenhum endpoint Jetty público: batch usa network_mode:none, local[2] e driver loopback. Não há Digest HTTP, proxy, roteador, Telnet ou servidor Java no fluxo. O relatório opcional usa http.server Python separado, somente em loopback.",
-      "upstream_references": [
-        "https://github.com/jetty/jetty.project",
+      "original": {
+        "PkgName": "org.eclipse.jetty:jetty-http",
+        "InstalledVersion": "9.4.58.v20250814",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "HIGH",
+        "FixedVersion": "12.1.7, 12.0.33, 11.0.29, 10.0.28, 9.4.60",
+        "Title": "org.eclipse.jetty/jetty-http: HTTP request smuggling via chunked extension quoted-string parsing",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-2332"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "whole_component_removal",
+      "current_embedded_version": null,
+      "upstream_fixed_branch_release": null,
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "whole_component_absence",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Fechamento por exclusão dos componentes Jetty 9 inteiros, comprovada no ZIP e inventário; não houve reprodução de request smuggling.",
+      "primary_sources": [
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-355h-qmc2-wpwf"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "whole_components_excluded": [
+        "org.eclipse.jetty:*",
+        "org.eclipse.jetty.websocket:*"
+      ],
+      "absence_basis": "JAR final sem classes nem metadados Maven Jetty; Class.forName do HttpURI sombreado falha; scan integrado não inventaria Jetty no JAR Hadoop.",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2024-6763",
-      "PkgName": "org.eclipse.jetty:jetty-http",
-      "InstalledVersion": "9.4.58.v20250814",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "12.0.12",
-      "Title": "org.eclipse.jetty:jetty-http: jetty: Jetty URI parsing of invalid authority",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-6763",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "Spark UI desabilitada e nenhum endpoint Jetty público: batch usa network_mode:none, local[2] e driver loopback. Não há Digest HTTP, proxy, roteador, Telnet ou servidor Java no fluxo. O relatório opcional usa http.server Python separado, somente em loopback.",
-      "upstream_references": [
-        "https://github.com/jetty/jetty.project",
-        "https://github.com/jetty/jetty.project/pull/12012",
+      "original": {
+        "PkgName": "org.eclipse.jetty:jetty-http",
+        "InstalledVersion": "9.4.58.v20250814",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "12.0.12",
+        "Title": "org.eclipse.jetty:jetty-http: jetty: Jetty URI parsing of invalid authority",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-6763"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "whole_component_removal",
+      "current_embedded_version": null,
+      "upstream_fixed_branch_release": null,
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "whole_component_absence",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Fechamento por exclusão dos componentes Jetty 9 inteiros, comprovada no ZIP e inventário. UI desabilitada não bastava: HttpURI também pode ser chamado como utilitário sem servidor.",
+      "primary_sources": [
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-qh8g-58pp-2wxh"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "whole_components_excluded": [
+        "org.eclipse.jetty:*",
+        "org.eclipse.jetty.websocket:*"
+      ],
+      "absence_basis": "JAR final sem classes nem metadados Maven Jetty; Class.forName do HttpURI sombreado falha; scan integrado não inventaria Jetty no JAR Hadoop.",
+      "historical_rationale_correction": "Substitui a justificativa anterior baseada em UI desabilitada: ela não cobria uso direto de HttpURI. A ação concreta agora é remoção integral da dependência do assembly batch local.",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-10050",
-      "PkgName": "org.eclipse.jetty:jetty-security",
-      "InstalledVersion": "12.1.8",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0.jar",
-      "Severity": "HIGH",
-      "FixedVersion": "9.4.63, 10.0.31, 11.0.31, 12.0.36, 12.1.10",
-      "Title": "jetty-security: Eclipse Jetty: Authentication bypass via Digest authentication encoding collision",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-10050",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "Spark UI desabilitada e nenhum endpoint Jetty público: batch usa network_mode:none, local[2] e driver loopback. Não há Digest HTTP, proxy, roteador, Telnet ou servidor Java no fluxo. O relatório opcional usa http.server Python separado, somente em loopback.",
-      "upstream_references": [
-        "https://github.com/jetty/jetty.project",
+      "original": {
+        "PkgName": "org.eclipse.jetty:jetty-security",
+        "InstalledVersion": "12.1.8",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0.jar",
+        "Severity": "HIGH",
+        "FixedVersion": "9.4.63, 10.0.31, 11.0.31, 12.0.36, 12.1.10",
+        "Title": "jetty-security: Eclipse Jetty: Authentication bypass via Digest authentication encoding collision",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-10050"
+      },
+      "component": "spark-core",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "12.1.13",
+      "upstream_fixed_branch_release": "12.1.10",
+      "target_jar": "spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+      "target_jar_sha256": "5f0a0669ad6b7e3fda0d46fab28522d59b5d6accda78cf559457b719b2744901",
+      "provenance_path": "META-INF/varejo-spark-core.json",
+      "provenance_sha256": "78f441f425fdc5542009d2f57a3b91939f93aaad5d7f3d2fe0ae90a43389cbaa",
+      "verified_final_image_packages": [
+        {
+          "name": "org.eclipse.jetty:jetty-security",
+          "version": "12.1.13",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+          "purl": "pkg:maven/org.eclipse.jetty/jetty-security@12.1.13"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "DigestAuthenticator mudou de bytecode e a família Jetty foi reconstruída da versão corrigida; não foi executado teste da colisão de encoding em autenticação Digest.",
+      "primary_sources": [
         "https://github.com/jetty/jetty.project/commit/4bcdbc7db387ce9e20e2c7571a7250280466221d",
         "https://github.com/jetty/jetty.project/commit/d0bb829ccecbf19e3ad3d32f2649b2800f01222d",
-        "https://github.com/jetty/jetty.project/issues/15136",
-        "https://github.com/jetty/jetty.project/pull/15160",
-        "https://github.com/jetty/jetty.project/pull/15183",
-        "https://github.com/jetty/jetty.project/releases/tag/jetty-12.0.36",
-        "https://github.com/jetty/jetty.project/releases/tag/jetty-12.1.10",
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-2fvj-hgj9-j2gr"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-10051",
-      "PkgName": "org.eclipse.jetty:jetty-server",
-      "InstalledVersion": "12.1.8",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "12.0.36, 12.1.10",
-      "Title": "jetty: Eclipse Jetty: Information disclosure due to retained HTTP/1.1 trailers across connections",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-10051",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "Spark UI desabilitada e nenhum endpoint Jetty público: batch usa network_mode:none, local[2] e driver loopback. Não há Digest HTTP, proxy, roteador, Telnet ou servidor Java no fluxo. O relatório opcional usa http.server Python separado, somente em loopback.",
-      "upstream_references": [
-        "https://github.com/jetty/jetty.project",
+      "original": {
+        "PkgName": "org.eclipse.jetty:jetty-server",
+        "InstalledVersion": "12.1.8",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "12.0.36, 12.1.10",
+        "Title": "jetty: Eclipse Jetty: Information disclosure due to retained HTTP/1.1 trailers across connections",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-10051"
+      },
+      "component": "spark-core",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "12.1.13",
+      "upstream_fixed_branch_release": "12.1.10",
+      "target_jar": "spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+      "target_jar_sha256": "5f0a0669ad6b7e3fda0d46fab28522d59b5d6accda78cf559457b719b2744901",
+      "provenance_path": "META-INF/varejo-spark-core.json",
+      "provenance_sha256": "78f441f425fdc5542009d2f57a3b91939f93aaad5d7f3d2fe0ae90a43389cbaa",
+      "verified_final_image_packages": [
+        {
+          "name": "org.eclipse.jetty:jetty-server",
+          "version": "12.1.13",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+          "purl": "pkg:maven/org.eclipse.jetty/jetty-server@12.1.13"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Classes internas HTTP foram substituídas junto à versão corrigida; não foi executada reprodução de trailers retidos entre requisições keep-alive.",
+      "primary_sources": [
         "https://github.com/jetty/jetty.project/commit/72206b3ea623cf7ed8729b47a83ee628ff10e8eb",
         "https://github.com/jetty/jetty.project/commit/dc27e8d3ab743fe27935ea2d8c41756eb6c5bae9",
-        "https://github.com/jetty/jetty.project/pull/15162",
-        "https://github.com/jetty/jetty.project/pull/15163",
-        "https://github.com/jetty/jetty.project/releases/tag/jetty-12.0.36",
-        "https://github.com/jetty/jetty.project/releases/tag/jetty-12.1.10",
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-f4v5-65jj-pcr2"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-6790",
-      "PkgName": "org.eclipse.jetty:jetty-server",
-      "InstalledVersion": "12.1.8",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "12.0.35, 12.1.9",
-      "Title": "jetty: Jetty: Improper Host header validation can lead to request routing issues",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6790",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "Spark UI desabilitada e nenhum endpoint Jetty público: batch usa network_mode:none, local[2] e driver loopback. Não há Digest HTTP, proxy, roteador, Telnet ou servidor Java no fluxo. O relatório opcional usa http.server Python separado, somente em loopback.",
-      "upstream_references": [
-        "https://github.com/jetty/jetty.project",
+      "original": {
+        "PkgName": "org.eclipse.jetty:jetty-server",
+        "InstalledVersion": "12.1.8",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "12.0.35, 12.1.9",
+        "Title": "jetty: Jetty: Improper Host header validation can lead to request routing issues",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6790"
+      },
+      "component": "spark-core",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "12.1.13",
+      "upstream_fixed_branch_release": "12.1.9",
+      "target_jar": "spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+      "target_jar_sha256": "5f0a0669ad6b7e3fda0d46fab28522d59b5d6accda78cf559457b719b2744901",
+      "provenance_path": "META-INF/varejo-spark-core.json",
+      "provenance_sha256": "78f441f425fdc5542009d2f57a3b91939f93aaad5d7f3d2fe0ae90a43389cbaa",
+      "verified_final_image_packages": [
+        {
+          "name": "org.eclipse.jetty:jetty-server",
+          "version": "12.1.13",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+          "purl": "pkg:maven/org.eclipse.jetty/jetty-server@12.1.13"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Os três casos LocalConnector usam HTTP/1.1. Este advisory trata Host/:authority em HTTP/2 e HTTP/3; os casos HTTP/1.1 não reproduzem o CVE.",
+      "primary_sources": [
         "https://github.com/jetty/jetty.project/commit/3e5a4daec196859b8886b6f67b1157dab47cdb6f",
         "https://github.com/jetty/jetty.project/commit/67ba9e6b39661810123680d9c894e99a7940c73d",
         "https://github.com/jetty/jetty.project/commit/cbca3076f7c914a232e7a8b22fa95fbf7e67a6cc",
-        "https://github.com/jetty/jetty.project/issues/14870",
-        "https://github.com/jetty/jetty.project/pull/14871",
-        "https://github.com/jetty/jetty.project/pull/14897",
-        "https://github.com/jetty/jetty.project/pull/14970",
-        "https://github.com/jetty/jetty.project/releases/tag/jetty-12.0.35",
-        "https://github.com/jetty/jetty.project/releases/tag/jetty-12.1.9",
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-7p3p-8qv8-m2vh"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-8384",
-      "PkgName": "org.eclipse.jetty:jetty-util",
-      "InstalledVersion": "12.1.8",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0.jar",
-      "Severity": "MEDIUM",
-      "FixedVersion": "12.0.35, 12.1.9",
-      "Title": "jetty: Eclipse Jetty: Path confusion vulnerability may lead to information disclosure in web applications",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8384",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "Spark UI desabilitada e nenhum endpoint Jetty público: batch usa network_mode:none, local[2] e driver loopback. Não há Digest HTTP, proxy, roteador, Telnet ou servidor Java no fluxo. O relatório opcional usa http.server Python separado, somente em loopback.",
-      "upstream_references": [
-        "https://github.com/jetty/jetty.project",
+      "original": {
+        "PkgName": "org.eclipse.jetty:jetty-util",
+        "InstalledVersion": "12.1.8",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0.jar",
+        "Severity": "MEDIUM",
+        "FixedVersion": "12.0.35, 12.1.9",
+        "Title": "jetty: Eclipse Jetty: Path confusion vulnerability may lead to information disclosure in web applications",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8384"
+      },
+      "component": "spark-core",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "12.1.13",
+      "upstream_fixed_branch_release": "12.1.9",
+      "target_jar": "spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+      "target_jar_sha256": "5f0a0669ad6b7e3fda0d46fab28522d59b5d6accda78cf559457b719b2744901",
+      "provenance_path": "META-INF/varejo-spark-core.json",
+      "provenance_sha256": "78f441f425fdc5542009d2f57a3b91939f93aaad5d7f3d2fe0ae90a43389cbaa",
+      "verified_final_image_packages": [
+        {
+          "name": "org.eclipse.jetty:jetty-util",
+          "version": "12.1.13",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+          "purl": "pkg:maven/org.eclipse.jetty/jetty-util@12.1.13"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "component_regression_with_vulnerable_control",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "Três casos upstream de canonicalização foram comparados no JAR original e corrigido. Não houve exploração end-to-end de uma aplicação web com regras de autorização.",
+      "primary_sources": [
         "https://github.com/jetty/jetty.project/commit/82969c77f6da46e27008b10b3c14840cd31db084",
         "https://github.com/jetty/jetty.project/commit/ade27ce93a37c33278720250d85c48601230ae3f",
-        "https://github.com/jetty/jetty.project/pull/14969",
-        "https://github.com/jetty/jetty.project/pull/14973",
-        "https://github.com/jetty/jetty.project/releases/tag/jetty-12.0.35",
-        "https://github.com/jetty/jetty.project/releases/tag/jetty-12.1.9",
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-w7x5-g22v-xqhr"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-56740",
-      "PkgName": "org.jline:jline-remote-telnet",
-      "InstalledVersion": "3.9.0",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "HIGH",
-      "FixedVersion": "4.2.1, 4.0.16, 3.30.14",
-      "Title": "org.jline/jline-remote-telnet: JLine3 Telnet Server: Denial of Service via excessive environment variable injection",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56740",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O batch Python não inicia terminal ou servidor Telnet. O componente sombreado continua no Hadoop; rede desativada e ausência de serviço impedem a precondição descrita. Shells remotos/REPL não são suportados.",
-      "upstream_references": [
-        "https://github.com/jline/jline3",
+      "original": {
+        "PkgName": "org.jline:jline-remote-telnet",
+        "InstalledVersion": "3.9.0",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "HIGH",
+        "FixedVersion": "4.2.1, 4.0.16, 3.30.14",
+        "Title": "org.jline/jline-remote-telnet: JLine3 Telnet Server: Denial of Service via excessive environment variable injection",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56740"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "3.30.17",
+      "upstream_fixed_branch_release": "3.30.14",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "org.jline:jline-remote-telnet",
+          "version": "3.30.17",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/org.jline/jline-remote-telnet@3.30.17"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "jline-dumb valida terminal e relocação de providers; não testa ataque Telnet NEW-ENVIRON.",
+      "primary_sources": [
         "https://github.com/jline/jline3/commit/0389f0ee6d0375901b602671ad5dafd4d1d4ee09",
         "https://github.com/jline/jline3/commit/4ee3a73849ffb9a85ec748e4e8cd8f6d81f84f40",
         "https://github.com/jline/jline3/commit/934f09e6128cee33c2b13d42b6e859c1ee2d194b",
-        "https://github.com/jline/jline3/pull/2000",
-        "https://github.com/jline/jline3/pull/2001",
-        "https://github.com/jline/jline3/releases/tag/4.0.16",
-        "https://github.com/jline/jline3/releases/tag/4.2.1",
-        "https://github.com/jline/jline3/releases/tag/jline-3.30.14",
         "https://github.com/jline/jline3/security/advisories/GHSA-47qp-hqvx-6r3f"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     },
     {
       "VulnerabilityID": "CVE-2026-56741",
-      "PkgName": "org.jline:jline-remote-telnet",
-      "InstalledVersion": "3.9.0",
-      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
-      "Severity": "HIGH",
-      "FixedVersion": "4.2.1, 4.0.16, 3.30.14",
-      "Title": "org.jline/jline-remote-telnet: JLine3 Telnet server: Denial of Service via uncontrolled terminal dimensions",
-      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56741",
-      "assessment": "not_reachable_in_supported_local_batch",
-      "status": "residual_not_fixed",
-      "rationale": "O batch Python não inicia terminal ou servidor Telnet. O componente sombreado continua no Hadoop; rede desativada e ausência de serviço impedem a precondição descrita. Shells remotos/REPL não são suportados.",
-      "upstream_references": [
-        "https://github.com/jline/jline3",
+      "original": {
+        "PkgName": "org.jline:jline-remote-telnet",
+        "InstalledVersion": "3.9.0",
+        "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0.jar",
+        "Severity": "HIGH",
+        "FixedVersion": "4.2.1, 4.0.16, 3.30.14",
+        "Title": "org.jline/jline-remote-telnet: JLine3 Telnet server: Denial of Service via uncontrolled terminal dimensions",
+        "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56741"
+      },
+      "component": "hadoop-runtime",
+      "treatment": "upstream_dependency_upgrade",
+      "current_embedded_version": "3.30.17",
+      "upstream_fixed_branch_release": "3.30.14",
+      "target_jar": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "target_jar_sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+      "provenance_path": "META-INF/varejo-hadoop-runtime.json",
+      "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d",
+      "verified_final_image_packages": [
+        {
+          "name": "org.jline:jline-remote-telnet",
+          "version": "3.30.17",
+          "file_path": "usr/local/lib/python3.11/site-packages/pyspark/jars/hadoop-client-runtime-3.5.0-retail-security.1.jar",
+          "purl": "pkg:maven/org.jline/jline-remote-telnet@3.30.17"
+        }
+      ],
+      "final_image_scanner_status": "NOT_REPORTED_IN_FINAL_IMAGE_SCAN",
+      "final_image_scanner_finding_retained": false,
+      "behavioral_evidence_kind": "compatibility_smoke_not_individual_cve_reproduction",
+      "end_to_end_attack_reproduced": false,
+      "evidence_limit": "jline-dumb valida terminal e relocação de providers; não testa dimensões Telnet NAWS.",
+      "primary_sources": [
         "https://github.com/jline/jline3/commit/3ea9cad8699714dc072fade29d36be0d1e23d708",
         "https://github.com/jline/jline3/commit/733eb353dca7b0ea0252e724445b6defa29c393e",
         "https://github.com/jline/jline3/commit/86b7ba7801988aadb1a67555629522a71d603bd3",
-        "https://github.com/jline/jline3/pull/2000",
-        "https://github.com/jline/jline3/releases/tag/4.0.16",
-        "https://github.com/jline/jline3/releases/tag/4.2.1",
         "https://github.com/jline/jline3/security/advisories/GHSA-2r2c-cx56-8933"
-      ]
+      ],
+      "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
+      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "container_jar_base_maven_coordinates_preserved": true
     }
-  ]
+  ],
+  "evidence_files": {
+    "before_rebuild_triage": {
+      "path": "security-triage-before-rebuild.json",
+      "published": true,
+      "sha256_lf": "dc6b8804c0e19b9196db96bd0ebacdad69250f3480858df11a06a8d5c8ef46a4",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    },
+    "runtime_lock": {
+      "path": "../../runtime-jars.lock.json",
+      "published": true,
+      "sha256_lf": "718a63a699e339b957b5d5066db654e66ba52539e7839ff6a55eeeb598fda500",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    },
+    "commons_lang_provenance": {
+      "path": "../../vendor/commons-lang/provenance.json",
+      "published": true,
+      "sha256_lf": "cde6bb4d78ceddc14812dcee5a8064815b45366cdfcff1dc3fd9fae515dbe07d",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    },
+    "commons_lang_verification": {
+      "path": "../../vendor/commons-lang/verification.json",
+      "published": true,
+      "sha256_lf": "29202031ebacae9dfd1e45b6aae6b3da936f37d732eacba2b62094663759398b",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    },
+    "hadoop_release_manifest": {
+      "path": "../../vendor/hadoop-runtime/release-manifest.json",
+      "published": true,
+      "sha256_lf": "0d5be02cc33da0873e622ae5b665820543d468dd4de88e4676f01ccdb424093a",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    },
+    "hadoop_reproduction": {
+      "path": "../../vendor/hadoop-runtime/reproduction.json",
+      "published": true,
+      "sha256_lf": "5ae64faf02e380e2a00007fe902340e8818d0c0abb1a0141580739bdd20fdfb7",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    },
+    "spark_provenance": {
+      "path": "../../vendor/spark-core/provenance.json",
+      "published": true,
+      "sha256_lf": "78f441f425fdc5542009d2f57a3b91939f93aaad5d7f3d2fe0ae90a43389cbaa",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    },
+    "final_image_scan": {
+      "path": "security-scan.json",
+      "published": true,
+      "sha256_lf": "407549ed22a8e964d587edd6359562989c1c9cc84d769228eeeb839da8d47143",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    },
+    "spark_component_manifest": {
+      "generated_output": "artifacts/spark-core/manifest.json",
+      "published": false,
+      "sha256_exact": "9705a91a521cda7132aa9aa0534e17d420cfee00745d4d7066bae71f3572cda8",
+      "availability": "Artefato local de validação não publicado; o caminho identifica uma saída gerada, não um link disponível no repositório."
+    },
+    "installer_artifacts_log": {
+      "generated_output": "artifacts/jvm-rebuild/installer-real-artifacts.log",
+      "published": false,
+      "sha256_exact": "54f995ebd7cbd3cfa5af893f12b887af106e262ab6da53f317abafc1f5c7db42",
+      "availability": "Artefato local de validação não publicado; o caminho identifica uma saída gerada, não um link disponível no repositório."
+    },
+    "runtime_isolation_record": {
+      "generated_output": "artifacts/jvm-rebuild/runtime-isolation.json",
+      "published": false,
+      "sha256_exact": "ac665d2409d9ef6f95031b31ab6ab76ff3608700498ff1fc3c5a451a873a2e67",
+      "availability": "Artefato local de validação não publicado; o caminho identifica uma saída gerada, não um link disponível no repositório."
+    },
+    "integrated_full_suite": {
+      "path": "jvm-rebuild-full-suite.json",
+      "published": true,
+      "sha256_lf": "fa6abdbbad91547ae382e49be277436c16e961b44fa75026e8625ad873f537e4",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    },
+    "integrated_full_suite_junit": {
+      "path": "jvm-rebuild-tests.xml",
+      "published": true,
+      "sha256_lf": "80a17b803942c86526776fe769ba2230733b2198b537ff3cb0e2ea95e4114fac",
+      "hash_definition": "SHA-256 do conteúdo com quebras LF, conforme normalização de texto do Git; não é o hash do objeto Git."
+    }
+  },
+  "evidence_cautions": [
+    "Scan preliminar Hadoop zero achados era do JAR 172736..., não do final 62b250...; não foi usado como evidência final.",
+    "CVE-2026-6790 cobre HTTP/2 e HTTP/3, enquanto LocalConnector testou HTTP/1.1.",
+    "Probe Jackson fragmentado prova rejeição eventual, não a rejeição antes de terminador exigida para distinguir GHSA-r7wm.",
+    "Advisory GHSA-mhm7 ainda registra Patched versions None; correção 2.18.9 é fundamentada na release note/#6054/commit oficial.",
+    "Backport Commons Lang mantém 1 MEDIUM por versão; preservado no scan e separado da prova de correção do código.",
+    "Evidências marcadas published=false são artefatos locais não publicados. Referências públicas usam arquivos versionados; este documento não registra hash de si próprio."
+  ],
+  "remaining_release_gates": [
+    "Integração do commit de UI e revisão das fontes resultantes.",
+    "Unitários sobre a fonte após a integração.",
+    "Demo e migração sobre o estado integrado.",
+    "CI integral do commit final.",
+    "Vincular a documentação ao commit final revisado."
+  ],
+  "reference_base": "Caminhos relativos em evidence_files partem de docs/evidence/. Caminhos META-INF são entradas internas dos JARs.",
+  "post_ui_validation": {
+    "status": "PENDING",
+    "ui_commit_to_integrate": "899c9f368aab100f0f41c1327161992149cfd2a3",
+    "gates": [
+      "Integração do commit de UI e revisão das fontes resultantes.",
+      "Unitários sobre a fonte após a integração.",
+      "Demo e migração sobre o estado integrado.",
+      "CI integral do commit final."
+    ],
+    "note": "Essa etapa é posterior à evidência de 188 testes e ainda não tem resultado neste registro."
+  }
 }

@@ -17,3 +17,8 @@ artifacts/*
 !artifacts/README.md
 .visual-tools/
 .DS_Store
+vendor/**/target/
+vendor/**/.cache/
+vendor/**/downloads/
+vendor/**/output/
+vendor/**/outputs/

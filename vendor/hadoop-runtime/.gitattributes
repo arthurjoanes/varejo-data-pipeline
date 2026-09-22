@@ -1,0 +1,4 @@
+# Preserve upstream and legal/provenance input bytes used by SHA-256 locks.
+upstream/** -text
+src/main/resources/** -text
+pom.xml -text

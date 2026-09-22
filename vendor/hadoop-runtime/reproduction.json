@@ -1,0 +1,22 @@
+{
+  "same_sha256": true,
+  "artifact": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+  "sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+  "toolchain": {
+    "image": "maven:3.9.11-eclipse-temurin-17@sha256:e4a7ace3dc0d645ed97f8d9ad0b0d3f0b14fa8d150138f27f116d7105a639b82",
+    "maven": "3.9.11",
+    "java": "Temurin 17.0.17+10",
+    "source_date_epoch": 1790035200,
+    "project_build_output_timestamp": "2026-09-22T00:00:00Z"
+  },
+  "replay_network": "none",
+  "maven_offline": true,
+  "maven_cache_input_files": 666,
+  "maven_cache_initial_state": "Only locked POM/JAR files; no Maven resolver markers, checksums or metadata. Fresh project with no target directory.",
+  "definition_sha256": "dc04a3576fefd25719d0f18116d148aaa07442d0fedf9fcadfa0b813250a02bd",
+  "inputs_sha256": "bd05f7ee0d6a0c8c47636474d8fc66172be607f557bf6c17f0fa0e41a17e6e5d",
+  "first_build_log": "artifacts/hadoop-runtime/build-clean-legal.log",
+  "replay_build_log": "artifacts/hadoop-runtime/stage-replay-final.log",
+  "replay_duration_seconds": 172,
+  "runtime_api_modified": false
+}
