@@ -2,9 +2,9 @@
 
 Valide a entrega das lojas e as revisões de vendas antes de publicar o fechamento. O relatório mostra a tentativa mais recente, a publicação vigente e as ocorrências que explicam o resultado. A demonstração usa dados sintéticos.
 
-![Snapshot histórico sintético: S02 pendente, duas de três lojas confirmadas e publicação anterior preservada, renderizado pela interface atual](docs/images/interface-v3/blocked.png)
+![Ensaio local: S02 pendente, duas de três lojas confirmadas e publicação anterior preservada](docs/images/state-proof/blocked-1440.png)
 
-Captura da interface atual com o snapshot sintético já registrado na demonstração; esta revisão visual não reexecutou o lote.
+Captura do relatório produzido no ensaio de restauração de 22/09/2026, com dados sintéticos. [Publicação, bloqueio, reposição e correção](docs/state-recovery.md#capturas-do-ensaio).
 
 Uma soma correta pode esconder uma loja faltando ou contar a mesma venda em dois dias. O operador aprova o calendário de lojas esperadas; o pipeline confere a entrega e as revisões antes de fechar. Um bloqueio ou uma falha antes da publicação mantém os indicadores anteriores. [Problema e solução](docs/problem-solution.md).
 
@@ -52,6 +52,8 @@ A saída oficial é um manifesto que aponta para versões exatas das tabelas. Is
 `CANCEL` mantém o histórico e retira o item dos indicadores. Somente `UPSERT` com revisão maior pode reativá-lo. A CLI retorna 0 para publicação ou lote sem mudança, 2 para bloqueio de qualidade ou argumento inválido e 3 para falha técnica. [Contrato](docs/data-contract.md) · [Arquitetura](docs/architecture.md).
 
 ## Evidências e limites
+
+A [prova de restauração](docs/state-recovery.md) recuperou 187 arquivos e três publicações em volume novo: R$ 64, R$ 64 e R$ 77, com versões e linhas iguais à origem. Cópia adulterada e destino ocupado foram recusados. O contrato preserva diretórios Delta completos e suas referências; não executa limpeza automática. É recuperação local no mesmo computador.
 
 A reconstrução do runtime passou em 188 testes, incluindo 15 integrações Spark/Delta. Uma revisão anterior da interface registrou 182 unitários da fonte combinada, lint e tipos. A composição atual passou em 193 unitários, incluindo 43 do renderer, lint, tipos, build do wheel e verificações de navegador; não reexecutou Spark. [Qualidade da interface e limites](docs/frontend-quality.md). O scan histórico registra zero achados altos/críticos e um aviso médio por versão no Commons Lang corrigido por backport. As evidências distinguem cada revisão. [Resultados, fontes e reprodução](docs/verification.md).
 

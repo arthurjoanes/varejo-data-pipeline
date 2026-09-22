@@ -1,5 +1,16 @@
 # Verificação e reprodução
 
+## Recuperação e medição local — 22/09/2026
+
+O [índice desta entrega](evidence/state-proof/index.json) separa a restauração, a medição e as tentativas de regressão. A [história operacional](state-recovery.md) explica o problema, as escolhas, as capturas e os limites.
+
+- Restauração: 187 arquivos, três publicações com versões/linhas/totais iguais, origem preservada e duas recusas reais. Cenário completo de 251,851 s, não RTO comercial.
+- Medição: seis amostras aprovadas pelo oráculo CSV/Decimal, sem censura. Medianas de processamento de 37,045 e 38,180 s para históricos de 3.600 e 10.800 linhas, ambos com 360 novas. Startup medido separadamente; carga externa apareceu durante a janela e impede atribuir causalidade ao tamanho.
+- Regressão dirigida: 183 testes em seis arquivos, incluindo o limite de publicação Spark/Delta; não é toda a suíte. A primeira imagem histórica e a tentativa atual com 512 PIDs falharam; o limite de 1.024 foi fixado antes dos ensaios seguintes.
+- Ruff 0.6.9, versão do lock, aprovou lint e formato de 50 arquivos. Seis capturas dos relatórios reais foram conferidas em desktop/celular. Fonte e imagem são identificadas por execução; o scan existente da imagem 3cc permanece separado de um novo scan.
+
+Containers próprios removidos, volumes preservados. Recuperação externa, retenção destrutiva, desempenho de produção e estudo com usuários não foram executados.
+
 Arquivos em artifacts são gerados localmente e não são pré-requisitos do clone. O comando `scripts/verify_problem.py` grava os resultados em `artifacts/`; passos em [demo.md](demo.md).
 
 ## Reconstruções JVM em 22/09/2026 (UTC)
@@ -139,7 +150,7 @@ Não é necessário repetir a demo nem o benchmark. O script verifica três vist
 
 ## Limites
 
-Não há VACUUM automático, backup ou política de retenção. Fabric ainda não foi executado. Duração e memória estão registradas por execução.
+Não há VACUUM automático nem backup agendado ou externo. A [prova posterior de recuperação](state-recovery.md) acrescentou cópia local, restauração e contrato conservador de retenção, sem remover dados antigos. Fabric ainda não foi executado. Duração e memória estão registradas por execução.
 
 ## Refinamento da interface — 22/09/2026
 

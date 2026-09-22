@@ -70,6 +70,8 @@ Gera 30 mil registros, 12 lojas e 30 dias com seed 42 em estado isolado; valida,
 
 ## Diagnosticar e retomar
 
+Para acompanhar uma cópia e restauração já executadas, leia a [sequência de recuperação](state-recovery.md). Ela usa quatro estados de uma fixture pequena e conserva os relatórios reais: publicação, bloqueio, reposição e correção. Os comandos de reprodução criam volumes novos; não operam sobre o estado persistente desta demo.
+
 - Exit 2: se a CLI informar argumento inválido, corrija o uso antes de executar; para lote bloqueado, examine códigos de qualidade e arquivos em quarentena. Reponha arquivo faltante/corrompido de acordo com o manifesto original. Se mudar conteúdo esperado, use novo batch_id e correction_of.
 - Exit 3: confira logs estruturados e `runs/<run_id>/attempt.json`; reexecute a mesma entrada após corrigir a causa. O manifesto continua sendo a autoridade sobre visibilidade.
 - Injeção manual: `run <entrada> --demo-mode --fail-at before_publish` (alternativas: `after_ingestion` e `after_gold`). Sem `--demo-mode`, a CLI recusa a simulação.

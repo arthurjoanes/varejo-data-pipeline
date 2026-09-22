@@ -45,3 +45,7 @@ O CI preserva o relatório integral e reprova qualquer HIGH/CRITICAL, inclusive 
 A configuração Gitleaks mantém todas as regras padrão e uma exceção por caminho **e valor exatos**: o fingerprint público de assinatura das versões Python, presente no histórico/ambiente da imagem em `docs/evidence/security-scan.json`. O valor foi conferido com o [Dockerfile oficial Python 3.11/Alpine](https://github.com/docker-library/python/blob/master/3.11/alpine3.24/Dockerfile); não é uma chave privada nem uma credencial. Outro valor nesse arquivo ou o mesmo valor em outro caminho continua sendo verificado. Essa exceção não altera a varredura de vulnerabilidades Trivy.
 
 A cobertura depende das bases públicas do scanner. O aviso de Trivy sobre a versão Alpine não constar na tabela de EOL não impede a análise de pacotes; ele não é uma prova de suporte nem de ausência de vulnerabilidades desconhecidas.
+
+## Integridade da cópia e recuperação
+
+A [prova de restauração](state-recovery.md) acrescenta inventário por SHA-256, limite de tamanho/entradas, recusa de links e caminhos fora da raiz, destino vazio e validação antes de instalar o estado. Controles reais recusaram tar adulterado e destino ocupado. A origem e suas publicações permaneceram iguais. O contrato protege referências de publicações, sem executar exclusão ou VACUUM. São controles de integridade de uma cópia local: não incluem criptografia, agendamento ou sobrevivência à perda do computador.

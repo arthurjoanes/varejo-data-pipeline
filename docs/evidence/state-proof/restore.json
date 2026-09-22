@@ -1,0 +1,2195 @@
+{
+  "archive_bytes": 655360,
+  "archive_sha256": "418e58a48283681b46fe29658b20f0c8d76715cbf24fa40f93939695764bdba4",
+  "cleanup": {
+    "cleanup_spent_seconds": 0.9519999999974971,
+    "containers_removed": true
+  },
+  "completed_at": "2026-09-22T08:36:41.645171+00:00",
+  "external_docker_state_unchanged": true,
+  "external_load_after": {
+    "containers": [],
+    "scope": "Carga externa não controlada. Duas amostras de recursos não garantem ausência de tráfego ou estabilidade durante a medição; não atribuir mudanças ao runner."
+  },
+  "external_load_before": {
+    "containers": [],
+    "scope": "Carga externa não controlada. Duas amostras de recursos não garantem ausência de tráfego ou estabilidade durante a medição; não atribuir mudanças ao runner."
+  },
+  "external_state_scope": "Comparação observacional dos snapshots; mudanças externas impedem afirmar igualdade, mas não provam que este runner as causou.",
+  "files_copied": 187,
+  "image": "sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3",
+  "negative_controls": [
+    "occupied_target_refused",
+    "tampered_archive_refused"
+  ],
+  "observed_source_after": {
+    "current_publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+    "publications": [
+      {
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid",
+            "missing-delivery"
+          ],
+          "publication_id": "0bdc74545a1f474a94c035582a7f037c",
+          "published_at": "2026-09-22T08:33:58.770576+00:00",
+          "run_id": "f501af0424214f2ba5681f66c1a26a6c",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "69477c0a211f457099c1ca401fcc5eef"
+            },
+            {
+              "batch_id": "missing-delivery",
+              "bronze_path": "/data/proof/state/runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "f501af0424214f2ba5681f66c1a26a6c"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 1
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 1
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 1
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 1
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "3052997afeae2af64afec4f87380faa9a79c93c79fa3ec6ffc166a627867c92e"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 6400,
+            "rows": 3,
+            "rows_sha256": "e23f3127cbf28e1c8644f204a1f3ca23828a2bdb36aeb84b72947a81a91742ef"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 6400,
+            "rows": 2,
+            "rows_sha256": "7be2381d602f76dbd62fa64ea067cdee5d75660ca3f8b80451ba83816abcf659"
+          },
+          "history": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          }
+        }
+      },
+      {
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid"
+          ],
+          "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+          "published_at": "2026-09-22T08:33:32.742667+00:00",
+          "run_id": "69477c0a211f457099c1ca401fcc5eef",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "69477c0a211f457099c1ca401fcc5eef"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 0
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 0
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 0
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 0
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "41fabf57bcf20d9aa3f97d72c0988f2e0523aa6e56191ba5c52cc0bfb7fee149"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 6400,
+            "rows": 3,
+            "rows_sha256": "e23f3127cbf28e1c8644f204a1f3ca23828a2bdb36aeb84b72947a81a91742ef"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 6400,
+            "rows": 2,
+            "rows_sha256": "7be2381d602f76dbd62fa64ea067cdee5d75660ca3f8b80451ba83816abcf659"
+          },
+          "history": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          }
+        }
+      },
+      {
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid",
+            "missing-delivery",
+            "late-correction"
+          ],
+          "publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+          "published_at": "2026-09-22T08:34:17.678547+00:00",
+          "run_id": "0c4bad17aa144005940be88f56fc3aa7",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "69477c0a211f457099c1ca401fcc5eef"
+            },
+            {
+              "batch_id": "missing-delivery",
+              "bronze_path": "/data/proof/state/runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "f501af0424214f2ba5681f66c1a26a6c"
+            },
+            {
+              "batch_id": "late-correction",
+              "bronze_path": "/data/proof/state/runs/0c4bad17aa144005940be88f56fc3aa7/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "0c4bad17aa144005940be88f56fc3aa7"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/0c4bad17aa144005940be88f56fc3aa7/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 2
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 2
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 2
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 2
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "d9d495a4f982062d76cb01491b69a90f2eda9014cac5a0e9b221f73840620717"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 7700,
+            "rows": 3,
+            "rows_sha256": "1ae4fdaf9c4cd5f4195f4775e332aa162806a17179890881cbf7863c7a6b4883"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 7700,
+            "rows": 2,
+            "rows_sha256": "cc940d52b268a57f771997b6ba3dbe135042e7d7d333899c5503def6cd210819"
+          },
+          "history": {
+            "rows": 5,
+            "rows_sha256": "d6676acae776dd09831dada4655d5b437ca58478cfd1b238bb26b578acbf959f"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "37db6048db2d28b76c19750a12a6c92170ce82a96035951e2ce7dff08e180012"
+          }
+        }
+      }
+    ]
+  },
+  "observed_source_before": {
+    "current_publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+    "publications": [
+      {
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid",
+            "missing-delivery"
+          ],
+          "publication_id": "0bdc74545a1f474a94c035582a7f037c",
+          "published_at": "2026-09-22T08:33:58.770576+00:00",
+          "run_id": "f501af0424214f2ba5681f66c1a26a6c",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "69477c0a211f457099c1ca401fcc5eef"
+            },
+            {
+              "batch_id": "missing-delivery",
+              "bronze_path": "/data/proof/state/runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "f501af0424214f2ba5681f66c1a26a6c"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 1
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 1
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 1
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 1
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "3052997afeae2af64afec4f87380faa9a79c93c79fa3ec6ffc166a627867c92e"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 6400,
+            "rows": 3,
+            "rows_sha256": "e23f3127cbf28e1c8644f204a1f3ca23828a2bdb36aeb84b72947a81a91742ef"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 6400,
+            "rows": 2,
+            "rows_sha256": "7be2381d602f76dbd62fa64ea067cdee5d75660ca3f8b80451ba83816abcf659"
+          },
+          "history": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          }
+        }
+      },
+      {
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid"
+          ],
+          "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+          "published_at": "2026-09-22T08:33:32.742667+00:00",
+          "run_id": "69477c0a211f457099c1ca401fcc5eef",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "69477c0a211f457099c1ca401fcc5eef"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 0
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 0
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 0
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 0
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "41fabf57bcf20d9aa3f97d72c0988f2e0523aa6e56191ba5c52cc0bfb7fee149"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 6400,
+            "rows": 3,
+            "rows_sha256": "e23f3127cbf28e1c8644f204a1f3ca23828a2bdb36aeb84b72947a81a91742ef"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 6400,
+            "rows": 2,
+            "rows_sha256": "7be2381d602f76dbd62fa64ea067cdee5d75660ca3f8b80451ba83816abcf659"
+          },
+          "history": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          }
+        }
+      },
+      {
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid",
+            "missing-delivery",
+            "late-correction"
+          ],
+          "publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+          "published_at": "2026-09-22T08:34:17.678547+00:00",
+          "run_id": "0c4bad17aa144005940be88f56fc3aa7",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "69477c0a211f457099c1ca401fcc5eef"
+            },
+            {
+              "batch_id": "missing-delivery",
+              "bronze_path": "/data/proof/state/runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "f501af0424214f2ba5681f66c1a26a6c"
+            },
+            {
+              "batch_id": "late-correction",
+              "bronze_path": "/data/proof/state/runs/0c4bad17aa144005940be88f56fc3aa7/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "0c4bad17aa144005940be88f56fc3aa7"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/0c4bad17aa144005940be88f56fc3aa7/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 2
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 2
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 2
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 2
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "d9d495a4f982062d76cb01491b69a90f2eda9014cac5a0e9b221f73840620717"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 7700,
+            "rows": 3,
+            "rows_sha256": "1ae4fdaf9c4cd5f4195f4775e332aa162806a17179890881cbf7863c7a6b4883"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 7700,
+            "rows": 2,
+            "rows_sha256": "cc940d52b268a57f771997b6ba3dbe135042e7d7d333899c5503def6cd210819"
+          },
+          "history": {
+            "rows": 5,
+            "rows_sha256": "d6676acae776dd09831dada4655d5b437ca58478cfd1b238bb26b578acbf959f"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "37db6048db2d28b76c19750a12a6c92170ce82a96035951e2ce7dff08e180012"
+          }
+        }
+      }
+    ]
+  },
+  "observed_target_after": {
+    "current_publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+    "publications": [
+      {
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid",
+            "missing-delivery"
+          ],
+          "publication_id": "0bdc74545a1f474a94c035582a7f037c",
+          "published_at": "2026-09-22T08:33:58.770576+00:00",
+          "run_id": "f501af0424214f2ba5681f66c1a26a6c",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "69477c0a211f457099c1ca401fcc5eef"
+            },
+            {
+              "batch_id": "missing-delivery",
+              "bronze_path": "/data/proof/state/runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "f501af0424214f2ba5681f66c1a26a6c"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 1
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 1
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 1
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 1
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "3052997afeae2af64afec4f87380faa9a79c93c79fa3ec6ffc166a627867c92e"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 6400,
+            "rows": 3,
+            "rows_sha256": "e23f3127cbf28e1c8644f204a1f3ca23828a2bdb36aeb84b72947a81a91742ef"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 6400,
+            "rows": 2,
+            "rows_sha256": "7be2381d602f76dbd62fa64ea067cdee5d75660ca3f8b80451ba83816abcf659"
+          },
+          "history": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          }
+        }
+      },
+      {
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid"
+          ],
+          "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+          "published_at": "2026-09-22T08:33:32.742667+00:00",
+          "run_id": "69477c0a211f457099c1ca401fcc5eef",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "69477c0a211f457099c1ca401fcc5eef"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 0
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 0
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 0
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 0
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "41fabf57bcf20d9aa3f97d72c0988f2e0523aa6e56191ba5c52cc0bfb7fee149"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 6400,
+            "rows": 3,
+            "rows_sha256": "e23f3127cbf28e1c8644f204a1f3ca23828a2bdb36aeb84b72947a81a91742ef"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 6400,
+            "rows": 2,
+            "rows_sha256": "7be2381d602f76dbd62fa64ea067cdee5d75660ca3f8b80451ba83816abcf659"
+          },
+          "history": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "1cf5dea1e5cee9d0c92394e1e9f53cdc842ece76c5b857c94ff65fd867baec56"
+          }
+        }
+      },
+      {
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid",
+            "missing-delivery",
+            "late-correction"
+          ],
+          "publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+          "published_at": "2026-09-22T08:34:17.678547+00:00",
+          "run_id": "0c4bad17aa144005940be88f56fc3aa7",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "69477c0a211f457099c1ca401fcc5eef"
+            },
+            {
+              "batch_id": "missing-delivery",
+              "bronze_path": "/data/proof/state/runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "f501af0424214f2ba5681f66c1a26a6c"
+            },
+            {
+              "batch_id": "late-correction",
+              "bronze_path": "/data/proof/state/runs/0c4bad17aa144005940be88f56fc3aa7/bronze",
+              "bronze_version": 0,
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "0c4bad17aa144005940be88f56fc3aa7"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/0c4bad17aa144005940be88f56fc3aa7/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 2
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 2
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 2
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 2
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "d9d495a4f982062d76cb01491b69a90f2eda9014cac5a0e9b221f73840620717"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 7700,
+            "rows": 3,
+            "rows_sha256": "1ae4fdaf9c4cd5f4195f4775e332aa162806a17179890881cbf7863c7a6b4883"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 7700,
+            "rows": 2,
+            "rows_sha256": "cc940d52b268a57f771997b6ba3dbe135042e7d7d333899c5503def6cd210819"
+          },
+          "history": {
+            "rows": 5,
+            "rows_sha256": "d6676acae776dd09831dada4655d5b437ca58478cfd1b238bb26b578acbf959f"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "37db6048db2d28b76c19750a12a6c92170ce82a96035951e2ce7dff08e180012"
+          }
+        }
+      }
+    ]
+  },
+  "phases": [
+    {
+      "container_removed": true,
+      "elapsed_seconds": 120.26499999999942,
+      "exit_code": 0,
+      "oom_killed": false,
+      "phase": "prepare",
+      "status": "passed",
+      "timeout_seconds": 600
+    },
+    {
+      "container_removed": true,
+      "elapsed_seconds": 1.3590000000040163,
+      "exit_code": 0,
+      "oom_killed": false,
+      "phase": "archive",
+      "status": "passed",
+      "timeout_seconds": 120
+    },
+    {
+      "container_removed": true,
+      "elapsed_seconds": 1.3130000000019209,
+      "exit_code": 0,
+      "oom_killed": false,
+      "phase": "install",
+      "status": "passed",
+      "timeout_seconds": 120
+    },
+    {
+      "container_removed": true,
+      "elapsed_seconds": 61.20300000000134,
+      "exit_code": 0,
+      "oom_killed": false,
+      "phase": "observe",
+      "status": "passed",
+      "timeout_seconds": 300
+    },
+    {
+      "container_removed": true,
+      "elapsed_seconds": 61.31300000000192,
+      "exit_code": 0,
+      "oom_killed": false,
+      "phase": "observe",
+      "status": "passed",
+      "timeout_seconds": 300
+    },
+    {
+      "container_removed": true,
+      "elapsed_seconds": 1.110000000000582,
+      "exit_code": 0,
+      "oom_killed": false,
+      "phase": "inventory",
+      "status": "passed",
+      "timeout_seconds": 120
+    },
+    {
+      "container_removed": true,
+      "elapsed_seconds": 1.0619999999980791,
+      "exit_code": 1,
+      "oom_killed": false,
+      "phase": "install",
+      "status": "expected_refusal",
+      "timeout_seconds": 120
+    },
+    {
+      "container_removed": true,
+      "elapsed_seconds": 1.0789999999979045,
+      "exit_code": 0,
+      "oom_killed": false,
+      "phase": "inventory",
+      "status": "passed",
+      "timeout_seconds": 120
+    },
+    {
+      "container_removed": true,
+      "elapsed_seconds": 1.0310000000026776,
+      "exit_code": 1,
+      "oom_killed": false,
+      "phase": "install",
+      "status": "expected_refusal",
+      "timeout_seconds": 120
+    }
+  ],
+  "plan": {
+    "copy_max_bytes": 2147483648,
+    "fixture": "64 → bloqueado64 → retomada64 → correção77",
+    "scope": "Mesmo host; não comprova recuperação contra perda do computador.",
+    "volumes": "novos, sem escritores concorrentes"
+  },
+  "publication_rows_totals_versions_equal": true,
+  "reports": [
+    {
+      "path": "reports/publication.html",
+      "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+      "run_id": "69477c0a211f457099c1ca401fcc5eef",
+      "sha256": "d57908331b2e8b389e212e1120f5ec74d2b771d8655b1a5af8e14d6a9f2e508e",
+      "state": "publication"
+    },
+    {
+      "path": "reports/blocked.html",
+      "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+      "run_id": "a9dee1e4b8ea41da95c4ac5717a1c0ab",
+      "sha256": "9234c9cecec08ec56977a204e4911303fe0bc7ffc875f2df14b925844fd343b5",
+      "state": "blocked"
+    },
+    {
+      "path": "reports/recovery.html",
+      "publication_id": "0bdc74545a1f474a94c035582a7f037c",
+      "run_id": "f501af0424214f2ba5681f66c1a26a6c",
+      "sha256": "7476eb027efe9c3ec87edba48104b3b923b3adfcf35fd0dea89f68b1248b1e7e",
+      "state": "recovery"
+    },
+    {
+      "path": "reports/corrected.html",
+      "publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+      "run_id": "0c4bad17aa144005940be88f56fc3aa7",
+      "sha256": "fdf28d80085321008c18fca75086b4f03ec9db7c44541d5e28c6a820a7f5ef8e",
+      "state": "corrected"
+    }
+  ],
+  "retention": {
+    "current_publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+    "protected_paths": [
+      "publication.json",
+      "publications",
+      "runs/0c4bad17aa144005940be88f56fc3aa7/bronze",
+      "runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+      "runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+      "tables/gold_product_day",
+      "tables/gold_store_day",
+      "tables/history",
+      "tables/silver"
+    ],
+    "publications": [
+      {
+        "publication_id": "0bdc74545a1f474a94c035582a7f037c",
+        "references": [
+          {
+            "kind": "table:bronze",
+            "path": "runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+            "version": 0
+          },
+          {
+            "kind": "table:gold_product_day",
+            "path": "tables/gold_product_day",
+            "version": 1
+          },
+          {
+            "kind": "table:gold_store_day",
+            "path": "tables/gold_store_day",
+            "version": 1
+          },
+          {
+            "kind": "table:history",
+            "path": "tables/history",
+            "version": 1
+          },
+          {
+            "kind": "table:silver",
+            "path": "tables/silver",
+            "version": 1
+          },
+          {
+            "kind": "bronze:fixture-valid",
+            "path": "runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+            "version": 0
+          },
+          {
+            "kind": "bronze:missing-delivery",
+            "path": "runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+            "version": 0
+          }
+        ]
+      },
+      {
+        "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+        "references": [
+          {
+            "kind": "table:bronze",
+            "path": "runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+            "version": 0
+          },
+          {
+            "kind": "table:gold_product_day",
+            "path": "tables/gold_product_day",
+            "version": 0
+          },
+          {
+            "kind": "table:gold_store_day",
+            "path": "tables/gold_store_day",
+            "version": 0
+          },
+          {
+            "kind": "table:history",
+            "path": "tables/history",
+            "version": 0
+          },
+          {
+            "kind": "table:silver",
+            "path": "tables/silver",
+            "version": 0
+          },
+          {
+            "kind": "bronze:fixture-valid",
+            "path": "runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+            "version": 0
+          }
+        ]
+      },
+      {
+        "publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+        "references": [
+          {
+            "kind": "table:bronze",
+            "path": "runs/0c4bad17aa144005940be88f56fc3aa7/bronze",
+            "version": 0
+          },
+          {
+            "kind": "table:gold_product_day",
+            "path": "tables/gold_product_day",
+            "version": 2
+          },
+          {
+            "kind": "table:gold_store_day",
+            "path": "tables/gold_store_day",
+            "version": 2
+          },
+          {
+            "kind": "table:history",
+            "path": "tables/history",
+            "version": 2
+          },
+          {
+            "kind": "table:silver",
+            "path": "tables/silver",
+            "version": 2
+          },
+          {
+            "kind": "bronze:fixture-valid",
+            "path": "runs/69477c0a211f457099c1ca401fcc5eef/bronze",
+            "version": 0
+          },
+          {
+            "kind": "bronze:missing-delivery",
+            "path": "runs/f501af0424214f2ba5681f66c1a26a6c/bronze",
+            "version": 0
+          },
+          {
+            "kind": "bronze:late-correction",
+            "path": "runs/0c4bad17aa144005940be88f56fc3aa7/bronze",
+            "version": 0
+          }
+        ]
+      }
+    ],
+    "scope": "Contrato conservador: preservar diretórios Delta completos, incluindo logs e arquivos de versões anteriores; não autoriza remoção individual ou VACUUM."
+  },
+  "run_id": "pf-varejo-proof-e714096be80a",
+  "scope": "Cópia integral para volume novo no mesmo host e leitura oficial das publicações anterior/vigente. Não demonstra sobrevivência à perda do computador, disponibilidade comercial ou política destrutiva de retenção.",
+  "source": {
+    "files": {
+      ".dockerignore": {
+        "git_blob_oid": "5a7f42e85e50fe40b2d23c4dec988c4d5eab30dd",
+        "sha256_local_bytes": "bc6249ce4d36e23c66fcbfe250139988105ae9daf3041f296220e828e3015bb7"
+      },
+      ".gitattributes": {
+        "git_blob_oid": "dab552681f728a47bf4788c2b44702483d154b36",
+        "sha256_local_bytes": "516ec7712f39e249b4cdac27364ab7f3c6334dc7c9fa4fa2e47d4313d299a0d7"
+      },
+      "Dockerfile": {
+        "git_blob_oid": "c87cb4cff46e0a10e4e399ab032cd9527f26967e",
+        "sha256_local_bytes": "f1a46951a6c1ac8d37ae19f27e4e399526f2a4998399f641bf0655f615c320cb"
+      },
+      "compose.yaml": {
+        "git_blob_oid": "3895bac20f80331466006be29d7633f4c0b360be",
+        "sha256_local_bytes": "69f5409552faa6ac4446286b34453358236ffc087843ebe2d6da9a70d6bf56eb"
+      },
+      "data/operator/fixture/catalog.json": {
+        "git_blob_oid": "c96eaa4b19e2d4ebc717ae770ee385042e657c1a",
+        "sha256_local_bytes": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091"
+      },
+      "data/operator/fixture/schedule.json": {
+        "git_blob_oid": "faa2aaf7044300a9df803912fb64fb0fa287dfd1",
+        "sha256_local_bytes": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+      },
+      "data/samples/fixture-valid/S01.csv": {
+        "git_blob_oid": "e2c89a60656d8c71478054b65e76e7b596adf5ff",
+        "sha256_local_bytes": "6371be2e6771802c645a2e2ba32ae37d5b7718f052d6ab81a76be28746da984d"
+      },
+      "data/samples/fixture-valid/S02.csv": {
+        "git_blob_oid": "74c8ec16cfadaf3a5e2836290d3220596e071217",
+        "sha256_local_bytes": "2af3a3a3956ee424d207f470678ca0bbf784eaa992a9f66902562133962fd52c"
+      },
+      "data/samples/fixture-valid/catalog.json": {
+        "git_blob_oid": "c96eaa4b19e2d4ebc717ae770ee385042e657c1a",
+        "sha256_local_bytes": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091"
+      },
+      "data/samples/fixture-valid/manifest.json": {
+        "git_blob_oid": "eb05a2b54eb89d0bec1641da6c46a43d37fa296a",
+        "sha256_local_bytes": "57e24be3f6a9412983fc1a98ea918899dd30be559b220e9a9597615fcd3851aa"
+      },
+      "data/samples/fixture-valid/schedule.json": {
+        "git_blob_oid": "faa2aaf7044300a9df803912fb64fb0fa287dfd1",
+        "sha256_local_bytes": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+      },
+      "pyproject.toml": {
+        "git_blob_oid": "176e493682189bd9815aaacd380314e1782f597d",
+        "sha256_local_bytes": "c5aaccea1480d59b3caabc1f6a832a06ea8a71c4fda98090b6433e781cc48aac"
+      },
+      "requirements-build.lock": {
+        "git_blob_oid": "53564ab8b9a13084dccc79f1c00c7b1e142296bd",
+        "sha256_local_bytes": "e5f3af7250a2ecc1cc9cd10bc183a96ce94bd1ea2e54949292e093b7269fdf56"
+      },
+      "requirements.lock": {
+        "git_blob_oid": "0fccfb96a6f73558ca0ef6286e00b465a99b98e8",
+        "sha256_local_bytes": "9b07da96ef631ff5db0cb3500159b3187176eacb6cd9564c7b07c5392b83af19"
+      },
+      "runtime-jars.lock.json": {
+        "git_blob_oid": "161f8cffbb6745dc75ae009c55469c045ead580b",
+        "sha256_local_bytes": "2f253afea80d036bea4914bc08a20740b2eddee975ea3031f1b4ccbffc7d6911"
+      },
+      "scripts/a11y-review.cjs": {
+        "git_blob_oid": "a402d5b3442bb4ad74b0fda384513b0168c01638",
+        "sha256_local_bytes": "be5c2efe2190f762b9f43805a7305bcedd7212b18cc76231dbd83c3f9bf82bdd"
+      },
+      "scripts/benchmark.py": {
+        "git_blob_oid": "1905514f66543276efb44493120c82d749996546",
+        "sha256_local_bytes": "420149dc52879b62e9e1f6576e6b0134754204299166ff99b77e8bd9e2d4e611"
+      },
+      "scripts/build_commons_lang.py": {
+        "git_blob_oid": "a4a0032c6bb57532f5c632b2a96f9c20f3390265",
+        "sha256_local_bytes": "eba101ba14a8a35bf7d446f58e1b12d5c47312a8126b0f2da7ff771fbe8538fa"
+      },
+      "scripts/build_spark_core.py": {
+        "git_blob_oid": "e9aebc8f83d67d84fb32fd329d34006fb126007a",
+        "sha256_local_bytes": "feec7412fe2aba5261262e42316233ec13c95e3b67aa64a2690dcb8596bd08ea"
+      },
+      "scripts/check_image_scan.py": {
+        "git_blob_oid": "892f07984670c95f1419692575ad5ff1037a2bb4",
+        "sha256_local_bytes": "06513a4f162afc3eff2ba3ee990619593c39eab5e75fbb42bf07add08c2ae615"
+      },
+      "scripts/download_jars.py": {
+        "git_blob_oid": "f33bd6053aa7ec6b631a2ee94d687fa686a45772",
+        "sha256_local_bytes": "8db8eb2e258ea8874763a0fc10e9839a93657d0c9d6dfed85bbf1ffb4491a2b3"
+      },
+      "scripts/fetch_artifact.py": {
+        "git_blob_oid": "29f3c069798515ca03694b98668698b9e7192a35",
+        "sha256_local_bytes": "d1c6f55e555f9b7758832b592da17a482f8a36e3df15c39b2d229d46177d91c5"
+      },
+      "scripts/hadoop_build_runtime.py": {
+        "git_blob_oid": "90a40a8e91af5b664590c5ed73a5547507a57f1c",
+        "sha256_local_bytes": "361ed3d7f7bba34e5b410210fd351c98197f839a03a64df8ad3511a8c846a0b6"
+      },
+      "scripts/hadoop_verify_runtime.py": {
+        "git_blob_oid": "2de8eade9f9e1522d2a78f1a5719c762e02930b2",
+        "sha256_local_bytes": "8d77500acfa9e9ff65b3088797e0164857d4d4d2ed55bed84b3d5e9a721340bb"
+      },
+      "scripts/install_rebuilt_jars.py": {
+        "git_blob_oid": "bb0b1432bede7e36073939fdafc5b19e6c00f429",
+        "sha256_local_bytes": "71a295c50be09d8960c6fda21a20bb4afcdf637dc041624b414ec9a4e149c970"
+      },
+      "scripts/patch_runtime_jars.py": {
+        "git_blob_oid": "a6fd765e2b0f75a0d96c14eb782e25fa120d41aa",
+        "sha256_local_bytes": "629573b2b67d4f6c0e95b7e7a053daab0bdb649bb14670d67ffaef4620b1b275"
+      },
+      "scripts/pipeline.ps1": {
+        "git_blob_oid": "a435f191dd5f35ed80c6cfa2ac1a63e444e1adcd",
+        "sha256_local_bytes": "34d8b7b97727c52965915e951e037407d2734976524d8382cbb32af8de09dde7"
+      },
+      "scripts/pipeline.sh": {
+        "git_blob_oid": "83b178aabd9253e5e7696b0dbca30ee6c65bb598",
+        "sha256_local_bytes": "310faef1ac80d9f163f7bd9a66560f75de7558c810dd38eada4d0218abdcc773"
+      },
+      "scripts/proof_contracts.py": {
+        "git_blob_oid": "3c6ada7a611693d4bc07f422157d9b70c5479d5e",
+        "sha256_local_bytes": "7674dd052c40b86cf71e1b4562979eb9ed087f53fd07ebe39a6650811cc29c23"
+      },
+      "scripts/prove_state.py": {
+        "git_blob_oid": "bfabae1f1025b43db038949d68588c854bbcff2c",
+        "sha256_local_bytes": "917aed288e2a9fd914aa8db86f3b57f65e2f692789083d2f7389103fa75cb816"
+      },
+      "scripts/recovery_probe.py": {
+        "git_blob_oid": "5fac567c4fdec28296f7ab42b4ba8d9a4d483149",
+        "sha256_local_bytes": "d8d5c2d75fe2408bc4d57318f7b478ccf1f233a3fb83ee5241e32aa714fdde4a"
+      },
+      "scripts/render_review.py": {
+        "git_blob_oid": "9bc7182aff3a9e8cc1102aeb4a9c4a3266d1fdb7",
+        "sha256_local_bytes": "261dd4ca01895b51217ee049a5c42378af6216f7abd73ab308e7822f06350124"
+      },
+      "scripts/show_logs.py": {
+        "git_blob_oid": "5f73cd4e8da001f3ec535efbee61ea01d2646b16",
+        "sha256_local_bytes": "80cd25cd296f98cf89bd694555a45cac162a8257f804e093700464c806194657"
+      },
+      "scripts/verify_problem.py": {
+        "git_blob_oid": "02377aa27808d4ac8b07e2e80086f55313e043a0",
+        "sha256_local_bytes": "a61e1a608c9da8e47bb7b666292abaaa49f5ddb43d62bc088ecddd79cf39a3b2"
+      },
+      "scripts/verify_runtime_migration.py": {
+        "git_blob_oid": "da8ba6eefef65b6bd00fe824c1fce079e9295ace",
+        "sha256_local_bytes": "d5ccd8dfc9080f5bc54f30a72e366ce0ac335d11b42438fa49d13c8b974f2299"
+      },
+      "scripts/verify_spark_core.py": {
+        "git_blob_oid": "46f88b82a7fce4853c704a414d84e5181723e738",
+        "sha256_local_bytes": "9b784592c3c365d8e61d5c86922381935b0fbff25e10f66488fda27c2f244819"
+      },
+      "scripts/visual-review.cjs": {
+        "git_blob_oid": "7e625d031de4b0a07f077d40c4424303db69fce9",
+        "sha256_local_bytes": "4a5f7239505bf176797f609beb157e755531a21725cbc87ecdaa5f4a701c5ee4"
+      },
+      "src/retail_pipeline/__init__.py": {
+        "git_blob_oid": "3dc1f76bc69e3f559bee6253b24fc93acee9e1f9",
+        "sha256_local_bytes": "91447944015cec709e8aa7655f7e9d64e1e4508e7023a57fe3746911c0fc6fed"
+      },
+      "src/retail_pipeline/batch_contracts.py": {
+        "git_blob_oid": "cf2b1257067d1deb999aa3afe950f8b459ef11bb",
+        "sha256_local_bytes": "68294589d3d312fbbc39636bbe86a1a77e38ce8be4e98b44ea34df7c0327d5a7"
+      },
+      "src/retail_pipeline/cli.py": {
+        "git_blob_oid": "d834a14a57f6f0d4ffcb72330d93b91ef8d50049",
+        "sha256_local_bytes": "10af4d8948c08c408ecde3a22ddf93b06b75482a82f93f2c6640f26d27cafdc1"
+      },
+      "src/retail_pipeline/contracts.py": {
+        "git_blob_oid": "c33e5ab382f9caf34ef0658455063d2317ce642f",
+        "sha256_local_bytes": "6c14edad3bd768b4e04ad68447874f629211d3e2661e0042202198018a79f3c8"
+      },
+      "src/retail_pipeline/demo.py": {
+        "git_blob_oid": "54aa1ab4060b742d9e13bb579262af4deca68f18",
+        "sha256_local_bytes": "eae08eaadc6257680a950e615abe3cfe3540256c0c8e6456d32a268ff262c910"
+      },
+      "src/retail_pipeline/generation.py": {
+        "git_blob_oid": "e65668c0604da30b3de0f53568ea3adbed8d9c30",
+        "sha256_local_bytes": "6a850ed30de5f66b4cbe5a0e4453fa5774719119af0c1d8e066bc06a83d3a784"
+      },
+      "src/retail_pipeline/ingestion.py": {
+        "git_blob_oid": "973e245599a3bbe2bd5ffc25fe1ef9bada21f7b6",
+        "sha256_local_bytes": "130edfa7b4dcc21f1d33068b8b773598880488826d6051afb32a041ecb86a6fe"
+      },
+      "src/retail_pipeline/input_limits.py": {
+        "git_blob_oid": "343ac1a3059ad53bcfa8f921376cea101dcc251f",
+        "sha256_local_bytes": "f804defbc521f7b743567aad028758581e656f54defa18c0f5f63c4facd4f395"
+      },
+      "src/retail_pipeline/pipeline.py": {
+        "git_blob_oid": "0dc609bc971ff3efe0af6607951f879a7930b10f",
+        "sha256_local_bytes": "862684dcac7e180911def37ebb899e3bbf2468f195dc7dd9c778f80faadc78e0"
+      },
+      "src/retail_pipeline/publication.py": {
+        "git_blob_oid": "03e8bd69ddd1c9fb3c678413474c63f06e2ddf03",
+        "sha256_local_bytes": "0693970f02ba137251e9f7ac71f8efdc232fa914ce27075c261222b89e39296b"
+      },
+      "src/retail_pipeline/references.py": {
+        "git_blob_oid": "e5e25f6020458d02da50a9eee3d99f13e00bb230",
+        "sha256_local_bytes": "e6eed8c0a7fb783456c2a950394a94d13147257dbb9c82bfdd9672365fa76247"
+      },
+      "src/retail_pipeline/report.css": {
+        "git_blob_oid": "2d2eb701d8b81d513955c165cf1b87fd7e6cdbb0",
+        "sha256_local_bytes": "23aaa6cd2743c5db295fff4c102df4d9d5e45704e30ebef7d18e28ed159834f5"
+      },
+      "src/retail_pipeline/report.js": {
+        "git_blob_oid": "7d27e8888b64b6698fc10f1f2f99cce259e8ca05",
+        "sha256_local_bytes": "b2afab9b51b88725cb1ecdcf713d763a9ecc5b901da52f4a2d6f53e1898246f4"
+      },
+      "src/retail_pipeline/report_model.py": {
+        "git_blob_oid": "05b1e26f673eb9b9bfba0fa29c8f00589c27d443",
+        "sha256_local_bytes": "cbeae3a60a1a32c2cdcec2fea1bb0e94fd65ff4d81131b0cadec1aebf1f39f00"
+      },
+      "src/retail_pipeline/report_view.py": {
+        "git_blob_oid": "cd978f2091ba8ccd14e7cc8abeff9af6819b5c0a",
+        "sha256_local_bytes": "9c92362c88ac9fdb2ca11b70a7163011d61712f45c15afb3dec2fbcbdfaff136"
+      },
+      "src/retail_pipeline/reporting.py": {
+        "git_blob_oid": "78b9ae3ef5e945912a2f4e5e13273af5a5e2bf4c",
+        "sha256_local_bytes": "1e6333682428b22682a433a79446d3456e898f55140b276d998accb382d00836"
+      },
+      "src/retail_pipeline/spark.py": {
+        "git_blob_oid": "70f4cf749f5e43cbaac6bd36caaeffbcb54e61b2",
+        "sha256_local_bytes": "bc792b74100724650eff904b24971677b41a387979d1fd4a8c98098461cf28eb"
+      },
+      "src/retail_pipeline/transformations.py": {
+        "git_blob_oid": "9b452ef47361879c73bcf0fbb2e5d771c593b665",
+        "sha256_local_bytes": "5bd4417f752105b92206fc8a128fa6b94abd3db73ba8cd91b0fb3e3c7babd4ee"
+      },
+      "tests/integration/conftest.py": {
+        "git_blob_oid": "06c3f5d08fcfb2a8c19725a24feee1f33c98bb57",
+        "sha256_local_bytes": "2b4e5549cf8dfeb0f0f2df1644a75c4ce74a70e5b7375d841b235b3ded8654c7"
+      },
+      "tests/integration/test_boundaries.py": {
+        "git_blob_oid": "4924a2945fa09ddb46bd51e772b8fd5dfc8522f9",
+        "sha256_local_bytes": "64ff2f6b5eb24589f0bc6b26086c142bce43029dc77b2000ca46e06cd8805123"
+      },
+      "tests/integration/test_business_thesis.py": {
+        "git_blob_oid": "5e48ef972dd963a2dd75d72ccddebcfa806b72ff",
+        "sha256_local_bytes": "98fa3276d95e4d446f57a04eac7af6ec8011bef6adeee5203b2b2fe2269d2af1"
+      },
+      "tests/integration/test_commit_boundary.py": {
+        "git_blob_oid": "8cb90fee2ccdeb35c702a986cd571ac80322b89f",
+        "sha256_local_bytes": "753cb2bd73af3d9e2fcda86bd9d1613ce91d7f2b31eaec987b78fdb49b0d26e7"
+      },
+      "tests/integration/test_pipeline.py": {
+        "git_blob_oid": "14d460b459f1ac6e459b76e7cf1495e3d9490972",
+        "sha256_local_bytes": "a4d47794de2cdd61163620bf55812acc5b72fd3c06847156e4c10585658c33c4"
+      },
+      "tests/integration/test_smoke.py": {
+        "git_blob_oid": "1920ab37e07a5d44b044831336ba72def32e58fa",
+        "sha256_local_bytes": "104187b5f384f02fe7536b7f94db72c5bfad56d5f49bceefb48694cd92deceef"
+      },
+      "tests/unit/test_cli.py": {
+        "git_blob_oid": "f94db113e77338c817f22fc85ff38bcaa03f6b67",
+        "sha256_local_bytes": "4b5052da69b50cd2571a6f9dc5e989cfcda77b129b63ce9dffcab792a1da3ddd"
+      },
+      "tests/unit/test_contracts.py": {
+        "git_blob_oid": "c842f5fd6792db939f394b1cb7c8430ce5883c41",
+        "sha256_local_bytes": "3875bfbcf2642aac8a949017df3547a9077f286b615fb857573a9ed3bed1c6d0"
+      },
+      "tests/unit/test_generation.py": {
+        "git_blob_oid": "35a37dc97ab0c0ef29c2dff9853e642436891257",
+        "sha256_local_bytes": "5bea8c50040f020edc900c1aa87de24560ea2ad9b8867752a698e0e303dc9295"
+      },
+      "tests/unit/test_input_limits.py": {
+        "git_blob_oid": "0c2232714bd8a3677d4d5223b4e1bfd9d1786812",
+        "sha256_local_bytes": "1a3dc43cf307c15699a98fea52ef30716a02d6b91a49c5fdb9f137761cef10e9"
+      },
+      "tests/unit/test_jar_download_cache.py": {
+        "git_blob_oid": "63f10c46dad1f7f5e38e52cd172441dd1fc4a786",
+        "sha256_local_bytes": "d95fb5be065e42886837096810bcd188ba7c9f9f322a2d01523e73c7b1569683"
+      },
+      "tests/unit/test_operator_references.py": {
+        "git_blob_oid": "1ed04d96e61f1c4a2c20c5f376e1d4564278688b",
+        "sha256_local_bytes": "cf348065a855ce3f31e729f84ecf12e51fed85860de58d2384489120b9ec76ff"
+      },
+      "tests/unit/test_rebuilt_jars.py": {
+        "git_blob_oid": "6d817ac2fcbb5b589863426892ad4b9cc8895d36",
+        "sha256_local_bytes": "6d6bff50f08b71be94bbf5023bd47a050569ca5c2953d9dc6a8e335254e0ac62"
+      },
+      "tests/unit/test_reporting.py": {
+        "git_blob_oid": "ba6c9b18aaf4c028eebabd44edff794b522f735a",
+        "sha256_local_bytes": "d78c6d1c022ba873553805901b2b522c658612e20c3f0d295cdb70fdd0977472"
+      },
+      "tests/unit/test_security_gate.py": {
+        "git_blob_oid": "e301682993c72297d523d90a176efbe42c1fca8c",
+        "sha256_local_bytes": "f5d2809171ff9528e0c3530c37ae907426312c676064b6ab123219d83256e8c4"
+      },
+      "tests/unit/test_state_proof.py": {
+        "git_blob_oid": "e47948efd69e9bee2b617ebe81acdb9d9274b195",
+        "sha256_local_bytes": "bb3d09d55b942ce7d8b63c3ef28a39e19081a5231c7e89d9876e947a4ecb90bf"
+      },
+      "vendor/commons-lang/Builder.Dockerfile": {
+        "git_blob_oid": "b786c98b30bfe7edae7dfc228cba4faa8aefa70e",
+        "sha256_local_bytes": "0f7457b745b8df160aae4a6cb0310d6e3865e0455ec298058ee2366f070416ab"
+      },
+      "vendor/commons-lang/CVE-2025-48924.patch": {
+        "git_blob_oid": "9a5dea2dba97df3bbecf1345753ac1d41214aa9e",
+        "sha256_local_bytes": "f91b65239f657ebe759fe9c94dfe1f79d9967ea53f527c5f88c00c2aab050856"
+      },
+      "vendor/commons-lang/README.md": {
+        "git_blob_oid": "012832ff1c22f1eb60d09e668d6ee8c892db0027",
+        "sha256_local_bytes": "dafeeeac049d2dd8c5c9711a55864b0914c4e84af2fcdc4db01cb4259090cfef"
+      },
+      "vendor/commons-lang/UpstreamTestRunner.java": {
+        "git_blob_oid": "7720dd52be70259f19f712a88063baa93af3a41e",
+        "sha256_local_bytes": "ce5ca6920aef8b829196baecd290915190a84ac1a4eeaa0c81c8a05e607f1ba6"
+      },
+      "vendor/commons-lang/provenance.json": {
+        "git_blob_oid": "4875c476abe121158592a82790e7d90573a442a9",
+        "sha256_local_bytes": "cde6bb4d78ceddc14812dcee5a8064815b45366cdfcff1dc3fd9fae515dbe07d"
+      },
+      "vendor/commons-lang/source-lock.json": {
+        "git_blob_oid": "cdb2b931d56fe9ebe4108af0bf22a0528c5f40f4",
+        "sha256_local_bytes": "d873df054e2d761aceef227d7ab55f217821961afc2465759a105370ea5b3427"
+      },
+      "vendor/commons-lang/verification.json": {
+        "git_blob_oid": "339ecdba251099e02faf50b99e2ae9514f41024d",
+        "sha256_local_bytes": "29202031ebacae9dfd1e45b6aae6b3da936f37d732eacba2b62094663759398b"
+      },
+      "vendor/hadoop-runtime/.gitattributes": {
+        "git_blob_oid": "58de0447d0f078cc48e1f1d8127450e1a294a387",
+        "sha256_local_bytes": "b07826ed1b7adedf1bf08995d7904553b7309cea14f5b4a06095a33e61ec8093"
+      },
+      "vendor/hadoop-runtime/.gitignore": {
+        "git_blob_oid": "b83d22266ac8aa2f8df2edef68082c789727841d",
+        "sha256_local_bytes": "306fd52e74fca6746e12acc750f232de15e71da917756a1270d74c91f5eb7368"
+      },
+      "vendor/hadoop-runtime/ComponentSmoke.java": {
+        "git_blob_oid": "441cc9cf5b3e24fee01232e1115cba18be411f68",
+        "sha256_local_bytes": "91ff512fcb933312dac850ef7e55b7031776b013ed51883a283f66627807001a"
+      },
+      "vendor/hadoop-runtime/README.md": {
+        "git_blob_oid": "4c606e9857b9f734a4de106185637488ecd26d78",
+        "sha256_local_bytes": "0f4fe0e2a0a4815d442a6d4af9f460f205c93795667e0069031f323ae72b320a"
+      },
+      "vendor/hadoop-runtime/build-stage.sh": {
+        "git_blob_oid": "2be78c3406373e6be7136ce522943097259646a9",
+        "sha256_local_bytes": "3746556ede9a8453fb2a8cb4a90a3043e4d14bd98b7a3c49c223ee96c2bbb987"
+      },
+      "vendor/hadoop-runtime/component-tests.json": {
+        "git_blob_oid": "97504c5d150e29f22b8c789e7e141087ee8a211d",
+        "sha256_local_bytes": "142b8204969129a133aa8352f6f7d98addc302370c28346a9aa698773ccc74e4"
+      },
+      "vendor/hadoop-runtime/definition.sha256": {
+        "git_blob_oid": "5c8dba991fb2b270adab7d2d4ee7e4daf1a4c875",
+        "sha256_local_bytes": "dc04a3576fefd25719d0f18116d148aaa07442d0fedf9fcadfa0b813250a02bd"
+      },
+      "vendor/hadoop-runtime/inputs.lock.json": {
+        "git_blob_oid": "428cf13111bb0b29987cd56c2a7d0cf3b74a774b",
+        "sha256_local_bytes": "70daf198421da08a50212c97d58f0bdc6c40ab8406ab6cb21869fdad53aed057"
+      },
+      "vendor/hadoop-runtime/inputs.sha256": {
+        "git_blob_oid": "7a8a7bb05ca5cea94bb42ed43a70aca5de43b949",
+        "sha256_local_bytes": "bd05f7ee0d6a0c8c47636474d8fc66172be607f557bf6c17f0fa0e41a17e6e5d"
+      },
+      "vendor/hadoop-runtime/jline-resource-relocations.json": {
+        "git_blob_oid": "9b4a8e38e7da2d2a0ce37a9dace949670096ed44",
+        "sha256_local_bytes": "ce276ca025163d0a2a2ecdddb5a4ecad53fd559063decfee2cf22d5ef4fa039a"
+      },
+      "vendor/hadoop-runtime/output.sha256": {
+        "git_blob_oid": "cce2bee7cee272e7ec7466808ba24690a2992bd0",
+        "sha256_local_bytes": "423c229535a5d4ab6db64e5bd3692a712d30d51af0db6d5126e3de88bc84119c"
+      },
+      "vendor/hadoop-runtime/pom.xml": {
+        "git_blob_oid": "c9289866e55b35fbc7628dfe9187aeb20ac53d31",
+        "sha256_local_bytes": "346bc36b6303f42af16aafcd7f81aeb7cbfe429eef2e4275f38750fe245d3a8b"
+      },
+      "vendor/hadoop-runtime/probe-definition.sha256": {
+        "git_blob_oid": "b345d130aa43ef1b0410914ed2eba1e6f71b1ebc",
+        "sha256_local_bytes": "09aed69437a06aede14a524bb4e696091af37f9ce341159c7d6c1e4452738d49"
+      },
+      "vendor/hadoop-runtime/probe-dependencies.lock.json": {
+        "git_blob_oid": "2b95fa123489ddd3a4c792577d355cda65752d3b",
+        "sha256_local_bytes": "fde80e8c2ed899e9510b3ce7cd4e0667c96baf28143b15e46b868d2b3d548554"
+      },
+      "vendor/hadoop-runtime/probe-inputs.sha256": {
+        "git_blob_oid": "24653066d1633f588f75996d68d360726b7fa516",
+        "sha256_local_bytes": "2c51b2453a9b9a46badd4acbc9083479b54b961e30ab0209f2d9c6400be20773"
+      },
+      "vendor/hadoop-runtime/release-manifest.json": {
+        "git_blob_oid": "a233dd05be18c7d948047352050af727ff96c322",
+        "sha256_local_bytes": "0d5be02cc33da0873e622ae5b665820543d468dd4de88e4676f01ccdb424093a"
+      },
+      "vendor/hadoop-runtime/reproduction.json": {
+        "git_blob_oid": "d8b0687c705ef79ccd5772c1382b08a6c4045ed3",
+        "sha256_local_bytes": "5ae64faf02e380e2a00007fe902340e8818d0c0abb1a0141580739bdd20fdfb7"
+      },
+      "vendor/hadoop-runtime/settings.xml": {
+        "git_blob_oid": "c97bb9a4e141c7603349b45862f65d52d3d34972",
+        "sha256_local_bytes": "e58f1182d6757c43d07a9b4eb99867ed04ed47df432bd38eaec9fd4efacfc841"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/jline-resource-relocations.json": {
+        "git_blob_oid": "28e5df0240e80bd6703442e179bb325b19056197",
+        "sha256_local_bytes": "4ea192ae083f5c3785f6a4e4efbe69aec486aa6cbef2848f3ab714abfb3486df"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/jline/providers/dumb": {
+        "git_blob_oid": "865e96b4871183f388c0bd0f760fc502f319ce1b",
+        "sha256_local_bytes": "cae213d2925cf5a1524845ce57d75e40e1cc623eaef6e55ce40b648a72150a5f"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/jline/providers/exec": {
+        "git_blob_oid": "6f4195f94f0a74662a9c8e324dd16e5d9c335fda",
+        "sha256_local_bytes": "4eef99f09893d7ed87b335e6ca6f75fbcc97231d84e33bc7e53f723c02cd89cc"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/jline/providers/ffm": {
+        "git_blob_oid": "5e0d3f02fbc2221676bba4575a462bdc8824cd5e",
+        "sha256_local_bytes": "73e5477155c4ee5d3dc386bfcdda6356c7ceb97c93c5ef96bc8cec73d7a17603"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/jline/providers/jni": {
+        "git_blob_oid": "fcd2ddd1e0a0a7ccc61950e5c8b3e59f9427eb04",
+        "sha256_local_bytes": "20bede744e2758bcad25cc43c1833a79d15cdde4017d7c592c115f316d563f6f"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/maven/org.apache.hadoop/hadoop-client-runtime/pom.properties": {
+        "git_blob_oid": "93779b80c958d7ed0213a115d9dbf87e5d079adb",
+        "sha256_local_bytes": "0c3357eba199c17fe7f155e78655725c320e3383d68b55ee2032cf9bf816d665"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/maven/org.apache.hadoop/hadoop-client-runtime/pom.xml": {
+        "git_blob_oid": "afa05079c83631c0c28732c2153864cea7e9ce5a",
+        "sha256_local_bytes": "f5a1580fde7a4fd89513c6ed94027236b6a4e27eaf5147e1e8711d72c468c8de"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/retail-build-inputs.json": {
+        "git_blob_oid": "a819e7b5715789af32a210ac3dff20489b3c5f9f",
+        "sha256_local_bytes": "3f98f5646cb9d9d5bdb90226ca9e19245742492396981b1a1944e331b6bdd8c8"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/aopalliance-repackaged-2.6.1.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "6667b0612ef656e7168a9c91b9883b04f34e6f3c",
+        "sha256_local_bytes": "8f7ae33adf6bfb459833618ae0aef4b860cc4d03888952f1d72b435334ae1f8d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/aopalliance-repackaged-2.6.1.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "403074a9eec8fa9f393ef8671abf1b174922e84d",
+        "sha256_local_bytes": "9eedd03ff6ccc7c63086dd621ede7fc970bffb0be845c28987642d9fb0e10d18"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/avro-1.11.5.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/avro-1.11.5.jar/META-INF/NOTICE": {
+        "git_blob_oid": "132e4c23d00458174e574ca3c75efd8ebbd26e4a",
+        "sha256_local_bytes": "eaaaaebcb00d601fe5a7f4300b1dced1143672d263691c6f7fef39eba8d37eec"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-cli-1.9.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "57bc88a15a0ee8266c259b2667e64608d3f7e292",
+        "sha256_local_bytes": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-cli-1.9.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "020d72503a3f828e47730ecfa313c3ec2affde14",
+        "sha256_local_bytes": "873a665587ef21a2e2cfac1762f581bd1510b85d1545bef0f7fe3aedfe185341"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-codec-1.15.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-codec-1.15.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9899d2108a8476d595531d01047844c15d82f83f",
+        "sha256_local_bytes": "0e529f7dd092a0c4675485e14c3f79b0c2855fc84830a5b2d79564ba89f71ee6"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-collections4-4.4.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "75b52484ea471f882c29e02693b4f02dba175b5e",
+        "sha256_local_bytes": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-collections4-4.4.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "8b11c65aeb2c75827c25008f0a81b24f390e772d",
+        "sha256_local_bytes": "10203d78a651da05754be398e7df4c5a0b421522a34211a6fa6a1c42f557a2f2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-compress-1.26.1.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+        "sha256_local_bytes": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-compress-1.26.1.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "1d780c624a19f8f7f001ac354ffe14e1c97a0b51",
+        "sha256_local_bytes": "28a309fd415da6e802ecf85061a451f7ac4353f3610f2982f7af29e9d1529289"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-configuration2-2.15.1.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "ff9ad4530f5716304e042cbac72cecd7c40f0e0e",
+        "sha256_local_bytes": "b1d2870f1a00e4d7f56576e5f0870cba109e041f8af66866cf5b499478e654e7"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-configuration2-2.15.1.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "c5dac99999cd79dbe06e34893f3b4aea91299761",
+        "sha256_local_bytes": "bec98a00c47b8ef11ed853252bef86d6e80a42e5e10e430387fcac326da6d645"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-io-2.22.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "c8118641cddd58f5b8f175c4ec91b8e69b65e97c",
+        "sha256_local_bytes": "c1d1a38c99c48ccad170890ade6066e2e240bb6ce59861d4eb7f672eddd2a4c6"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-io-2.22.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "b9fb860712dd9620fedabe0ba3cbed9a6e0f496a",
+        "sha256_local_bytes": "85394d154ee5c7b48057f0a29329b6d4c80d2513d4c02b233a69207c522763cf"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-lang3-3.20.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "ff9ad4530f5716304e042cbac72cecd7c40f0e0e",
+        "sha256_local_bytes": "b1d2870f1a00e4d7f56576e5f0870cba109e041f8af66866cf5b499478e654e7"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-lang3-3.20.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9c0ea0be638b9b0ea11598bd6b20f42a23856434",
+        "sha256_local_bytes": "64bc8696af3f6c770521412b85d3a733fa44b2ef5b0f4bd739e0c4d02eca492a"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-logging-1.3.6.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "ff9ad4530f5716304e042cbac72cecd7c40f0e0e",
+        "sha256_local_bytes": "b1d2870f1a00e4d7f56576e5f0870cba109e041f8af66866cf5b499478e654e7"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-logging-1.3.6.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "53ac233c18a39c443faa120e44745063df0d0678",
+        "sha256_local_bytes": "d649e220dd0497197a266b7d7304a009d06bcefce3141fa6ff4f2ceddb438237"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-math3-3.6.1.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "d97b49ab0f0f1e6d2c991ac0496be35d8bc36ad8",
+        "sha256_local_bytes": "64f23963615950bad9ddd31569a7f09afbbe11b81d94873ffd9b1cac6081a11d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-math3-3.6.1.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "be158fe280392097ab15cc631cae38c08bc95b68",
+        "sha256_local_bytes": "5495442a32bfc2b93b4a8f2c34c5c218d16cca434aa5684fb953d9419120e3fa"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-net-3.9.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-net-3.9.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "a617e2502add46c1132184462d54e7a8db690c74",
+        "sha256_local_bytes": "5d35d890ce3d0f207f0f27bbcbd5a54a69aa5be78bd8a70b2a28b02c386b8188"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-text-1.15.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "ff9ad4530f5716304e042cbac72cecd7c40f0e0e",
+        "sha256_local_bytes": "b1d2870f1a00e4d7f56576e5f0870cba109e041f8af66866cf5b499478e654e7"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/commons-text-1.15.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "0c73fbda698773a1e9c5d271766a147f7f60c427",
+        "sha256_local_bytes": "26ebc5e05468959b3ae5010f10e0c3fb0cbf8d7d2f1242005bf5656c1348c69f"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/curator-client-5.2.0.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/curator-client-5.2.0.jar/META-INF/NOTICE": {
+        "git_blob_oid": "d712fb7946953ee58799ca284af1630457180233",
+        "sha256_local_bytes": "d4a367e0f5731158bfd3a18992dba4c6aab7792dec93bf56aa1e85c4b9c55942"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/curator-framework-5.2.0.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/curator-framework-5.2.0.jar/META-INF/NOTICE": {
+        "git_blob_oid": "01af8b6384a389350e2dbd9982af2f665be8a7f6",
+        "sha256_local_bytes": "6262cd5fdfb032427e74ebd78e108dcdf36ea45b8833660ea0b0623e99f334f7"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/curator-recipes-5.2.0.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/curator-recipes-5.2.0.jar/META-INF/NOTICE": {
+        "git_blob_oid": "259613650bd6956e21351e4d9f0af7b15b109dcc",
+        "sha256_local_bytes": "1bf5f4fffb6cb8a64c8d41c7c011aa42f846c70e29bbed6118aa34c2c3ccb809"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/dnsjava-3.6.1.jar/META-INF/LICENSE": {
+        "git_blob_oid": "60bca5d908e2966e7830179ba635fd04ffa72ebe",
+        "sha256_local_bytes": "728425063f391e5afae6feb669dd74d61477d749d37baa001938a0f2700fd200"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/failureaccess-1.0.3.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/guava-33.4.8-jre.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-annotations-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-annotations-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-auth-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-auth-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-client-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-client-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-client-api-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-client-api-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-common-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-common-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-hdfs-client-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-hdfs-client-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-mapreduce-client-common-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-mapreduce-client-common-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-mapreduce-client-core-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-mapreduce-client-core-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-mapreduce-client-jobclient-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-mapreduce-client-jobclient-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-shaded-guava-1.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "8e348bed0c368965a4f16b18f30ac89109c2f726",
+        "sha256_local_bytes": "97adfaa2d9198528858d1fd70bc55868771181c405fb5197c88517af413c30c1"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-shaded-guava-1.5.0.jar/META-INF/NOTICE-binary": {
+        "git_blob_oid": "bbc0b1b61c09aa4d5e8b4d435265690083365666",
+        "sha256_local_bytes": "137d7002b60aadfd602b48b8d9b8de42b7cd2e5f5acb219e0c586a5bcfb1d883"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-shaded-guava-1.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "bbc0b1b61c09aa4d5e8b4d435265690083365666",
+        "sha256_local_bytes": "137d7002b60aadfd602b48b8d9b8de42b7cd2e5f5acb219e0c586a5bcfb1d883"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-shaded-guava-1.5.0.jar/META-INF/licenses-binary/LICENSE.protobuf.txt": {
+        "git_blob_oid": "97a6e3d199a5fbefced7ef657a59be8bd8a76f70",
+        "sha256_local_bytes": "95bc0839fe9ffb3baf1b5ad8f5c347b58a07196387b3939c9f121d48461443dc"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-shaded-protobuf_3_25-1.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "8e348bed0c368965a4f16b18f30ac89109c2f726",
+        "sha256_local_bytes": "97adfaa2d9198528858d1fd70bc55868771181c405fb5197c88517af413c30c1"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-shaded-protobuf_3_25-1.5.0.jar/META-INF/NOTICE-binary": {
+        "git_blob_oid": "bbc0b1b61c09aa4d5e8b4d435265690083365666",
+        "sha256_local_bytes": "137d7002b60aadfd602b48b8d9b8de42b7cd2e5f5acb219e0c586a5bcfb1d883"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-shaded-protobuf_3_25-1.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "bbc0b1b61c09aa4d5e8b4d435265690083365666",
+        "sha256_local_bytes": "137d7002b60aadfd602b48b8d9b8de42b7cd2e5f5acb219e0c586a5bcfb1d883"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-shaded-protobuf_3_25-1.5.0.jar/META-INF/licenses-binary/LICENSE.protobuf.txt": {
+        "git_blob_oid": "97a6e3d199a5fbefced7ef657a59be8bd8a76f70",
+        "sha256_local_bytes": "95bc0839fe9ffb3baf1b5ad8f5c347b58a07196387b3939c9f121d48461443dc"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-yarn-api-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-yarn-api-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-yarn-client-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-yarn-client-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-yarn-common-3.5.0.jar/META-INF/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hadoop-yarn-common-3.5.0.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hk2-api-2.6.1.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "6667b0612ef656e7168a9c91b9883b04f34e6f3c",
+        "sha256_local_bytes": "8f7ae33adf6bfb459833618ae0aef4b860cc4d03888952f1d72b435334ae1f8d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hk2-api-2.6.1.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "403074a9eec8fa9f393ef8671abf1b174922e84d",
+        "sha256_local_bytes": "9eedd03ff6ccc7c63086dd621ede7fc970bffb0be845c28987642d9fb0e10d18"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hk2-locator-2.6.1.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "6667b0612ef656e7168a9c91b9883b04f34e6f3c",
+        "sha256_local_bytes": "8f7ae33adf6bfb459833618ae0aef4b860cc4d03888952f1d72b435334ae1f8d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hk2-locator-2.6.1.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "403074a9eec8fa9f393ef8671abf1b174922e84d",
+        "sha256_local_bytes": "9eedd03ff6ccc7c63086dd621ede7fc970bffb0be845c28987642d9fb0e10d18"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hk2-utils-2.6.1.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "6667b0612ef656e7168a9c91b9883b04f34e6f3c",
+        "sha256_local_bytes": "8f7ae33adf6bfb459833618ae0aef4b860cc4d03888952f1d72b435334ae1f8d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/hk2-utils-2.6.1.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "403074a9eec8fa9f393ef8671abf1b174922e84d",
+        "sha256_local_bytes": "9eedd03ff6ccc7c63086dd621ede7fc970bffb0be845c28987642d9fb0e10d18"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/httpclient-4.5.13.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/httpclient-4.5.13.jar/META-INF/NOTICE": {
+        "git_blob_oid": "f3c91e72f38cf145d1f7454be8c9199e2d29500c",
+        "sha256_local_bytes": "290a6b4aa53aa74eaf2a8d1b815bbac2502eb3ddbf7d5a6b9343be8ed490994d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/httpcore-4.4.13.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/httpcore-4.4.13.jar/META-INF/NOTICE": {
+        "git_blob_oid": "c8575b4d0acbe0e34a7842178278a750afeeb3ef",
+        "sha256_local_bytes": "ae5de071e467c6931498ae994edba2157bbdd18811f7e5b3cadf5970765b403f"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-annotations-2.18.11.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-annotations-2.18.11.jar/META-INF/NOTICE": {
+        "git_blob_oid": "738b11fda42c8a5b48e65e030ee10ee6a7bf171d",
+        "sha256_local_bytes": "612b14bc77c944ce229cbba0d14919162cfea8ed802cbf06a8e865e032d03201"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-core-2.18.11.jar/META-INF/FastDoubleParser-LICENSE": {
+        "git_blob_oid": "d03204fe3395629389827ce77544557593448995",
+        "sha256_local_bytes": "59067508e44346bf93dc9c5e4d673a67ecd77988c2020bb5e0f8667eb199f396"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-core-2.18.11.jar/META-INF/FastDoubleParser-ThirdParty-LICENSE": {
+        "git_blob_oid": "d3daf7c721579dec633a0314c71b4448307ed7b6",
+        "sha256_local_bytes": "dbc36f9422a40d58d1a214080583667cfd37d61c2fae1657d981edda2a60727f"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-core-2.18.11.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-core-2.18.11.jar/META-INF/NOTICE": {
+        "git_blob_oid": "cffd6af9ddb0ed3591390d034b632b1e6be485e9",
+        "sha256_local_bytes": "e6aef1c0f4cf5b0f802c16b31fce309b3c3737450b93c40d6291bf6540aae3d1"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-core-2.18.11.jar/META-INF/Schubfach-LICENSE": {
+        "git_blob_oid": "eb5341421b100746233ab4b35ca001a3548fb7cd",
+        "sha256_local_bytes": "12d39a6615219d73202300715e365bec2b958f858d1e837c8f2dace57f905969"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-databind-2.18.11.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-databind-2.18.11.jar/META-INF/NOTICE": {
+        "git_blob_oid": "738b11fda42c8a5b48e65e030ee10ee6a7bf171d",
+        "sha256_local_bytes": "612b14bc77c944ce229cbba0d14919162cfea8ed802cbf06a8e865e032d03201"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-jaxrs-base-2.18.11.jar/META-INF/LICENSE": {
+        "git_blob_oid": "8401e01f25baa098d54d469ea6fa9ddb87e30b21",
+        "sha256_local_bytes": "0ce89ddc1927017b9a891ce90bb0ea51abda7171278daa746f19e91f6122f788"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-jaxrs-json-provider-2.18.11.jar/META-INF/LICENSE": {
+        "git_blob_oid": "8401e01f25baa098d54d469ea6fa9ddb87e30b21",
+        "sha256_local_bytes": "0ce89ddc1927017b9a891ce90bb0ea51abda7171278daa746f19e91f6122f788"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-jaxrs-json-provider-2.18.11.jar/META-INF/NOTICE": {
+        "git_blob_oid": "5ab1e5636037e759150be05da84be21ea4edc804",
+        "sha256_local_bytes": "41c338db0adac3ea540c53845bd4cec40d437e843b22c84ae08375a4d6442543"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-module-jaxb-annotations-2.18.11.jar/META-INF/LICENSE": {
+        "git_blob_oid": "2f3365f257d98163aacd7860e8c41ce6dd8d78c6",
+        "sha256_local_bytes": "393c2b465b8d75ad8b5a77214d4b85cfb94ab85e5c3a4ed6df559a1e7c77915a"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jackson-module-jaxb-annotations-2.18.11.jar/META-INF/NOTICE": {
+        "git_blob_oid": "4c976b7b4cc589dad34f6bb288f419a3affad5d3",
+        "sha256_local_bytes": "a91bdf9a76f27b157f0c4952f66739af7d37a9bab9bca757518777cf8cbeb1c0"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.activation-api-1.2.1.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "e0358f972175d83cc567fcd129cc205ea9d40ff0",
+        "sha256_local_bytes": "87eba02f8a415f1a25de6ca3ac6b5c77eb33f33f00ae5a5f9d6ee963147f7956"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.activation-api-1.2.1.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "d6492f81ccce4efec1e8d03248ca64d3b26c164f",
+        "sha256_local_bytes": "68876f7ca9d96cf89d45b067844ed727e0d1c19a2b0b05e1a5ca83dd0b5f12b2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.annotation-api-1.3.5.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "5de3d1b40c199fba101ae1602548c5042587ed7b",
+        "sha256_local_bytes": "6e1f002892b81cbe0647019b150c8a056efc1add565671a4f8af629b6cd2cc7b"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.annotation-api-1.3.5.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "6e7560a92a2ecb60b9a0dc42e2de37c2d8390810",
+        "sha256_local_bytes": "3852834ebb4c2e04ecc18c9d099a05eab72cbd6edf35fb191390be6306019b4c"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.inject-2.6.1.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "6667b0612ef656e7168a9c91b9883b04f34e6f3c",
+        "sha256_local_bytes": "8f7ae33adf6bfb459833618ae0aef4b860cc4d03888952f1d72b435334ae1f8d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.inject-2.6.1.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "403074a9eec8fa9f393ef8671abf1b174922e84d",
+        "sha256_local_bytes": "9eedd03ff6ccc7c63086dd621ede7fc970bffb0be845c28987642d9fb0e10d18"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.ws.rs-api-2.1.6.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "5de3d1b40c199fba101ae1602548c5042587ed7b",
+        "sha256_local_bytes": "6e1f002892b81cbe0647019b150c8a056efc1add565671a4f8af629b6cd2cc7b"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.ws.rs-api-2.1.6.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "d509e872d246088d49f4edc0e52600970aa0f183",
+        "sha256_local_bytes": "6650d26fa49bc9e9c2789c5458cd8264bf06f311d852290d79dfa6732cb71668"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.xml.bind-api-2.3.3.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "6fb337cb014d5ae5d406194049b960982e307849",
+        "sha256_local_bytes": "dcbbdbb512a272b5f1e01e82225a23eba92406ec28f7b36e490057478d8d1570"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jakarta.xml.bind-api-2.3.3.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "101193f6423d4efe174f4a6d0ef5f44910648cfa",
+        "sha256_local_bytes": "190bb88e764baa914edd55f80952d0fe63795a4986176afb6b41705e5612c458"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-client-2.46.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "345fc37cc1c639ab25333a1a7beb199023086c09",
+        "sha256_local_bytes": "3b6f2a5d22e00be63fbd8c241291cbd00daf803028451c50cf1bd039a9e54272"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-client-2.46.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "cee36b55b98f4453112a70efc50ca7f326acd908",
+        "sha256_local_bytes": "122337e566c8094feeb0e638a1b7b5e76d2e5fc85c26e021c8d2929271fe6c44"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-common-2.46.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "345fc37cc1c639ab25333a1a7beb199023086c09",
+        "sha256_local_bytes": "3b6f2a5d22e00be63fbd8c241291cbd00daf803028451c50cf1bd039a9e54272"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-common-2.46.jar/META-INF/NOTICE.markdown": {
+        "git_blob_oid": "34f53f00cc18ff1aecf34313ce594c261cdf5951",
+        "sha256_local_bytes": "4526bc80d89d6fc7141376a7771f68fc2b274a38f7ce7778c06f98a4ac59c612"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-common-2.46.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "cee36b55b98f4453112a70efc50ca7f326acd908",
+        "sha256_local_bytes": "122337e566c8094feeb0e638a1b7b5e76d2e5fc85c26e021c8d2929271fe6c44"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-container-servlet-2.46.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "345fc37cc1c639ab25333a1a7beb199023086c09",
+        "sha256_local_bytes": "3b6f2a5d22e00be63fbd8c241291cbd00daf803028451c50cf1bd039a9e54272"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-container-servlet-2.46.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "cee36b55b98f4453112a70efc50ca7f326acd908",
+        "sha256_local_bytes": "122337e566c8094feeb0e638a1b7b5e76d2e5fc85c26e021c8d2929271fe6c44"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-container-servlet-core-2.46.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "345fc37cc1c639ab25333a1a7beb199023086c09",
+        "sha256_local_bytes": "3b6f2a5d22e00be63fbd8c241291cbd00daf803028451c50cf1bd039a9e54272"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-container-servlet-core-2.46.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "cee36b55b98f4453112a70efc50ca7f326acd908",
+        "sha256_local_bytes": "122337e566c8094feeb0e638a1b7b5e76d2e5fc85c26e021c8d2929271fe6c44"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-hk2-2.46.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "345fc37cc1c639ab25333a1a7beb199023086c09",
+        "sha256_local_bytes": "3b6f2a5d22e00be63fbd8c241291cbd00daf803028451c50cf1bd039a9e54272"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-hk2-2.46.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "cee36b55b98f4453112a70efc50ca7f326acd908",
+        "sha256_local_bytes": "122337e566c8094feeb0e638a1b7b5e76d2e5fc85c26e021c8d2929271fe6c44"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-server-2.46.jar/META-INF/LICENSE.md": {
+        "git_blob_oid": "345fc37cc1c639ab25333a1a7beb199023086c09",
+        "sha256_local_bytes": "3b6f2a5d22e00be63fbd8c241291cbd00daf803028451c50cf1bd039a9e54272"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-server-2.46.jar/META-INF/NOTICE.markdown": {
+        "git_blob_oid": "2016cb4dde14beaad98b49a48b4ee3168decae1a",
+        "sha256_local_bytes": "ebcc09dd99b48842dfc04466b4f308d7a0f3d1be8f024c530feb64cf05675263"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jersey-server-2.46.jar/META-INF/NOTICE.md": {
+        "git_blob_oid": "cee36b55b98f4453112a70efc50ca7f326acd908",
+        "sha256_local_bytes": "122337e566c8094feeb0e638a1b7b5e76d2e5fc85c26e021c8d2929271fe6c44"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-client-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-client-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-http-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-http-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-io-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-io-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-security-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-security-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-servlet-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-servlet-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-util-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-util-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-util-ajax-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-util-ajax-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-webapp-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-webapp-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-xml-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/jetty-xml-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerb-core-2.0.3.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerb-core-2.0.3.jar/META-INF/NOTICE": {
+        "git_blob_oid": "5e6472df25ae2e3a4f7da6669f7550dba9d26e40",
+        "sha256_local_bytes": "805e14f3544a712d56eae5264f4300e5343b11aba97f0f79a873275b6d2557f5"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerb-crypto-2.0.3.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerb-crypto-2.0.3.jar/META-INF/NOTICE": {
+        "git_blob_oid": "976ff359c94509f208ece447966813ca140039bd",
+        "sha256_local_bytes": "db965b4e27d555fb7823ab042599e384e10dbc047758ead43d34c42c5bf91053"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerb-util-2.0.3.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerb-util-2.0.3.jar/META-INF/NOTICE": {
+        "git_blob_oid": "2c319f3b8af6922b1444a6007f6acc970edc7d7b",
+        "sha256_local_bytes": "0c032352437f07dcbd9284aa78357bb8fc54ddc4ed61d6a6368e04f5816f7f5c"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerby-asn1-2.0.3.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerby-asn1-2.0.3.jar/META-INF/NOTICE": {
+        "git_blob_oid": "fd7d5110610a0abf6ccf097076b17921754847e7",
+        "sha256_local_bytes": "df211c5616bc17bc32dca9989a5a0d23f1221bac252fdbc24c8ab8da9054caf3"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerby-config-2.0.3.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerby-config-2.0.3.jar/META-INF/NOTICE": {
+        "git_blob_oid": "1687536e115dbbf2c430cc90bb2c7b776ca7c320",
+        "sha256_local_bytes": "fc6ba71a9348260d2489850d235b2c8234b77d58d76c7b29ae97024068d7f716"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerby-pkix-2.0.3.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerby-pkix-2.0.3.jar/META-INF/NOTICE": {
+        "git_blob_oid": "969a4e1a41bee32d4133e4bf237f8779e682dcd4",
+        "sha256_local_bytes": "ac44b3a32a474483ebb7282403202b7235b52a00ee4cd0c90013e6b594a024fe"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerby-util-2.0.3.jar/META-INF/LICENSE": {
+        "git_blob_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256_local_bytes": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/kerby-util-2.0.3.jar/META-INF/NOTICE": {
+        "git_blob_oid": "db4005f9c2172ac572e121ce1c550e65a8d0f860",
+        "sha256_local_bytes": "7b882772e2b30e9ba26ec5032578714c72197f7f418b733ae0e813cf4c8e1263"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/reload4j-1.2.22.jar/META-INF/LICENSE": {
+        "git_blob_oid": "6279e5206de1367a1fa0356bafb739d0e9ad0413",
+        "sha256_local_bytes": "e118ad8e5f2d3c71f0e7d6202d5829e7580ccd9e3609a546c692788e657afbe2"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/reload4j-1.2.22.jar/META-INF/NOTICE": {
+        "git_blob_oid": "0375732360047854f952324e201aa816aa252af0",
+        "sha256_local_bytes": "ebed5172d012c19756675b2b9e8061f17814c01a937035a5772afaecdb316ffe"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/stax2-api-4.2.1.jar/META-INF/LICENSE": {
+        "git_blob_oid": "9b533931871d0ced3f6b026563b61641b033d014",
+        "sha256_local_bytes": "b3e969d18f690ab8783e4ec77729c9fea85691b8090c550bb3c626dda5e837a7"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/websocket-api-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/websocket-api-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/websocket-client-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/websocket-client-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/websocket-common-9.4.58.v20250814.jar/META-INF/LICENSE": {
+        "git_blob_oid": "46f4f25246450e63c092ea7c9b4b540472693855",
+        "sha256_local_bytes": "41cee10347b097e5d5358ad56b427c49751df3ae959bfce47d512c352c3c3979"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/websocket-common-9.4.58.v20250814.jar/META-INF/NOTICE.txt": {
+        "git_blob_oid": "9ca92f1f70446c82157464952b38492b0630f0f0",
+        "sha256_local_bytes": "b31f0921de534f7b8035b374d05176f248caf4dae6f39d34c5da446f2f7cc12d"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/third-party/woodstox-core-5.4.0.jar/META-INF/LICENSE": {
+        "git_blob_oid": "6acf75483f9b0d4b0f6b7cc50c418d7c5b371d41",
+        "sha256_local_bytes": "d2706a35658d83c27d7d5f357f5ba63877fd8694a3f6aee48b87036a41118c8a"
+      },
+      "vendor/hadoop-runtime/src/main/resources/META-INF/varejo-hadoop-runtime.json": {
+        "git_blob_oid": "65d1e27ca04640100248df7675dabab84231eadb",
+        "sha256_local_bytes": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d"
+      },
+      "vendor/hadoop-runtime/test-stage.sh": {
+        "git_blob_oid": "30ec1d5fb0867c53fb8451f60fba70261d56b4d0",
+        "sha256_local_bytes": "7843dd432c2c0165aa53b715bcaeb9e5c1abea3fb5d5bb192e8a0e11cf0874fa"
+      },
+      "vendor/hadoop-runtime/toolchain.json": {
+        "git_blob_oid": "6dbf044f3d98ae18d1fada320829e9251ce187a7",
+        "sha256_local_bytes": "7f195cf741ba0703815f7b7977569eb6d02133078110d02c8f50ff4c2d5652cc"
+      },
+      "vendor/hadoop-runtime/upstream-sources.json": {
+        "git_blob_oid": "6de24486b0ac7d75be122c55e958e7a30540ccc7",
+        "sha256_local_bytes": "95fad220ecfbe469e8f8fd650bd20337cb2caa79990ac7fa5265b7d0886ec798"
+      },
+      "vendor/hadoop-runtime/upstream/LICENSE.txt": {
+        "git_blob_oid": "836887e93cd2786a25a2fe27b09fc8af79667505",
+        "sha256_local_bytes": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      "vendor/hadoop-runtime/upstream/NOTICE.txt": {
+        "git_blob_oid": "f6715f7beb085eeea1e4fc5f6175da47eebefb48",
+        "sha256_local_bytes": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      },
+      "vendor/hadoop-runtime/upstream/jline-providers/dumb": {
+        "git_blob_oid": "5fd16fccd2232a8f19c8070cca3ffe0fbf130d67",
+        "sha256_local_bytes": "48252719e3f40a0eb6197ce9ad989c179103b807e91b17f31868c0835ce08056"
+      },
+      "vendor/hadoop-runtime/upstream/jline-providers/exec": {
+        "git_blob_oid": "0027d618dca097d813a6bde293bc09dfb98939b6",
+        "sha256_local_bytes": "cc3e8b83e01f2550d8e9369b3763ab42b88122667cfa3f85998d252871e18b86"
+      },
+      "vendor/hadoop-runtime/upstream/jline-providers/ffm": {
+        "git_blob_oid": "c6c56203de9b1906bc821d66efc46abd3c96bd85",
+        "sha256_local_bytes": "ada38b6c74ee716d369c9f462f719d1872425b09809859d7531da53c1b6d991c"
+      },
+      "vendor/hadoop-runtime/upstream/jline-providers/jni": {
+        "git_blob_oid": "0c750f09ebd9f4bcb84b5e51788cb6aec574c634",
+        "sha256_local_bytes": "7ec5c51d27102bdc4a083a76de447eb2c519424f4d8caf72e2ab9bbeebd52757"
+      },
+      "vendor/hadoop-runtime/upstream/project.pom.xml": {
+        "git_blob_oid": "4b9c22319cbedaac98eaa11a316ccf3781f8cbb6",
+        "sha256_local_bytes": "592faadca05d91d7339323b02494d39955a8f08909ecbe893518debbf58453d7"
+      },
+      "vendor/hadoop-runtime/upstream/runtime.pom.xml": {
+        "git_blob_oid": "afa05079c83631c0c28732c2153864cea7e9ce5a",
+        "sha256_local_bytes": "f5a1580fde7a4fd89513c6ed94027236b6a4e27eaf5147e1e8711d72c468c8de"
+      },
+      "vendor/spark-core/.gitattributes": {
+        "git_blob_oid": "fcadb2cf97913f58a2523f535336e725c6b59d1f",
+        "sha256_local_bytes": "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9"
+      },
+      "vendor/spark-core/Dockerfile": {
+        "git_blob_oid": "2b76aac4f25462df6fa1acd9b98695e9c0198408",
+        "sha256_local_bytes": "c7e55ed41b1af593adf419110a0ea5623ee8a7f93a1cf435b52a604d112beeae"
+      },
+      "vendor/spark-core/JettyComponentCheck.java": {
+        "git_blob_oid": "e1d00ffa17873e649d671b2a481d17a412f9473c",
+        "sha256_local_bytes": "23dd02d36e5ff485661017e6358e916f317026ac47e6d18dab83de223065ba3d"
+      },
+      "vendor/spark-core/README.md": {
+        "git_blob_oid": "e33de927ed8e31e46e2ac4f25193a99b573cde7c",
+        "sha256_local_bytes": "612661638be7363af2561121730693e00b59af015b409cb35aeecd8ad15b320e"
+      },
+      "vendor/spark-core/build.sh": {
+        "git_blob_oid": "ecc40305317157009f38b532a611ab3cc9e47b11",
+        "sha256_local_bytes": "0238ee475f891f8ce1a9cf66788e40a272effe3aec223ac24986e64de6c292cc"
+      },
+      "vendor/spark-core/fetch-inputs.sh": {
+        "git_blob_oid": "41976acbbd063ef409e81f92b1df9cee3a101c54",
+        "sha256_local_bytes": "23a74fcfb650d93ff02c9c57383b3b422e2dec599412f5c83f6adf15152d7de1"
+      },
+      "vendor/spark-core/inputs.sha256": {
+        "git_blob_oid": "d91db4f886c4eefca0a745aa885dacf3dc219759",
+        "sha256_local_bytes": "3cf71db23e29bbd445beac77746fa35dc6308e5320f527e117a75cbb742f9303"
+      },
+      "vendor/spark-core/provenance.json": {
+        "git_blob_oid": "bc5ccef57e68471e20760f024cad8658ed701676",
+        "sha256_local_bytes": "78f441f425fdc5542009d2f57a3b91939f93aaad5d7f3d2fe0ae90a43389cbaa"
+      },
+      "vendor/spark-core/spark-build-info": {
+        "git_blob_oid": "d24c1fef7f15f279a0f70a58cf3510c4622244de",
+        "sha256_local_bytes": "67781de9a1d742780a3c9e9f378274c4e1a8456efd703d5ae521e74938b055c8"
+      }
+    },
+    "head": "636e8408f1108ce387ddc291318d2d1ebe042dee"
+  },
+  "source_preserved": true,
+  "source_unchanged": true,
+  "started_at": "2026-09-22T08:32:29.793897+00:00",
+  "status": "passed",
+  "steps": [
+    {
+      "batch_id": "fixture-valid",
+      "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+      "run_id": "69477c0a211f457099c1ca401fcc5eef",
+      "scenario": "valid",
+      "state": "PUBLISHED"
+    },
+    {
+      "batch_id": "missing-delivery",
+      "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+      "run_id": "a9dee1e4b8ea41da95c4ac5717a1c0ab",
+      "scenario": "missing",
+      "state": "BLOCKED"
+    },
+    {
+      "batch_id": "missing-delivery",
+      "publication_id": "0bdc74545a1f474a94c035582a7f037c",
+      "run_id": "f501af0424214f2ba5681f66c1a26a6c",
+      "scenario": "valid",
+      "state": "PUBLISHED"
+    },
+    {
+      "batch_id": "late-correction",
+      "publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+      "run_id": "0c4bad17aa144005940be88f56fc3aa7",
+      "scenario": "corrected",
+      "state": "PUBLISHED"
+    }
+  ]
+}

@@ -52,3 +52,11 @@ O primeiro build exige mais tempo, rede e espaço, pois recompila componentes. A
 Faça backup do volume de estado antes de atualizar uma instalação existente. A alternativa mais simples para esta demonstração é um volume novo e reprocessamento das entradas originais. Não faça downgrade sobre arquivos escritos pelo runtime novo sem verificar os protocolos/features Delta e restaurar uma cópia consistente. Os testes de estado novo e de recuperação não equivalem a uma certificação de migração de qualquer tabela externa.
 
 As evidências históricas constam em [verificação](verification.md), incluindo a suíte de 166 testes e o reteste focal após a preservação da referência aprovada em tentativas bloqueadas por orçamento. Esses resultados precedem os três rebuilds; os 188 testes vinculados acima validam as reconstruções no snapshot pré-UI. O [ensaio funcional de 30 mil linhas](evidence/remediation-benchmark.json) manteve os totais esperados; sua execução concorrente não permite comparar desempenho diretamente. As medições de benchmark e capturas de 21/09 também continuam históricas.
+
+## Quando retirar uma reconstrução própria
+
+O objetivo de manutenção é voltar a um artefato oficial compatível quando ele carregar as correções necessárias. A existência de uma versão mais nova, isoladamente, não basta para substituir os JARs: é preciso conferir compatibilidade Spark/Delta/Hadoop, classes sombreadas e o perfil local suportado.
+
+Para cada candidata, registrar origem e hash; comparar inventário/classes/APIs contra o contrato do componente; repetir suas regressões dirigidas e os controles negativos pertinentes; depois validar leitura das publicações anteriores, demo, migração, recuperação e suíte Spark/Delta. O scan integral precisa conservar os metadados e os achados, com o gate HIGH/CRITICAL existente. Somente após esses resultados o lock e a receita podem adotar a candidata e retirar a substituição local correspondente.
+
+Essa é uma condição de evolução, não uma nova release encontrada ou validada nesta rodada. A manutenção custa revisão de dependências, build, armazenamento e testes; não há tempo de atualização comercial medido. O MEDIUM por versão de Commons Lang continua visível no scan identificado acima, sustentado separadamente por patch e regressão. “Zero HIGH/CRITICAL” não significa “zero vulnerabilidades”.

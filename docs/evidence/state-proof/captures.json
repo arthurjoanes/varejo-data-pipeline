@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "recorded_at": "2026-09-22T08:45:50.989Z",
+  "scope": "Local rendering of four reports produced by the restore scenario. Not a live monitor, visual comparison study, accessibility certification, or another Spark execution.",
+  "browser": "153.0.4234.48",
+  "playwright": "1.62.1",
+  "restore_sha256": "bf79b22510a07658fd9dc633ab92aa16fe5f02af6ad62b395f6e920e2070d74e",
+  "collector_sha256": "5a85956caa5ec50fb23bc2e295fd66c826823923a0a83f2e0dd2d5435cfa5d06",
+  "errors": [],
+  "networkRequests": [],
+  "records": [
+    {
+      "state": "publication",
+      "viewport": 1440,
+      "title": "Fechamento publicado",
+      "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+      "run_id": "69477c0a211f457099c1ca401fcc5eef",
+      "html_sha256": "d57908331b2e8b389e212e1120f5ec74d2b771d8655b1a5af8e14d6a9f2e508e",
+      "screenshot": "docs/images/state-proof/publication-1440.png",
+      "screenshot_sha256": "271059c919baa3f308682c6001c1122578a89d833650ca7929ea8e5a37c2f8e3",
+      "document": 1440
+    },
+    {
+      "state": "blocked",
+      "viewport": 1440,
+      "title": "Publicação bloqueada",
+      "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+      "run_id": "a9dee1e4b8ea41da95c4ac5717a1c0ab",
+      "html_sha256": "9234c9cecec08ec56977a204e4911303fe0bc7ffc875f2df14b925844fd343b5",
+      "screenshot": "docs/images/state-proof/blocked-1440.png",
+      "screenshot_sha256": "1c73893e26c5045d3529270158d3064498fabe2f523a0f7a7fb53ef3f6ab798c",
+      "document": 1440
+    },
+    {
+      "state": "recovery",
+      "viewport": 1440,
+      "title": "Fechamento publicado",
+      "publication_id": "0bdc74545a1f474a94c035582a7f037c",
+      "run_id": "f501af0424214f2ba5681f66c1a26a6c",
+      "html_sha256": "7476eb027efe9c3ec87edba48104b3b923b3adfcf35fd0dea89f68b1248b1e7e",
+      "screenshot": "docs/images/state-proof/recovery-1440.png",
+      "screenshot_sha256": "6c32cdbbd8bf33ebb6c7de207e4870a2f2c7234ca3a22470159b162dfa74f2ac",
+      "document": 1440
+    },
+    {
+      "state": "corrected",
+      "viewport": 1440,
+      "title": "Fechamento publicado",
+      "publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+      "run_id": "0c4bad17aa144005940be88f56fc3aa7",
+      "html_sha256": "fdf28d80085321008c18fca75086b4f03ec9db7c44541d5e28c6a820a7f5ef8e",
+      "screenshot": "docs/images/state-proof/corrected-1440.png",
+      "screenshot_sha256": "41d50e78e04415a95b4c1f7bedfa0723c5bebfb054050f9ea5f51c8e693cd676",
+      "document": 1440
+    },
+    {
+      "state": "blocked",
+      "viewport": 390,
+      "title": "Publicação bloqueada",
+      "publication_id": "252c3f54a4e34d449d29eabf433ab8f8",
+      "run_id": "a9dee1e4b8ea41da95c4ac5717a1c0ab",
+      "html_sha256": "9234c9cecec08ec56977a204e4911303fe0bc7ffc875f2df14b925844fd343b5",
+      "screenshot": "docs/images/state-proof/blocked-390.png",
+      "screenshot_sha256": "ea4815ea2899f98e65f5aa92b03e2c490701dda041865eaa5d3961ecb773f14f",
+      "document": 390
+    },
+    {
+      "state": "corrected",
+      "viewport": 390,
+      "title": "Fechamento publicado",
+      "publication_id": "71330cbc46bb453498de8e07a5f1aedf",
+      "run_id": "0c4bad17aa144005940be88f56fc3aa7",
+      "html_sha256": "fdf28d80085321008c18fca75086b4f03ec9db7c44541d5e28c6a820a7f5ef8e",
+      "screenshot": "docs/images/state-proof/corrected-390.png",
+      "screenshot_sha256": "82a01857e37904b1c864ffa4a26bdf67643a211a1dfa119dbc2be5ca4a5e6c5f",
+      "document": 390
+    }
+  ]
+}

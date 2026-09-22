@@ -46,4 +46,6 @@ O comando cria estado temporário novo, roda o teste de negócio com Spark/Delta
 
 ## Limites
 
+Além de manter a publicação diante de um lote inválido, é necessário recuperar seu histórico. A [prova em volume novo](state-recovery.md) preservou três publicações e suas versões, incluindo a correção de R$ 64 para R$ 77. Isso fecha uma lacuna operacional demonstrável no mesmo host; recuperação externa continua sendo trabalho separado.
+
 Azure/Fabric não estão provisionados; a medição local não representa desempenho de produção. O calendário é aprovado pelo operador local; não há autenticação multiusuário. A atomicidade é um protocolo de publicação sobre filesystem local Linux, não uma transação Delta multitabela ou lock distribuído. Sem VACUUM automático: leitores antigos dependem da retenção das versões referenciadas.
