@@ -1,0 +1,53 @@
+{
+  "assets": [
+    {
+      "file": "source-sans-3.woff2",
+      "source": "https://raw.githubusercontent.com/adobe-fonts/source-sans/87b37a2daaed80fcb8e8ccb0085c4d72ddade12e/WOFF2/VF/SourceSans3VF-Upright.ttf.woff2",
+      "repository": "adobe-fonts/source-sans",
+      "commit": "87b37a2daaed80fcb8e8ccb0085c4d72ddade12e",
+      "bytes": 170188,
+      "sha256": "5f16566f7a40d39b339ad26be151fa5a1ab1f0c2574c7a2e619765584a1acbd8",
+      "modified": false,
+      "path": "src/retail_pipeline/assets/source-sans-3.woff2",
+      "license": "SIL OFL 1.1"
+    },
+    {
+      "file": "source-sans-LICENSE.md",
+      "source": "https://raw.githubusercontent.com/adobe-fonts/source-sans/87b37a2daaed80fcb8e8ccb0085c4d72ddade12e/LICENSE.md",
+      "repository": "adobe-fonts/source-sans",
+      "commit": "87b37a2daaed80fcb8e8ccb0085c4d72ddade12e",
+      "bytes": 4486,
+      "sha256": "56af9b9c6715597e458284a474dc118a50a4150e9d547c70f7b4a33c3e6a9328",
+      "modified": false,
+      "path": "src/retail_pipeline/assets/source-sans-LICENSE.md",
+      "license": "SIL OFL 1.1"
+    },
+    {
+      "path": "src/retail_pipeline/assets/brand-mark.svg",
+      "source": "Original product mark drawn for this repository",
+      "license": "Repository MIT license",
+      "sha256_raw": "d331b6e5c94a4cc048a7914df66aedf21fc50c24a819cb06efdd3f30737a4344",
+      "sha256_lf": "bcb76f9d844e239226f928b3278b7e808f38fc0772ad77194f5d9ec6ff5e2182",
+      "bytes": 240
+    },
+    {
+      "path": "src/retail_pipeline/assets/brand-mono.svg",
+      "source": "Original product mark drawn for this repository",
+      "license": "Repository MIT license",
+      "sha256_raw": "e276c0c098e119ef029b80c59799de86dd335fc4d6c9b289dacbb894a327296d",
+      "sha256_lf": "5dd43e682d20e1e5f1d30af36535c8dc7f04f49e32be407e6d63446b3177ebe9",
+      "bytes": 230
+    },
+    {
+      "path": "src/retail_pipeline/assets/favicon.svg",
+      "source": "Original product mark drawn for this repository",
+      "license": "Repository MIT license",
+      "sha256_raw": "23918481346a31640d0f2f6d59d52696ccbadc4bc4372f0ef696e6fd723574dc",
+      "sha256_lf": "6897a686d6c9a64559c93843df5e3e07816b23b1f5d204f8e565976cc528a678",
+      "bytes": 230
+    }
+  ],
+  "font_modified": false,
+  "delivery": "Embedded WOFF2 and full OFL in standalone HTML; source assets included in wheel.",
+  "scope": "Asset provenance and bytes; browser font use recorded separately in visual-review.json."
+}
