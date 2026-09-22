@@ -180,6 +180,10 @@ def explain_indicator(
         .collect()[0]
         .asDict()
     )
+    # An empty selection in an existing publication has no active contributions.
+    # Do not replace missing metrics in a nonempty selection with invented zeros.
+    if totals["item_lines"] == 0:
+        totals.update(net_revenue_brl=Decimal("0.00"), units=0)
     sample_keys = current.select(*keys).orderBy(*keys).limit(limit)
     history = frames["history"].join(sample_keys, keys, "inner")
     revisions, history_truncated = _limited_rows(

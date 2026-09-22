@@ -36,6 +36,8 @@ O pipeline agrupa o estado candidato por origem, loja e venda, antes de gravar a
 
 ## Exemplo: gravar uma tabela não publica o fechamento
 
+A [documentação de concorrência do Delta Lake](https://docs.delta.io/concurrency-control/) descreve snapshots consistentes e validação de conflitos ao gravar uma tabela. Isso não estabelece um commit conjunto para os dois recortes deste laboratório. Aqui, uma falha controlada entre as gravações demonstra esse limite; o manifesto torna visíveis versões compatíveis. Não é um relato de incidente comercial nem uma transação distribuída implementada pelo projeto.
+
 No mesmo teste, aumentar a quantidade do primeiro item de A1 de dois para três deveria elevar o total a R$ 74,00. Uma falha injetada após gravar o gold por loja deixa fisicamente **R$ 74,00 por loja e R$ 64,00 por produto** nas versões mais recentes. Consultar `latest` diretamente misturaria resultados incompatíveis.
 
 O manifesto ainda aponta para as duas versões anteriores, ambas com R$ 64,00. A retomada reconstrói o candidato e publica R$ 74,00; repetir a mesma entrega retorna `NO_CHANGE`. Um leitor que guardou o manifesto inicial continua lendo R$ 64,00. Isso é verificado com leituras reais de versões Delta no [mesmo teste](../tests/integration/test_business_thesis.py). O exemplo é distinto da [demo de cancelamento e reativação](demo.md), que termina em R$ 77,00.

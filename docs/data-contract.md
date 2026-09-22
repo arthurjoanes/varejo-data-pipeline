@@ -104,6 +104,6 @@ Na apresentação monetária, o relatório arredonda valores calculados para dua
 
 ## Resumo sem vendas e apresentação
 
-Receita e unidades de uma publicação válida sem itens ativos são zero. Ticket médio é receita dividida pelas vendas: com zero vendas, o resumo guarda `None` e o relatório mostra `—` / “Sem vendas no período”. Com uma ou mais vendas de preço zero ou desconto integral, ticket zero é válido. O caso foi exercitado em Delta com zero movimento, todas as linhas CANCEL e reativação gratuita. Ausência de publicação continua distinta de uma publicação sem movimento.
+Receita e unidades de uma publicação válida sem itens ativos são zero. O `explain` aplica a mesma regra às contribuições ativas selecionadas; um recorte vazio não confirma a cobertura da loja ou do período. Ticket médio é receita dividida pelas vendas: com zero vendas, o resumo guarda `None` e o relatório mostra `—` / “Sem vendas no período”. Com uma ou mais vendas de preço zero ou desconto integral, ticket zero é válido. O caso foi exercitado em Delta com zero movimento, todas as linhas CANCEL e reativação gratuita. Ausência de publicação continua distinta de uma publicação sem movimento.
 
 O eixo do gráfico utiliza intervalos arredondados em reais; os pontos e a tabela diária conservam os valores monetários exatos. Durações aparecem com uma casa na leitura rápida e com a precisão registrada em detalhe. IDs longos no resumo são abreviados, com acesso aos valores completos e cópia na proveniência.
