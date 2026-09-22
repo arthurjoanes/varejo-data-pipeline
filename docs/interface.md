@@ -12,11 +12,11 @@ A ocorrência principal reúne causa e procedimento. A ausência de entrega da m
 
 As etapas medidas formam uma lista de tempos, sem um painel repetido para a etapa selecionada. Cada etapa abre a explicação e seu tempo exato; uma medição não equivale a aprovação. As ocorrências conservam código, severidade e contexto de loja, arquivo e linha quando registrados. Cobertura e contadores mantêm a diferença entre zero, indisponível e não avaliado.
 
-**Indicadores** contém os números da publicação vigente, com sua identidade, horário e janela comercial. Não repete o cabeçalho da tentativa nem um botão para a própria vista. O gráfico acompanha o calendário e interrompe a linha entre datas sem observação; a tabela conserva os valores exatos. Em desktop, Loja/dia ocupa a coluna abaixo do gráfico; no mobile, a ordem é Gráfico → Produtos → Loja/dia. Totais consideram o conjunto inteiro; avisos identificam o limite de exibição de 366 dias, 20 produtos e 500 linhas.
+**Indicadores** contém os números da publicação vigente, com sua identidade, horário e janela comercial. Não repete o cabeçalho da tentativa nem um botão para a própria vista. O gráfico acompanha o calendário e interrompe a linha entre datas sem observação; a tabela conserva os valores exatos. A matriz loja × dia aparece primeiro; em desktop, série diária e ranking horizontal de unidades ficam lado a lado. No mobile, a ordem é Matriz → Série → Ranking. Setas percorrem a matriz com uma parada de Tab; o valor selecionado leva à linha exata. Zero é uma célula marcada com 0; ausência recebe traço e hachura. Períodos amplos ou dispersos usam a tabela, sem materializar uma grade enorme. Totais consideram o conjunto inteiro; avisos identificam o limite de exibição de 366 dias, 20 produtos e 500 linhas.
 
 **Arquivos** permite consultar e copiar os IDs completos. As versões e os caminhos Delta vêm do manifesto; fontes bronze e hashes de catálogo/calendário permanecem associados ao lote de origem.
 
-Com JavaScript, a navegação seleciona um painel e conserva âncoras e histórico do navegador. Sem JavaScript, os três painéis aparecem em sequência e os detalhes nativos continuam disponíveis. Nenhuma biblioteca externa, fonte remota ou API é necessária.
+Com JavaScript, a navegação seleciona um painel e conserva âncoras e histórico do navegador. Sem JavaScript, os três painéis aparecem em sequência e os detalhes nativos continuam disponíveis. Nenhuma biblioteca externa, fonte remota ou API é necessária. Source Sans 3 é embutida no HTML com sua licença OFL; a marca SVG é original e local.
 
 ## Estados que não podem se confundir
 
@@ -28,7 +28,7 @@ Com JavaScript, a navegação seleciona um painel e conserva âncoras e históri
 
 ## Capturas e reprodução
 
-As capturas desta interface reutilizam os dados sintéticos da [demo histórica](evidence/round-2/demo.json) e do [experimento histórico de volume](evidence/benchmark.json). Os payloads foram extraídos por versão na revisão inicial e reutilizados offline nesta composição; nenhum lote, leitura Spark ou benchmark foi reexecutado nesta rodada. Os JSONs em [payloads](evidence/interface/payloads) identificam a fonte e seu SHA-256, além dos dados efetivamente usados.
+As capturas desta interface reutilizam os dados sintéticos da [demo histórica](evidence/round-2/demo.json) e do [experimento histórico de volume](evidence/benchmark.json). Os payloads foram extraídos por versão na revisão inicial e reutilizados offline nesta composição; o replay visual não executa lotes, leitura Spark ou benchmark. A integração separada do leitor vazio é descrita no guia de qualidade. Os JSONs em [payloads](evidence/interface/payloads) identificam a fonte e seu SHA-256, além dos dados efetivamente usados.
 
 Para renderizar esses payloads novamente, depois do setup:
 
@@ -42,7 +42,7 @@ A opção `--capture` do script é de desenvolvimento: exige o volume que conté
 
 A verificação de navegador é `node scripts/visual-review.cjs`, com Playwright disponível no ambiente. `PLAYWRIGHT_MODULE` permite indicar um módulo instalado fora do repositório; `PLAYWRIGHT_CHANNEL=msedge` seleciona Edge. A biblioteca não é dependência do HTML. Resultados, escopo e limitações ficam em [verificação](verification.md).
 
-Capturas atuais: [execução](images/interface-v3/report.png), [bloqueio](images/interface-v3/blocked.png), [indicadores](images/interface-v3/indicators.png), [arquivos](images/interface-v3/files.png) e [tela estreita](images/interface-v3/report-390.png). As imagens `audit.png`, `empty.png` e `running.png` demonstram fixtures de apresentação, não novas execuções. [Evidências v3](evidence/interface-v3/README.md).
+Capturas atuais: [execução](images/interface-v4/report.png), [bloqueio](images/interface-v4/blocked.png), [indicadores](images/interface-v4/indicators.png), [arquivos](images/interface-v4/files.png) e [tela estreita](images/interface-v4/report-390.png). As imagens `audit.png`, `empty.png` e `running.png` demonstram fixtures de apresentação, não novas execuções. [Evidências da direção atual](evidence/interface-v4/review-manifest.json).
 
 ## Revisão anterior de jornadas em 22/09
 

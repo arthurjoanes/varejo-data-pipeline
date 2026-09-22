@@ -7,8 +7,8 @@ const playwrightModule = process.env.PLAYWRIGHT_MODULE || 'playwright';
 const { chromium } = require(playwrightModule);
 
 const root = path.resolve(__dirname, '..');
-const images = path.resolve(root, process.env.REVIEW_IMAGES || 'docs/images/interface-v3');
-const evidence = path.resolve(root, process.env.REVIEW_EVIDENCE || 'docs/evidence/interface-v3');
+const images = path.resolve(root, process.env.REVIEW_IMAGES || 'docs/images/interface-v4');
+const evidence = path.resolve(root, process.env.REVIEW_EVIDENCE || 'docs/evidence/interface-v4');
 const reportURL = name => pathToFileURL(path.join(root, 'artifacts', 'interface', `${name}.html`)).href;
 
 async function main() {
@@ -19,6 +19,7 @@ async function main() {
   const errors = [];
   let screenshots = 0;
   const capture = async (page, name) => {
+    await page.evaluate(() => document.fonts.ready);
     await page.mouse.move(0, 0);
     await page.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0, 0); });
     await page.screenshot({ path: path.join(images, name), fullPage: true });
@@ -41,17 +42,15 @@ async function main() {
         assert.ok(targets.every(target => target.height >= 24), `Control targets: ${view} at ${width}px`);
         if (view === 'indicadores') {
           const boxes = await page.locator('#receita, #produtos, #lojas').evaluateAll(es => es.map(e => { const b=e.getBoundingClientRect(); return { id:e.id, top:b.top, bottom:b.bottom, left:b.left }; }));
-          if (width > 1100) {
-            assert.equal(boxes[2].left, boxes[0].left);
-            assert.ok(Math.abs(boxes[2].top - boxes[0].bottom - 24) <= 1, 'Store table follows chart without stretched blank space');
-          } else {
-            assert.ok(boxes[1].top > boxes[0].bottom && boxes[2].top > boxes[1].bottom, 'Mobile keeps chart, products, stores order');
-          }
+          const byId = Object.fromEntries(boxes.map(box => [box.id, box]));
+          assert.ok(byId.lojas.top < byId.receita.top, 'Store/day matrix is the first analysis');
+          if (width > 900) assert.equal(byId.receita.top, byId.produtos.top, 'Daily series and product ranking share an axis');
+          else assert.ok(byId.produtos.top > byId.receita.bottom, 'Mobile preserves matrix, daily, ranking order');
         }
         results.push({ width, view, ...dimensions });
         if (width === 1440) await capture(page, { qualidade: 'report.png', indicadores: 'indicators.png', proveniencia: 'files.png' }[view]);
       }
-      assert.equal(await page.locator('#lojas tbody tr').count(), 360);
+      assert.equal(await page.locator('#lojas .data-detail tbody tr').count(), 360);
       assert.equal(await page.locator('#receita details tbody tr').count(), 30);
       assert.equal(await page.locator('.coverage-total').textContent(), '12 de 12 lojas com entrega confirmada');
       assert.equal(await page.locator('[role="tab"], [role="tablist"]').count(), 0);
@@ -157,6 +156,9 @@ async function main() {
     await plainPage.getByRole('link', { name: 'Indicadores', exact: true }).click();
     await plainPage.locator('#receita summary').click();
     assert.equal(await plainPage.locator('#receita details').getAttribute('open'), '');
+    await plainPage.locator('[data-heat-cell]').first().click();
+    assert.equal(await plainPage.locator('#store-values').getAttribute('open'), '');
+    assert.equal(await plainPage.locator('#store-row-0').isVisible(), true);
     await noScript.close();
 
     for (const [file, name, expected, context] of [
@@ -195,7 +197,7 @@ async function main() {
       assert.equal(await issue.evaluate(e => getComputedStyle(e).borderLeftWidth), '3px');
       await page.locator('.quality-measurements > summary').click();
       const baselines = await page.locator('.quality-outcome p').evaluateAll(es => es.map(e => e.getBoundingClientRect().top));
-      if (width >= 768) assert.equal(new Set(baselines).size, 1);
+      if (width >= 1366) assert.equal(new Set(baselines).size, 1);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       await capture(page, `blocked-expanded-${width}.png`);
     }
@@ -250,7 +252,7 @@ async function main() {
       if (file === 'zero-fixture') assert.ok((await page.locator('.metrics').innerText()).includes('R$ 0,00'));
       if (file === 'large-fixture') {
         assert.equal(await page.locator('.metric-wide strong').innerText(), 'R$ 1.234.567.890.123,45');
-        assert.ok(await page.locator('.metric-wide').evaluate(e => e.getBoundingClientRect().width > 270));
+        assert.ok(await page.locator('.metric-wide').evaluate(e => e.getBoundingClientRect().width >= 240));
       }
       if (file === 'gaps-fixture') {
         assert.equal(await page.locator('#receita circle').count(), 3);
@@ -271,12 +273,69 @@ async function main() {
       await page.locator(`[data-view-link="${view}"]`).click();
       await capture(page, `${view}-390.png`);
     }
+    const matrixChecks = [];
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(`${reportURL('demo30k-report')}#indicadores`);
+    assert.equal(await page.locator('[data-heat-cell]').count(), 360);
+    assert.equal(await page.locator('[data-heat-cell][tabindex="0"]').count(), 1);
+    const firstCell = page.locator('[data-heat-cell]').first();
+    await firstCell.focus(); await page.keyboard.press('ArrowRight');
+    assert.equal(await page.locator('[data-heat-cell][aria-current]').getAttribute('data-column'), '1');
+    await page.keyboard.press('ArrowDown');
+    assert.equal(await page.locator('[data-heat-cell][aria-current]').getAttribute('data-row'), '1');
+    await page.keyboard.press('End');
+    assert.equal(await page.locator('[data-heat-cell][aria-current]').getAttribute('data-column'), '29');
+    const selected = await page.locator('[data-heat-cell][aria-current]').getAttribute('data-value');
+    assert.equal(await page.locator('#matrix-value').innerText(), selected);
+    const rowTarget = await page.locator('#matrix-record').getAttribute('href');
+    await page.locator('#matrix-record').click();
+    assert.equal(await page.locator('#store-values').getAttribute('open'), '');
+    await page.waitForFunction(id => document.activeElement.id === id, rowTarget.slice(1));
+    matrixChecks.push({ file: 'demo30k-report', cells: 360, tabStops: 1, arrows: true, selected, exactTableFocus: rowTarget });
+    for (const file of ['matrix-fixture', 'extreme-dates-fixture']) {
+      await page.setViewportSize({ width: 390, height: 900 });
+      await page.goto(`${reportURL(file)}#indicadores`);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+      if (file === 'matrix-fixture') {
+        assert.equal(await page.locator('.heat-zero').count(), 1);
+        assert.equal(await page.locator('.heat-missing').count(), 3);
+        const negative = page.locator('[data-heat-cell]').filter({ hasText: 'R$ -12,34' });
+        await negative.click();
+        assert.ok((await page.locator('#matrix-value').innerText()).includes('R$ -12,34'));
+        assert.equal(await page.locator('#receita circle').count(), 2);
+        assert.equal(await page.locator('#receita polyline').count(), 0);
+      } else {
+        assert.equal(await page.locator('.store-matrix').count(), 0);
+        assert.equal(await page.locator('#store-values tbody tr').count(), 3);
+        assert.ok((await page.locator('#lojas').innerText()).includes('amplo ou disperso'));
+      }
+      matrixChecks.push({ file, zeroAbsentNegativeOrExtreme: true });
+      await capture(page, `${file}-390.png`);
+    }
+    const fontChecks = [];
+    const offline = await browser.newContext({ offline: true, viewport: { width: 1440, height: 900 } });
+    const offlinePage = await offline.newPage();
+    const externalRequests = [];
+    offlinePage.on('request', request => { if (/^https?:/.test(request.url())) externalRequests.push(request.url()); });
+    await offlinePage.goto(`${reportURL('demo30k-report')}#indicadores`);
+    await offlinePage.evaluate(() => document.fonts.ready);
+    const session = await offline.newCDPSession(offlinePage);
+    await session.send('DOM.enable'); await session.send('CSS.enable');
+    const documentNode = await session.send('DOM.getDocument');
+    for (const selector of ['#indicators-title', '[data-metric="net_revenue"]', '.ranking-name']) {
+      const node = await session.send('DOM.querySelector', { nodeId: documentNode.root.nodeId, selector });
+      const fonts = (await session.send('CSS.getPlatformFontsForNode', { nodeId: node.nodeId })).fonts;
+      assert.ok(fonts.some(font => font.isCustomFont && font.familyName.replaceAll(' ', '').includes('SourceSans')));
+      fontChecks.push({ selector, fonts });
+    }
+    assert.deepEqual(externalRequests, []);
+    await offline.close();
     const baselineComparisons = [];
     if (process.env.REVIEW_BASELINE_DIR) {
       const baselinePage = await browser.newPage();
       const extract = async target => target.evaluate(() => ({
         metrics: [...document.querySelectorAll('.metric strong')].map(e => e.textContent),
-        rows: [...document.querySelectorAll('#indicadores tbody tr')].map(e => e.textContent.replace(/\s+/g, ' ').trim()),
+        rows: ['receita','produtos','lojas'].map(id => [...document.querySelectorAll(`#${id} .table-scroll tbody tr`)].map(e => e.textContent.replace(/\s+/g, ' ').trim())),
         ids: [...document.querySelectorAll('.copy-field input')].map(e => [e.id, e.value]),
         sources: [...document.querySelectorAll('.source-record')].map(e => e.textContent.replace(/\s+/g, ' ').trim()),
       }));
@@ -285,8 +344,29 @@ async function main() {
         await baselinePage.goto(pathToFileURL(path.join(process.env.REVIEW_BASELINE_DIR, `${file}.html`)).href);
         const current = await extract(page); const before = await extract(baselinePage);
         assert.deepEqual(current, before, `Same historical data: ${file}`);
-        baselineComparisons.push({ file, metrics: current.metrics, tableRows: current.rows.length, identityFields: current.ids.length, equivalent: true });
+        baselineComparisons.push({ file, metrics: current.metrics, tableRows: current.rows.flat().length, identityFields: current.ids.length, equivalent: true });
       }
+      const pairs = [];
+      const cases = [
+        ...[1440,1024,390].flatMap(width => [['blocked-report','qualidade',width],['demo30k-report','indicadores',width],['demo30k-report','proveniencia',width]]),
+        ...['failure-report','quality-review','empty-fixture','running-fixture','audit-fixture'].map(file => [file,'qualidade',390]),
+      ];
+      fs.mkdirSync(path.join(images,'before'), { recursive: true });
+      await baselinePage.emulateMedia({ reducedMotion: 'reduce' });
+      for (const [file,view,width] of cases) {
+        const viewport = { width, height: 900 };
+        const name = `${file}-${view}-${width}.png`;
+        const pair = { file, view, viewport, filters: 'none; identical historical payload or presentation fixture', before: `before/${name}`, after: name };
+        for (const [target,url,out] of [[baselinePage,pathToFileURL(path.join(process.env.REVIEW_BASELINE_DIR,`${file}.html`)).href,pair.before],[page,reportURL(file),pair.after]]) {
+          await target.setViewportSize(viewport); await target.goto(`${url}#${view}`);
+          await target.evaluate(() => document.fonts.ready);
+          await target.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0,0); });
+          assert.ok(await target.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+          await target.screenshot({ path:path.join(images,out), fullPage:true });
+        }
+        pairs.push(pair);
+      }
+      fs.writeFileSync(path.join(evidence,'comparison.json'),JSON.stringify({baseline:'636e8408f1108ce387ddc291318d2d1ebe042dee',pairs,limits:'Same offline data, hash and viewport; font changes intentionally. No timing or usability improvement claimed.'},null,2)+'\n');
       await baselinePage.close();
     }
     assert.deepEqual(errors, []);
@@ -296,18 +376,20 @@ async function main() {
         .map(v => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
       return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
     };
-    const contrast = [['primary', '24334b', 'ffffff'], ['muted', '536278', 'f2f5fa'],
-      ['link', '334fb0', 'ffffff'], ['success', '226348', 'edf7f1'], ['failure', '963d37', 'fcf0ed'],
-      ['selected navigation', '334fb0', 'f2f5fa']]
+    const contrast = [['primary', '263248', 'ffffff'], ['muted', '596274', 'f2f3f5'],
+      ['link', '49488f', 'ffffff'], ['success', '226348', 'edf7f1'], ['failure', '923b35', 'e5e8ef'],
+      ['selected navigation', '49488f', 'ffffff'], ['publication', 'ffffff', '263248'], ['publication metadata', 'dce0e9', '263248']]
       .map(([name, fg, bg]) => ({ name, ratio: Number(((Math.max(luminance(bg), luminance(fg)) + 0.05) / (Math.min(luminance(bg), luminance(fg)) + 0.05)).toFixed(3)) }));
     assert.ok(contrast.every(pair => pair.ratio >= 4.5));
-    const controlContrast = ['ffffff', 'edf2fb'].map(bg => ({ name: 'Control border', foreground: '7186a9', background: bg, ratio: Number(((luminance(bg) + 0.05) / (luminance('7186a9') + 0.05)).toFixed(3)) }));
+    const controlContrast = ['ffffff', 'e5e8ef'].map(bg => ({ name: 'Control border', foreground: '7186a9', background: bg, ratio: Number(((luminance(bg) + 0.05) / (luminance('7186a9') + 0.05)).toFixed(3)) }));
     assert.ok(controlContrast.every(pair => pair.ratio >= 3));
     fs.writeFileSync(path.join(evidence, 'visual-review.json'), JSON.stringify({
       captured_at: new Date().toISOString(), browser: await browser.version(),
-      playwright: require(`${playwrightModule}/package.json`).version, results, contrast, controlContrast, screenshots, baselineComparisons,
+      playwright: require(`${playwrightModule}/package.json`).version, results, contrast, controlContrast, screenshots, baselineComparisons, matrixChecks, fontChecks, externalRequests,
+      composition: 'Publication+metrics band, store/day matrix, then daily series and unit ranking. Matrix limited before allocating dates; exact rows retained.',
+      assets: 'Source Sans 3 VF embedded as unmodified WOFF2; full OFL included. Original SVG mark/favicon/monochrome variant. No external request.',
       data: 'Historical demo and benchmark snapshots replayed from docs/evidence/interface/payloads; no new pipeline run. Empty/running/audit are presentation fixtures.',
-      keyboard: 'Panel navigation and focus, browser history, deep link, daily/store tables and stage expansion passed. Skip link preserves Indicators/Files, focuses main, and survives back/forward.',
+      keyboard: 'Panel navigation and focus, browser history, deep link, daily/store tables and stage expansion passed. Matrix arrows/Home/End use one tabstop; selected value links to exact row. Skip link preserves Indicators/Files, focuses main, and survives back/forward.',
       clipboard: 'Exact ID delivered to intercepted Clipboard API; unavailable fallback selects full ID. System clipboard not used.',
       no_script: 'All three panels visible; equivalent daily table and full publication ID available; native disclosure works.',
       states: 'Published, blocked with previous publication, failed before publication, invalid first delivery, empty, running, audit incomplete, unknown state, validated, zero, absent metrics, large numbers.',

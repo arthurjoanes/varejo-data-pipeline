@@ -7,3 +7,5 @@ Leia [docs/frontend-quality.md](docs/frontend-quality.md) antes de alterar o rel
 - Use HTML/CSS/JS locais e sem dependências de runtime adicionais. Preserve detalhes nativos, links profundos, foco, impressão e conteúdo completo dos identificadores.
 - Para mudanças visuais, atualize capturas e evidências em pasta própria. Não sobrescreva provas históricas nem trate fixtures de apresentação como novas execuções.
 - Execute os gates pertinentes descritos no documento. Uma mudança de renderer não exige reexecutar Spark se dados, leitura e regras permanecerem intactos; registre esse limite.
+
+- Ao alterar marca, fontes ou gráficos, preserve os assets e licenças locais. Verifique a fonte efetivamente usada, zero/ausência, limites da matriz e navegação por setas; mantenha a tabela exata. Não use a matriz de receitas para inferir cobertura de entrega.

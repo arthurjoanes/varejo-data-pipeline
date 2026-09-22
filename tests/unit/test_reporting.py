@@ -1,3 +1,4 @@
+import re
 from decimal import Decimal
 from pathlib import Path
 
@@ -6,6 +7,10 @@ import pytest
 from retail_pipeline.report_model import ReportPayload
 from retail_pipeline.report_view import build_report_html
 from retail_pipeline.reporting import _read_published_tables
+
+
+def _summary_values(page: str) -> dict[str, str]:
+    return dict(re.findall(r'data-metric="([^"]+)">([^<]*)<', page))
 
 
 @pytest.mark.parametrize("reverse", [False, True])
@@ -170,7 +175,7 @@ def test_report_is_self_contained_and_handles_empty_publication() -> None:
     )
     assert "Sem publicação" in html
     assert "Nenhuma tentativa registrada" in html
-    assert html.count("<strong>—</strong>") == 4
+    assert list(_summary_values(html).values()).count("—") == 4
     assert "Sem publicação disponível" in html
     assert "Aguardando publicação" in html
     assert "R$ 0,00" not in html
@@ -341,10 +346,10 @@ def test_published_zero_movement_keeps_real_zero_indicators() -> None:
             },
         )
     )
-    assert html.count("<strong>R$ 0,00</strong>") == 1
+    assert list(_summary_values(html).values()).count("R$ 0,00") == 1
     assert "Sem vendas no período" in html
-    assert html.count("<strong>—</strong>") == 1
-    assert html.count("<strong>0</strong>") == 2
+    assert list(_summary_values(html).values()).count("—") == 1
+    assert list(_summary_values(html).values()).count("0") == 2
     assert "0 itens de venda ativos" in html
     assert "Sem movimento publicado" in html
     assert "Sem publicação disponível" not in html
@@ -435,7 +440,7 @@ def test_zero_revenue_with_sales_still_has_a_real_zero_ticket() -> None:
             },
         )
     )
-    assert html.count("<strong>R$ 0,00</strong>") == 2
+    assert list(_summary_values(html).values()).count("R$ 0,00") == 2
     assert "Sem vendas no período" not in html
 
 
@@ -451,11 +456,11 @@ def test_report_nav_includes_products_anchor() -> None:
     assert 'href="#produtos"' in html
     assert ">Produtos<" in html
     assert 'id="produtos"' in html
-    # A ordem na nav: produtos entre indicadores e lojas.
+    # A navegação local acompanha a composição: matriz, série, ranking.
     assert (
         html.index('href="#indicadores"')
-        < html.index('href="#produtos"')
         < html.index('href="#lojas"')
+        < html.index('href="#produtos"')
     )
 
 
@@ -592,8 +597,8 @@ def test_delivery_register_distinguishes_zero_confirmation_pending_and_unknown()
 def test_missing_summary_values_never_become_published_zero() -> None:
     missing = build_report_html(ReportPayload(snapshot={"publication_id": "p"}, summary={}))
     metrics = missing.split('<section class="metrics"', 1)[1].split("</section>", 1)[0]
-    assert "R$ 0,00" not in metrics and "<strong>0</strong>" not in metrics
-    assert metrics.count("<strong>—</strong>") == 4
+    assert "R$ 0,00" not in metrics and "0" not in _summary_values(metrics).values()
+    assert list(_summary_values(metrics).values()).count("—") == 4
     assert "Sem vendas no período" not in metrics
     assert "Período não informado" in missing
     zero = build_report_html(
@@ -636,3 +641,109 @@ def test_chart_preserves_calendar_gaps_without_inventing_observations() -> None:
     single = _revenue_chart([{"business_date": "2026-01-01", "net_revenue_brl": "0.00"}])
     assert 'cx="110"' in single and "<polyline" not in single
     assert "01/01/2026: R$ 0,00" in single
+
+
+def test_matrix_distinguishes_zero_missing_value_missing_day_and_negative() -> None:
+    from retail_pipeline.report_view import _store_matrix
+
+    matrix = _store_matrix(
+        [
+            {"business_date": "2026-01-01", "store_id": "S01", "net_revenue_brl": "0.00"},
+            {"business_date": "2026-01-03", "store_id": "S01", "net_revenue_brl": None},
+            {"business_date": "2026-01-03", "store_id": "S02", "net_revenue_brl": "-12.34"},
+        ]
+    )
+    assert matrix.count("data-heat-cell ") == 2
+    assert 'class="heat-cell heat-zero"' in matrix
+    assert 'aria-label="Sem observação"' in matrix
+    assert 'aria-label="Receita não informada"' in matrix
+    assert "S02 · 03/01/2026 · R$ -12,34" in matrix
+    assert matrix.count('tabindex="0"') == 2  # scroll region + one active cell
+    assert 'href="#store-row-2"' in matrix
+
+
+@pytest.mark.parametrize(
+    "dates",
+    [
+        ["0001-01-01", "1800-01-01", "9999-12-31"],
+        ["invalid"],
+    ],
+)
+def test_matrix_extreme_dates_fall_back_to_exact_table(dates: list[str]) -> None:
+    html = build_report_html(
+        ReportPayload(
+            stores=[
+                {"business_date": day, "store_id": "S01", "net_revenue_brl": "10.01"}
+                for day in dates
+            ]
+        )
+    )
+    assert 'class="store-matrix"' not in html
+    assert html.count('id="store-row-') == len(dates)
+    assert "tabela" in html
+
+
+def test_matrix_does_not_sum_duplicates_or_invent_scale_for_absent_values() -> None:
+    from retail_pipeline.report_view import _store_matrix
+
+    absent = _store_matrix([{"store_id": "S01", "business_date": "2026-01-01"}])
+    assert "R$ 0,00" not in absent
+    assert "Sem receita informada para definir a escala" in absent
+    duplicate = _store_matrix(
+        [
+            {"store_id": "S01", "business_date": "2026-01-01", "net_revenue_brl": "2.00"},
+            {"store_id": "S01", "business_date": "2026-01-01", "net_revenue_brl": "3.00"},
+        ]
+    )
+    assert 'class="heat-unavailable"' in duplicate
+    assert "R$ 5,00" not in duplicate
+    assert "Nenhum valor foi somado" in duplicate
+
+
+def test_product_ranking_preserves_input_order_exact_units_and_unknowns() -> None:
+    from retail_pipeline.report_view import _product_ranking
+
+    ranking = _product_ranking(
+        [
+            {"product_id": "P03", "units": 10},
+            {"product_id": "P01", "units": 0},
+            {"product_id": "<P02>", "units": None},
+        ]
+    )
+    assert ranking.index("P03") < ranking.index("P01") < ranking.index("&lt;P02&gt;")
+    assert "width:100.000%" in ranking and ranking.count("width:0.000%") == 2
+    assert ">0</strong>" in ranking and ">—</strong>" in ranking
+
+
+def test_chart_excludes_unknown_without_zero_and_keeps_negative_sign() -> None:
+    from retail_pipeline.report_view import _revenue_chart
+
+    chart = _revenue_chart(
+        [
+            {"business_date": "2026-01-01", "net_revenue_brl": "-12.34"},
+            {"business_date": "2026-01-02", "net_revenue_brl": None},
+            {"business_date": "2026-01-03", "net_revenue_brl": "5.00"},
+        ]
+    )
+    assert chart.count("<circle") == 2 and "<polyline" not in chart
+    assert "01/01/2026: R$ -12,34" in chart
+    assert "02/01/2026: R$ 0,00" not in chart
+    assert "Receitas não informadas não foram desenhadas como zero" in chart
+
+
+def test_font_and_brand_are_embedded_with_license_without_network() -> None:
+    from base64 import b64decode
+    from importlib.resources import files
+
+    from retail_pipeline.report_assets import FONT_CSS
+
+    raw = FONT_CSS.split("base64,")[1].split(")")[0]
+    assert (
+        b64decode(raw)
+        == files("retail_pipeline").joinpath("assets/source-sans-3.woff2").read_bytes()
+    )
+    html = build_report_html(ReportPayload())
+    assert "data:image/svg+xml;base64," in html
+    assert "SIL OPEN FONT LICENSE Version 1.1" in html
+    assert "Copyright 2010-2024 Adobe" in html
+    assert "<script src=" not in html and 'href="https://' not in html

@@ -12,3 +12,4 @@ docs/evidence/state-proof/*.json text eol=lf
 docs/evidence/state-proof/reports/*.html text eol=lf
 docs/evidence/state-proof/*.cjs text eol=lf
 docs/evidence/state-proof/attributes-at-*.txt -text
+*.woff2 binary

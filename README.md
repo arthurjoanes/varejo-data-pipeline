@@ -2,9 +2,9 @@
 
 Valide a entrega das lojas e as revisões de vendas antes de publicar o fechamento. O relatório mostra a tentativa mais recente, a publicação vigente e as ocorrências que explicam o resultado. A demonstração usa dados sintéticos.
 
-![Ensaio local: S02 pendente, duas de três lojas confirmadas e publicação anterior preservada](docs/images/state-proof/blocked-1440.png)
+![Interface atual: snapshot histórico sintético com S02 pendente, duas de três lojas confirmadas e publicação anterior preservada](docs/images/interface-v4/blocked.png)
 
-Captura do relatório produzido no ensaio de restauração de 22/09/2026, com dados sintéticos. [Publicação, bloqueio, reposição e correção](docs/state-recovery.md#capturas-do-ensaio).
+Captura atual obtida por replay offline do snapshot histórico sintético; não é uma nova execução. O [ensaio de restauração](docs/state-recovery.md#capturas-do-ensaio) preserva o relatório e as capturas produzidos naquela prova operacional.
 
 Uma soma correta pode esconder uma loja faltando ou contar a mesma venda em dois dias. O operador aprova o calendário de lojas esperadas; o pipeline confere a entrega e as revisões antes de fechar. Um bloqueio ou uma falha antes da publicação mantém os indicadores anteriores. [Problema e solução](docs/problem-solution.md).
 
@@ -38,10 +38,10 @@ Abra [o relatório local](http://localhost:3103/report.html). No Linux, substitu
 O HTML é uma leitura dos dados capturados na geração, sem atualização automática. Abre também como arquivo local e mantém o conteúdo acessível sem JavaScript.
 
 - **Execução:** decisão, lote, arquivo ou regra e próximo destino no mesmo registro. A cobertura mostra cada loja como confirmada, pendente ou com zero movimento confirmado. Contadores e tempos medidos ficam nos detalhes.
-- **Indicadores:** receita, vendas, unidades, ticket e recortes por dia, produto e loja. Identidade, data e janela comercial pertencem à publicação consultada, inclusive quando ela é anterior à tentativa bloqueada. Datas sem observação não viram zeros no gráfico.
+- **Indicadores:** receita, vendas, unidades, ticket e recortes por dia, produto e loja. Identidade, data e janela comercial pertencem à publicação consultada, inclusive quando ela é anterior à tentativa bloqueada. A matriz loja × dia permite conferir cada receita e abrir sua linha exata; o ranking compara unidades por produto. As tabelas permanecem completas no recorte. Ausência não vira zero.
 - **Arquivos:** IDs completos, versões Delta, fontes bronze e hashes das referências aprovadas.
 
-Compare `artifacts/report.html`, `blocked-report.html` e `failure-report.html`. O relatório distingue publicação concluída com auditoria incompleta de falha anterior à publicação; um tempo medido não prova sozinho o sucesso de uma etapa. [Comportamento da interface](docs/interface.md), [matriz de qualidade e comparação antes/depois](docs/frontend-quality.md), [indicadores](docs/images/interface-v3/indicators.png) e [arquivos](docs/images/interface-v3/files.png).
+Compare `artifacts/report.html`, `blocked-report.html` e `failure-report.html`. O relatório distingue publicação concluída com auditoria incompleta de falha anterior à publicação; um tempo medido não prova sozinho o sucesso de uma etapa. [Comportamento da interface](docs/interface.md), [matriz de qualidade e comparação antes/depois](docs/frontend-quality.md), [indicadores](docs/images/interface-v4/indicators.png) e [arquivos](docs/images/interface-v4/files.png).
 
 ## Como a publicação é protegida
 
@@ -55,7 +55,7 @@ A saída oficial é um manifesto que aponta para versões exatas das tabelas. Is
 
 A [prova de restauração](docs/state-recovery.md) recuperou 187 arquivos e três publicações em volume novo: R$ 64, R$ 64 e R$ 77, com versões e linhas iguais à origem. Cópia adulterada e destino ocupado foram recusados. O contrato preserva diretórios Delta completos e suas referências; não executa limpeza automática. É recuperação local no mesmo computador.
 
-A reconstrução do runtime passou em 188 testes, incluindo 15 integrações Spark/Delta. Uma revisão anterior da interface registrou 182 unitários da fonte combinada, lint e tipos. A composição atual passou em 193 unitários, incluindo 43 do renderer, lint, tipos, build do wheel e verificações de navegador; não reexecutou Spark. [Qualidade da interface e limites](docs/frontend-quality.md). O scan histórico registra zero achados altos/críticos e um aviso médio por versão no Commons Lang corrigido por backport. As evidências distinguem cada revisão. [Resultados, fontes e reprodução](docs/verification.md).
+A reconstrução do runtime passou em 188 testes, incluindo 15 integrações Spark/Delta. Uma revisão anterior da interface registrou 182 unitários da fonte combinada, lint e tipos. A revisão v3 registrou 193 unitários. A direção visual passou em 200 unitários no candidato; após integrar a prova de estado, a fonte combinada passou em 234 unitários, lint, formato, tipos e build do wheel. A revisão visual registrou 14 vistas sem violações automáticas no axe; o navegador conferiu teclado, fonte offline e os cinco snapshots históricos. A correção separada do leitor para totais de uma publicação vazia teve três integrações Spark/Delta/HTML; o aceite da fonte integrada depende do CI correspondente. [Qualidade da interface e limites](docs/frontend-quality.md). O scan histórico registra zero achados altos/críticos e um aviso médio por versão no Commons Lang corrigido por backport. As evidências distinguem cada revisão. [Resultados, fontes e reprodução](docs/verification.md).
 
 Delta faz transação por tabela; o manifesto e o lock do volume mantêm a consistência entre tabelas. Não há VACUUM automático. O relatório mostra até 500 linhas, 20 produtos e 366 dias, com os totais do conjunto inteiro. Não contém histórico completo de execuções. Estorno parcial, orquestração e monitoramento contínuo estão fora do escopo. [Código](src/retail_pipeline/pipeline.py) · [Decisões técnicas](docs/decisoes-tecnicas.md) · [Proposta para Fabric](docs/fabric-mapping.md).
 

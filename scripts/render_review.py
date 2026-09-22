@@ -154,6 +154,27 @@ def replay(payload_dir: Path, output: Path) -> None:
                 baseline,
                 summary={**baseline.summary, "net_revenue_brl": "1234567890123.45"},
             ),
+            "matrix-fixture": replace(
+                baseline,
+                stores=[
+                    {"business_date": "2026-01-01", "store_id": "S01", "net_revenue_brl": "0.00"},
+                    {"business_date": "2026-01-03", "store_id": "S01", "net_revenue_brl": None},
+                    {"business_date": "2026-01-01", "store_id": "S02", "net_revenue_brl": "15.10"},
+                    {"business_date": "2026-01-03", "store_id": "S02", "net_revenue_brl": "-12.34"},
+                ],
+                daily=[
+                    {"business_date": "2026-01-01", "net_revenue_brl": "-12.34"},
+                    {"business_date": "2026-01-02", "net_revenue_brl": None},
+                    {"business_date": "2026-01-03", "net_revenue_brl": "15.10"},
+                ],
+            ),
+            "extreme-dates-fixture": replace(
+                baseline,
+                stores=[
+                    {"business_date": day, "store_id": "S01", "net_revenue_brl": "10.00"}
+                    for day in ("0001-01-01", "1800-01-01", "9999-12-31")
+                ],
+            ),
             "gaps-fixture": replace(
                 baseline,
                 daily=[
