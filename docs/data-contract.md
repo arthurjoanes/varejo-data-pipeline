@@ -15,6 +15,8 @@ Esses hashes também acompanham cada fonte nova no manifesto publicado e no `exp
 
 Origem: exportador sintético `synthetic-pos`, implementado em `generation.py`; nenhuma informação de empresa ou cliente real. Moeda única BRL, dia comercial em `America/Sao_Paulo`. A distribuição por loja, produto, horário e desconto é uma hipótese de simulação, sem representatividade estatística alegada.
 
+Fontes desta seção, conferidas em **22/09/2026**: [references.py](../src/retail_pipeline/references.py) · [ingestion.py](../src/retail_pipeline/ingestion.py).
+
 ## Arquivos e configuração
 
 Uma entrega contém `manifest.json`, `catalog.json`, `schedule.json` e CSVs UTF-8 sem BOM. Separador vírgula, aspas duplas conforme CSV, cabeçalho obrigatório na ordem abaixo. Quebras LF no gerador. Cabeçalho de arquivo e schema não são inferidos pelo Spark. Arquivo de zero bytes é inválido; CSV contendo apenas cabeçalho requer confirmação explícita de zero movimento. Todo arquivo inesperado bloqueia o lote.
@@ -35,34 +37,50 @@ Exemplo de manifesto, abreviado:
   "batch_id": "fixture-valid",
   "source_system": "synthetic-pos",
   "window_id": "jan-2026",
-  "files": [{"path": "S01.csv", "store_id": "S01", "sha256": "<64 hex minúsculos>", "row_count": 3}],
-  "zero_movement": ["S03"],
-  "covered_stores": ["S01", "S03"]
+  "files": [
+    {
+      "path": "S01.csv",
+      "store_id": "S01",
+      "sha256": "<64 hex minúsculos>",
+      "row_count": 3
+    }
+  ],
+  "zero_movement": [
+    "S03"
+  ],
+  "covered_stores": [
+    "S01",
+    "S03"
+  ]
 }
 ```
 
 `files` lista cada caminho uma vez. Hash é SHA-256 dos bytes, contagem exclui cabeçalho. Caminhos são relativos POSIX `.csv`, sem `..`, barra invertida, drive, caminho absoluto ou normalizações ambíguas. Symlinks são rejeitados sem ler o destino. `zero_movement` é uma lista de lojas esperadas, sem repetições e sem registros nessa entrega. `covered_stores`, opcional, deve coincidir exatamente com lojas dos arquivos mais confirmações. O campo opcional `correction_of` identifica o lote corrigido. Campos desconhecidos e chaves JSON duplicadas são inválidos.
 
+Fontes desta seção, conferidas em **22/09/2026**: [batch_contracts.py](../src/retail_pipeline/batch_contracts.py) · [references.py](../src/retail_pipeline/references.py).
+
 ## Grão e campos
 
 Grão: revisão completa de um item de venda. Todos os campos são obrigatórios e não nulos. Identificador seguro significa expressão `[A-Za-z0-9][A-Za-z0-9_.-]{0,63}`; não há remoção silenciosa de espaços. A chave é `source_system,store_id,sale_id,line_id`.
 
-| Campo | Tipo/limites | Significado e exemplo |
-|---|---|---|
-| `source_system` | Identificador | Origem; deve corresponder ao manifesto, ex. `synthetic-pos` |
-| `store_id` | Identificador, referência ativa | Loja; também corresponde à loja declarada para o arquivo, ex. `S01` |
-| `sale_id` | Identificador | Venda dentro da origem/loja, ex. `A1` |
-| `line_id` | Identificador | Item dentro da venda, ex. `1` |
-| `revision` | Inteiro 1–2.147.483.647 | Ordem total das imagens da mesma chave |
-| `operation` | `UPSERT` ou `CANCEL` | Atualização completa ou cancelamento completo |
-| `product_id` | Identificador, referência de produto | Produto da imagem, ex. `P01` |
-| `sold_at` | ISO-8601 com offset | Instante da venda, ex. `2026-01-01T12:00:00-03:00` |
-| `quantity` | Inteiro 1–1.000.000 | Unidades da linha |
-| `unit_price_brl` | Decimal, 0–999.999.999,99 | Preço unitário BRL; ponto decimal, até 2 casas |
-| `line_discount_brl` | Decimal não negativo, <= bruto | Desconto total da linha, não por unidade |
-| `source_updated_at` | ISO-8601 com offset | Instante de atualização informado pela origem |
+| Campo               | Tipo/limites                         | Significado e exemplo                                               |
+| ------------------- | ------------------------------------ | ------------------------------------------------------------------- |
+| `source_system`     | Identificador                        | Origem; deve corresponder ao manifesto, ex. `synthetic-pos`         |
+| `store_id`          | Identificador, referência ativa      | Loja; também corresponde à loja declarada para o arquivo, ex. `S01` |
+| `sale_id`           | Identificador                        | Venda dentro da origem/loja, ex. `A1`                               |
+| `line_id`           | Identificador                        | Item dentro da venda, ex. `1`                                       |
+| `revision`          | Inteiro 1–2.147.483.647              | Ordem total das imagens da mesma chave                              |
+| `operation`         | `UPSERT` ou `CANCEL`                 | Atualização completa ou cancelamento completo                       |
+| `product_id`        | Identificador, referência de produto | Produto da imagem, ex. `P01`                                        |
+| `sold_at`           | ISO-8601 com offset                  | Instante da venda, ex. `2026-01-01T12:00:00-03:00`                  |
+| `quantity`          | Inteiro 1–1.000.000                  | Unidades da linha                                                   |
+| `unit_price_brl`    | Decimal, 0–999.999.999,99            | Preço unitário BRL; ponto decimal, até 2 casas                      |
+| `line_discount_brl` | Decimal não negativo, <= bruto       | Desconto total da linha, não por unidade                            |
+| `source_updated_at` | ISO-8601 com offset                  | Instante de atualização informado pela origem                       |
 
 Dinheiro não admite notação científica, sinal, vírgula, `NaN`, infinito ou arredondamento silencioso. Silver utiliza Decimal(18,2) em preço/desconto e Decimal(24,2) no líquido da linha; Gold utiliza Decimal(28,2) em receita/ticket; os limites por linha impedem overflow no bruto `quantity × unit_price_brl`. Desconto também deve caber em Decimal(18,2). `sold_at` e `source_updated_at` aceitam até 6 casas nos segundos. Datas sem timezone e datas impossíveis são bloqueadas. Minutos de offset devem ficar entre 00 e 59; o offset completo deve ser menor que 24 horas. O instante normalizado em UTC e o dia comercial de `sold_at` precisam caber nos anos 0001–9999 dos leitores Python. A persistência Parquet usa escrita `CORRECTED`, preservando o calendário gregoriano, inclusive em datas anteriores a 1900; não é uma conversão para calendários híbridos legados. Os timestamps são normalizados em UTC; source_updated_at é informativo e não ordena revisões nem impõe comparação causal entre relógios.
+
+Fontes desta seção, conferidas em **22/09/2026**: [retail_pipeline/contracts.py](../src/retail_pipeline/contracts.py) · [transformations.py](../src/retail_pipeline/transformations.py).
 
 ## Revisão, cancelamento e identidade
 
@@ -74,6 +92,8 @@ Hash do payload cobre os 12 campos de negócio em JSON ordenado, UTF-8; inteiros
 
 `batch_id` identifica contrato imutável; `run_id` identifica tentativa. Hash lógico do manifesto ordena chaves JSON e listas sem significado de ordem (`files`, cobertura e zero movimento), preservando hashes físicos dos arquivos. Corrigir arquivo ausente/corrompido segundo o manifesto original permite reexecução. Alterar conteúdo esperado exige novo batch_id. Reordenar CSV exige novos hashes/manifesto e novo batch_id, mas mantém os eventos de negócio. Metadados de execução podem variar sem alterar indicadores.
 
+Fontes desta seção, conferidas em **22/09/2026**: [pipeline.py](../src/retail_pipeline/pipeline.py) · [transformations.py](../src/retail_pipeline/transformations.py).
+
 ## Bronze, quarentena e contagens
 
 Antes de interpretar a entrega, a ingestão copia arquivos regulares para `evidence/raw/` da tentativa. Todo processamento da entrega usa essa cópia; as referências aprovadas do operador são capturadas separadamente. Bytes inválidos, CSV quebrado e arquivos inesperados permanecem disponíveis para diagnóstico; symlinks têm apenas o caminho registrado como violação, nunca o conteúdo externo. Arquivos especiais, como FIFO, são rejeitados com `UNSAFE_FILE_TYPE` sem bloquear a leitura à espera de outro processo.
@@ -84,6 +104,8 @@ Antes de interpretar a entrega, a ingestão copia arquivos regulares para `evide
 
 Códigos estáveis principais: `MISSING_FILE`, `MISSING_STORE`, `UNEXPECTED_FILE`, `UNSAFE_PATH`, `UNSAFE_SYMLINK`, `HASH_MISMATCH`, `ROW_COUNT_MISMATCH`, `SCHEMA_MISMATCH`, `ROW_WIDTH_MISMATCH`, `CSV_DECODE_ERROR`, `EMPTY_FILE`, `EMPTY_WITHOUT_ZERO_CONFIRMATION`, `INVALID_ZERO_CONFIRMATION`, `COVERAGE_MISMATCH`, `UNKNOWN_STORE`, `UNKNOWN_PRODUCT`, `INVALID_QUANTITY`, `INVALID_REVISION`, `INVALID_UNIT_PRICE_BRL`, `INVALID_LINE_DISCOUNT_BRL`, `DISCOUNT_EXCEEDS_GROSS`, `INVALID_SOLD_AT`, `INVALID_SOURCE_UPDATED_AT`. Todos bloqueiam a publicação. Erros adicionais identificam configurações/manifestos malformados. Contagens agregadas de cada regra são limitadas ao número de códigos, não à massa de registros.
 
+Fontes desta seção, conferidas em **22/09/2026**: [ingestion.py](../src/retail_pipeline/ingestion.py) · [pipeline.py](../src/retail_pipeline/pipeline.py).
+
 ## Orçamento da entrada
 
 O snapshot limita bytes efetivamente lidos, sem confiar somente no tamanho informado pelo arquivo: 1 MiB por JSON, 64 MiB por arquivo, 256 MiB por entrega e 1.000 arquivos, incluindo inesperados. Ajuste `RETAIL_MAX_JSON_BYTES`, `RETAIL_MAX_FILE_BYTES`, `RETAIL_MAX_TOTAL_BYTES` e `RETAIL_MAX_FILES` no `.env`, sempre com inteiros positivos. O menor teto prevalece. A leitura de JSON para `configure` também respeita o limite antes de decodificar ou analisar o documento.
@@ -91,6 +113,8 @@ O snapshot limita bytes efetivamente lidos, sem confiar somente no tamanho infor
 Ao exceder um teto, a cópia para imediatamente. O prefixo já copiado permanece em `evidence/raw`, e `evidence/snapshot.json` registra `complete: false`, bytes copiados, caminho interrompido, motivo e limites. Esse prefixo **não é uma entrega completa**: nenhuma linha é interpretada a partir dele, e a tentativa fica BLOCKED (saída 2). A publicação anterior permanece igual. Os códigos são `INPUT_JSON_BYTES_LIMIT`, `INPUT_FILE_BYTES_LIMIT`, `INPUT_TOTAL_BYTES_LIMIT` e `INPUT_FILE_COUNT_LIMIT`. Um arquivo exatamente no limite é aceito.
 
 O orçamento é por tentativa. Não define quota acumulada do volume nem elimina a necessidade de retenção de `runs`, arquivos Delta e logs. Preserve evidências necessárias à auditoria e faça backup antes de limpar estados ou migrar runtimes.
+
+Fontes desta seção, conferidas em **22/09/2026**: [input_limits.py](../src/retail_pipeline/input_limits.py) · [ingestion.py](../src/retail_pipeline/ingestion.py) · [compose.yaml](../compose.yaml).
 
 ## Fixture e geração
 
@@ -102,8 +126,12 @@ Duplicatas, conflitos e revisões antigas só são avaliados depois que a integr
 
 Na apresentação monetária, o relatório arredonda valores calculados para duas casas com `ROUND_HALF_UP`, coerente com o cast decimal do ticket em Spark: `1.005` é exibido como `R$ 1,01`. Essa decisão afeta a apresentação de médias e não flexibiliza o contrato de entrada, que continua recusando dinheiro com mais de duas casas.
 
+Fontes desta seção, conferidas em **22/09/2026**: [generation.py](../src/retail_pipeline/generation.py) · [fixture-valid](../data/samples/fixture-valid) · [test_business_thesis.py](../tests/integration/test_business_thesis.py).
+
 ## Resumo sem vendas e apresentação
 
 Receita e unidades de uma publicação válida sem itens ativos são zero. O `explain` aplica a mesma regra às contribuições ativas selecionadas; um recorte vazio não confirma a cobertura da loja ou do período. Ticket médio é receita dividida pelas vendas: com zero vendas, o resumo guarda `None` e o relatório mostra `—` / “Sem vendas no período”. Com uma ou mais vendas de preço zero ou desconto integral, ticket zero é válido. O caso foi exercitado em Delta com zero movimento, todas as linhas CANCEL e reativação gratuita. Ausência de publicação continua distinta de uma publicação sem movimento.
 
 O eixo do gráfico utiliza intervalos arredondados em reais; os pontos e a tabela diária conservam os valores monetários exatos. Durações aparecem com uma casa na leitura rápida e com a precisão registrada em detalhe. IDs longos no resumo são abreviados, com acesso aos valores completos e cópia na proveniência.
+
+Fontes desta seção, conferidas em **22/09/2026**: [reporting.py](../src/retail_pipeline/reporting.py) · [report_view.py](../src/retail_pipeline/report_view.py) · [test_boundaries.py](../tests/integration/test_boundaries.py).

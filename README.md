@@ -1,79 +1,92 @@
 # Varejo Data Pipeline
 
-Desenvolvi este laboratório para conferir entregas e revisões de vendas antes de publicar um fechamento. Ele é útil para quem precisa explicar **se o total está completo, quais revisões foram aceitas e a qual publicação cada indicador pertence**.
+Conferência de entregas e revisões de vendas antes de publicar um fechamento.
 
-Uma soma correta pode esconder uma loja ausente ou contar uma venda duas vezes. Por isso, o relatório separa a tentativa mais recente da publicação que continua disponível quando uma entrega é bloqueada.
+<!-- Navegação do README -->
+<p>
+  <a href="#demonstração"><img src="docs/readme/badges/demo.svg" alt="Demonstração" width="139" height="28"></a>
+  <a href="#arquitetura"><img src="docs/readme/badges/architecture.svg" alt="Arquitetura" width="126" height="28"></a>
+  <a href="#executar-localmente"><img src="docs/readme/badges/run.svg" alt="Executar localmente" width="107" height="28"></a>
+  <a href="#verificação-e-evidências"><img src="docs/readme/badges/evidence.svg" alt="Verificação e evidências" width="119" height="28"></a>
+  <a href="https://www.linkedin.com/in/arthur-joanes-6a2967373/"><img src="docs/readme/badges/linkedin.svg" alt="Arthur Joanes no LinkedIn" width="108" height="28"></a>
+</p>
+
+## Visão geral
+
+O projeto responde a três perguntas: o total está completo, quais revisões foram aceitas e a qual publicação cada indicador pertence? Desenvolvi a ingestão, as regras de revisão, a publicação por manifesto e o relatório para uma rede fictícia. Os dados são sintéticos; não há adoção comercial nem ganho financeiro medido. Fontes conferidas em **22/09/2026**: [pipeline](src/retail_pipeline/pipeline.py), [publicação](src/retail_pipeline/publication.py) e [gerador](src/retail_pipeline/generation.py).
+
+<a id="na-prática"></a>
+<a id="como-uma-falha-aparece-para-quem-consulta"></a>
+
+## Demonstração
 
 ![Página principal do Varejo Data Pipeline](docs/readme/home.png)
 
-*Página principal da demonstração.*
-
-[Na prática](#na-prática) · [Implementação](#implementação) · [Executar e verificar](#executar-e-verificar) · [Limites e manutenção](#limites-e-manutenção)
-
-<p><img src="docs/readme/uso.svg" width="800" height="8" alt=""></p>
-
-## Na prática
+_Imagem versionada da página principal, conferida nesta revisão documental em 22/09/2026. A imagem apresenta o relatório; os resultados de execução são sustentados pelos registros abaixo._
 
 ![Recorte da cobertura: S01 confirmada, S02 pendente e S03 com zero movimento confirmado](docs/images/current-20260922/coverage-focus.png)
 
-O recorte usa o renderer atual e um snapshot histórico sintético de entrega ausente: duas de três lojas confirmadas, com S02 pendente. É um replay visual, sem nova execução do pipeline.
+O recorte de **22/09/2026** usa o renderer atual sobre dados históricos: duas de três lojas confirmadas e S02 pendente. É uma reprodução visual, sem novo processamento Spark. [Origem e limites da captura](docs/evidence/image-review-20260922.json) · [capturas](docs/image-review.md).
 
-Na demonstração editorial separada, o remetente omite S02, mas o calendário aprovado pelo operador ainda espera três lojas. O lote é bloqueado e os **R$ 64,00 anteriores permanecem publicados**. As leituras Delta e as asserções do [caso executado](docs/demo.md#demonstração-editorial-executada) verificam a preservação dos dados. [Captura completa dessa execução, com bytes preservados](docs/images/editorial-20260922/coverage-blocked.png). A [conferência das imagens](docs/image-review.md) distingue o layout atual dos dados históricos e das provas de versões anteriores.
+Na execução de **22/09/2026, 12:06–12:09 UTC**, o lote inicial publicou **R$ 64,00 e três vendas**. A ausência de S02 bloqueou a nova entrega. Mover só um item de A1 para outro dia também foi bloqueado, embora a soma continuasse correta. A correção integral foi aceita; uma revisão posterior levou a **R$ 74,00**. São valores da fixture, não preços ou faturamento real. [Entradas e resultados](docs/evidence/editorial-20260922/business-thesis.json) · [comandos, imagem e datas](docs/evidence/editorial-20260922/execution.json).
 
-**Exemplo curto:** A1 tem dois itens: `2 × R$ 10 − R$ 1 = R$ 19` e `1 × R$ 5 = R$ 5`. Mover somente o primeiro para o dia seguinte conserva os R$ 24, mas faz A1 aparecer em dois dias. Implementei uma validação que bloqueia essa revisão parcial. Mover os dois itens juntos conserva uma venda e leva os R$ 24 ao dia correto. [Entrada, resultado, código e limite](docs/problem-solution.md#exemplo-uma-soma-certa-com-a-contagem-errada).
+| Caso da mesma execução                      | Resultado observado                                        |
+| ------------------------------------------- | ---------------------------------------------------------- |
+| Entrega de S02 ausente                      | Bloqueio; R$ 64,00 anteriores permanecem publicados        |
+| Apenas um item de A1 muda de dia            | `SALE_DATE_CONFLICT`; receita sozinha não aprova a revisão |
+| Processo falha entre as duas tabelas finais | Leitores oficiais continuam em R$ 64,00/R$ 64,00           |
+| Retomada e repetição                        | R$ 74,00; repetição `NO_CHANGE`, mesma publicação          |
 
-Os dados são sintéticos. Este é um laboratório local, sem clientes, operação comercial ou capacidade de produção demonstrada.
+Fonte da tabela: [prova do caso](docs/evidence/editorial-20260922/business-thesis.json), executada em **22/09/2026**; conferência documental em **22/09/2026**. A demonstração histórica que termina em R$ 77,00 tem outra sequência e permanece separada no [roteiro](docs/demo.md).
 
-### Como uma falha aparece para quem consulta
+<a id="implementação"></a>
+<a id="como-protejo-a-publicação"></a>
 
-A demonstração pequena usa quatro itens: `19 + 5 + 20 + 20 = R$ 64`, sete unidades e três vendas. Depois da correção integral de data, a receita continua em R$ 64. Uma nova revisão aumenta a quantidade do primeiro item de dois para três: o esperado passa a **R$ 74**.
+## Arquitetura
 
-| Situação executada | O que precisa permanecer verdadeiro |
-| --- | --- |
-| S02 ausente | Bloqueio e publicação anterior de R$ 64 |
-| Só um item de A1 muda de dia | `SALE_DATE_CONFLICT`; a soma não basta para aprovar |
-| Os dois itens de A1 mudam juntos | R$ 64 e três vendas; a revisão 99 rejeitada não bloqueia a revisão 2 válida |
-| Processo falha entre as duas tabelas finais | Versões físicas mais recentes de R$ 74/R$ 64; leitores oficiais continuam em R$ 64/R$ 64 |
-| Retomada e repetição | Publicação de R$ 74; repetir retorna `NO_CHANGE`, com a mesma publicação |
+```mermaid
+flowchart TB
+    Input[Entrega da loja] --> Batch[Validação e batch]
+    Ref[Referências aprovadas] --> Batch
+    Batch --> Delta[(Tabelas Delta)]
+    Delta --> Publish[Manifesto de publicação]
+    Publish --> HTML[Relatório e explain]
+```
 
-A [demonstração executada](docs/demo.md#demonstração-editorial-executada) reúne capturas junto dos casos, comandos, dados de origem e resultados. A [explicação das decisões](docs/decisoes-tecnicas.md) liga cada mecanismo ao código, à verificação e ao custo da escolha. A demo histórica de cancelamento/reativação, que termina em R$ 77, permanece separada.
+O processo escreve versões candidatas e só troca o manifesto oficial depois das validações. O leitor captura esse manifesto uma vez; uma gravação interrompida não autoriza ler a versão física mais nova de cada tabela. O escritor é único e usa lock do filesystem Linux local. Fontes conferidas em **22/09/2026**: [pipeline](src/retail_pipeline/pipeline.py), [manifesto e lock](src/retail_pipeline/publication.py), [leitor](src/retail_pipeline/reporting.py) e [teste da interrupção](tests/integration/test_commit_boundary.py).
 
-<p><img src="docs/readme/implementacao.svg" width="800" height="8" alt=""></p>
+O [Compose](compose.yaml) separa o batch sem rede do servidor opcional do HTML em loopback. O relatório é um snapshot e não executa o pipeline ao ser aberto. [Renderer](src/retail_pipeline/report_view.py), conferido em **22/09/2026**. [Arquitetura completa](docs/architecture.md).
 
-## Implementação
+<a id="o-que-eu-implementei"></a>
+<a id="stack"></a>
 
-### O que eu implementei
-
-- Separei o cadastro e o calendário aprovados dos arquivos enviados pelas lojas. A origem não pode reduzir a expectativa para fazer uma entrega incompleta parecer válida.
-- Implementei identidade por item e revisão, bloqueio de conflito, cancelamento e reativação. Repetir uma operação sem repetir seu efeito é a **idempotência** verificada na jornada.
-- Organizei a publicação em um manifesto com versões fixas das tabelas. Um candidato interrompido pode existir fisicamente sem aparecer nos indicadores oficiais.
-- Construí a CLI, a rastreabilidade por arquivo/linha/revisão, os cenários verificáveis e o relatório HTML offline. Configurei Spark e Delta para processamento e armazenamento versionado; essas ferramentas são dependências do projeto, não produtos de minha autoria.
-- Acrescentei o contrato e a prova de cópia/restauração do estado completo, com recusa de cópia adulterada e destino ocupado. O limite atual é recuperação local no mesmo computador.
-
-### Stack
+## Stack e decisões
 
 <p>
-  <img src="docs/stack/python.svg" alt="Python" width="72" height="72">
-  <img src="docs/stack/apachespark.svg" alt="Apache Spark" width="72" height="72">
-  <img src="docs/stack/java.svg" alt="Java" width="72" height="72">
-  <img src="docs/stack/docker.svg" alt="Docker" width="72" height="72">
+  <img src="docs/stack/python.svg" alt="Python" width="64" height="64">
+  <img src="docs/stack/apachespark.svg" alt="Apache Spark" width="64" height="64">
+  <img src="docs/stack/java.svg" alt="Java" width="64" height="64">
+  <img src="docs/stack/docker.svg" alt="Docker" width="64" height="64">
 </p>
 
-Python/PySpark processa os lotes e Delta Lake mantém as tabelas versionadas. Java fornece o runtime do Spark; Docker fixa o ambiente. O relatório usa HTML, CSS e JavaScript locais, sem serviço de frontend.
+| Componente                    | Papel e escolha verificável                                                 |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| Python/PySpark                | Validação de entrada e transformações em lote                               |
+| Delta Lake                    | Histórico e versões por tabela; o manifesto da aplicação reúne a publicação |
+| Java                          | Runtime do Spark dentro da imagem                                           |
+| Docker Compose                | Estado local isolado e servidor opcional do relatório                       |
+| HTML, CSS e JavaScript locais | Relatório portátil com leitura básica sem JavaScript                        |
 
-### Como protejo a publicação
+Fontes conferidas em **22/09/2026**: [dependências Python](pyproject.toml), [Dockerfile](Dockerfile), [Compose](compose.yaml) e [renderer](src/retail_pipeline/report_view.py). O projeto fixa **Spark 4.2.0 e Delta 4.4.0**; a compatibilidade declarada foi conferida nas [notas oficiais Delta](https://github.com/delta-io/delta/releases/tag/v4.4.0), consultadas em **22/09/2026**. Os artefatos JVM reconstruídos localmente não são apresentados como releases oficiais.
 
-Spark calcula o estado dos itens e os dois recortes finais: loja/dia e produto/dia. Delta fornece transações por tabela; gravar ambos em sequência não cria uma transação entre eles. Para este escopo local, escolhi validar o candidato, reconciliar seus totais e só então trocar um **manifesto**, o arquivo que aponta para as versões oficiais.
+Recalcular o histórico simplifica revisões e retomadas, mas exige processamento e armazenamento adicionais. Não houve comparação que prove vantagem sobre uma solução menor. [Código da projeção](src/retail_pipeline/transformations.py), conferido em **22/09/2026**; [alternativas e compromissos](docs/decisoes-tecnicas.md).
 
-O leitor captura esse manifesto uma vez e consulta as versões indicadas. Isso impede misturar uma tabela nova com outra antiga se o processo parar entre as gravações. Recalcular a projeção do histórico aceito simplifica correções de data, cancelamentos e retomadas; o custo cresce com esse histórico. [Arquitetura](docs/architecture.md) · [Contrato](docs/data-contract.md) · [Código de publicação](src/retail_pipeline/publication.py).
+<a id="executar-e-verificar"></a>
+<a id="executar-no-windows"></a>
 
-<p><img src="docs/readme/execucao.svg" width="800" height="8" alt=""></p>
+## Executar localmente
 
-## Executar e verificar
-
-### Executar no Windows
-
-Requer Docker Desktop em modo Linux, Compose v2 e PowerShell. Java e Python do batch ficam na imagem. O primeiro build baixa e compila dependências fixadas, portanto precisa de rede, espaço e tempo; a execução posterior não usa rede.
+Use Docker Desktop com containers Linux, Compose e PowerShell no Windows. Python e Java do batch são instalados pela imagem. O primeiro build precisa de rede; o batch configurado executa sem rede. Fontes conferidas em **22/09/2026**: [wrapper](scripts/pipeline.ps1), [Dockerfile](Dockerfile) e [Compose](compose.yaml).
 
 ```powershell
 .\scripts\pipeline.ps1 setup
@@ -81,34 +94,53 @@ Requer Docker Desktop em modo Linux, Compose v2 e PowerShell. Java e Python do b
 .\scripts\pipeline.ps1 serve
 ```
 
-Abra [o relatório local](http://localhost:3103/report.html). No Linux, use `sh scripts/pipeline.sh` com os mesmos comandos. `demo` cria um novo estado UUID, sem apagar demos anteriores; seus arquivos exportados em `artifacts/` representam a última execução do comando. Para conservar uma prova com nome próprio, use o [roteiro de verificação](docs/demo.md).
+Abra [localhost:3103/report.html](http://localhost:3103/report.html). No Linux, use `sh scripts/pipeline.sh` com os mesmos comandos. `demo` cria estado com UUID; as exportações em `artifacts/` representam a execução mais recente do comando. [Wrapper Linux](scripts/pipeline.sh) e [demo](src/retail_pipeline/demo.py), conferidos em **22/09/2026**. [Roteiro completo e limpeza](docs/demo.md).
 
-### Ler e verificar o fechamento
+<a id="ler-e-verificar-o-fechamento"></a>
 
-- **Execução:** decisão, lote, arquivo/regra, cobertura e próximo destino. Zero movimento confirmado é diferente de ausência de entrega.
-- **Indicadores:** identidade e período da publicação, receita, unidades, vendas, ticket, matriz loja/dia e ranking. Valores exatos continuam nas tabelas; ausência não vira zero.
-- **Arquivos:** IDs completos, versões Delta, fontes bronze e hashes das referências aprovadas.
+## Verificação e evidências
 
-O HTML é um snapshot: abrir a página não consulta o pipeline nem acompanha a execução ao vivo. Ele abre como arquivo local, mantém os dados sem JavaScript e inclui a fonte e sua licença. [Interface](docs/interface.md) · [Capturas e qualidade visual](docs/frontend-quality.md).
-
-Para executar o contraexemplo de negócio em estado temporário novo:
+Para executar a prova de negócio em estado temporário:
 
 ```powershell
 docker compose run --rm --entrypoint python pipeline scripts/verify_problem.py --thesis-only --output /app/artifacts/thesis
 ```
 
-Esse comando executa Spark/Delta e verifica os resultados antes de exportar o registro; não é apenas um replay visual. O [registro de verificação](docs/verification.md) distingue esta execução, testes anteriores, CI, medição e scans. O CI do baseline `93d80c0` aprovou 249 testes e registrou zero achados HIGH/CRITICAL; isso não substitui o CI de futuras alterações.
+O [runner](scripts/verify_problem.py) chama o [teste de negócio](tests/integration/test_business_thesis.py), que confere resultados com Spark/Delta. Comando conferido em **22/09/2026**; esta revisão de documentação não repetiu o processamento.
 
-<p><img src="docs/readme/limites.svg" width="800" height="8" alt=""></p>
+| Evidência                                                                   | Data e alcance                                                                 |
+| --------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [Caso de negócio](docs/evidence/editorial-20260922/business-thesis.json)    | 22/09/2026; cobertura, revisão integral e falha entre tabelas                  |
+| [Identidade da execução](docs/evidence/editorial-20260922/execution.json)   | 22/09/2026; imagem, comandos e preparação; build com cache                     |
+| [Recuperação](docs/evidence/state-proof/restore.json)                       | Execução histórica identificada no registro; restauração em destino local novo |
+| [Scan da revisão editorial](docs/evidence/editorial-20260922/security.json) | 22/09/2026; resultado vinculado à imagem examinada                             |
 
-## Limites e manutenção
+Conferência documental: **22/09/2026**. Resultados antigos não certificam commits posteriores. [Inventário das verificações](docs/verification.md) · [fontes e afirmações](docs/fontes-e-afirmacoes.md).
 
-### Limites que mantive explícitos
+<a id="limites-e-manutenção"></a>
+<a id="limites-que-mantive-explícitos"></a>
 
-O escritor é único, protegido por lock no filesystem Linux local. Não há transação distribuída, autenticação multiusuário, streaming, cloud provisionada ou estorno parcial. O relatório mostra até 500 linhas, 20 produtos e 366 dias, com totais do conjunto publicado; não é histórico completo de todas as execuções.
+## Limites e segurança
 
-Não há limpeza automática de versões Delta. A [prova anterior de restauração](docs/state-recovery.md) recuperou 187 arquivos e três publicações em volume novo, mas não demonstra recuperação fora do computador. A [medição de recomputação](docs/state-recovery.md) é local e separada das fixtures pequenas; não a apresento como capacidade de produção.
+O escopo é local: sem autenticação multiusuário, streaming ou implantação Fabric executada. A publicação depende do filesystem Linux e de um único escritor. Não há limpeza automática de versões Delta nem prova de recuperação fora do computador. Fontes conferidas em **22/09/2026**: [Compose](compose.yaml), [publicação](src/retail_pipeline/publication.py) e [prova de restauração](docs/evidence/state-proof/restore.json).
 
-Spark 4.2.0 e Delta 4.4.0 têm dependências JVM fixadas por hash e builds locais identificados para componentes específicos. Receitas, correções, licenças e condições de isolamento estão em [segurança](docs/security.md) e [runtime](docs/runtime-upgrade.md). Licença MIT do projeto; licenças de terceiros preservadas.
+Os limites de entrada são parâmetros configuráveis, não capacidade medida: por padrão, **1 MiB por JSON, 64 MiB por arquivo, 256 MiB por entrega e 1.000 arquivos**. [Implementação dos limites](src/retail_pipeline/input_limits.py) e [configuração](compose.yaml), conferidas em **22/09/2026**. O scan preserva achados e suas datas; “zero HIGH/CRITICAL” em uma imagem não significa ausência de vulnerabilidades. [Registro do scan](docs/evidence/editorial-20260922/security.json), de **22/09/2026**.
 
-Ícones da stack: [Devicon — licença MIT](docs/stack/LICENSE.devicon).
+## Documentação
+
+[Padrão compartilhado da documentação](docs/padrao-documentacao.md) · [Fontes e afirmações](docs/fontes-e-afirmacoes.md).
+
+| Para consultar                 | Documento                                                                                                           |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| Fluxo, cenários e demonstração | [Demo](docs/demo.md) · [problema e solução](docs/problem-solution.md)                                               |
+| Contratos e implementação      | [Arquitetura](docs/architecture.md) · [dados](docs/data-contract.md) · [decisões](docs/decisoes-tecnicas.md)        |
+| Operação e riscos              | [Recuperação](docs/state-recovery.md) · [runtime](docs/runtime-upgrade.md) · [segurança](docs/security.md)          |
+| Interface e capturas           | [Interface](docs/interface.md) · [qualidade](docs/frontend-quality.md) · [origem das imagens](docs/image-review.md) |
+| Rastrear afirmações            | [Fontes, datas e limites](docs/fontes-e-afirmacoes.md)                                                              |
+| Evolução proposta              | [Adaptação Fabric, não executada](docs/fabric-mapping.md)                                                           |
+
+## Autor e licença
+
+<p><a href="https://www.linkedin.com/in/arthur-joanes-6a2967373/"><img src="docs/contact/linkedin.svg" width="24" height="24" alt=""> <strong>Arthur Joanes no LinkedIn</strong></a></p>
+
+[Licença MIT](LICENSE). Ícones da stack e LinkedIn: [Devicon, licença MIT](docs/stack/LICENSE.devicon). Licenças conferidas nos arquivos em **22/09/2026**.
