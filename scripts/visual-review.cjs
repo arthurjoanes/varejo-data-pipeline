@@ -11,6 +11,13 @@ const images = path.resolve(root, process.env.REVIEW_IMAGES || 'docs/images/inte
 const evidence = path.resolve(root, process.env.REVIEW_EVIDENCE || 'docs/evidence/interface-v4');
 const reportURL = name => pathToFileURL(path.join(root, 'artifacts', 'interface', `${name}.html`)).href;
 
+async function waitForView(page, view) {
+  // A hash navigation can finish before the hashchange handler updates the DOM.
+  // Keep Playwright's default timeout and require both the link and its panel.
+  await page.locator(`[data-view-link="${view}"][aria-current="page"]`).waitFor({ state: 'visible' });
+  await page.locator(`#${view}`).waitFor({ state: 'visible' });
+}
+
 async function main() {
   fs.mkdirSync(evidence, { recursive: true });
   fs.mkdirSync(images, { recursive: true });
@@ -34,11 +41,13 @@ async function main() {
       await page.goto(reportURL('demo30k-report'));
       for (const view of ['qualidade', 'indicadores', 'proveniencia']) {
         await page.locator(`[data-view-link="${view}"]`).click();
+        await waitForView(page, view);
         assert.equal(await page.locator('[data-report-view]:visible').count(), 1);
         assert.equal(await page.locator(`[data-view-link="${view}"]`).getAttribute('aria-current'), 'page');
         const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth }));
         assert.ok(dimensions.document <= dimensions.viewport, `${view} overflow at ${width}px`);
         const targets = await page.locator('nav a:visible, button:visible, summary:visible').evaluateAll(es => es.map(e => ({ text: e.textContent.trim(), height: e.getBoundingClientRect().height })));
+        assert.ok(targets.length >= 3, `At least the three navigation links: ${view} at ${width}px`);
         assert.ok(targets.every(target => target.height >= 24), `Control targets: ${view} at ${width}px`);
         if (view === 'indicadores') {
           const boxes = await page.locator('#receita, #produtos, #lojas').evaluateAll(es => es.map(e => { const b=e.getBoundingClientRect(); return { id:e.id, top:b.top, bottom:b.bottom, left:b.left }; }));
@@ -55,6 +64,7 @@ async function main() {
       assert.equal(await page.locator('.coverage-total').textContent(), '12 de 12 lojas com entrega confirmada');
       assert.equal(await page.locator('[role="tab"], [role="tablist"]').count(), 0);
       await page.locator('[data-view-link="qualidade"]').click();
+      await waitForView(page, 'qualidade');
       if (width !== 1440) await capture(page, `report-${width}.png`);
     }
     await page.setViewportSize({ width: 1366, height: 900 });
@@ -88,6 +98,7 @@ async function main() {
     await page.locator('.source-record summary').click();
     assert.ok((await page.locator('.source-record').innerText()).includes('SHA-256'));
     await page.goBack();
+    await waitForView(page, 'indicadores');
     assert.equal(await page.locator('#indicadores').isVisible(), true);
     await page.goto(`${reportURL('demo30k-report')}#lojas`);
     assert.equal(await page.locator('#indicadores').isVisible(), true);
@@ -107,14 +118,15 @@ async function main() {
     assert.equal(await page.locator('.stage[open]').count(), 1);
     assert.equal(await qualityStage.locator('.stage-note').isVisible(), true);
     await page.getByRole('link', { name: 'Ver registro da tentativa', exact: true }).click();
-    assert.equal(await page.locator('#attempt-identity').getAttribute('open'), '');
     await page.waitForFunction(() => document.activeElement.id === 'attempt-identity');
+    assert.equal(await page.locator('#attempt-identity').getAttribute('open'), '');
     await page.goto(`${reportURL('demo30k-report')}#attempt-batch-id`);
     assert.equal(await page.locator('#attempt-batch-id').isVisible(), true);
 
     // Saltar ao conteúdo preserva a vista selecionada e o foco chega ao main.
     for (const view of ['indicadores', 'proveniencia']) {
       await page.locator(`[data-view-link="${view}"]`).click();
+      await waitForView(page, view);
       await page.locator('.skip-link').focus();
       await page.keyboard.press('Enter');
       assert.equal(new URL(page.url()).hash, '#content');
@@ -122,9 +134,11 @@ async function main() {
       assert.equal(await page.locator('[data-report-view]:visible').count(), 1);
       await page.waitForFunction(() => document.activeElement.id === 'content');
       await page.goBack();
+      await waitForView(page, view);
       assert.equal(new URL(page.url()).hash, `#${view}`);
       assert.equal(await page.locator(`#${view}`).isVisible(), true);
       await page.goForward();
+      await waitForView(page, view);
       assert.equal(new URL(page.url()).hash, '#content');
       assert.equal(await page.locator(`#${view}`).isVisible(), true);
       await page.waitForFunction(() => document.activeElement.id === 'content');
@@ -136,6 +150,7 @@ async function main() {
     await page.evaluate(() => { document.body.style.zoom = '2'; });
     for (const view of ['qualidade', 'indicadores', 'proveniencia']) {
       await page.locator(`[data-view-link="${view}"]`).click();
+      await waitForView(page, view);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `CSS zoom: ${view}`);
     }
     const reflow = await browser.newContext({ viewport: { width: 683, height: 450 }, deviceScaleFactor: 2 });
@@ -143,6 +158,7 @@ async function main() {
     await reflowPage.goto(reportURL('demo30k-report'));
     for (const view of ['qualidade', 'indicadores', 'proveniencia']) {
       await reflowPage.locator(`[data-view-link="${view}"]`).click();
+      await waitForView(reflowPage, view);
       assert.equal(await reflowPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `Reflow: ${view}`);
     }
     await reflow.close();
@@ -205,8 +221,11 @@ async function main() {
       await page.setViewportSize({ width: 390, height: 844 });
       await page.goto(reportURL(file));
       const edges = await page.locator('.coverage-summary, .diagnostic-section, .technical-register').evaluateAll(es => es.map(e => e.getBoundingClientRect().right));
+      assert.equal(edges.length, 3, `${file}: coverage, diagnostics and technical register exist`);
       assert.ok(Math.max(...edges) - Math.min(...edges) <= 1, `${file}: consistent right edge`);
-      for (const summary of await page.locator('.issue > summary').all()) {
+      const issueSummaries = await page.locator('.issue > summary').all();
+      assert.equal(issueSummaries.length, file === 'quality-review' ? 4 : 0, `${file}: expected issue disclosures`);
+      for (const summary of issueSummaries) {
         assert.equal(await summary.evaluate(e => getComputedStyle(e).display), 'grid');
         assert.ok(await summary.evaluate(e => e.firstElementChild.getBoundingClientRect().right < e.getBoundingClientRect().right - 20));
       }
@@ -219,6 +238,7 @@ async function main() {
     await page.goto(reportURL('long-fixture'));
     for (const view of ['qualidade', 'indicadores', 'proveniencia']) {
       await page.locator(`[data-view-link="${view}"]`).click();
+      await waitForView(page, view);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `Long content: ${view}`);
     }
     await page.locator('#attempt-identity summary').click();
@@ -245,9 +265,11 @@ async function main() {
       assert.ok((await page.locator('#execution-title').innerText()).includes(expected));
       for (const view of ['qualidade', 'indicadores', 'proveniencia']) {
         await page.locator(`[data-view-link="${view}"]`).click();
+        await waitForView(page, view);
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${file}: ${view}`);
       }
       await page.locator('[data-view-link="indicadores"]').click();
+      await waitForView(page, 'indicadores');
       if (file === 'missing-metrics-fixture') assert.deepEqual(await page.locator('.metric strong').allTextContents(), ['—', '—', '—', '—']);
       if (file === 'zero-fixture') assert.ok((await page.locator('.metrics').innerText()).includes('R$ 0,00'));
       if (file === 'large-fixture') {
@@ -267,10 +289,12 @@ async function main() {
     assert.equal(await page.locator('.timing-disclosure').getAttribute('open'), null);
     assert.deepEqual(await page.locator('.store-ledger .delivery-state').allTextContents(), ['Entrega confirmada', 'Pendente', 'Zero movimento confirmado']);
     await page.locator('[data-view-link="indicadores"]').click();
+    await waitForView(page, 'indicadores');
     assert.equal(await page.locator('.decision-action:visible').count(), 0);
     assert.equal(await page.locator('.publication-heading').isVisible(), true);
     for (const view of ['indicadores', 'proveniencia']) {
       await page.locator(`[data-view-link="${view}"]`).click();
+      await waitForView(page, view);
       await capture(page, `${view}-390.png`);
     }
     const matrixChecks = [];
@@ -289,8 +313,8 @@ async function main() {
     assert.equal(await page.locator('#matrix-value').innerText(), selected);
     const rowTarget = await page.locator('#matrix-record').getAttribute('href');
     await page.locator('#matrix-record').click();
-    assert.equal(await page.locator('#store-values').getAttribute('open'), '');
     await page.waitForFunction(id => document.activeElement.id === id, rowTarget.slice(1));
+    assert.equal(await page.locator('#store-values').getAttribute('open'), '');
     matrixChecks.push({ file: 'demo30k-report', cells: 360, tabStops: 1, arrows: true, selected, exactTableFocus: rowTarget });
     for (const file of ['matrix-fixture', 'extreme-dates-fixture']) {
       await page.setViewportSize({ width: 390, height: 900 });

@@ -12,7 +12,7 @@ from pyspark.sql import SparkSession
 from retail_pipeline.generation import fixture_rows, write_batch
 from retail_pipeline.pipeline import process_batch
 from retail_pipeline.publication import load_snapshot, read_table
-from retail_pipeline.reporting import generate_report
+from retail_pipeline.reporting import explain_indicator, generate_report
 
 pytestmark = pytest.mark.integration
 
@@ -113,10 +113,20 @@ def test_zero_movement_all_cancellations_and_free_sales_have_distinct_ticket_mea
     spark: SparkSession, tmp_path: Path
 ) -> None:
     root = tmp_path / "state"
+    with pytest.raises(ValueError, match="Sem publicação para consultar"):
+        explain_indicator(spark, root)
     empty = write_batch(
         tmp_path / "empty", [], batch_id="empty", zero_movement=("S01", "S02", "S03")
     )
     assert process_batch(spark, root, empty).state == "PUBLISHED"
+    empty_explanation = explain_indicator(spark, root)
+    assert empty_explanation["totals"] == {
+        "net_revenue_brl": Decimal("0.00"),
+        "units": 0,
+        "item_lines": 0,
+    }
+    assert empty_explanation["contributions"] == []
+    assert empty_explanation["revisions_of_sample_keys"] == []
     empty_html = generate_report(spark, root, tmp_path / "empty.html").read_text(encoding="utf-8")
     empty_metrics = _report_metrics(empty_html)
     assert empty_metrics["net_revenue"] == "R$ 0,00"
@@ -129,6 +139,15 @@ def test_zero_movement_all_cancellations_and_free_sales_have_distinct_ticket_mea
     snapshot = load_snapshot(root)
     assert read_table(spark, snapshot, "silver").count() == 4
     assert read_table(spark, snapshot, "gold_store_day").count() == 0
+    cancelled_explanation = explain_indicator(spark, root)
+    assert cancelled_explanation["publication_id"] == snapshot["publication_id"]
+    assert cancelled_explanation["totals"] == {
+        "net_revenue_brl": Decimal("0.00"),
+        "units": 0,
+        "item_lines": 0,
+    }
+    assert cancelled_explanation["contributions"] == []
+    assert cancelled_explanation["revisions_of_sample_keys"] == []
     cancelled_html = generate_report(spark, root, tmp_path / "cancel.html").read_text(
         encoding="utf-8"
     )
@@ -143,6 +162,22 @@ def test_zero_movement_all_cancellations_and_free_sales_have_distinct_ticket_mea
     ]
     free = write_batch(tmp_path / "free", free_rows, batch_id="free")
     assert process_batch(spark, root, free).state == "PUBLISHED"
+    free_explanation = explain_indicator(spark, root)
+    assert free_explanation["totals"] == {
+        "net_revenue_brl": Decimal("0.00"),
+        "units": 7,
+        "item_lines": 4,
+    }
+    assert len(free_explanation["contributions"]) == 4
+    no_contributions = explain_indicator(spark, root, store_id="S03")
+    assert no_contributions["publication_id"] == free_explanation["publication_id"]
+    assert no_contributions["filter"] == {"store_id": "S03", "business_date": None}
+    assert no_contributions["totals"] == {
+        "net_revenue_brl": Decimal("0.00"),
+        "units": 0,
+        "item_lines": 0,
+    }
+    assert no_contributions["contributions"] == []
     gold = read_table(spark, load_snapshot(root), "gold_store_day").orderBy("store_id").collect()
     assert [(r["sales_count"], r["average_ticket_brl"]) for r in gold] == [
         (2, Decimal("0.00")),
