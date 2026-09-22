@@ -1,0 +1,55 @@
+........................................................................ [ 37%]
+........................................................................ [ 75%]
+........FF...............F......................                         [100%]
+=================================== FAILURES ===================================
+_ test_inconclusive_attempt_does_not_inherit_published_success[VALIDATED-Entrega validada, sem publica\xe7\xe3o] _
+
+state = 'VALIDATED', title = 'Entrega validada, sem publicação'
+
+    @pytest.mark.parametrize(
+        "state,title",
+        [
+            ("VALIDATED", "Entrega validada, sem publicação"),
+            ("UNRECOGNIZED", "Resultado da tentativa não reconhecido"),
+        ],
+    )
+    def test_inconclusive_attempt_does_not_inherit_published_success(state: str, title: str) -> None:
+        page = build_report_html(
+            ReportPayload(snapshot={"run_id": "previous"}, latest_attempt={"state": state})
+        )
+>       assert f"<h1>{title}</h1>" in page
+E       assert '<h1>Entrega validada, sem publicação</h1>' in '<!doctype html>\n<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,ini...pied ? \'ID copiado.\' : \'Falha ao copiar. ID selecionado; use Ctrl+C.\';\n    }\n  });\n});\n</script></body></html>'
+
+tests/unit/test_reporting.py:88: AssertionError
+_ test_inconclusive_attempt_does_not_inherit_published_success[UNRECOGNIZED-Resultado da tentativa n\xe3o reconhecido] _
+
+state = 'UNRECOGNIZED', title = 'Resultado da tentativa não reconhecido'
+
+    @pytest.mark.parametrize(
+        "state,title",
+        [
+            ("VALIDATED", "Entrega validada, sem publicação"),
+            ("UNRECOGNIZED", "Resultado da tentativa não reconhecido"),
+        ],
+    )
+    def test_inconclusive_attempt_does_not_inherit_published_success(state: str, title: str) -> None:
+        page = build_report_html(
+            ReportPayload(snapshot={"run_id": "previous"}, latest_attempt={"state": state})
+        )
+>       assert f"<h1>{title}</h1>" in page
+E       assert '<h1>Resultado da tentativa não reconhecido</h1>' in '<!doctype html>\n<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,ini...pied ? \'ID copiado.\' : \'Falha ao copiar. ID selecionado; use Ctrl+C.\';\n    }\n  });\n});\n</script></body></html>'
+
+tests/unit/test_reporting.py:88: AssertionError
+_________ test_unfinished_attempt_is_not_success_or_a_zero_measurement _________
+
+    def test_unfinished_attempt_is_not_success_or_a_zero_measurement() -> None:
+        html = build_report_html(ReportPayload(latest_attempt={"state": "RUNNING", "stats": {}}))
+>       assert "<h1>Execução sem resultado final</h1>" in html
+E       assert '<h1>Execução sem resultado final</h1>' in '<!doctype html>\n<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,ini...pied ? \'ID copiado.\' : \'Falha ao copiar. ID selecionado; use Ctrl+C.\';\n    }\n  });\n});\n</script></body></html>'
+
+tests/unit/test_reporting.py:355: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_reporting.py::test_inconclusive_attempt_does_not_inherit_published_success[VALIDATED-Entrega validada, sem publica\xe7\xe3o]
+FAILED tests/unit/test_reporting.py::test_inconclusive_attempt_does_not_inherit_published_success[UNRECOGNIZED-Resultado da tentativa n\xe3o reconhecido]
+FAILED tests/unit/test_reporting.py::test_unfinished_attempt_is_not_success_or_a_zero_measurement
+3 failed, 189 passed in 2.04s

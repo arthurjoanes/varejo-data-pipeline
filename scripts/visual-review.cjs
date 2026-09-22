@@ -7,8 +7,8 @@ const playwrightModule = process.env.PLAYWRIGHT_MODULE || 'playwright';
 const { chromium } = require(playwrightModule);
 
 const root = path.resolve(__dirname, '..');
-const images = path.resolve(root, process.env.REVIEW_IMAGES || 'docs/images/interface-v2');
-const evidence = path.resolve(root, process.env.REVIEW_EVIDENCE || 'docs/evidence/interface-v2');
+const images = path.resolve(root, process.env.REVIEW_IMAGES || 'docs/images/interface-v3');
+const evidence = path.resolve(root, process.env.REVIEW_EVIDENCE || 'docs/evidence/interface-v3');
 const reportURL = name => pathToFileURL(path.join(root, 'artifacts', 'interface', `${name}.html`)).href;
 
 async function main() {
@@ -37,6 +37,17 @@ async function main() {
         assert.equal(await page.locator(`[data-view-link="${view}"]`).getAttribute('aria-current'), 'page');
         const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth }));
         assert.ok(dimensions.document <= dimensions.viewport, `${view} overflow at ${width}px`);
+        const targets = await page.locator('nav a:visible, button:visible, summary:visible').evaluateAll(es => es.map(e => ({ text: e.textContent.trim(), height: e.getBoundingClientRect().height })));
+        assert.ok(targets.every(target => target.height >= 24), `Control targets: ${view} at ${width}px`);
+        if (view === 'indicadores') {
+          const boxes = await page.locator('#receita, #produtos, #lojas').evaluateAll(es => es.map(e => { const b=e.getBoundingClientRect(); return { id:e.id, top:b.top, bottom:b.bottom, left:b.left }; }));
+          if (width > 1100) {
+            assert.equal(boxes[2].left, boxes[0].left);
+            assert.ok(Math.abs(boxes[2].top - boxes[0].bottom - 24) <= 1, 'Store table follows chart without stretched blank space');
+          } else {
+            assert.ok(boxes[1].top > boxes[0].bottom && boxes[2].top > boxes[1].bottom, 'Mobile keeps chart, products, stores order');
+          }
+        }
         results.push({ width, view, ...dimensions });
         if (width === 1440) await capture(page, { qualidade: 'report.png', indicadores: 'indicators.png', proveniencia: 'files.png' }[view]);
       }
@@ -85,6 +96,7 @@ async function main() {
     await page.keyboard.press('Enter');
     assert.equal(await page.locator('#lojas details').getAttribute('open'), '');
     await page.getByRole('link', { name: 'Execução', exact: true }).click();
+    await page.locator('.timing-disclosure > summary').click();
     const stage = page.locator('.stage').first();
     const openBefore = await stage.getAttribute('open');
     await stage.locator('summary').focus();
@@ -95,7 +107,7 @@ async function main() {
     await page.keyboard.press('Enter');
     assert.equal(await page.locator('.stage[open]').count(), 1);
     assert.equal(await qualityStage.locator('.stage-note').isVisible(), true);
-    await page.getByRole('link', { name: 'Ver registro da tentativa ↗', exact: true }).click();
+    await page.getByRole('link', { name: 'Ver registro da tentativa', exact: true }).click();
     assert.equal(await page.locator('#attempt-identity').getAttribute('open'), '');
     await page.waitForFunction(() => document.activeElement.id === 'attempt-identity');
     await page.goto(`${reportURL('demo30k-report')}#attempt-batch-id`);
@@ -159,7 +171,7 @@ async function main() {
       await page.setViewportSize({ width: name.includes('mobile') ? 390 : 1366, height: 900 });
       await page.goto(reportURL(file));
       assert.ok((await page.locator('body').textContent()).includes(expected), `${file}: expected ${expected}`);
-      assert.ok((await page.locator('.publication-context').innerText()).includes(context), file);
+      assert.ok((await page.locator('.publication-bridge').innerText()).includes(context), file);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, file);
       await capture(page, name);
     }
@@ -173,7 +185,7 @@ async function main() {
       assert.equal(await page.locator('.page-heading .badge, .publication-overview .badge').count(), 0);
       assert.equal(await page.locator('.issues > .issue').count(), 1);
       assert.equal(await page.locator('.quality-measurements').getAttribute('open'), null);
-      assert.ok((await page.locator('h1').innerText()).includes('Publicação bloqueada'));
+      assert.ok((await page.locator('#execution-title').innerText()).includes('Publicação bloqueada'));
       await page.locator('.decision-action').focus(); await page.keyboard.press('Enter');
       await page.waitForFunction(() => document.activeElement.id === 'pendencias');
       const issue = page.locator('.issues > .issue').first();
@@ -190,7 +202,7 @@ async function main() {
     for (const file of ['demo30k-report', 'quality-review']) {
       await page.setViewportSize({ width: 390, height: 844 });
       await page.goto(reportURL(file));
-      const edges = await page.locator('.attempt-diagnostics, .delivery-context').evaluateAll(es => es.map(e => e.getBoundingClientRect().right));
+      const edges = await page.locator('.coverage-summary, .diagnostic-section, .technical-register').evaluateAll(es => es.map(e => e.getBoundingClientRect().right));
       assert.ok(Math.max(...edges) - Math.min(...edges) <= 1, `${file}: consistent right edge`);
       for (const summary of await page.locator('.issue > summary').all()) {
         assert.equal(await summary.evaluate(e => getComputedStyle(e).display), 'grid');
@@ -198,9 +210,9 @@ async function main() {
       }
     }
     await page.emulateMedia({ reducedMotion: 'no-preference' });
-    assert.ok((await page.locator('.report-nav a').first().evaluate(e => getComputedStyle(e).transitionDuration)).includes('0.18s'));
+    assert.ok((await page.locator('.report-nav a').first().evaluate(e => getComputedStyle(e, '::after').transitionDuration)).includes('0.18s'));
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    assert.equal(await page.locator('.report-nav a').first().evaluate(e => getComputedStyle(e).transitionDuration), '0s');
+    assert.equal(await page.locator('.report-nav a').first().evaluate(e => getComputedStyle(e, '::after').transitionDuration), '0s');
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto(reportURL('long-fixture'));
     for (const view of ['qualidade', 'indicadores', 'proveniencia']) {
@@ -217,6 +229,66 @@ async function main() {
     assert.equal(await page.locator('.quality-measurements .quality-outcome').isVisible(), true);
     await page.setViewportSize({ width: 1200, height: 900 });
     await page.screenshot({ path: path.join(images, 'print-preview.png'), fullPage: false }); screenshots++;
+    await page.emulateMedia({ media: 'screen', reducedMotion: 'reduce' });
+    for (const [file, expected] of [
+      ['unknown-fixture', 'Resultado da tentativa não reconhecido'],
+      ['validated-fixture', 'Entrega validada, sem publicação'],
+      ['zero-fixture', 'Fechamento publicado'],
+      ['missing-metrics-fixture', 'Fechamento publicado'],
+      ['large-fixture', 'Fechamento publicado'],
+      ['gaps-fixture', 'Fechamento publicado'],
+    ]) {
+      await page.setViewportSize({ width: 320, height: 900 });
+      await page.goto(reportURL(file));
+      assert.ok((await page.locator('#execution-title').innerText()).includes(expected));
+      for (const view of ['qualidade', 'indicadores', 'proveniencia']) {
+        await page.locator(`[data-view-link="${view}"]`).click();
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${file}: ${view}`);
+      }
+      await page.locator('[data-view-link="indicadores"]').click();
+      if (file === 'missing-metrics-fixture') assert.deepEqual(await page.locator('.metric strong').allTextContents(), ['—', '—', '—', '—']);
+      if (file === 'zero-fixture') assert.ok((await page.locator('.metrics').innerText()).includes('R$ 0,00'));
+      if (file === 'large-fixture') {
+        assert.equal(await page.locator('.metric-wide strong').innerText(), 'R$ 1.234.567.890.123,45');
+        assert.ok(await page.locator('.metric-wide').evaluate(e => e.getBoundingClientRect().width > 270));
+      }
+      if (file === 'gaps-fixture') {
+        assert.equal(await page.locator('#receita circle').count(), 3);
+        assert.equal(await page.locator('#receita polyline').count(), 1);
+        assert.ok((await page.locator('#receita').innerText()).includes('Dias sem observação não representam receita zero'));
+      }
+      await capture(page, `${file}-320.png`);
+    }
+    await page.setViewportSize({ width: 390, height: 900 });
+    await page.goto(reportURL('blocked-report'));
+    assert.equal(await page.locator('.coverage-total').isVisible(), true);
+    assert.equal(await page.locator('.timing-disclosure').getAttribute('open'), null);
+    assert.deepEqual(await page.locator('.store-ledger .delivery-state').allTextContents(), ['Entrega confirmada', 'Pendente', 'Zero movimento confirmado']);
+    await page.locator('[data-view-link="indicadores"]').click();
+    assert.equal(await page.locator('.decision-action:visible').count(), 0);
+    assert.equal(await page.locator('.publication-heading').isVisible(), true);
+    for (const view of ['indicadores', 'proveniencia']) {
+      await page.locator(`[data-view-link="${view}"]`).click();
+      await capture(page, `${view}-390.png`);
+    }
+    const baselineComparisons = [];
+    if (process.env.REVIEW_BASELINE_DIR) {
+      const baselinePage = await browser.newPage();
+      const extract = async target => target.evaluate(() => ({
+        metrics: [...document.querySelectorAll('.metric strong')].map(e => e.textContent),
+        rows: [...document.querySelectorAll('#indicadores tbody tr')].map(e => e.textContent.replace(/\s+/g, ' ').trim()),
+        ids: [...document.querySelectorAll('.copy-field input')].map(e => [e.id, e.value]),
+        sources: [...document.querySelectorAll('.source-record')].map(e => e.textContent.replace(/\s+/g, ' ').trim()),
+      }));
+      for (const file of ['report', 'blocked-report', 'failure-report', 'quality-review', 'demo30k-report']) {
+        await page.goto(reportURL(file));
+        await baselinePage.goto(pathToFileURL(path.join(process.env.REVIEW_BASELINE_DIR, `${file}.html`)).href);
+        const current = await extract(page); const before = await extract(baselinePage);
+        assert.deepEqual(current, before, `Same historical data: ${file}`);
+        baselineComparisons.push({ file, metrics: current.metrics, tableRows: current.rows.length, identityFields: current.ids.length, equivalent: true });
+      }
+      await baselinePage.close();
+    }
     assert.deepEqual(errors, []);
 
     const luminance = hex => {
@@ -224,22 +296,24 @@ async function main() {
         .map(v => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
       return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
     };
-    const contrast = [['primary', '263248', 'ffffff'], ['muted', '647085', 'f5f6fa'],
-      ['link', '4055bb', 'ffffff'], ['success', '226348', 'edf7f1'], ['failure', '963d37', 'fcf0ed'],
-      ['selected navigation', '3348a8', 'f5f6fa']]
+    const contrast = [['primary', '24334b', 'ffffff'], ['muted', '536278', 'f2f5fa'],
+      ['link', '334fb0', 'ffffff'], ['success', '226348', 'edf7f1'], ['failure', '963d37', 'fcf0ed'],
+      ['selected navigation', '334fb0', 'f2f5fa']]
       .map(([name, fg, bg]) => ({ name, ratio: Number(((Math.max(luminance(bg), luminance(fg)) + 0.05) / (Math.min(luminance(bg), luminance(fg)) + 0.05)).toFixed(3)) }));
     assert.ok(contrast.every(pair => pair.ratio >= 4.5));
+    const controlContrast = ['ffffff', 'edf2fb'].map(bg => ({ name: 'Control border', foreground: '7186a9', background: bg, ratio: Number(((luminance(bg) + 0.05) / (luminance('7186a9') + 0.05)).toFixed(3)) }));
+    assert.ok(controlContrast.every(pair => pair.ratio >= 3));
     fs.writeFileSync(path.join(evidence, 'visual-review.json'), JSON.stringify({
       captured_at: new Date().toISOString(), browser: await browser.version(),
-      playwright: require(`${playwrightModule}/package.json`).version, results, contrast, screenshots,
+      playwright: require(`${playwrightModule}/package.json`).version, results, contrast, controlContrast, screenshots, baselineComparisons,
       data: 'Historical demo and benchmark snapshots replayed from docs/evidence/interface/payloads; no new pipeline run. Empty/running/audit are presentation fixtures.',
       keyboard: 'Panel navigation and focus, browser history, deep link, daily/store tables and stage expansion passed. Skip link preserves Indicators/Files, focuses main, and survives back/forward.',
       clipboard: 'Exact ID delivered to intercepted Clipboard API; unavailable fallback selects full ID. System clipboard not used.',
       no_script: 'All three panels visible; equivalent daily table and full publication ID available; native disclosure works.',
-      states: 'Published, blocked with previous publication, failed before publication, invalid first delivery, empty, running snapshot and incomplete audit.',
+      states: 'Published, blocked with previous publication, failed before publication, invalid first delivery, empty, running, audit incomplete, unknown state, validated, zero, absent metrics, large numbers.',
       magnification: 'All three views at CSS zoom 200% in 1366px; equivalent 683 CSS px layout viewport with DPR2 also checked. Neither is native browser zoom.',
       long_content: '320px: long batch/run identifiers, issue code and unbroken diagnostic text; no page overflow and full ID retained.',
-      refinements: 'Blocker cause/CTA/focus; one primary incident, related record preserved; full-height parent border; desktop counter baseline; consistent mobile panel edges; fixed toggle column for long summaries; 180ms transitions disabled with reduced motion.',
+      refinements: 'Blocker cause/CTA/focus; one primary incident, related record preserved; visible coverage/zero confirmation; measured times secondary; attempt heading scoped to Execution, published identity scoped to Indicators; full-height parent border; fixed toggle column; 180ms selection transitions disabled with reduced motion.',
       limits: 'Contrast samples, not a full accessibility audit. No screen-reader audit or native browser-zoom check. Print reveals panels and disclosure content; full PDF pagination was not audited.',
     }, null, 2) + '\n');
     console.log(JSON.stringify({ screenshots, viewChecks: results.length, contrast }));

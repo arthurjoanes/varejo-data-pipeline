@@ -112,6 +112,8 @@ def _decimal(value: object) -> Decimal:
 
 
 def _money(value: object) -> str:
+    if value is None:
+        return "—"
     amount = _decimal(value)
     with localcontext() as context:
         context.prec = max(38, amount.adjusted() + 4)
@@ -121,7 +123,7 @@ def _money(value: object) -> str:
 
 
 def _integer(value: object) -> str:
-    return f"{int(str(value or 0)):,}".replace(",", ".")
+    return "—" if value is None else f"{int(str(value)):,}".replace(",", ".")
 
 
 def _date(value: object) -> str:
@@ -192,8 +194,10 @@ def _chips(values: object, limit: int = 40) -> str:
 
 def _card(label: str, value: str, note: str, *, accent: bool = False) -> str:
     css = "metric accent" if accent else "metric"
+    if len(value) > 18:
+        css += " metric-wide"
     return (
-        f'<article class="{css}"><p class="eyebrow">{_text(label)}</p>'
+        f'<article class="{css}"><p class="metric-label">{_text(label)}</p>'
         f"<strong>{_text(value)}</strong><p>{_text(note)}</p></article>"
     )
 
@@ -215,7 +219,7 @@ def _copy_field(value: object, label: str, field_id: str) -> str:
         return f'<p class="meta">{_text(label)}: indisponível.</p>'
     return (
         f'<div class="copy-field"><label for="{field_id}">{_text(label)}</label>'
-        f'<div><input id="{field_id}" value="{_text(value)}" readonly spellcheck="false">'
+        f'<div><input id="{field_id}" value="{_text(value)}" readonly spellcheck="false" autocomplete="off" name="{field_id}" translate="no">'
         f'<button type="button" hidden data-copy-target="{field_id}" aria-label="Copiar {_text(label)}">Copiar</button></div></div>'
     )
 
@@ -255,6 +259,11 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
         return '<p class="empty">Sem receita publicada.</p>'
     width, left, right, top, bottom = 900, 110, 20, 20, 210
     plot_width = width - left - right
+    try:
+        dates = [date.fromisoformat(str(row.get("business_date"))) for row in rows]
+    except ValueError:
+        dates = []
+    date_span = (max(dates) - min(dates)).days if dates else 0
     values = [_decimal(row.get("net_revenue_brl")) for row in rows]
     step, intervals = _axis_scale(max(values))
     ceiling = step * intervals
@@ -269,9 +278,10 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
             f'text-anchor="end" class="chart-label">{_text(label)}</text>'
         )
     for index, value in enumerate(values):
-        x = left + (
-            plot_width // 2 if len(values) == 1 else plot_width * index // (len(values) - 1)
-        )
+        if dates:
+            x = left + (plot_width * (dates[index] - min(dates)).days // max(1, date_span))
+        else:
+            x = left + plot_width * index // max(1, len(values) - 1)
         y = bottom - int(value / ceiling * (bottom - top))
         points.append(f"{x},{y}")
     ticks = sorted({0, len(rows) // 2, len(rows) - 1})
@@ -281,7 +291,26 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
         f"{_text(_date(rows[index].get('business_date')))}</text>"
         for index in ticks
     )
-    area = f"{left},{bottom} " + " ".join(points) + f" {points[-1].split(',')[0]},{bottom}"
+    segments: list[list[str]] = []
+    for index, point in enumerate(points):
+        if index and dates and (dates[index] - dates[index - 1]).days == 1:
+            segments[-1].append(point)
+        else:
+            segments.append([point])
+    paths = []
+    for segment in segments:
+        if len(segment) < 2:
+            continue
+        area = (
+            f"{segment[0].split(',')[0]},{bottom} "
+            + " ".join(segment)
+            + f" {segment[-1].split(',')[0]},{bottom}"
+        )
+        paths.append(
+            f'<polygon points="{area}" fill="#e4eef8"/>'
+            f'<polyline points="{" ".join(segment)}" fill="none" '
+            'stroke="#185c91" stroke-width="3" stroke-linejoin="round"/>'
+        )
     dots = "".join(
         f'<circle cx="{point.split(",")[0]}" cy="{point.split(",")[1]}" '
         f'r="4" fill="#185c91"><title>{_text(_date(row.get("business_date")))}: '
@@ -293,9 +322,16 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
         'aria-label="Receita líquida por dia comercial, em reais">'
         "<title>Receita líquida por dia comercial</title>"
         + "".join(grid)
-        + (f'<polygon points="{area}" fill="#e4eef8"/>' if len(rows) > 1 else "")
-        + f'<polyline points="{" ".join(points)}" fill="none" '
-        'stroke="#185c91" stroke-width="3" stroke-linejoin="round"/>' + dots + labels + "</svg>"
+        + "".join(paths)
+        + dots
+        + labels
+        + "</svg>"
+        + (
+            '<p class="footnote">Trechos separados indicam datas sem observação contínua. '
+            "Dias sem observação não representam receita zero.</p>"
+            if len(segments) > 1
+            else ""
+        )
     )
 
 
@@ -334,23 +370,34 @@ def _table(
 
 
 def _coverage_panel(coverage: Mapping[str, object]) -> str:
+    expected_known = isinstance(coverage.get("expected"), list | tuple)
+    received_known = isinstance(coverage.get("received"), list | tuple)
     expected = set(map(str, _sequence(coverage.get("expected"))))
     received = set(map(str, _sequence(coverage.get("received"))))
-    missing = sorted(expected - received)
-    unexpected = sorted(received - expected)
+    zero = set(map(str, _sequence(coverage.get("zero_movement"))))
     summary = (
         f"{len(expected & received)} de {len(expected)} lojas com entrega confirmada"
-        if expected
-        else "Expectativa de lojas indisponível"
+        if expected_known and received_known
+        else "Cobertura não informada neste snapshot"
     )
-    exceptions = ""
-    for values, label in ((missing, "Lojas ausentes"), (unexpected, "Lojas não esperadas")):
-        if values:
-            exceptions += (
-                f'<p class="coverage-exception"><strong>{label}:</strong> {_chips(values)}</p>'
-            )
-    rows = "".join(
-        f"<div><dt>{label} ({len(_sequence(coverage.get(key)))})</dt><dd>{_chips(coverage.get(key), len(_sequence(coverage.get(key))))}</dd></div>"
+    stores = []
+    for store in sorted(expected | received | zero):
+        if not expected_known or not received_known:
+            label, css = "Conferência indisponível", "unknown"
+        elif store not in expected:
+            label, css = "Não esperada", "pending"
+        elif store not in received:
+            label, css = "Pendente", "pending"
+        elif store in zero:
+            label, css = "Zero movimento confirmado", "confirmed"
+        else:
+            label, css = "Entrega confirmada", "confirmed"
+        stores.append(
+            f'<li><span class="store-name">{_text(store)}</span>'
+            f'<span class="delivery-state {css}">{label}</span></li>'
+        )
+    recorded = "".join(
+        f"<div><dt>{label}</dt><dd>{_chips(coverage[key], len(_sequence(coverage[key]))) if key in coverage else 'Não informado'}</dd></div>"
         for key, label in (
             ("expected", "Esperadas"),
             ("received", "Recebidas"),
@@ -358,8 +405,12 @@ def _coverage_panel(coverage: Mapping[str, object]) -> str:
         )
     )
     return (
-        f'<div class="coverage-summary"><h3>Cobertura da entrega</h3><p class="coverage-total">{summary}</p>{exceptions}'
-        f'<details><summary>Ver lojas</summary><dl class="coverage">{rows}</dl></details></div>'
+        '<section class="coverage-summary" aria-labelledby="coverage-title">'
+        '<div class="group-heading"><h3 id="coverage-title">Cobertura da entrega</h3>'
+        f'<p class="coverage-total">{summary}</p></div>'
+        f'<ul class="store-ledger">{"".join(stores)}</ul>'
+        '<details class="record-disclosure"><summary>Listas registradas da cobertura</summary>'
+        f'<dl class="coverage">{recorded}</dl></details></section>'
     )
 
 
@@ -534,14 +585,14 @@ def _issue_table(attempt: Mapping[str, object]) -> str:
         else ""
     )
     return (
-        '<div class="issues" aria-label="Motivos da decisão, severidade e ocorrências">'
+        '<div class="issues" role="group" aria-label="Motivos da decisão, severidade e ocorrências">'
         f"{''.join(rows)}{f'<details class=related-issues><summary>Ocorrências relacionadas ({len(related)})</summary>{chr(10).join(related)}</details>' if related else ''}</div>{note}"
     )
 
 
 def _attempt_details(attempt: Mapping[str, object] | None) -> str:
     if attempt is None:
-        return '<h2>Execução</h2><div class="empty-state"><h3>Nenhuma tentativa registrada.</h3><p>O relatório mostrará a entrega, as etapas medidas e o diagnóstico quando houver um registro.</p></div>'
+        return '<div class="empty-state"><h3>Nenhuma tentativa registrada.</h3><p>O relatório mostrará a entrega, as etapas medidas e o diagnóstico quando houver um registro.</p></div>'
     stats = _mapping(attempt.get("stats"))
     rejected = _integer(stats["rejected"]) if "rejected" in stats else "—"
     violations = _integer(stats["violations"]) if "violations" in stats else "—"
@@ -558,16 +609,17 @@ def _attempt_details(attempt: Mapping[str, object] | None) -> str:
             + issue_html
         )
     return f"""
-    <div class="section-head run-heading"><div><p class="eyebrow">Última tentativa</p><h2>Conferência da entrega</h2>
-    <p class="meta">Lote {_short_id_link(attempt.get("batch_id"), "do lote da tentativa", "attempt-batch-id")} <span aria-hidden="true">·</span> {_text(_timestamp(attempt.get("started_at")))}</p></div><a class="run-record" href="#attempt-identity">Ver registro da tentativa ↗</a></div>
-    <div class="execution-workspace"><div class="attempt-diagnostics">
-    <div class="diagnostic-section" id="pendencias" tabindex="-1"><h3>Ocorrências da entrega</h3>{issue_html}</div>
-    <details class="delivery-coverage"><summary>Cobertura e lojas da entrega</summary>{_coverage_panel(_mapping(attempt.get("coverage")))}</details>
-    <details class="quality-measurements"><summary>Contadores e validações técnicas</summary>
-    <div class="quality-outcome {"has-rejections" if problem else ""}">
-      <p><strong>{rejected} {"rejeitado" if stats.get("rejected") == 1 else "rejeitados"}</strong> de {received} {"registro recebido" if stats.get("received") == 1 else "registros recebidos"}</p><p>{violations} violações de registros</p>
-    </div>{_quality_diagnostics(attempt)}</details>
-    </div><aside class="delivery-context" aria-label="Medições da tentativa">{_duration_panel(attempt)}</aside></div>
+    <div class="execution-workspace">
+    {_coverage_panel(_mapping(attempt.get("coverage")))}
+    <section class="diagnostic-section" id="pendencias" tabindex="-1"><h3>Ocorrências da entrega</h3>{issue_html}</section>
+    <div class="technical-register">
+      <details class="quality-measurements record-disclosure"><summary>Contadores e validações técnicas</summary>
+      <div class="quality-outcome {"has-rejections" if problem else ""}">
+        <p><strong>{rejected} {"rejeitado" if stats.get("rejected") == 1 else "rejeitados"}</strong> de {received} {"registro recebido" if stats.get("received") == 1 else "registros recebidos"}</p><p>{violations} violações de registros</p>
+      </div>{_quality_diagnostics(attempt)}</details>
+      <details class="timing-disclosure record-disclosure"><summary>Tempos medidos desta tentativa</summary>{_duration_panel(attempt)}</details>
+      <a class="run-record" href="#attempt-identity">Ver registro da tentativa</a>
+    </div></div>
     """
 
 
@@ -722,8 +774,12 @@ def _decision(payload: ReportPayload) -> tuple[str, str, str]:
         )
     return (
         "Sem fechamento publicado",
-        "Consulte a tentativa para entender o resultado da entrega.",
-        '<a class="decision-action" href="#qualidade">Consultar tentativa</a>',
+        "Nenhuma tentativa foi capturada neste snapshot."
+        if not payload.latest_attempt
+        else "Consulte o registro para entender o resultado da entrega.",
+        '<a class="decision-action" href="#attempt-identity">Conferir registro</a>'
+        if payload.latest_attempt
+        else "",
     )
 
 
@@ -750,6 +806,8 @@ def build_report_html(payload: ReportPayload) -> str:
         f"{_date(summary.get('first_date'))} a {_date(summary.get('last_date'))}"
         if published and summary.get("first_date") is not None
         else "Sem movimento publicado"
+        if published and summary.get("sales_count") == 0
+        else "Período não informado"
         if published
         else "Sem publicação disponível"
     )
@@ -772,6 +830,8 @@ def build_report_html(payload: ReportPayload) -> str:
                 "Unidades vendidas",
                 _integer(summary.get("units")) if published else "—",
                 f"{_integer(summary.get('item_lines'))} itens de venda ativos"
+                if published and summary.get("item_lines") is not None
+                else "Itens ativos não informados"
                 if published
                 else "Aguardando publicação",
             ),
@@ -786,7 +846,7 @@ def build_report_html(payload: ReportPayload) -> str:
                 if published and summary.get("average_ticket_brl") is not None
                 else "—",
                 "Sem vendas no período"
-                if published and not summary.get("sales_count")
+                if published and summary.get("sales_count") == 0
                 else "Receita ÷ vendas no período",
             ),
         )
@@ -867,25 +927,29 @@ def build_report_html(payload: ReportPayload) -> str:
 <a class="skip-link" href="#content">Ir para o fechamento</a>
 <div class="app-shell"><header class="app-bar">
 <a class="brand" href="#qualidade"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 5h8v8H5zM19 19h8v8h-8zM19 5h8v8h-8z"/><path d="M13 9h6M23 13v6" fill="none"/></svg><span>Varejo <span>Data Pipeline</span></span></a>
-<span class="app-location">Operação de dados / Vendas</span><span class="snapshot-label">Snapshot · somente leitura</span></header>
-<main id="content" tabindex="-1"><header class="page-heading"><div><p class="eyebrow">FECHAMENTO DE VENDAS / ÚLTIMA TENTATIVA</p><h1>{_text(decision_title)}</h1><p class="decision-reason">{_text(decision_reason)}</p><div class="decision-actions">{decision_actions}</div></div>
-{'<p class="demo-label">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else ""}</header>
-<section class="publication-overview" aria-label="Publicação atual"><div><p class="eyebrow">{publication_label}</p><p class="publication-id">{publication_note}</p></div>
-<div class="publication-window"><p class="eyebrow">Janela comercial</p><p class="window">{_text(window)}</p></div>
-</section>
-<p class="publication-context">{_text(_publication_context(payload))}</p>
-<nav class="report-nav" aria-label="Seções do relatório"><a href="#qualidade" data-view-link="qualidade"><span aria-hidden="true">01</span>Execução</a><a href="#indicadores" data-view-link="indicadores"><span aria-hidden="true">02</span>Indicadores</a><a href="#proveniencia" data-view-link="proveniencia"><span aria-hidden="true">03</span>Arquivos</a></nav>
-<section class="panel" id="qualidade" data-report-view tabindex="-1">{_attempt_details(payload.latest_attempt)}{_failure_notice(payload)}</section>
-<section class="panel" id="indicadores" data-report-view tabindex="-1"><div class="section-head"><div><p class="eyebrow">Publicação vigente</p><h2>Indicadores de vendas</h2></div>
-<span class="window">{_text(window)}</span></div><nav class="subnav" aria-label="Recortes dos indicadores"><a href="#receita">Receita por dia</a><a href="#produtos">Produtos</a><a href="#lojas">Loja / dia</a></nav>
+<span class="app-location">Conferência de fechamento</span><span class="snapshot-label">Snapshot · somente leitura</span></header>
+<main id="content" tabindex="-1">
+<div class="report-caption"><h1>Fechamento de vendas</h1>{'<p class="demo-label">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else ""}</div>
+<nav class="report-nav" aria-label="Seções do relatório"><a href="#qualidade" data-view-link="qualidade">Execução</a><a href="#indicadores" data-view-link="indicadores">Indicadores</a><a href="#proveniencia" data-view-link="proveniencia">Arquivos</a></nav>
+<section class="panel" id="qualidade" data-report-view tabindex="-1" aria-labelledby="execution-title">
+<div class="closing-sheet">
+<header class="decision-record"><div class="decision-copy"><h2 id="execution-title">{_text(decision_title)}</h2><p class="decision-reason">{_text(decision_reason)}</p><div class="decision-actions">{decision_actions}</div></div>
+<div class="attempt-identity"><div><p class="record-label">Lote da tentativa</p><p class="batch-name">{_short_id_link(attempt.get("batch_id"), "do lote da tentativa", "attempt-batch-id")}</p></div><dl class="attempt-clock"><div><dt>Início registrado</dt><dd>{_text(_timestamp(attempt.get("started_at")))}</dd></div><div><dt>Período da entrega</dt><dd>Não informado no snapshot</dd></div></dl></div></header>
+{_attempt_details(payload.latest_attempt)}
+</div>
+<div class="publication-bridge"><p><strong>{publication_label}.</strong> {_text(_publication_context(payload))}</p>{'<a href="#indicadores">Ver a publicação disponível</a>' if published else ''}</div>
+{_failure_notice(payload)}</section>
+<section class="panel" id="indicadores" data-report-view tabindex="-1" aria-labelledby="indicators-title"><header class="publication-heading"><div><h2 id="indicators-title">Indicadores de vendas</h2><p class="publication-note">{publication_note}</p></div><div class="publication-window"><span>Janela comercial publicada</span><strong>{_text(window)}</strong></div></header>
+<p class="publication-context"><strong>{publication_label}.</strong> {_text(_publication_context(payload))}</p>
+<nav class="subnav" aria-label="Recortes dos indicadores"><a href="#receita">Receita por dia</a><a href="#produtos">Produtos</a><a href="#lojas">Loja / dia</a></nav>
 <section class="metrics" aria-label="Indicadores da publicação">{cards}</section><div class="analytics-grid"><section id="receita" class="data-section" tabindex="-1"><div class="diagnostic-heading"><h3>Receita por dia</h3><span class="meta">BRL · dia comercial</span></div><div class="chart" tabindex="0" role="region" aria-label="Gráfico de receita por dia; rolagem horizontal disponível em telas estreitas">{_revenue_chart(payload.daily)}</div><p class="footnote">{daily_note}</p>
 <details class="data-detail"><summary>Valores por dia ({len(payload.daily)} {"dia exibido" if len(payload.daily) == 1 else "dias exibidos"})</summary>{daily_values}</details></section>
 <section class="data-section" id="produtos" tabindex="-1"><h3>Produtos mais vendidos</h3>
-<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p>{products}{f'<p class="footnote">{product_note}</p>' if product_note else ""}</section></div>
+<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p>{products}{f'<p class="footnote">{product_note}</p>' if product_note else ""}</section>
 <section class="data-section" id="lojas" tabindex="-1"><h3>Receita por loja e dia</h3>{f'<p class="footnote">{store_note}</p>' if store_note else ""}
-<details class="data-detail"><summary>Valores por loja e dia ({len(payload.stores)} {"linha exibida" if len(payload.stores) == 1 else "linhas exibidas"})</summary>{stores}</details></section></section>
-<section class="panel" id="proveniencia" data-report-view tabindex="-1"><div class="section-head"><div><p class="eyebrow">Rastreabilidade</p><h2>Arquivos e versões</h2><p class="meta">{source_count} {source_label}. Referências capturadas no manifesto da publicação.</p></div></div>
-<div class="provenance-workspace"><aside class="identity-register"><h3>Identificação</h3>{_copy_field(snapshot.get("publication_id"), "ID da publicação", "publication-id")}{_copy_field(snapshot.get("run_id"), "Execução que publicou", "publication-run-id")}
+<details class="data-detail"><summary>Valores por loja e dia ({len(payload.stores)} {"linha exibida" if len(payload.stores) == 1 else "linhas exibidas"})</summary>{stores}</details></section></div></section>
+<section class="panel" id="proveniencia" data-report-view tabindex="-1" aria-labelledby="files-title"><div class="section-head"><div><h2 id="files-title">Arquivos e versões</h2><p class="meta">{source_count} {source_label}. Referências capturadas no manifesto da publicação.</p><p class="meta">Publicada em {_text(_timestamp(snapshot.get("published_at")))}.</p></div></div>
+<div class="provenance-workspace"><aside class="identity-register"><h3>Publicação identificada</h3>{_copy_field(snapshot.get("publication_id"), "ID da publicação", "publication-id")}{_copy_field(snapshot.get("run_id"), "Execução que publicou", "publication-run-id")}
 <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
 <details class="identity-detail" id="attempt-identity" tabindex="-1"><summary>IDs da última tentativa</summary>
 <p class=meta>Estado registrado: {_text((payload.latest_attempt or {}).get("state"))}</p>{_copy_field((payload.latest_attempt or {}).get("run_id"), "Execução da tentativa", "attempt-run-id")}

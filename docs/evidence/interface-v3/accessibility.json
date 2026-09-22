@@ -1,0 +1,220 @@
+{
+  "browser": "153.0.4234.48",
+  "captured_at": "2026-09-22T08:14:00.089Z",
+  "results": [
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "width": 1440,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 25
+    },
+    {
+      "file": "blocked-report",
+      "view": "indicadores",
+      "width": 1440,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                "text[y=\"24\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"71\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"119\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"166\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"214\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"110\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passedRules": 25
+    },
+    {
+      "file": "blocked-report",
+      "view": "proveniencia",
+      "width": 1440,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 26
+    },
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "width": 390,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 25
+    },
+    {
+      "file": "blocked-report",
+      "view": "indicadores",
+      "width": 390,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                "text[y=\"24\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"71\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"119\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"166\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"214\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"110\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passedRules": 26
+    },
+    {
+      "file": "blocked-report",
+      "view": "proveniencia",
+      "width": 390,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(3) > code"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(3) > code"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(3) > code"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(3) > code"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(3) > code"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "passedRules": 27
+    },
+    {
+      "file": "quality-review",
+      "view": "qualidade",
+      "width": 390,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 25
+    },
+    {
+      "file": "empty-fixture",
+      "view": "qualidade",
+      "width": 390,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 18
+    },
+    {
+      "file": "running-fixture",
+      "view": "qualidade",
+      "width": 390,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 21
+    },
+    {
+      "file": "audit-fixture",
+      "view": "qualidade",
+      "width": 1440,
+      "axe": "4.13.0",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 25
+    }
+  ],
+  "scope": "Automated WCAG-tagged checks on 10 offline views. Complements keyboard, responsive and contrast checks; not a complete WCAG or screen-reader audit."
+}

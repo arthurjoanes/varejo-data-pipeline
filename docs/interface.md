@@ -2,15 +2,17 @@
 
 O relatório é um snapshot: a geração consulta o manifesto uma vez, lê as versões Delta correspondentes e captura a última tentativa e a última falha disponíveis. Abrir o HTML depois não consulta o pipeline nem atualiza seu estado.
 
+A composição atual e a matriz completa das três vistas estão em [Qualidade da interface](frontend-quality.md). As capturas v2 e de jornadas abaixo documentam revisões anteriores, preservadas como histórico.
+
 ## Navegação
 
 **Execução** começa pela decisão da última tentativa. Quando falta S02.csv, o título informa o bloqueio, a linha seguinte identifica arquivo e loja, e **Conferir pendência** leva o foco à ocorrência. **Como retomar** explica a reposição dos bytes originais ou a criação de outro lote, conforme o caso. A publicação anterior fica em uma faixa neutra, com sua própria identidade.
 
-A ocorrência principal reúne causa e procedimento. A ausência de entrega da mesma loja fica em **Ocorrências relacionadas**, preservando o registro sem repetir o mesmo bloqueio na leitura inicial. Código, severidade e mensagem original permanecem no contexto técnico. Cobertura e contadores ficam em detalhes separados: zero erros em linhas recebidas não comprova que todas as lojas entregaram.
+A ocorrência principal reúne causa e procedimento. A ausência de entrega da mesma loja fica em **Ocorrências relacionadas**, preservando o registro sem repetir o mesmo bloqueio na leitura inicial. Código, severidade e mensagem original permanecem no contexto técnico. A cobertura está visível por loja; contadores e tempos ficam em detalhes separados: zero erros em linhas recebidas não comprova que todas as lojas entregaram.
 
 As etapas medidas formam uma lista de tempos, sem um painel repetido para a etapa selecionada. Cada etapa abre a explicação e seu tempo exato; uma medição não equivale a aprovação. As ocorrências conservam código, severidade e contexto de loja, arquivo e linha quando registrados. Cobertura e contadores mantêm a diferença entre zero, indisponível e não avaliado.
 
-**Indicadores** contém os números da publicação vigente, com tabela equivalente ao gráfico e recortes por produto e loja/dia. Totais consideram o conjunto inteiro; avisos identificam o limite de exibição de 366 dias, 20 produtos e 500 linhas.
+**Indicadores** contém os números da publicação vigente, com sua identidade, horário e janela comercial. Não repete o cabeçalho da tentativa nem um botão para a própria vista. O gráfico acompanha o calendário e interrompe a linha entre datas sem observação; a tabela conserva os valores exatos. Em desktop, Loja/dia ocupa a coluna abaixo do gráfico; no mobile, a ordem é Gráfico → Produtos → Loja/dia. Totais consideram o conjunto inteiro; avisos identificam o limite de exibição de 366 dias, 20 produtos e 500 linhas.
 
 **Arquivos** permite consultar e copiar os IDs completos. As versões e os caminhos Delta vêm do manifesto; fontes bronze e hashes de catálogo/calendário permanecem associados ao lote de origem.
 
@@ -40,7 +42,7 @@ A opção `--capture` do script é de desenvolvimento: exige o volume que conté
 
 A verificação de navegador é `node scripts/visual-review.cjs`, com Playwright disponível no ambiente. `PLAYWRIGHT_MODULE` permite indicar um módulo instalado fora do repositório; `PLAYWRIGHT_CHANNEL=msedge` seleciona Edge. A biblioteca não é dependência do HTML. Resultados, escopo e limitações ficam em [verificação](verification.md).
 
-Capturas: [execução](images/interface-v2/report.png), [bloqueio](images/interface-v2/blocked.png), [indicadores](images/interface-v2/indicators.png), [arquivos](images/interface-v2/files.png) e [tela estreita](images/interface-v2/report-390.png). As imagens `audit.png`, `empty.png` e `running.png` demonstram as fixtures de apresentação identificadas acima.
+Capturas atuais: [execução](images/interface-v3/report.png), [bloqueio](images/interface-v3/blocked.png), [indicadores](images/interface-v3/indicators.png), [arquivos](images/interface-v3/files.png) e [tela estreita](images/interface-v3/report-390.png). As imagens `audit.png`, `empty.png` e `running.png` demonstram fixtures de apresentação, não novas execuções. [Evidências v3](evidence/interface-v3/README.md).
 
 ## Revisão anterior de jornadas em 22/09
 
@@ -50,9 +52,9 @@ A [revisão de jornadas](evidence/interface-journeys/review.json) conferiu esses
 
 Capturas dessa revisão: [bloqueio no celular](images/interface/journey-blocked-390.png), [indicadores após retomada](images/interface/journey-recovered-indicators.png) e [origem da publicação](images/interface/journey-published-files.png). Elas complementam as imagens anteriores; não substituem sua evidência histórica.
 
-## Refinamento da apresentação em 22/09
+## Refinamento anterior da apresentação em 22/09 (v2)
 
-A composição atual usa navegação horizontal, diagnóstico no eixo principal e uma lista secundária de medições. Em telas estreitas, os painéis ocupam a mesma largura; títulos longos deixam o sinal de expansão em sua própria coluna. A borda de severidade pertence à ocorrência inteira, inclusive com o registro técnico aberto. A tipografia distingue decisão, conteúdo e metadados; valores não recebem animação. Hover e foco usam transições de 180 ms, removidas com `prefers-reduced-motion`.
+A composição v2 usou navegação horizontal, diagnóstico no eixo principal e uma lista secundária de medições. Em telas estreitas, os painéis ocupam a mesma largura; títulos longos deixam o sinal de expansão em sua própria coluna. A borda de severidade pertence à ocorrência inteira, inclusive com o registro técnico aberto. A tipografia distingue decisão, conteúdo e metadados; valores não recebem animação. Hover e foco usam transições de 180 ms, removidas com `prefers-reduced-motion`.
 
 [Revisão do navegador](evidence/interface-v2/visual-review.json), [bloqueio com detalhes em desktop](images/interface-v2/blocked-expanded-1366.png), [o mesmo estado em 390 px](images/interface-v2/blocked-expanded-390.png) e [erros em registros](images/interface-v2/quality-mobile.png). A impressão mostra os três painéis e o conteúdo dos detalhes; a captura verifica CSS de impressão, sem certificar paginação de PDF. As provas anteriores e suas imagens continuam preservadas.
 
