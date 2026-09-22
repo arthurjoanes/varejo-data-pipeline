@@ -1,0 +1,2 @@
+Would reformat: src/retail_pipeline/reporting.py
+1 file would be reformatted, 46 files already formatted

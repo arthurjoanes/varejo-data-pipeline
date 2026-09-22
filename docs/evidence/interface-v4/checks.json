@@ -1,0 +1,137 @@
+{
+  "commands": [
+    {
+      "name": "lint",
+      "command": [
+        "ruff",
+        "check",
+        "src",
+        "tests",
+        "scripts"
+      ],
+      "exit_code": 0,
+      "seconds": 0.395,
+      "log": "lint.txt"
+    },
+    {
+      "name": "format",
+      "command": [
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "tests",
+        "scripts"
+      ],
+      "exit_code": 1,
+      "seconds": 0.306,
+      "log": "format.txt"
+    },
+    {
+      "name": "types",
+      "command": [
+        "mypy",
+        "--cache-dir",
+        "/tmp/mypy",
+        "src/retail_pipeline"
+      ],
+      "exit_code": 0,
+      "seconds": 12.337,
+      "log": "types.txt"
+    },
+    {
+      "name": "unit",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "tests/unit",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml=/out/unit-tests.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 2.877,
+      "log": "unit.txt"
+    },
+    {
+      "name": "wheel",
+      "command": "setuptools.build_meta.build_wheel, copied source in ephemeral /tmp/package",
+      "exit_code": 0,
+      "log": "build.txt"
+    },
+    {
+      "name": "wheel-smoke",
+      "exit_code": 0,
+      "log": "wheel-smoke.txt"
+    }
+  ],
+  "tools": {
+    "pytest": "9.0.3",
+    "ruff": "0.6.9",
+    "mypy": "1.11.2",
+    "pyspark": "4.2.0",
+    "setuptools": "84.0.0",
+    "wheel": "0.48.0"
+  },
+  "packaged_assets": {
+    "report.css": {
+      "sha256_raw": "ec8fb5d6252ec8f2d52e2c981de538e8ae34ab6cbbd376d10a951d6daa94333a",
+      "sha256_lf": "3e692dfa08eeab798a149a463be40de04ee8fa2b96e9dd0b6ca17cff3a0a48b6",
+      "bytes": 23018,
+      "matches_source": true
+    },
+    "report.js": {
+      "sha256_raw": "db60425d6a2b1d2bc72aa31016019eb5e4d2eae53fa3f40e0d4392e41e4d81fe",
+      "sha256_lf": "c2b18b33611430efb1312384759e34864c6a7325549f78e0c06441d53ef93085",
+      "bytes": 4177,
+      "matches_source": true
+    },
+    "report_assets.py": {
+      "sha256_raw": "57e05d5b95c25c301626027e0f55a20b8d9034b102c32d3cce8c182d6851edcc",
+      "sha256_lf": "f78dc99068cc054ce1005771d2495fb4c5b291a2e9a626af259858c12aa7fa05",
+      "bytes": 867,
+      "matches_source": true
+    },
+    "assets/source-sans-3.woff2": {
+      "sha256_raw": "5f16566f7a40d39b339ad26be151fa5a1ab1f0c2574c7a2e619765584a1acbd8",
+      "sha256_lf": null,
+      "bytes": 170188,
+      "matches_source": true
+    },
+    "assets/source-sans-LICENSE.md": {
+      "sha256_raw": "56af9b9c6715597e458284a474dc118a50a4150e9d547c70f7b4a33c3e6a9328",
+      "sha256_lf": "56af9b9c6715597e458284a474dc118a50a4150e9d547c70f7b4a33c3e6a9328",
+      "bytes": 4486,
+      "matches_source": true
+    },
+    "assets/brand-mark.svg": {
+      "sha256_raw": "d331b6e5c94a4cc048a7914df66aedf21fc50c24a819cb06efdd3f30737a4344",
+      "sha256_lf": "bcb76f9d844e239226f928b3278b7e808f38fc0772ad77194f5d9ec6ff5e2182",
+      "bytes": 240,
+      "matches_source": true
+    },
+    "assets/brand-mono.svg": {
+      "sha256_raw": "e276c0c098e119ef029b80c59799de86dd335fc4d6c9b289dacbb894a327296d",
+      "sha256_lf": "5dd43e682d20e1e5f1d30af36535c8dc7f04f49e32be407e6d63446b3177ebe9",
+      "bytes": 230,
+      "matches_source": true
+    },
+    "assets/favicon.svg": {
+      "sha256_raw": "23918481346a31640d0f2f6d59d52696ccbadc4bc4372f0ef696e6fd723574dc",
+      "sha256_lf": "6897a686d6c9a64559c93843df5e3e07816b23b1f5d204f8e565976cc528a678",
+      "bytes": 230,
+      "matches_source": true
+    }
+  },
+  "scope": "Existing image, network none, read-only source and root filesystem, ephemeral tmpfs. Unit tests and Python package only; no JVM/Spark/Compose/service started.",
+  "iteration": "v4 frontend verification; source and historical payloads identified in review manifest.",
+  "normalization": "Raw hashes always cover unchanged bytes. LF hashes apply only to text assets, never WOFF2. Text comparison normalizes CRLF to LF for Git reproduction.",
+  "followup_format": {
+    "command": "docker run [isolated existing image fix-varejo:delivery-20260922] python -m ruff format --check src tests scripts",
+    "exit_code": 0,
+    "output": "47 files already formatted",
+    "scope": "After formatting reporting.py; all other source unchanged."
+  }
+}

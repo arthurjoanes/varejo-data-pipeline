@@ -1,0 +1,6 @@
+{
+  "command": "docker run [isolated existing image fix-varejo:delivery-20260922] python -m ruff format --check src tests scripts",
+  "exit_code": 0,
+  "output": "47 files already formatted",
+  "scope": "After formatting reporting.py; all other source unchanged."
+}

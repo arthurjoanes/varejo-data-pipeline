@@ -1,169 +1,138 @@
 # Qualidade da interface de fechamento
 
-Revisão de 22/09/2026. Baseline: `bff7a4ac5e9563c0a94fa81def27f3f4c7250853`. Esta rodada reconstrói a composição das três vistas do relatório, mantendo o pipeline e os payloads históricos. O [manifesto](evidence/interface-v3/review-manifest.json) identifica fontes, imagens e evidências da revisão; as revisões v2 continuam históricas.
+Direção visual v4, revisada em 22/09/2026. Baseline visual: `636e8408f1108ce387ddc291318d2d1ebe042dee`. Esta revisão usa os mesmos cinco payloads históricos. O [manifesto da revisão](evidence/interface-v4/review-manifest.json) registra fontes, normalização de hashes, assets e capturas; a [comparação](evidence/interface-v4/comparison.json) contém 14 pares nas mesmas dimensões e estados. As evidências v2, v3 e de restauração continuam históricas, sem substituição de seus resultados.
 
-## Produto e tarefas de leitura
+## Produto, diagnóstico e duas composições
 
-O público é quem confere a entrega das lojas antes de usar um fechamento e quem precisa explicar de onde vieram os indicadores. A primeira pergunta é se o lote pode ser considerado publicado; a segunda é qual loja, arquivo ou regra explica o resultado. O relatório não é um monitor em tempo real.
+Quem confere o fechamento precisa separar três perguntas: **o que aconteceu com a tentativa**, **o que já está publicado** e **quais arquivos explicam a publicação**. Não há acompanhamento ao vivo, edição ou execução pela página.
 
-| Vista | Pergunta e ação principal | Dados e limites |
+O baseline já preservava essa separação e os valores, mas usava a mesma luminosidade para contexto, decisão e análise. A marca era um pequeno arranjo de blocos; a fonte efetiva era Segoe UI do sistema. Em Indicadores, a lista de produtos ocupava uma coluna alta e as 360 observações loja/dia ficavam num disclosure. A leitura exata existia, mas comparar distribuição exigia percorrer a tabela.
+
+Antes de implementar, foram renderizadas duas propostas com **o mesmo snapshot demo30k, fonte, valores e viewport de 1440 × 1000**:
+
+| Proposta | Composição | Decisão |
 | --- | --- | --- |
-| Execução | O que aconteceu nesta tentativa? Conferir a loja/arquivo pendente ou abrir seu registro. | Estado, lote, início, cobertura, ocorrências, contadores e tempos capturados. Tempo medido não prova aprovação. |
-| Indicadores | Quais valores pertencem à publicação disponível? Conferir receita, produtos e loja/dia. | Identidade e janela comercial da publicação; valores exatos nas tabelas. Tentativa bloqueada não substitui a publicação anterior. |
-| Arquivos | Qual versão e qual entrada explicam esses valores? Consultar ou copiar o ID completo. | Publicação, execução, versões Delta, caminhos bronze e hashes capturados. Não há download, edição ou reexecução pela página. |
+| [A — panorama comercial](images/interface-v4/proposta-a.png) | Publicação e métricas numa faixa; matriz loja/dia primeiro; série e ranking lado a lado | Escolhida. Usa a largura para comparar as duas dimensões e mantém a identidade junto dos totais. |
+| [B — mesa de consulta](images/interface-v4/proposta-b.png) | Publicação e métricas numa coluna contextual; série, ranking e matriz na coluna principal | Rejeitada para este recorte. A coluna reduz a análise e empurra loja/dia para o fim. Não há uma tarefa de edição que justifique um inspetor fixo. |
 
-O exemplo central é concreto: S01 e S03 constam como recebidas; S03 confirmou zero movimento; S02.csv não chegou. A tela informa **2 de 3 lojas confirmadas**, mantém S02 pendente e explica a reposição dos bytes originais. A publicação anterior conserva **R$ 64,00**. Zero rejeições em registros recebidos não torna a cobertura completa.
+As propostas são explorações da interface com dados históricos sintéticos, não provas novas do pipeline. A implementação final acrescenta limites monetários da escala, teclado, valores exatos, fontes licenciadas, estados e tabelas. O espaço abaixo de uma série curta fica livre: não se cria gráfico ou métrica para completar uma coluna.
 
-O payload da tentativa não contém sua janela comercial. Por isso, **Período da entrega: não informado no snapshot** é explícito. O período de `summary` pertence à publicação e aparece apenas com os indicadores; usar essa data como período da tentativa bloqueada seria atribuir um dado a outra entidade.
+## Pesquisa visual e o que foi aplicado
 
-## Arquitetura e escopo
+As fontes abaixo foram abertas e suas figuras/interfaces inspecionadas em navegador. Documentação, exemplo de biblioteca e portfólio conceitual não são pesquisa com usuários do nosso produto. As escolhas são inferências de design, sem alegar aprovação, exclusividade da marca ou produtividade medida.
 
-O leitor em [reporting.py](../src/retail_pipeline/reporting.py) captura uma publicação e suas versões. [ReportPayload](../src/retail_pipeline/report_model.py) transporta esse resultado. [report_view.py](../src/retail_pipeline/report_view.py) produz o HTML com [CSS](../src/retail_pipeline/report.css) e [JavaScript](../src/retail_pipeline/report.js) locais. O wheel inclui esses dois assets pelo [pyproject.toml](../pyproject.toml).
-
-Nesta rodada mudaram renderer, CSS, fixtures e verificadores da apresentação. O JavaScript existente, a captura por versão, o domínio, os contratos de ingestão, as fórmulas e as dependências de runtime permaneceram intactos. Não existe React neste frontend; migrar o stack não ajudaria a leitura do HTML offline.
-
-## Direção visual e referências
-
-O layout é uma folha de conferência de fechamento. Decisão, causa, destino e identidade ficam no mesmo bloco; uma lista de lojas torna a cobertura verificável sem expansão. Ocorrências detalham a causa; contadores e duração ficam em disclosures. O fluxo usa divisores e registros, sem transformar cada loja ou etapa em um card.
-
-As cores separam texto `#24334B`, apoio `#536278`, marca/foco `#334FB0`, base `#F2F5FA`, superfície branca e linhas `#D5DEEB`. Erro `#963D37`, confirmação `#226348` e alerta `#76550E` acompanham rótulos textuais. Corpo de 15 px, conteúdo tabular de 14 px e metadados de 12 px usam Segoe UI/Aptos local; IDs usam Consolas. O conteúdo tem largura máxima de 1280 px; espaçamento principal de 24/28 px, reduzido em telas estreitas.
-
-Referências consultadas, com limites:
-
-- [Prefect: figura oficial de uma execução](https://github.com/PrefectHQ/prefect/blob/c352eb8668a97d31ba8e7636d26d929f0db84d48/docs/v3/img/ui/flow-run-details.png). A figura histórica aproxima identidade, resultado e horário. Aplicamos essa relação, sem DAG, retry ou controle de execução inexistente.
-- [GX: Data Docs 0.18](https://docs.greatexpectations.io/docs/0.18/core/introduction/introduction/). A figura histórica aproxima regra e observação; aqui, esperado/recebido e arquivo/loja ficam juntos. Não importamos a aparência Bootstrap, percentuais globais nem código do produto.
-- [Carbon: dashboards](https://carbondesignsystem.com/data-visualization/dashboards/) e [NN/g: progressive disclosure](https://www.nngroup.com/articles/progressive-disclosure/). Priorização e revelação de detalhes orientam a hierarquia; não justificam esconder a causa ou a cobertura.
-- [Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md), consultada em 22/09/2026: semântica nativa, foco, teclado, movimento reduzido, strings longas e estados explícitos. A skill `frontend-design` orientou plano e crítica visual; `web-design-guidelines`, a auditoria. Nenhum código, fonte, ícone ou imagem dessas referências foi copiado para o produto.
-
-As observações nas referências são fatos de capturas/documentação. A escolha desta composição é uma inferência de design para nossas tarefas, não uma alegação de aprovação por usuários ou de ganho de produtividade medido.
-
-## Inventário de telas e estados
-
-| Entrada/estado | O que foi conferido | Evidência |
+| Fonte primária e tipo | Observação útil | Adaptação e rejeição |
 | --- | --- | --- |
-| Publicado, 30 mil linhas históricas | 12 lojas, 30 dias, 360 linhas loja/dia, 12 produtos, valores e fontes | [Execução](images/interface-v3/report.png), [Indicadores](images/interface-v3/indicators.png), [Arquivos](images/interface-v3/files.png) |
-| Bloqueio de cobertura | S02 pendente, S03 zero confirmado, causa e ação; R$ 64 anteriores | [Desktop](images/interface-v3/blocked.png), [390 px](images/interface-v3/blocked-report-qualidade-390.png), [1024 px](images/interface-v3/blocked-report-qualidade-1024.png) |
-| Erro em registros, sem primeira publicação | Ocorrências distintas, campos e severidade; sem falsos indicadores | [Ocorrências no celular](images/interface-v3/quality-mobile.png) |
-| Falha antes de publicar / retomada | R$ 57 preservados na falha; R$ 77 no snapshot posterior | [Falha](images/interface-v3/failure.png), [retomada](images/interface-v3/recovered.png) |
-| Auditoria final incompleta | Publicação continua disponível; não reclassificar como falha anterior | [Fixture de auditoria](images/interface-v3/audit.png) |
-| Sem tentativa/publicação | Ausência explícita; sem CTA para uma tentativa inexistente | [Fixture vazia](images/interface-v3/empty-fixture-qualidade-390.png) |
-| Sem resultado final | Estado do snapshot; sem spinner, porcentagem ou promessa de atualização | [Fixture sem conclusão](images/interface-v3/running-fixture-qualidade-390.png) |
-| Estado desconhecido / validado | Não inferir publicação ou falha a partir de estado insuficiente | [Suite de navegador](evidence/interface-v3/visual-review.json), testes do renderer |
-| Zero / métricas ausentes | Zero monetário real difere de travessão; período desconhecido não vira período sem movimento | [Zero](images/interface-v3/zero-fixture-320.png), [ausência](images/interface-v3/missing-metrics-fixture-320.png) |
-| Números e IDs longos | Valor exato sem abreviação; ID completo selecionável; sem vazamento horizontal da página | [Valor extenso](images/interface-v3/large-fixture-320.png), [IDs](images/interface-v3/long-files-320.png) |
-| Datas sem observação | Espaçamento de calendário real; linha interrompida, sem criar zeros nos dias ausentes | [Fixture de lacunas](images/interface-v3/gaps-fixture-320.png), teste `test_chart_preserves_calendar_gaps_without_inventing_observations` |
-| Sem JavaScript / impressão | Três painéis e disclosures nativos; impressão expõe os detalhes | [Registro](evidence/interface-v3/visual-review.json), [preview de impressão](images/interface-v3/print-preview.png) |
+| [Linear, relato do redesign de 2024](https://linear.app/now/how-we-redesigned-the-linear-ui) — artigo com figuras reais | A moldura, a vista e os detalhes têm camadas distintas; alinhamentos reduzem competição | Navegação compacta, contexto de publicação escuro, análise branca, registro técnico neutro. Não copiamos layout, marca, ícones ou controle de tarefas. |
+| [Carbon Charts: barras](https://charts.carbondesignsystem.com/bar) — exemplo executável, versão 1.27.20 observada | Comparação horizontal com nomes legíveis e origem em zero | Ranking por unidades já fornecido pelo payload, valor na própria linha e tabela com receita. Sem legenda de doze cores, reordenação por receita ou barras com base truncada. |
+| [Carbon Charts: heatmap](https://charts.carbondesignsystem.com/heatmap) e [escalas](https://carbondesignsystem.com/data-visualization/color-palettes/) — exemplo executável e guia | Duas dimensões categóricas/temporais e intensidade para magnitude | Loja × dia, limites em BRL, leitura selecionável e tabela equivalente. Hachura/traço para ausência; 0 explícito. Intensidade não indica sucesso, anomalia ou entrega pendente. |
+| [Radix: composição da escala](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale) — documentação visual | Fundo, superfície, borda, ação e texto têm funções diferentes | Tokens próprios por função; não importamos biblioteca nem tratamos um tom bonito como prova de contraste. |
+| [Source Sans, Adobe](https://github.com/adobe-fonts/source-sans) e [IBM Plex](https://www.ibm.com/plex/) — projetos oficiais | Famílias próprias para interfaces, com numerais e acentos verificáveis | [Comparação renderizada](images/interface-v4/tipografia.png): Source Sans 3 escolhida para a leitura comercial. Plex foi alternativa, não asset do produto. |
+| [Swavee, Tobi Victor e Nifemi Adelana](https://www.behance.net/gallery/241721015/Visual-Identity-design-for-Swavee) — portfólio conceitual dos autores, abril de 2026 | Palavra, símbolo e aplicações formam um sistema coerente | Inspiração somente para consistência entre marca completa, compacta e mono. Nenhuma forma, cor proprietária, imagem ou código foi copiado; efeitos de vidro e argumentos promocionais foram rejeitados. |
 
-Os arquivos `*-fixture` são cenários de apresentação derivados em [render_review.py](../scripts/render_review.py), identificados como sintéticos no HTML. O stress de número grande e o cenário de lacunas alteram campos isolados para testar apresentação; não são fechamentos reconciliados nem provas operacionais.
+Prefect/GX continuam explicando a proximidade entre tentativa, resultado e regra nas revisões anteriores. Nesta rodada, não foram usados como justificativa para repetir a mesma estrutura. A [Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md) foi relida: semântica nativa, foco, movimento reduzido, texto longo, carregamento de fonte e estados. As skills `frontend-design` e `web-design-guidelines` orientaram plano, construção e crítica; React não se aplica ao renderer Python.
 
-O formatador também foi testado com `R$ -12,34`, preservando o sinal. Não foi inventado um fechamento negativo: o contrato vigente rejeita preços negativos e descontos maiores que o valor bruto. Esse teste cobre a formatação, não uma nova regra de receita ou série negativa no gráfico.
+## Identidade, fonte, superfícies e movimento
 
-Não aplicáveis neste produto: autenticação/permissão, formulário de edição, filtros de dados, seleção múltipla, ordenação interativa, paginação remota, salvamento, polling e carregamento assíncrono. As três vistas e seus recortes são navegação por âncora, não filtros. Não foram inventados controles para preencher essa lista.
+A marca original combina três linhas de registro com um V aberto, usando a mesma geometria no [símbolo compacto](../src/retail_pipeline/assets/brand-mark.svg), [monocromático](../src/retail_pipeline/assets/brand-mono.svg) e [favicon](../src/retail_pipeline/assets/favicon.svg). O nome completo é texto real ao lado do símbolo. O SVG decorativo do link é ocultado da árvore acessível; o nome continua legível. A marca não comunica o resultado da execução: somente os rótulos de estado o fazem.
 
-## Problemas encontrados e correções
+A fonte **Source Sans 3 VF** é carregada de WOFF2 local e embutida como data URI em cada HTML. Não depende de Google Fonts, CDN ou rede. O arquivo original tem **170.188 bytes**; o Base64 acrescenta aproximadamente 227 KB por relatório. Esse é o custo consciente de um artefato portátil, sem declarar ganho de desempenho. O wheel inclui fonte, SVGs e licença; um render isolado diretamente do wheel confirmou os recursos. [Origem, commit e SHA](evidence/interface-v4/assets.json).
 
-| Vista / evidência inicial | Impacto | Prioridade | Correção | Validação |
-| --- | --- | --- | --- | --- |
-| Execução: cobertura fechada e duração em área dominante | Exigia abrir detalhes para descobrir qual loja faltava | P1 | Lista esperado/recebido visível, duração secundária | Mesma fixture: antes cobertura oculta; depois 2/3 e S02 visíveis; igualdade dos valores |
-| Indicadores: cabeçalho da tentativa e CTA “Consultar indicadores” na própria vista | Confundia entidade consultada e destino | P1 | Publicação, horário e janela junto aos indicadores; CTA restrito a Execução | Sem CTA visível na vista; link leva ao ID completo correto |
-| Indicadores: métrica ausente formatada como zero | A ausência parecia um resultado conhecido | P1 | Formatadores retornam travessão para `None`; zero continua zero | Regressões com payload incompleto, zero e valor monetário exato |
-| Indicadores: linha ligava datas faltantes; ponto único fora do recorte móvel inicial | Sugeriria continuidade sem observação ou gráfico vazio | P1 | Posição por calendário, segmentos somente entre datas consecutivas; ponto único no início | Três pontos 01/02/05, um segmento; tabela intacta; ponto visível em 320 px |
-| Indicadores: tabela alta afastava Loja/dia | Espaço grande sob o gráfico e comparação distante | P2 | Loja/dia abaixo do gráfico na coluna esquerda; Produtos usa coluna direita | Distância de 24 px, sem altura artificial; mobile mantém ordem do DOM |
-| Arquivos: conteúdo da tentativa precedia o registro consultado | Identidade e versões perdiam unidade | P2 | Registro de publicação à esquerda, versões/fontes à direita; empilhamento no mobile | Screenshot e cópia do ID; versões/caminhos iguais ao baseline |
-| Métrica extensa em 320 px quebrava no meio do número | Valor difícil de ler apesar de não haver overflow | P2 | Valor longo recebe largura inteira, sem truncar ou abreviar | Captura de R$ 1.234.567.890.123,45 e assertion do texto completo |
-| Controles: bordas claras; grupo de ocorrências com ARIA sem papel | Limite visual fraco e nome acessível sem semântica adequada | P2 | Bordas com contraste ≥3:1; `role=group`; h1 global e h2 por vista | Contrastes 3,694/3,288; axe sem violação; leitura semântica e teclado |
+O [OFL 1.1 completo](../src/retail_pipeline/assets/source-sans-LICENSE.md), com copyright, permanece no pacote e no HTML gerado, em “Licença da fonte”. Não houve modificação da fonte. O [exame dos glifos](evidence/interface-v4/font-glyphs.json) confirma os caracteres PT-BR testados e avanços iguais dos dígitos por padrão — não se afirma que exista uma feature `tnum`. A [prova do navegador](evidence/interface-v4/visual-review.json) registra `SourceSans3VF`, `isCustomFont: true` em título, valor monetário e produto, com rede offline.
 
-Nenhum P0/P1 conhecido fica aberto no escopo testado. As limitações de cobertura de auditoria estão registradas abaixo e não são tratadas como aprovação implícita.
+Tokens principais: texto `#263248`, apoio `#596274`, marca/foco `#49488F`, base `#F2F3F5`, contexto `#E5E8EF` e análise branca. Erro `#923B35`, confirmação `#226348` e alerta `#76550E` acompanham palavras. A escala azul da matriz representa receita; a barra índigo representa unidades. Não são estados operacionais.
+
+Corpo de 16 px; tabelas de 14 px; metadados de 12–13 px; títulos de 28–32 px. IDs usam monoespaçada. Valores extensos continuam inteiros: tamanho mínimo de 19 px e rolagem local focável se necessária, sem cortar centavos. Conteúdo centralizado, máximo de 1376 px com margens internas de 24 px; gutters e superfícies compartilham eixos. Transições de 180 ms servem apenas a hover, foco e seleção, desativadas com `prefers-reduced-motion`. Não há números animados, spinner de execução nem movimento infinito.
+
+## Telas e dados
+
+| Vista | Tarefa, composição e próximo destino | Limites preservados |
+| --- | --- | --- |
+| Execução | Decisão, causa, lote e início em contexto próprio; cobertura e ocorrências numa superfície de conferência. “Conferir pendência” leva o foco ao registro. No mobile, a decisão vem antes da cobertura. | S02 pendente não equivale a erro nas vendas recebidas. S03 pode confirmar zero movimento. Contadores e tempos permanecem sob demanda. |
+| Indicadores | Identidade, período e totais da publicação numa unidade; matriz primeiro, depois série e ranking. No mobile, a ordem é Matriz → Série → Ranking. | A tentativa bloqueada não troca a publicação disponível. “Publicação anterior preservada” é explícito. Nenhum CTA para abrir a própria vista. |
+| Arquivos | Registro de publicação em superfície contextual; versões, lotes e referências numa superfície documental. IDs de tentativa e última falha têm disclosures próprios. | Copiar ou selecionar ID é a ação real; não há botão de download, deploy, reexecução ou atualização. |
+
+Exemplo de bloqueio: S01 e S03 recebidas, S03 com zero confirmado, S02.csv ausente → **2 de 3 lojas confirmadas**, causa visível e publicação anterior de **R$ 64,00**. O período da tentativa não está no payload e aparece como não informado; não se toma emprestada a janela da publicação.
+
+### Pergunta, métrica, grão e representação
+
+| Informação | Fonte e significado | Representação e cuidado |
+| --- | --- | --- |
+| Receita líquida | `summary.net_revenue_brl`; descontos aplicados, cancelados excluídos | Valor exato BRL, sem cor de aprovação ou comparação inventada. |
+| Unidades e vendas | Campos já agregados pelo leitor; vendas distintas por loja/dia | Numerais tabulares; itens e unidades não são a mesma contagem. |
+| Ticket | `average_ticket_brl`, calculado no leitor a partir de receita/vendas | Sem vendas: indisponível, não ticket zero. Venda gratuita com vendas existentes pode ter ticket zero. |
+| Receita por dia | `daily`, um dia comercial em America/Sao_Paulo | Posição por calendário; lacunas interrompem a linha. Receita não informada não ganha ponto zero. Tabela preserva todos os valores do recorte. |
+| Produtos | `products`, ordenado por unidades, receita e ID no leitor; até 20 | Barra horizontal por unidades, começando em zero. Não existe reclassificação global por receita sobre um recorte já limitado. Receita continua na tabela. |
+| Loja × dia | `stores`, até 500 linhas do grão loja/dia | Cor sequencial por receita daquela observação. Zero: célula com 0; sem observação ou valor ausente: hachura e traço. Não se infere loja esperada nem cobertura de entrega. |
+
+A matriz não soma registros, interpola dias ou calcula indicador novo. A razão usada para cor/largura é apenas escala gráfica. Duplicatas de loja/dia recebem `!` e remetem à tabela, sem escolher ou somar uma receita silenciosamente. Datas não interpretáveis, mais de 366 dias entre extremos ou mais de 1.200 células possíveis usam um aviso e a tabela completa do recorte. O limite é verificado **antes** de materializar dias; datas 0001/1800/9999 não criam milhões de elementos. Totais sempre pertencem ao conjunto publicado; os avisos de truncamento do payload continuam explícitos.
+
+A matriz usa tabela semântica e valores textuais equivalentes. Com JavaScript, somente uma célula entra no percurso Tab; setas, Home e End mudam a seleção e o valor visível. “Consultar linha na tabela” revela e foca o registro. Sem JavaScript, a âncora nativa abre o detalhe correspondente. Nenhuma informação essencial depende só de hover ou da cor.
+
+## Estados e crítica das capturas
+
+| Estado | Prova atual |
+| --- | --- |
+| Publicado, demo30k | [Execução](images/interface-v4/report.png), [Indicadores](images/interface-v4/indicators.png), [Arquivos](images/interface-v4/files.png) — 12 lojas, 30 dias, 360 linhas loja/dia e 12 produtos históricos |
+| Bloqueio de cobertura | [Desktop](images/interface-v4/blocked.png), [390 px](images/interface-v4/blocked-report-qualidade-390.png), [1024 px](images/interface-v4/blocked-report-qualidade-1024.png) |
+| Erro nos registros, sem publicação | [Ocorrências em 390 px](images/interface-v4/quality-mobile.png) |
+| Falha antes de publicar / retomada | [Falha](images/interface-v4/failure.png), [retomada](images/interface-v4/recovered.png): R$ 57 e R$ 77 preservados |
+| Auditoria incompleta, vazio, sem conclusão | [Auditoria](images/interface-v4/audit.png), [vazio](images/interface-v4/empty.png), [sem resultado final](images/interface-v4/running.png) — fixtures, sem nova execução |
+| Zero / ausência / valor extenso | [Zero](images/interface-v4/zero-fixture-320.png), [ausência](images/interface-v4/missing-metrics-fixture-320.png), [valor grande](images/interface-v4/large-fixture-320.png) |
+| Matriz com ausência, zero e negativo / datas extremas | [Semântica visual](images/interface-v4/matrix-fixture-390.png), [fallback](images/interface-v4/extreme-dates-fixture-390.png) — fixtures de campos isolados, não fechamentos reconciliados |
+| IDs longos / impressão | [320 px](images/interface-v4/long-files-320.png), [CSS de impressão](images/interface-v4/print-preview.png) |
+
+Os arquivos `*-fixture` de [render_review.py](../scripts/render_review.py) são cenários de apresentação, explicitamente rotulados. O contrato não passou a permitir vendas negativas: os casos negativos exercitam sinal/escala, não uma regra nova de receita. Estado desconhecido e validado sem publicação também têm capturas e assertions na suite.
+
+A inspeção identificou e corrigiu problemas concretos, além de overflow:
+
+- O primeiro agrupamento da matriz repetia mês/ano em fonte minúscula. Agora há um cabeçalho por mês e dias legíveis.
+- Um cabeçalho agrupado fez colunas se sobreporem na interação sem JS. Colunas explícitas corrigiram a geometria; a âncora nativa foi exercitada novamente.
+- O símbolo ativo e a leitura da matriz precisavam permanecer juntos; seleção e link exato usam a mesma célula, sem 360 paradas de Tab.
+- O valor de R$ 1.234.567.890.123,45 quebrava os centavos em 320 px. A versão final preserva o número inteiro e seu foco, sem abreviação.
+- O primeiro screenshot de Arquivos congelou a animação entre duas abas. As capturas finais usam movimento reduzido; o comportamento normal de 180 ms é testado separadamente.
+- O aviso de snapshot desaparecia com o header compacto. No mobile, “Snapshot · somente leitura” fica junto do título de contexto.
+- O espaço abaixo da decisão era branco sem conteúdo. Agora o contexto termina naturalmente e a análise ocupa sua própria superfície; não se estica conteúdo para simular densidade.
+
+A matriz mantém rolagem horizontal local em telas estreitas. Isso preserva eixo e dimensões; os registros exatos continuam acessíveis. A série também mantém sua tabela equivalente. A inspeção não declarou toda a paginação de PDF aprovada a partir de um screenshot de mídia print.
 
 ## Matriz de onze dimensões — antes e depois
 
-“Conforme” significa atendido no escopo e nos estados examinados, não certificação geral. “Parcialmente conforme” indica limite explícito. O baseline já preservava funções úteis; elas não são creditadas como novas nesta rodada.
+“Conforme” refere-se ao escopo testado, não a certificação universal. A coluna anterior é o baseline v3, que já tinha funções úteis; não as creditamos como novas.
 
-### Execução
+| Dimensão | Antes | Execução atual | Indicadores atuais | Arquivos atuais |
+| --- | --- | --- | --- | --- |
+| 1. Público e tarefa | Conforme na separação tentativa/publicação; aparência pouco própria | Decisão e cobertura como conferência | Distribuição e comparação da publicação | Identidade e origem como consulta documental |
+| 2. Hierarquia | Parcial: superfícies semelhantes e análise escondida | Causa/ação/contexto separados dos contadores | Publicação+totais; matriz cedo; exatidão por tabela | Identidade contextual; versões e fontes legíveis |
+| 3. Layout e densidade | Parcial: lista alta, geometria uniforme | Contexto e conferência em colunas; ordem móvel explícita | Matriz usa largura; série/ranking têm altura natural | Duas superfícies com espaçamento; uma coluna ≤900 px |
+| 4. Identidade, tipo e cor | Parcial: marca genérica e fonte do SO | Marca original, Source Sans carregada, estados textuais | Números consistentes; cor de dados não é estado | IDs mono, conteúdo humano na fonte local |
+| 5. Dados e visualização | Tabelas exatas, comparação visual limitada | Zero movimento distinto de pendência | Ranking zero-base, matriz exata, lacunas e limites | Versões/caminhos íntegros; gráfico não aplicável |
+| 6. Navegação e ações | Conforme: hash, foco, cópia e detalhes | Mesmo destino para causa e registro | Matriz roving+setas, âncora para linha; sem filtro fictício | Cópia/fallback e IDs completos preservados |
+| 7. Estados e atualização | Conforme nos estados já capturados | Bloqueio/falha/unknown/auditoria separados | Zero/ausência/sem publicação/recorte extremo explícitos | Ausência não gera botão para copiar ID vazio |
+| 8. A11y e responsividade | Parcial: limites de auditoria documentados | Teclado, 320–1440, reflow, axe e contraste | Tabelas equivalentes, roving, semJS e fonte offline | Foco/seleção/cópia e rolagem local; sem leitor de tela completo |
+| 9. Desempenho | Local sem rede; sem benchmark de produção | Sem polling/animação infinita | Matriz limitada antes de alocar; custo da fonte explícito | Sem chamadas remotas; sem alegação de Web Vitals |
+| 10. Manutenção e reuso | Renderer/CSS separados, sem biblioteca | Estrutura local e estados existentes preservados | Helpers de visualização testados; fonte/brand no wheel | Helper de campos e fontes preservado; licença empacotada |
+| 11. Regras, origem e permissões | Modelo correto; leitor vazio expunha ausência no CI | Cobertura não é taxa de erros | Cinco payloads iguais; nenhuma fórmula de domínio nova | IDs/fontes iguais; permissão/edição não aplicáveis |
 
-| Dimensão | Antes | Depois / prova ou limite |
-| --- | --- | --- |
-| 1. Objetivo e público | Parcialmente conforme: diagnóstico existia; duração competia com decisão | Conforme: decisão, lote, causa, destino e cobertura guiam a conferência |
-| 2. Hierarquia da informação | Parcialmente conforme: cobertura essencial recolhida | Conforme: lojas visíveis; contadores e tempos sob demanda |
-| 3. Layout, alinhamento e densidade | Parcialmente conforme: contexto dividido em faixas e lateral | Conforme: uma folha, eixos comuns e lista de lojas; capturas 320–1440 |
-| 4. Tipografia, cor e consistência | Parcialmente conforme: título genérico repetido entre vistas | Conforme: escala local, estados textuais, foco/contraste e borda integral |
-| 5. Indicadores, gráficos e tabelas | Parcialmente conforme: resumo de cobertura não imediato | Conforme: 2/3 confirmado, zero movimento distinto de ausência; nenhum progresso inventado |
-| 6. Navegação, filtros e ações | Conforme: âncoras/foco/detalhes funcionavam | Conforme: mesmos contratos; CTA leva à pendência; filtros de dados não aplicáveis |
-| 7. Estados e atualização | Parcialmente conforme: vazio tinha CTA circular | Conforme: nenhum registro, desconhecido, bloqueado, falha e auditoria distintos; snapshot explícito |
-| 8. Acessibilidade e responsividade | Parcialmente conforme: teclado/reflow prévios; sem auditoria abrangente | Parcialmente conforme: axe, teclado, contraste e reflow passam; leitor de tela e zoom nativo não verificados |
-| 9. Performance | Parcialmente conforme: local sem rede, sem benchmark de produção | Parcialmente conforme: 0 requisições externas; HTML bloqueado menor; sem Lighthouse/Web Vitals |
-| 10. Manutenção e reuso | Parcialmente conforme: regras de composição dispersas | Conforme: renderer/CSS separados, ledger reutilizado, verificadores e guia; sem dependência nova |
-| 11. Dados, regras e permissões | Conforme: tentativa/publicação distintas no modelo | Conforme: modelo/leitor/domínio intactos; equivalência de cinco snapshots; permissão não aplicável |
+A dimensão 8 continua **parcialmente conforme** quanto a leitor de tela, outros motores e zoom nativo; os checks citados passaram, mas não cobrem esses casos. A dimensão 9 é **parcialmente conforme** quanto a performance de produção, não medida. Autenticação, edição, paginação remota e ações de pipeline não se aplicam a este relatório estático.
 
-### Indicadores
+## Verificação, origem e limites
 
-| Dimensão | Antes | Depois / prova ou limite |
-| --- | --- | --- |
-| 1. Objetivo e público | Parcialmente conforme: tentativa dominava a vista de vendas | Conforme: publicação identificada e recortes de consulta |
-| 2. Hierarquia da informação | Não conforme: ação para a própria vista e identidade dispersa | Conforme: identidade e período da publicação acima das métricas |
-| 3. Layout, alinhamento e densidade | Parcialmente conforme: espaço sob gráfico e tabela loja/dia distante | Conforme: gráfico/loja-dia à esquerda e produtos à direita; coluna única ≤1100 px |
-| 4. Tipografia, cor e consistência | Parcialmente conforme: valor extenso quebrava em coluna estreita | Conforme: números tabulares; valor longo ocupa linha inteira no mobile |
-| 5. Indicadores, gráficos e tabelas | Parcialmente conforme: tabela exata, mas ausência virava zero e lacunas eram ligadas | Conforme: calendário real, linha descontínua, zeros/ausência distintos, BRL e grão explícitos |
-| 6. Navegação, filtros e ações | Parcialmente conforme: CTA redundante | Conforme: recortes levam a gráfico/produtos/loja-dia; sem filtro inexistente |
-| 7. Estados e atualização | Parcialmente conforme: zero/vazio ambíguos com summary incompleto | Conforme: período desconhecido, zero, sem publicação e publicação anterior explícitos |
-| 8. Acessibilidade e responsividade | Parcialmente conforme: tabela equivalente e teclado prévios | Parcialmente conforme: axe, contraste, reflow e tabela por teclado; leitura de SVG/tecnologia assistiva não auditada integralmente |
-| 9. Performance | Parcialmente conforme: sem medição de produção | Parcialmente conforme: 402 linhas históricas preservadas, 0 requisições; DOM local medido, sem alegar ganho de velocidade |
-| 10. Manutenção e reuso | Parcialmente conforme: renderers separados, composição inadequada | Conforme: mesmas tabelas/formatadores, geometria de lacunas testada, sem biblioteca de gráfico |
-| 11. Dados, regras e permissões | Parcialmente conforme: fórmulas corretas, ausência visualmente errada | Conforme: valores/tabelas iguais em cinco snapshots; `None` não vira zero; sem nova agregação |
+- **200 testes unitários no candidato**, incluindo 50 do renderer; Ruff, formatação e mypy. Após integrar os 34 testes da prova de estado, **234 unitários**, lint, formato, tipos, wheel e smoke isolado passaram na fonte combinada. [Verificação após integração](evidence/interface-v4/merged/checks.json). [Comandos/versões](evidence/interface-v4/checks.json), [JUnit](evidence/interface-v4/unit-tests.xml). O primeiro gate de tipos pediu uma anotação `list[str]`, corrigida; nenhuma regra foi afrouxada.
+- Wheel construído sem rede; oito recursos de CSS/JS/fonte/marca/licença correspondem aos bytes da fonte. Um Python isolado importou o wheel e gerou HTML com fonte e OFL. O módulo Python do loader também foi conferido no pacote.
+- Edge/Playwright: **15 combinações principais** (três vistas × 1440/1366/768/390/320), **30 capturas** da suite, mais **14 pares** antes/depois. Hash, histórico, skip-link, foco, cópia/fallback, disclosures, estados, roving, linha exata e ausência de erro JS passaram. [Registro](evidence/interface-v4/visual-review.json).
+- **Axe: 14 vistas, zero violações automáticas** nas regras WCAG selecionadas. [Resultado completo](evidence/interface-v4/accessibility.json). Os itens `incomplete` de contraste em SVG não são convertidos em “passou”: os tokens correspondentes foram conferidos separadamente.
+- Oito pares de contraste textual: mínimo **5,524:1**. Bordas de campo verificadas ≥3:1. Estados mantêm texto; zero/ausência da matriz têm marca distinta. Isso é amostragem, não certificação integral de contraste.
+- Ampliação CSS 200% e viewport de 683 CSS px/DPR2, sem alegar zoom nativo. Leitura móvel, strings longas e valor monetário extenso sem overflow da página. Controles primários têm ao menos 24 CSS px de altura; a matriz usa células de 26 px e uma parada de Tab.
+- Sem JS: três painéis, detalhes nativos, dados exatos, IDs selecionáveis e link de célula funcionam. Print: painéis e disclosures visíveis. Sem validação integral de paginação PDF.
+- Offline: fonte custom efetiva em título/número/ranking; **zero requisições HTTP externas**. A licença inteira permanece no HTML.
+- Igualdade de métricas, todas as tabelas, IDs e fontes dos **cinco payloads históricos**. Os hashes desses JSONs continuam iguais ao baseline; escala gráfica não altera dados de negócio.
 
-### Arquivos
+O replay de interface não reexecutou lotes, demo ou benchmark. Em trabalho separado, a investigação do CI encontrou que `Spark.sum` sobre a publicação vazia devolvia `None`: o leitor agora conta linhas e define zero somente para totais aditivos de **zero linhas**, preservando ticket/datas ausentes e valores não informados quando há linhas. [Leitor](../src/retail_pipeline/reporting.py), [integrações de fronteiras](../tests/integration/test_boundaries.py). Três integrações passaram para essa correção, incluindo vazio/cancelamento/venda gratuita e datas extremas. Aquele processo carregou o renderer antes de ajustes visuais finais; não é descrito como teste de toda a fonte final. O CI do commit integrado é o aceite remoto correspondente.
 
-| Dimensão | Antes | Depois / prova ou limite |
-| --- | --- | --- |
-| 1. Objetivo e público | Parcialmente conforme: contexto genérico precedia a consulta | Conforme: publicação e versões como assunto da vista |
-| 2. Hierarquia da informação | Parcialmente conforme: identidade diluída pelo cabeçalho de tentativa | Conforme: ID/publicação, tabelas e fontes; tentativa/falha em detalhes próprios |
-| 3. Layout, alinhamento e densidade | Parcialmente conforme: painel amplo com contexto duplicado | Conforme: dois registros contíguos, empilhados ≤760 px, sem altura fixa |
-| 4. Tipografia, cor e consistência | Parcialmente conforme: identidade técnica com o mesmo peso de contexto | Conforme: rótulo, ID monoespaçado, versões numéricas e cores de superfície distintas |
-| 5. Indicadores, gráficos e tabelas | Conforme: versões e caminhos no grão correto | Conforme: conteúdo integral preservado, cabeçalhos e região de rolagem nomeada; gráfico não aplicável |
-| 6. Navegação, filtros e ações | Conforme: copiar, fallback e links profundos | Conforme: mesmos IDs/âncoras; nome de botão e status de cópia preservados |
-| 7. Estados e atualização | Conforme: identidade ausente indisponível | Conforme: nenhuma publicação não vira ID vazio copiável; data ausente é travessão |
-| 8. Acessibilidade e responsividade | Parcialmente conforme: testes funcionais anteriores | Parcialmente conforme: axe e controles >3:1; teclas/cópia/reflow passam; leitor de tela não auditado |
-| 9. Performance | Parcialmente conforme: dependência zero, sem benchmark | Parcialmente conforme: sem rede; strings longas não alteram largura da página; custo local registrado |
-| 10. Manutenção e reuso | Conforme: helper de campos e fontes | Conforme: helpers preservados, novo agrupamento sem biblioteca, wheel inclui assets iguais |
-| 11. Dados, regras e permissões | Conforme: identidades e versões separadas | Conforme: comparação de todos IDs/caminhos/fontes em cinco snapshots; hashes de entradas intactos |
+A apresentação está em [report_view.py](../src/retail_pipeline/report_view.py), [report.css](../src/retail_pipeline/report.css), [report.js](../src/retail_pipeline/report.js) e [report_assets.py](../src/retail_pipeline/report_assets.py). Regressões: `_store_matrix`, `_product_ranking`, `_revenue_chart` e o [teste de relatório](../tests/unit/test_reporting.py); recursos empacotados no [pyproject.toml](../pyproject.toml). A normalização LF aplica-se somente a textos: WOFF2 é binário e seu SHA cobre os bytes originais.
 
-## Comparação visual e crítica das capturas
-
-Os pares usam o mesmo payload, vista por hash e dimensão; sem filtros de dados. A [comparação](evidence/interface-v3/comparison.json) registra 14 pares, incluindo 1024 px, vazio, falha, execução inconclusa e auditoria. Seis imagens anteriores estão no repositório para consulta portátil; o manifesto distingue as origens.
-
-| Vista | Antes | Depois |
-| --- | --- | --- |
-| Execução 1440 | [Baseline](images/interface-v3/before/blocked-report-qualidade-1440.png) | [Candidato](images/interface-v3/blocked-report-qualidade-1440.png) |
-| Execução 390 | [Baseline](images/interface-v3/before/blocked-report-qualidade-390.png) | [Candidato](images/interface-v3/blocked-report-qualidade-390.png) |
-| Indicadores 1440 | [Baseline](images/interface-v3/before/blocked-report-indicadores-1440.png) | [Candidato](images/interface-v3/blocked-report-indicadores-1440.png) |
-| Indicadores 390 | [Baseline](images/interface-v3/before/blocked-report-indicadores-390.png) | [Candidato](images/interface-v3/blocked-report-indicadores-390.png) |
-| Arquivos 1440 | [Baseline](images/interface-v3/before/demo30k-report-proveniencia-1440.png) | [Candidato](images/interface-v3/demo30k-report-proveniencia-1440.png) |
-| Arquivos 390 | [Baseline](images/interface-v3/before/demo30k-report-proveniencia-390.png) | [Candidato](images/interface-v3/demo30k-report-proveniencia-390.png) |
-
-A crítica foi além de `scrollWidth`. Em 390 px, a primeira iteração colocava metadados antes da decisão; a ordem foi invertida. Em desktop, o gráfico esticava para acompanhar Produtos; passou a ter altura natural e Loja/dia logo abaixo. Em 320 px, um valor grande cabia na página mas quebrava os dígitos; agora recebe largura inteira. O ponto de um único dia ficava depois da área inicialmente visível; foi movido para o início da área de plotagem. No registro de ocorrência, título, metadado e toggle mantêm colunas próprias e a borda cobre o conteúdo expandido. Arquivos conserva IDs em campos selecionáveis e rolagem local nas tabelas, em vez de quebrar caminhos em colunas ilegíveis.
-
-A rolagem horizontal das tabelas é intencional: mantém comparação entre colunas e cabeçalhos, sem descartar valores. O gráfico longo tem tabela equivalente. Não há animação de números; somente o indicador de navegação usa 180 ms e respeita `prefers-reduced-motion`.
-
-## Verificações executadas
-
-- Ruff e formatação de `src tests scripts`; mypy de `src/retail_pipeline`: aprovados.
-- **193 testes unitários**, incluindo **43 do renderer**: aprovados. [JUnit completo](evidence/interface-v3/unit-tests.xml), [renderer](evidence/interface-v3/reporting-tests.xml), [comandos e versões](evidence/interface-v3/checks.json).
-- Wheel Python construído sem rede; CSS/JS empacotados iguais aos bytes da fonte. Nenhum serviço ou JVM foi iniciado.
-- Edge 153 / Playwright 1.63: 15 combinações principais (três vistas × 1440/1366/768/390/320), 28 capturas da suite e 14 pares adicionais. Hash, histórico, foco, skip-link, cópia/fallback, disclosures, estados e ausência de erro JS aprovados. [Resultado](evidence/interface-v3/visual-review.json).
-- Axe 4.13: dez vistas/estados, **zero violações automáticas** nas regras WCAG selecionadas. [Relatório](evidence/interface-v3/accessibility.json). Os resultados `incomplete` restantes são contraste de texto SVG: a inspeção confirmou `#536278` sobre branco, coberto pelo contraste dos tokens; não são transformados automaticamente em “passou”.
-- Seis pares de contraste textual amostrados: mínimo **5,675:1**. Bordas dos controles: **3,694:1** sobre branco e **3,288:1** sobre a superfície azul. Estados usam texto além da cor. Teclado foi exercitado nos três painéis, incluindo Enter, foco de destino e histórico.
-- Links de navegação, botões e summaries visíveis tiveram altura mínima de 24 CSS px nas 15 combinações principais; os botões/disclosures usam 44 px. Links no texto continuam sujeitos à exceção de alvo inline, sem alegar que todo link tem área de botão.
-- Ampliação CSS de 200% e viewport equivalente de 683 CSS px/DPR2; não são zoom nativo do navegador. Leitura a 320 px, strings longas, ausência de overflow da página e mídia de movimento reduzido verificadas.
-- Sem JavaScript: todos os painéis, IDs e tabelas equivalentes continuam disponíveis. Impressão: três painéis e conteúdos de disclosures visíveis; o preview não certifica paginação completa de PDF.
-- Igualdade de métricas, todas as linhas de tabelas, todos IDs e todas fontes em cinco snapshots históricos; 0 requisições HTTP externas e 0 âncoras internas quebradas na comparação.
-
-O primeiro run unitário encontrou três assertions antigas que esperavam o título de estado em `h1`: 189 passaram. Elas foram atualizadas para o `h2#execution-title`, preservando o texto esperado; logs iniciais foram mantidos. O h1 agora existe em todas as vistas. Isso é manutenção do contrato semântico, não uma prova operacional que falhou.
-
-Rastreabilidade da revisão de código: [report_view.py:114](../src/retail_pipeline/report_view.py#L114) preserva ausência; [:257](../src/retail_pipeline/report_view.py#L257) interrompe lacunas de calendário; [:372](../src/retail_pipeline/report_view.py#L372) torna a cobertura explícita; [:588](../src/retail_pipeline/report_view.py#L588) dá semântica ao grupo de ocorrências; [:932](../src/retail_pipeline/report_view.py#L932) mantém o título global. Em [report.css:15](../src/retail_pipeline/report.css#L15), [:177](../src/retail_pipeline/report.css#L177) e [:268](../src/retail_pipeline/report.css#L268), foco, fronteiras dos controles e movimento reduzido têm regras explícitas. [report.js:6](../src/retail_pipeline/report.js#L6) conserva a navegação/foco existente; não foi reescrito.
-
-## Reprodução e limites
-
-Em ambiente de desenvolvimento com dependências instaladas:
+## Reprodução e histórico
 
 ```sh
 PYTHONPATH=src python scripts/render_review.py
@@ -175,8 +144,6 @@ mypy src/retail_pipeline
 python -m pytest tests/unit -q
 ```
 
-Playwright e axe são ferramentas opcionais de desenvolvimento. `PLAYWRIGHT_MODULE` e `AXE_MODULE` podem apontar para instalações existentes, sem adicionar dependências ao relatório. `PLAYWRIGHT_CHANNEL=msedge` seleciona o browser usado nesta revisão. A comparação automática com o baseline exige `REVIEW_BASELINE_DIR`, contendo os HTMLs renderizados pela fonte do commit inicial com os mesmos payloads. Sem essa variável, os demais checks continuam executando.
+Playwright e axe são ferramentas opcionais de desenvolvimento, não dependências do relatório. `PLAYWRIGHT_MODULE`/`AXE_MODULE` podem apontar para módulos instalados; `PLAYWRIGHT_CHANNEL=msedge` reproduz o motor desta revisão. `REVIEW_BASELINE_DIR` deve conter os HTMLs do commit inicial com os mesmos payloads; habilita a comparação e os pares. Sem essa variável, a suite funcional continua.
 
-Não foram reexecutados demo Spark, benchmark ou provas operacionais: o leitor e o domínio não mudaram. A rodada prova apresentação de snapshots já capturados e regressões unitárias. CI remoto, leitor de tela, zoom nativo, paginação integral de PDF, outros motores de navegador e performance de produção não foram verificados nesta rodada. O tempo de navegação `file://` é somente uma amostra diagnóstica local; não se afirma ganho de velocidade com base nele.
-
-O [problema e solução](problem-solution.md), as [decisões técnicas](decisoes-tecnicas.md) e a [verificação histórica](verification.md) continuam sendo as referências de domínio e de execução. Novas evidências da interface não substituem esses registros.
+Histórico preservado: [revisão v3](evidence/interface-v3/review-manifest.json), [v2](evidence/interface-v2/review-manifest.json), [jornadas](evidence/interface-journeys/review.json) e [limpeza v2](evidence/interface-v2/cleanup.json). Esses registros descrevem fontes e contagens anteriores. A [verificação operacional](verification.md), o [problema e solução](problem-solution.md) e as [decisões técnicas](decisoes-tecnicas.md) continuam separados desta prova de apresentação.

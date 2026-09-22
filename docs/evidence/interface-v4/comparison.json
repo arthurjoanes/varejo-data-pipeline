@@ -1,0 +1,160 @@
+{
+  "baseline": "636e8408f1108ce387ddc291318d2d1ebe042dee",
+  "pairs": [
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/blocked-report-qualidade-1440.png",
+      "after": "blocked-report-qualidade-1440.png"
+    },
+    {
+      "file": "demo30k-report",
+      "view": "indicadores",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/demo30k-report-indicadores-1440.png",
+      "after": "demo30k-report-indicadores-1440.png"
+    },
+    {
+      "file": "demo30k-report",
+      "view": "proveniencia",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/demo30k-report-proveniencia-1440.png",
+      "after": "demo30k-report-proveniencia-1440.png"
+    },
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "viewport": {
+        "width": 1024,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/blocked-report-qualidade-1024.png",
+      "after": "blocked-report-qualidade-1024.png"
+    },
+    {
+      "file": "demo30k-report",
+      "view": "indicadores",
+      "viewport": {
+        "width": 1024,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/demo30k-report-indicadores-1024.png",
+      "after": "demo30k-report-indicadores-1024.png"
+    },
+    {
+      "file": "demo30k-report",
+      "view": "proveniencia",
+      "viewport": {
+        "width": 1024,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/demo30k-report-proveniencia-1024.png",
+      "after": "demo30k-report-proveniencia-1024.png"
+    },
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/blocked-report-qualidade-390.png",
+      "after": "blocked-report-qualidade-390.png"
+    },
+    {
+      "file": "demo30k-report",
+      "view": "indicadores",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/demo30k-report-indicadores-390.png",
+      "after": "demo30k-report-indicadores-390.png"
+    },
+    {
+      "file": "demo30k-report",
+      "view": "proveniencia",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/demo30k-report-proveniencia-390.png",
+      "after": "demo30k-report-proveniencia-390.png"
+    },
+    {
+      "file": "failure-report",
+      "view": "qualidade",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/failure-report-qualidade-390.png",
+      "after": "failure-report-qualidade-390.png"
+    },
+    {
+      "file": "quality-review",
+      "view": "qualidade",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/quality-review-qualidade-390.png",
+      "after": "quality-review-qualidade-390.png"
+    },
+    {
+      "file": "empty-fixture",
+      "view": "qualidade",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/empty-fixture-qualidade-390.png",
+      "after": "empty-fixture-qualidade-390.png"
+    },
+    {
+      "file": "running-fixture",
+      "view": "qualidade",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/running-fixture-qualidade-390.png",
+      "after": "running-fixture-qualidade-390.png"
+    },
+    {
+      "file": "audit-fixture",
+      "view": "qualidade",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "filters": "none; identical historical payload or presentation fixture",
+      "before": "before/audit-fixture-qualidade-390.png",
+      "after": "audit-fixture-qualidade-390.png"
+    }
+  ],
+  "limits": "Same offline data, hash and viewport; font changes intentionally. No timing or usability improvement claimed."
+}

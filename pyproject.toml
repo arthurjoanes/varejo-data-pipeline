@@ -16,7 +16,7 @@ varejo = "retail_pipeline.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-retail_pipeline = ["report.css", "report.js"]
+retail_pipeline = ["report.css", "report.js", "assets/*.woff2", "assets/*.svg", "assets/*LICENSE.md"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -55,3 +55,37 @@ document.querySelectorAll('[data-copy-target]').forEach(button => {
     }
   });
 });
+
+// Matriz compacta: uma célula no percurso Tab; o valor exato permanece visível.
+const matrixCells = [...document.querySelectorAll('[data-heat-cell]')];
+const matrixOutput = document.getElementById('matrix-value');
+const matrixRecord = document.getElementById('matrix-record');
+function selectMatrixCell(cell, focus = false) {
+  for (const candidate of matrixCells) {
+    candidate.tabIndex = candidate === cell ? 0 : -1;
+    if (candidate === cell) candidate.setAttribute('aria-current', 'true');
+    else candidate.removeAttribute('aria-current');
+  }
+  matrixOutput.textContent = cell.dataset.value;
+  matrixRecord.href = cell.getAttribute('href');
+  matrixRecord.textContent = 'Consultar linha na tabela';
+  if (focus) cell.focus();
+}
+if (matrixCells.length) {
+  document.querySelector('.matrix-help').hidden = false;
+  selectMatrixCell(matrixCells[0]);
+  matrixCells.forEach(cell => {
+    cell.addEventListener('click', event => { event.preventDefault(); selectMatrixCell(cell); });
+    cell.addEventListener('keydown', event => {
+      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const row = Number(cell.dataset.row), column = Number(cell.dataset.column);
+      const horizontal = ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key);
+      let candidates = matrixCells.filter(candidate => horizontal ? Number(candidate.dataset.row) === row : Number(candidate.dataset.column) === column);
+      const index = candidates.indexOf(cell);
+      const offset = ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 1;
+      const next = event.key === 'Home' ? candidates[0] : event.key === 'End' ? candidates.at(-1) : candidates[index + offset];
+      if (next) selectMatrixCell(next, true);
+    });
+  });
+}

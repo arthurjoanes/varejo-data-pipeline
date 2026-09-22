@@ -1,12 +1,13 @@
 from collections.abc import Mapping, Sequence
-from datetime import date, datetime
-from decimal import ROUND_CEILING, ROUND_HALF_UP, Decimal, localcontext
+from datetime import date, datetime, timedelta
+from decimal import ROUND_CEILING, ROUND_FLOOR, ROUND_HALF_UP, Decimal, localcontext
 from html import escape
 from importlib.resources import files
 
+from retail_pipeline.report_assets import BRAND_MARK, FAVICON, FONT_CSS, FONT_NOTICE
 from retail_pipeline.report_model import CHART_LIMIT, PRODUCT_LIMIT, TABLE_LIMIT, ReportPayload
 
-CSS = files("retail_pipeline").joinpath("report.css").read_text(encoding="utf-8")
+CSS = FONT_CSS + files("retail_pipeline").joinpath("report.css").read_text(encoding="utf-8")
 SCRIPT = files("retail_pipeline").joinpath("report.js").read_text(encoding="utf-8")
 
 STATE_LABELS = {
@@ -192,13 +193,18 @@ def _chips(values: object, limit: int = 40) -> str:
     return result or '<span class="muted">Nenhuma</span>'
 
 
-def _card(label: str, value: str, note: str, *, accent: bool = False) -> str:
+def _card(label: str, value: str, note: str, *, metric: str, accent: bool = False) -> str:
     css = "metric accent" if accent else "metric"
     if len(value) > 18:
         css += " metric-wide"
+    overflow = (
+        f' tabindex="0" role="region" aria-label="{_text(label)}: valor completo"'
+        if len(value) > 18
+        else ""
+    )
     return (
         f'<article class="{css}"><p class="metric-label">{_text(label)}</p>'
-        f"<strong>{_text(value)}</strong><p>{_text(note)}</p></article>"
+        f'<strong{overflow} data-metric="{metric}">{_text(value)}</strong><p>{_text(note)}</p></article>'
     )
 
 
@@ -257,6 +263,10 @@ def _axis_money(value: Decimal) -> str:
 def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
     if not rows:
         return '<p class="empty">Sem receita publicada.</p>'
+    missing_values = any(row.get("net_revenue_brl") is None for row in rows)
+    rows = [row for row in rows if row.get("net_revenue_brl") is not None]
+    if not rows:
+        return '<p class="empty">Receita não informada neste recorte. Consulte a tabela de valores.</p>'
     width, left, right, top, bottom = 900, 110, 20, 20, 210
     plot_width = width - left - right
     try:
@@ -265,13 +275,19 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
         dates = []
     date_span = (max(dates) - min(dates)).days if dates else 0
     values = [_decimal(row.get("net_revenue_brl")) for row in rows]
-    step, intervals = _axis_scale(max(values))
-    ceiling = step * intervals
+    minimum = min(Decimal(0), min(values))
+    step, intervals = _axis_scale(max(values) - minimum)
+    floor = (minimum / step).to_integral_value(rounding=ROUND_FLOOR) * step
+    ceiling = max(Decimal(0), (max(values) / step).to_integral_value(rounding=ROUND_CEILING) * step)
+    if ceiling == floor:
+        ceiling = floor + step
+    intervals = int((ceiling - floor) / step)
+    zero_y = bottom - int(-floor / (ceiling - floor) * (bottom - top))
     points: list[str] = []
     grid: list[str] = []
     for index in range(intervals + 1):
         y = top + (bottom - top) * index // intervals
-        label = _axis_money(step * (intervals - index))
+        label = _axis_money(ceiling - step * index)
         grid.append(
             f'<line x1="{left}" x2="{width - right}" y1="{y}" y2="{y}" '
             f'stroke="#dae2ec"/><text x="{left - 12}" y="{y + 4}" '
@@ -282,7 +298,7 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
             x = left + (plot_width * (dates[index] - min(dates)).days // max(1, date_span))
         else:
             x = left + plot_width * index // max(1, len(values) - 1)
-        y = bottom - int(value / ceiling * (bottom - top))
+        y = bottom - int((value - floor) / (ceiling - floor) * (bottom - top))
         points.append(f"{x},{y}")
     ticks = sorted({0, len(rows) // 2, len(rows) - 1})
     labels = "".join(
@@ -302,9 +318,9 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
         if len(segment) < 2:
             continue
         area = (
-            f"{segment[0].split(',')[0]},{bottom} "
+            f"{segment[0].split(',')[0]},{zero_y} "
             + " ".join(segment)
-            + f" {segment[-1].split(',')[0]},{bottom}"
+            + f" {segment[-1].split(',')[0]},{zero_y}"
         )
         paths.append(
             f'<polygon points="{area}" fill="#e4eef8"/>'
@@ -327,6 +343,11 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
         + labels
         + "</svg>"
         + (
+            '<p class="footnote">Receitas não informadas não foram desenhadas como zero; consulte a tabela.</p>'
+            if missing_values
+            else ""
+        )
+        + (
             '<p class="footnote">Trechos separados indicam datas sem observação contínua. '
             "Dias sem observação não representam receita zero.</p>"
             if len(segments) > 1
@@ -340,12 +361,13 @@ def _table(
     columns: Sequence[tuple[str, str, str]],
     *,
     label: str = "Tabela de indicadores publicados",
+    row_prefix: str = "",
 ) -> str:
     if not rows:
         return '<p class="empty">Sem registros neste recorte.</p>'
     head = "".join(f'<th scope="col">{_text(label)}</th>' for _, label, _ in columns)
     body: list[str] = []
-    for row in rows:
+    for row_index, row in enumerate(rows):
         cells = []
         for key, _, kind in columns:
             value = row.get(key)
@@ -359,13 +381,132 @@ def _table(
                 display = str(value) if value is not None else "—"
             css = ' class="numeric"' if kind in {"money", "integer"} else ""
             cells.append(f"<td{css}>{_text(display)}</td>")
-        body.append("<tr>" + "".join(cells) + "</tr>")
+        row_id = f' id="{row_prefix}-{row_index}" tabindex="-1"' if row_prefix else ""
+        body.append(f"<tr{row_id}>" + "".join(cells) + "</tr>")
     return (
         f'<div class="table-scroll" tabindex="0" role="region" aria-label="{_text(label)}"><table><thead><tr>'
         + head
         + "</tr></thead><tbody>"
         + "".join(body)
         + "</tbody></table></div>"
+    )
+
+
+def _product_ranking(rows: Sequence[Mapping[str, object]]) -> str:
+    """Compara unidades do recorte já ordenado; não recalcula o ranking no navegador."""
+    if not rows:
+        return '<p class="empty">Sem produtos neste recorte.</p>'
+    maximum = max((_decimal(row.get("units")) for row in rows), default=Decimal(0))
+    items = []
+    for row in rows:
+        value = row.get("units")
+        units = _decimal(value)
+        width = max(Decimal(0), units) / maximum * 100 if maximum > 0 else Decimal(0)
+        label = _integer(value)
+        items.append(
+            '<li class="ranking-row">'
+            f'<span class="ranking-name">{_text(row.get("product_id"))}</span>'
+            f'<span class="ranking-track" aria-hidden="true"><span style="width:{width:.3f}%"></span></span>'
+            f'<strong class="numeric">{_text(label)}</strong></li>'
+        )
+    return (
+        '<p class="ranking-scale">Unidades · escala a partir de zero</p>'
+        f'<ol class="product-ranking" aria-label="Unidades por produto, na ordem do ranking publicado">{"".join(items)}</ol>'
+    )
+
+
+def _store_matrix(rows: Sequence[Mapping[str, object]]) -> str:
+    """Escala de receita por célula existente. Ausência nunca vira receita zero."""
+    if not rows:
+        return '<p class="empty">Sem observações de loja e dia neste recorte.</p>'
+    try:
+        observed_dates = sorted({date.fromisoformat(str(row.get("business_date"))) for row in rows})
+    except ValueError:
+        return '<p class="empty">Datas não interpretáveis na matriz. Consulte os registros exatos na tabela.</p>'
+    stores = sorted({str(row.get("store_id")) for row in rows})
+    span = (observed_dates[-1] - observed_dates[0]).days + 1
+    # Protege períodos extremos antes de criar a grade; a tabela continua completa.
+    if span > 366 or span * len(stores) > 1200:
+        return '<p class="empty">Recorte amplo ou disperso para uma matriz legível. Os valores completos deste recorte estão na tabela por loja e dia.</p>'
+    dates = [observed_dates[0] + timedelta(days=index) for index in range(span)]
+    indexed: dict[tuple[str, str], tuple[int, Mapping[str, object]]] = {}
+    duplicates: set[tuple[str, str]] = set()
+    for index, row in enumerate(rows):
+        key = str(row.get("store_id")), str(row.get("business_date"))
+        if key in indexed:
+            duplicates.add(key)
+        indexed[key] = index, row
+    values = [
+        _decimal(row[1]["net_revenue_brl"])
+        for key, row in indexed.items()
+        if key not in duplicates and row[1].get("net_revenue_brl") is not None
+    ]
+    maximum = max(values, default=Decimal(0))
+    minimum = min(Decimal(0), min(values, default=Decimal(0)))
+    scale = maximum - minimum
+    colors = ("#e7edf8", "#c5d5f0", "#9bb5e2", "#7396d1", "#4b74b5", "#284d8e")
+    header = "".join(
+        f'<th scope="col" aria-label="{_text(_date(day.isoformat()))}">{day.day:02d}</th>'
+        for day in dates
+    )
+    months: list[tuple[str, int]] = []
+    for day in dates:
+        month = f"{day.month:02d}/{day.year:04d}"
+        if months and months[-1][0] == month:
+            months[-1] = month, months[-1][1] + 1
+        else:
+            months.append((month, 1))
+    month_header = "".join(
+        f'<th scope="colgroup" colspan="{count}">{month}</th>' for month, count in months
+    )
+    body: list[str] = []
+    first_cell = True
+    for store in stores:
+        cells = []
+        for column, day in enumerate(dates):
+            key = store, day.isoformat()
+            entry = indexed.get(key)
+            value = entry[1].get("net_revenue_brl") if entry else None
+            if key in duplicates:
+                content = '<span class="heat-unavailable" aria-label="Mais de um registro; consulte a tabela">!</span>'
+            elif entry is None or value is None:
+                reason = "Sem observação" if entry is None else "Receita não informada"
+                content = f'<span class="heat-missing" aria-label="{reason}">—</span>'
+            else:
+                amount = _decimal(value)
+                level = min(5, max(0, int((amount - minimum) / scale * 5))) if scale else 0
+                exact = f"{store} · {_date(day.isoformat())} · {_money(value)}"
+                css = "heat-cell heat-zero" if amount == 0 else "heat-cell"
+                content = (
+                    f'<a class="{css}" href="#store-row-{entry[0]}" '
+                    f'data-heat-cell data-column="{column}" data-value="{_text(exact)}" '
+                    f'data-row="{len(body)}" style="--cell-color:{colors[level]}" '
+                    f'aria-label="{_text(exact)}" tabindex="{0 if first_cell else -1}">'
+                    f'<span class="sr-only">{_text(_money(value))}</span>{"0" if amount == 0 else ""}</a>'
+                )
+                first_cell = False
+            cells.append(f"<td>{content}</td>")
+        body.append(f'<tr><th scope="row">{_text(store)}</th>{"".join(cells)}</tr>')
+    swatches = "".join(f'<i style="background:{color}"></i>' for color in colors)
+    return (
+        '<div class="matrix-heading"><p class="meta">Receita líquida em BRL · cada célula é uma loja em um dia comercial.</p>'
+        + (
+            f'<div class="heat-legend"><span>{_text(_money(minimum))}</span><span class="heat-scale" aria-hidden="true">{swatches}</span><span>{_text(_money(maximum))}</span></div>'
+            if values
+            else '<p class="meta">Sem receita informada para definir a escala.</p>'
+        )
+        + '</div>'
+        '<p class="matrix-help" hidden>Selecione uma célula para consultar o valor. Use as setas para percorrer a matriz.</p>'
+        '<div class="matrix-scroll" tabindex="0" role="region" aria-label="Matriz de receita por loja e dia, com rolagem horizontal">'
+        f'<table class="store-matrix" style="width:{83 + 39 * span}px"><colgroup><col style="width:80px"><col span="{span}" style="width:36px"></colgroup><thead><tr class="matrix-months"><th scope="col">Mês</th>{month_header}</tr><tr><th scope="col">Loja / dia</th>{header}</tr></thead><tbody>{"".join(body)}</tbody></table></div>'
+        '<div class="matrix-reading"><output id="matrix-value" aria-live="polite">Valores exatos também disponíveis na tabela abaixo.</output>'
+        '<a id="matrix-record" href="#store-values">Consultar tabela</a></div>'
+        '<p class="matrix-key"><span><b class="zero-key">0</b> Receita zero registrada</span><span><b class="missing-key">—</b> Sem observação ou receita não informada</span></p>'
+        + (
+            '<p class="footnote">Células com ! têm mais de um registro. Nenhum valor foi somado: consulte as linhas na tabela.</p>'
+            if duplicates
+            else ""
+        )
     )
 
 
@@ -824,6 +965,7 @@ def build_report_html(payload: ReportPayload) -> str:
                 "Receita líquida",
                 _money(summary.get("net_revenue_brl")) if published else "—",
                 "BRL · descontos aplicados · cancelados excluídos",
+                metric="net_revenue",
                 accent=True,
             ),
             _card(
@@ -834,11 +976,13 @@ def build_report_html(payload: ReportPayload) -> str:
                 else "Itens ativos não informados"
                 if published
                 else "Aguardando publicação",
+                metric="units",
             ),
             _card(
                 "Vendas",
                 _integer(summary.get("sales_count")) if published else "—",
                 "Distintas por loja e dia comercial",
+                metric="sales_count",
             ),
             _card(
                 "Ticket médio",
@@ -848,6 +992,7 @@ def build_report_html(payload: ReportPayload) -> str:
                 "Sem vendas no período"
                 if published and summary.get("sales_count") == 0
                 else "Receita ÷ vendas no período",
+                metric="average_ticket_brl",
             ),
         )
     )
@@ -871,6 +1016,7 @@ def build_report_html(payload: ReportPayload) -> str:
             ("average_ticket_brl", "Ticket médio", "money"),
         ),
         label="Receita, unidades, vendas e ticket por loja e dia comercial",
+        row_prefix="store-row",
     )
     daily_values = _table(
         payload.daily,
@@ -923,31 +1069,33 @@ def build_report_html(payload: ReportPayload) -> str:
     return f"""<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Entrega das lojas, diagnóstico da tentativa e indicadores do fechamento publicado.">
-<title>Fechamento de vendas · Varejo Data Pipeline</title><style>{CSS}</style></head><body>
+<title>Fechamento de vendas · Varejo Data Pipeline</title><link rel="icon" type="image/svg+xml" href="{FAVICON}"><style>{CSS}</style></head><body>
 <a class="skip-link" href="#content">Ir para o fechamento</a>
 <div class="app-shell"><header class="app-bar">
-<a class="brand" href="#qualidade"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 5h8v8H5zM19 19h8v8h-8zM19 5h8v8h-8z"/><path d="M13 9h6M23 13v6" fill="none"/></svg><span>Varejo <span>Data Pipeline</span></span></a>
-<span class="app-location">Conferência de fechamento</span><span class="snapshot-label">Snapshot · somente leitura</span></header>
-<main id="content" tabindex="-1">
-<div class="report-caption"><h1>Fechamento de vendas</h1>{'<p class="demo-label">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else ""}</div>
+<a class="brand" href="#qualidade">{BRAND_MARK}<span>Varejo <span>Data Pipeline</span></span></a>
 <nav class="report-nav" aria-label="Seções do relatório"><a href="#qualidade" data-view-link="qualidade">Execução</a><a href="#indicadores" data-view-link="indicadores">Indicadores</a><a href="#proveniencia" data-view-link="proveniencia">Arquivos</a></nav>
+<span class="snapshot-label">Snapshot · somente leitura</span></header>
+<main id="content" tabindex="-1">
+<div class="report-caption"><h1>Conferência de fechamento</h1><p class="mobile-snapshot">Snapshot · somente leitura</p>{'<p class="demo-label">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else ""}</div>
 <section class="panel" id="qualidade" data-report-view tabindex="-1" aria-labelledby="execution-title">
 <div class="closing-sheet">
-<header class="decision-record"><div class="decision-copy"><h2 id="execution-title">{_text(decision_title)}</h2><p class="decision-reason">{_text(decision_reason)}</p><div class="decision-actions">{decision_actions}</div></div>
+<header class="decision-record" data-state="{_text(attempt.get("state", "UNKNOWN"))}"><div class="decision-copy"><h2 id="execution-title">{_text(decision_title)}</h2><p class="decision-reason">{_text(decision_reason)}</p><div class="decision-actions">{decision_actions}</div></div>
 <div class="attempt-identity"><div><p class="record-label">Lote da tentativa</p><p class="batch-name">{_short_id_link(attempt.get("batch_id"), "do lote da tentativa", "attempt-batch-id")}</p></div><dl class="attempt-clock"><div><dt>Início registrado</dt><dd>{_text(_timestamp(attempt.get("started_at")))}</dd></div><div><dt>Período da entrega</dt><dd>Não informado no snapshot</dd></div></dl></div></header>
 {_attempt_details(payload.latest_attempt)}
 </div>
 <div class="publication-bridge"><p><strong>{publication_label}.</strong> {_text(_publication_context(payload))}</p>{'<a href="#indicadores">Ver a publicação disponível</a>' if published else ''}</div>
 {_failure_notice(payload)}</section>
-<section class="panel" id="indicadores" data-report-view tabindex="-1" aria-labelledby="indicators-title"><header class="publication-heading"><div><h2 id="indicators-title">Indicadores de vendas</h2><p class="publication-note">{publication_note}</p></div><div class="publication-window"><span>Janela comercial publicada</span><strong>{_text(window)}</strong></div></header>
+<section class="panel" id="indicadores" data-report-view tabindex="-1" aria-labelledby="indicators-title">
+<div class="publication-band"><header class="publication-heading"><h2 id="indicators-title">Indicadores de vendas</h2><p class="publication-window">{_text(window)}</p><p class="publication-note">{publication_note}</p></header>
+<section class="metrics" aria-label="Indicadores da publicação">{cards}</section></div>
 <p class="publication-context"><strong>{publication_label}.</strong> {_text(_publication_context(payload))}</p>
-<nav class="subnav" aria-label="Recortes dos indicadores"><a href="#receita">Receita por dia</a><a href="#produtos">Produtos</a><a href="#lojas">Loja / dia</a></nav>
-<section class="metrics" aria-label="Indicadores da publicação">{cards}</section><div class="analytics-grid"><section id="receita" class="data-section" tabindex="-1"><div class="diagnostic-heading"><h3>Receita por dia</h3><span class="meta">BRL · dia comercial</span></div><div class="chart" tabindex="0" role="region" aria-label="Gráfico de receita por dia; rolagem horizontal disponível em telas estreitas">{_revenue_chart(payload.daily)}</div><p class="footnote">{daily_note}</p>
+<nav class="subnav" aria-label="Recortes dos indicadores"><a href="#lojas">Loja / dia</a><a href="#receita">Receita por dia</a><a href="#produtos">Produtos</a></nav>
+<section class="data-section matrix-section" id="lojas" tabindex="-1"><h3>Receita por loja e dia</h3>{f'<p class="footnote">{store_note}</p>' if store_note else ""}{_store_matrix(payload.stores)}
+<details class="data-detail" id="store-values" tabindex="-1"><summary>Valores por loja e dia ({len(payload.stores)} {"linha exibida" if len(payload.stores) == 1 else "linhas exibidas"})</summary>{stores}</details></section>
+<div class="analytics-grid"><section id="receita" class="data-section" tabindex="-1"><div class="diagnostic-heading"><h3>Receita por dia</h3><span class="meta">BRL · dia comercial</span></div><div class="chart" tabindex="0" role="region" aria-label="Gráfico de receita por dia; rolagem horizontal disponível em telas estreitas">{_revenue_chart(payload.daily)}</div><p class="footnote">{daily_note}</p>
 <details class="data-detail"><summary>Valores por dia ({len(payload.daily)} {"dia exibido" if len(payload.daily) == 1 else "dias exibidos"})</summary>{daily_values}</details></section>
 <section class="data-section" id="produtos" tabindex="-1"><h3>Produtos mais vendidos</h3>
-<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p>{products}{f'<p class="footnote">{product_note}</p>' if product_note else ""}</section>
-<section class="data-section" id="lojas" tabindex="-1"><h3>Receita por loja e dia</h3>{f'<p class="footnote">{store_note}</p>' if store_note else ""}
-<details class="data-detail"><summary>Valores por loja e dia ({len(payload.stores)} {"linha exibida" if len(payload.stores) == 1 else "linhas exibidas"})</summary>{stores}</details></section></div></section>
+<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p>{_product_ranking(payload.products)}{f'<p class="footnote">{product_note}</p>' if product_note else ""}<details class="data-detail"><summary>Valores por produto ({len(payload.products)})</summary>{products}</details></section></div></section>
 <section class="panel" id="proveniencia" data-report-view tabindex="-1" aria-labelledby="files-title"><div class="section-head"><div><h2 id="files-title">Arquivos e versões</h2><p class="meta">{source_count} {source_label}. Referências capturadas no manifesto da publicação.</p><p class="meta">Publicada em {_text(_timestamp(snapshot.get("published_at")))}.</p></div></div>
 <div class="provenance-workspace"><aside class="identity-register"><h3>Publicação identificada</h3>{_copy_field(snapshot.get("publication_id"), "ID da publicação", "publication-id")}{_copy_field(snapshot.get("run_id"), "Execução que publicou", "publication-run-id")}
 <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
@@ -962,5 +1110,5 @@ def build_report_html(payload: ReportPayload) -> str:
 <div class="chips">{_chips(snapshot.get("accepted_batches"), len(_sequence(snapshot.get("accepted_batches"))))}</div>
 <h3>Fontes e referências aprovadas</h3>{sources or '<p class="empty">Nenhuma fonte publicada.</p>'}
 <p class="footnote">Use <code>explain</code> para consultar chaves, revisões e arquivos de uma amostra.</p></div></div></section>
-<footer class="report-footer"><span>Varejo Data Pipeline</span><span>Relatório local · sem atualização automática</span></footer>
+<footer class="report-footer"><span>Varejo Data Pipeline · relatório local, sem atualização automática</span><details class="font-notice"><summary>Licença da fonte</summary><pre>{FONT_NOTICE}</pre></details></footer>
 </main></div><script>{SCRIPT}</script></body></html>"""
