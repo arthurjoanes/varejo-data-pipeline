@@ -25,7 +25,7 @@ def test_missing_delivery_keeps_related_record_without_repeating_primary_inciden
     if reverse:
         attempt["issues"].reverse()
     page = build_report_html(ReportPayload(snapshot={"run_id": "previous"}, latest_attempt=attempt))
-    assert "<h1>Publicação bloqueada</h1>" in page
+    assert '<h2 id="execution-title">Publicação bloqueada</h2>' in page
     assert "Falta receber S02.csv da loja S02." in page
     assert 'href="#pendencias">Conferir pendência' in page
     assert "Publicação anterior preservada" in page
@@ -85,7 +85,7 @@ def test_inconclusive_attempt_does_not_inherit_published_success(state: str, tit
     page = build_report_html(
         ReportPayload(snapshot={"run_id": "previous"}, latest_attempt={"state": state})
     )
-    assert f"<h1>{title}</h1>" in page
+    assert f'<h2 id="execution-title">{title}</h2>' in page
     assert "<h1>Fechamento publicado</h1>" not in page
     assert f"Estado registrado: {state}" in page
 
@@ -352,7 +352,7 @@ def test_published_zero_movement_keeps_real_zero_indicators() -> None:
 
 def test_unfinished_attempt_is_not_success_or_a_zero_measurement() -> None:
     html = build_report_html(ReportPayload(latest_attempt={"state": "RUNNING", "stats": {}}))
-    assert "<h1>Execução sem resultado final</h1>" in html
+    assert '<h2 id="execution-title">Execução sem resultado final</h2>' in html
     assert "<dt>Recebidos</dt><dd>—</dd>" in html
     assert "Execução sem resultado final" in html
     assert '<span class="badge success">' not in html
@@ -535,3 +535,104 @@ def test_missing_rejection_inputs_do_not_imply_zero_or_inapplicable(stats: dict[
     assert "Rejeição: indisponível" in html
     assert "Rejeição: 0,00%" not in html
     assert "Rejeição: não aplicável" not in html
+
+
+def test_publication_context_belongs_to_indicators_and_not_global_heading() -> None:
+    page = build_report_html(
+        ReportPayload(
+            snapshot={
+                "publication_id": "published-before",
+                "published_at": "2026-01-01T10:00:00Z",
+                "run_id": "old",
+            },
+            latest_attempt={"state": "BLOCKED", "batch_id": "new-delivery", "run_id": "new"},
+            summary={
+                "net_revenue_brl": "64.00",
+                "first_date": "2026-01-01",
+                "last_date": "2026-01-01",
+            },
+        )
+    )
+    indicators = page.split('<section class="panel" id="indicadores"', 1)[1].split(
+        '<section class="panel" id="proveniencia"', 1
+    )[0]
+    assert "R$ 64,00" in indicators and "Publicação anterior preservada" in indicators
+    assert "01/01/2026" in indicators and "published-before" in indicators
+    assert "decision-action" not in indicators and "<h1>" not in indicators
+    execution = page.split('<section class="panel" id="qualidade"', 1)[1].split(
+        '<section class="panel" id="indicadores"', 1
+    )[0]
+    assert "Período da entrega</dt><dd>Não informado no snapshot" in execution
+    assert "01/01/2026 a 01/01/2026" not in execution
+
+
+def test_delivery_register_distinguishes_zero_confirmation_pending_and_unknown() -> None:
+    page = build_report_html(
+        ReportPayload(
+            latest_attempt={
+                "state": "BLOCKED",
+                "coverage": {
+                    "expected": ["S01", "S02", "S03"],
+                    "received": ["S01", "S03"],
+                    "zero_movement": ["S03"],
+                },
+            }
+        )
+    )
+    coverage = page.split('<section class="coverage-summary"', 1)[1].split("</section>", 1)[0]
+    assert "2 de 3 lojas com entrega confirmada" in coverage
+    assert 'S02</span><span class="delivery-state pending">Pendente' in coverage
+    assert 'S03</span><span class="delivery-state confirmed">Zero movimento confirmado' in coverage
+    unknown = build_report_html(ReportPayload(latest_attempt={"coverage": {"expected": ["S01"]}}))
+    assert "Cobertura não informada neste snapshot" in unknown
+    assert 'class="delivery-state unknown">Conferência indisponível' in unknown
+    assert "0 de 1 lojas" not in unknown
+
+
+def test_missing_summary_values_never_become_published_zero() -> None:
+    missing = build_report_html(ReportPayload(snapshot={"publication_id": "p"}, summary={}))
+    metrics = missing.split('<section class="metrics"', 1)[1].split("</section>", 1)[0]
+    assert "R$ 0,00" not in metrics and "<strong>0</strong>" not in metrics
+    assert metrics.count("<strong>—</strong>") == 4
+    assert "Sem vendas no período" not in metrics
+    assert "Período não informado" in missing
+    zero = build_report_html(
+        ReportPayload(
+            snapshot={"publication_id": "p"},
+            summary={
+                "net_revenue_brl": "0.00",
+                "units": 0,
+                "sales_count": 0,
+                "item_lines": 0,
+            },
+        )
+    )
+    assert "R$ 0,00" in zero and "Sem vendas no período" in zero
+
+
+def test_financial_formatter_preserves_sign_and_large_exact_value() -> None:
+    from retail_pipeline.report_view import _money
+
+    assert _money(Decimal("-12.34")) == "R$ -12,34"
+    assert _money(Decimal("1234567890123.45")) == "R$ 1.234.567.890.123,45"
+    assert _money(None) == "—"
+
+
+def test_chart_preserves_calendar_gaps_without_inventing_observations() -> None:
+    from retail_pipeline.report_view import _revenue_chart
+
+    chart = _revenue_chart(
+        [
+            {"business_date": "2026-01-01", "net_revenue_brl": "10.00"},
+            {"business_date": "2026-01-02", "net_revenue_brl": "20.00"},
+            {"business_date": "2026-01-05", "net_revenue_brl": "30.00"},
+        ]
+    )
+    assert chart.count("<polyline") == 1
+    assert chart.count("<circle") == 3
+    assert 'cx="110"' in chart and 'cx="302"' in chart and 'cx="880"' in chart
+    assert "Dias sem observação não representam receita zero" in chart
+    assert "03/01/2026" not in chart and "04/01/2026" not in chart
+    single = _revenue_chart([{"business_date": "2026-01-01", "net_revenue_brl": "0.00"}])
+    assert 'cx="110"' in single and "<polyline" not in single
+    assert "01/01/2026: R$ 0,00" in single

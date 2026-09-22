@@ -1,0 +1,515 @@
+{
+  "captured_at": "2026-09-22T08:14:03.611Z",
+  "browser": "153.0.4234.48",
+  "rows": [
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\blocked-report-qualidade-1440.png",
+        "bytes": 41936,
+        "domNodes": 428,
+        "documentWidth": 1440,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 13,
+            "load": 52
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\blocked-report-qualidade-1440.png",
+        "bytes": 39254,
+        "domNodes": 438,
+        "documentWidth": 1440,
+        "coverageVisible": true,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 12,
+            "load": 30
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "width": 1024,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\blocked-report-qualidade-1024.png",
+        "bytes": 41936,
+        "domNodes": 428,
+        "documentWidth": 1024,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 11,
+            "load": 13
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\blocked-report-qualidade-1024.png",
+        "bytes": 39254,
+        "domNodes": 438,
+        "documentWidth": 1024,
+        "coverageVisible": true,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 11,
+            "load": 13
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "width": 768,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\blocked-report-qualidade-768.png",
+        "bytes": 41936,
+        "domNodes": 428,
+        "documentWidth": 768,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 9,
+            "load": 11
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\blocked-report-qualidade-768.png",
+        "bytes": 39254,
+        "domNodes": 438,
+        "documentWidth": 768,
+        "coverageVisible": true,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 10,
+            "load": 12
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "width": 390,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\blocked-report-qualidade-390.png",
+        "bytes": 41936,
+        "domNodes": 428,
+        "documentWidth": 390,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 10,
+            "load": 12
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\blocked-report-qualidade-390.png",
+        "bytes": 39254,
+        "domNodes": 438,
+        "documentWidth": 390,
+        "coverageVisible": true,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 10,
+            "load": 12
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "blocked-report",
+      "view": "qualidade",
+      "width": 320,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\blocked-report-qualidade-320.png",
+        "bytes": 41936,
+        "domNodes": 428,
+        "documentWidth": 320,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 9,
+            "load": 12
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\blocked-report-qualidade-320.png",
+        "bytes": 39254,
+        "domNodes": 438,
+        "documentWidth": 320,
+        "coverageVisible": true,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 10,
+            "load": 12
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "blocked-report",
+      "view": "indicadores",
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\blocked-report-indicadores-1440.png",
+        "bytes": 41936,
+        "domNodes": 428,
+        "documentWidth": 1440,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 10,
+            "load": 18
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\blocked-report-indicadores-1440.png",
+        "bytes": 39254,
+        "domNodes": 438,
+        "documentWidth": 1440,
+        "coverageVisible": false,
+        "visibleDecisionActions": 0,
+        "navigation": [
+          {
+            "domContentLoaded": 14,
+            "load": 23
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "blocked-report",
+      "view": "indicadores",
+      "width": 390,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\blocked-report-indicadores-390.png",
+        "bytes": 41936,
+        "domNodes": 428,
+        "documentWidth": 390,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 10,
+            "load": 12
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\blocked-report-indicadores-390.png",
+        "bytes": 39254,
+        "domNodes": 438,
+        "documentWidth": 390,
+        "coverageVisible": false,
+        "visibleDecisionActions": 0,
+        "navigation": [
+          {
+            "domContentLoaded": 11,
+            "load": 13
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "demo30k-report",
+      "view": "proveniencia",
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\demo30k-report-proveniencia-1440.png",
+        "bytes": 106693,
+        "domNodes": 3134,
+        "documentWidth": 1440,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 12,
+            "load": 21
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\demo30k-report-proveniencia-1440.png",
+        "bytes": 105042,
+        "domNodes": 3175,
+        "documentWidth": 1440,
+        "coverageVisible": false,
+        "visibleDecisionActions": 0,
+        "navigation": [
+          {
+            "domContentLoaded": 13,
+            "load": 17
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "demo30k-report",
+      "view": "proveniencia",
+      "width": 390,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\demo30k-report-proveniencia-390.png",
+        "bytes": 106693,
+        "domNodes": 3134,
+        "documentWidth": 390,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 13,
+            "load": 15
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\demo30k-report-proveniencia-390.png",
+        "bytes": 105042,
+        "domNodes": 3175,
+        "documentWidth": 390,
+        "coverageVisible": false,
+        "visibleDecisionActions": 0,
+        "navigation": [
+          {
+            "domContentLoaded": 14,
+            "load": 16
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "quality-review",
+      "view": "qualidade",
+      "width": 390,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\quality-review-qualidade-390.png",
+        "bytes": 38667,
+        "domNodes": 340,
+        "documentWidth": 390,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 11,
+            "load": 14
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\quality-review-qualidade-390.png",
+        "bytes": 35980,
+        "domNodes": 353,
+        "documentWidth": 390,
+        "coverageVisible": true,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 11,
+            "load": 14
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "failure-report",
+      "view": "qualidade",
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\failure-report-qualidade-1440.png",
+        "bytes": 45130,
+        "domNodes": 523,
+        "documentWidth": 1440,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 10,
+            "load": 13
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\failure-report-qualidade-1440.png",
+        "bytes": 42562,
+        "domNodes": 536,
+        "documentWidth": 1440,
+        "coverageVisible": true,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 10,
+            "load": 13
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "audit-fixture",
+      "view": "qualidade",
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\audit-fixture-qualidade-1440.png",
+        "bytes": 45861,
+        "domNodes": 542,
+        "documentWidth": 1440,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 9,
+            "load": 12
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\audit-fixture-qualidade-1440.png",
+        "bytes": 43350,
+        "domNodes": 555,
+        "documentWidth": 1440,
+        "coverageVisible": true,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 11,
+            "load": 13
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "empty-fixture",
+      "view": "qualidade",
+      "width": 390,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\empty-fixture-qualidade-390.png",
+        "bytes": 30797,
+        "domNodes": 139,
+        "documentWidth": 390,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 9,
+            "load": 11
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\empty-fixture-qualidade-390.png",
+        "bytes": 27532,
+        "domNodes": 146,
+        "documentWidth": 390,
+        "coverageVisible": false,
+        "visibleDecisionActions": 0,
+        "navigation": [
+          {
+            "domContentLoaded": 10,
+            "load": 12
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    },
+    {
+      "file": "running-fixture",
+      "view": "qualidade",
+      "width": 390,
+      "height": 900,
+      "before": {
+        "image": "D:\\busca-emprego\\pesquisas\\varejo-design-v3-20260922\\before\\running-fixture-qualidade-390.png",
+        "bytes": 33405,
+        "domNodes": 217,
+        "documentWidth": 390,
+        "coverageVisible": false,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 9,
+            "load": 11
+          }
+        ],
+        "brokenFragmentLinks": []
+      },
+      "after": {
+        "image": "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922\\docs\\images\\interface-v3\\running-fixture-qualidade-390.png",
+        "bytes": 30154,
+        "domNodes": 218,
+        "documentWidth": 390,
+        "coverageVisible": true,
+        "visibleDecisionActions": 1,
+        "navigation": [
+          {
+            "domContentLoaded": 9,
+            "load": 10
+          }
+        ],
+        "brokenFragmentLinks": []
+      }
+    }
+  ],
+  "externalRequests": [],
+  "limits": [
+    "file:// timings are local diagnostic samples, not Lighthouse/Web Vitals or a production performance benchmark.",
+    "Before and after use same viewport, payload, hash and initial native details; fixtures are labeled as presentation fixtures in the candidate."
+  ]
+}

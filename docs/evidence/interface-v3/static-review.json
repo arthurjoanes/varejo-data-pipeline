@@ -1,0 +1,56 @@
+{
+  "checks": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/interface.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/visual-review.cjs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/retail_pipeline/report.css', LF will be replaced by CRLF the next time Git touches it"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "scripts/a11y-review.cjs"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "scripts/visual-review.cjs"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "src/retail_pipeline/report.js"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "D:/busca-emprego/pesquisas/check-markdown-local-links.py",
+        "D:\\busca-emprego\\.worktrees\\varejo-design-v3-20260922"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"repository\": \"varejo-design-v3-20260922\", \"documents\": 14, \"localFileLinks\": 214, \"broken\": []}",
+      "stderr": ""
+    }
+  ],
+  "identity": "https://github.com/arthurjoanes/varejo-data-pipeline.git",
+  "scope": "Readonly final diff, JS syntax and local Markdown link checks. Git warnings describe autocrlf checkout behavior, not errors."
+}

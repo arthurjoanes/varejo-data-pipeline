@@ -132,8 +132,44 @@ def replay(payload_dir: Path, output: Path) -> None:
             },
         ),
     }
+    fixtures.update(
+        {
+            "unknown-fixture": replace(baseline, latest_attempt={"state": "UNRECOGNIZED"}),
+            "validated-fixture": replace(baseline, latest_attempt={"state": "VALIDATED"}),
+            "missing-metrics-fixture": replace(baseline, summary={}),
+            "zero-fixture": replace(
+                baseline,
+                summary={
+                    "net_revenue_brl": "0.00",
+                    "units": 0,
+                    "item_lines": 0,
+                    "sales_count": 0,
+                    "average_ticket_brl": None,
+                },
+                daily=[],
+                stores=[],
+                products=[],
+            ),
+            "large-fixture": replace(
+                baseline,
+                summary={**baseline.summary, "net_revenue_brl": "1234567890123.45"},
+            ),
+            "gaps-fixture": replace(
+                baseline,
+                daily=[
+                    {"business_date": "2026-01-01", "net_revenue_brl": "10.00"},
+                    {"business_date": "2026-01-02", "net_revenue_brl": "20.00"},
+                    {"business_date": "2026-01-05", "net_revenue_brl": "30.00"},
+                ],
+            ),
+        }
+    )
     for name, payload in fixtures.items():
-        (output / f"{name}.html").write_text(build_report_html(payload), encoding="utf-8")
+        page = build_report_html(payload).replace(
+            "Demonstração com dados sintéticos.",
+            "Cenário de apresentação com dados sintéticos; nenhuma nova execução.",
+        )
+        (output / f"{name}.html").write_text(page, encoding="utf-8")
     print(f"Relatórios gerados em {output}")
 
 

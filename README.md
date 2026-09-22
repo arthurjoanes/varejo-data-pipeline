@@ -2,7 +2,9 @@
 
 Valide a entrega das lojas e as revisões de vendas antes de publicar o fechamento. O relatório mostra a tentativa mais recente, a publicação vigente e as ocorrências que explicam o resultado. A demonstração usa dados sintéticos.
 
-![Fechamento bloqueado por loja ausente, com a publicação anterior preservada](docs/images/interface-v2/blocked.png)
+![Snapshot histórico sintético: S02 pendente, duas de três lojas confirmadas e publicação anterior preservada, renderizado pela interface atual](docs/images/interface-v3/blocked.png)
+
+Captura da interface atual com o snapshot sintético já registrado na demonstração; esta revisão visual não reexecutou o lote.
 
 Uma soma correta pode esconder uma loja faltando ou contar a mesma venda em dois dias. O operador aprova o calendário de lojas esperadas; o pipeline confere a entrega e as revisões antes de fechar. Um bloqueio ou uma falha antes da publicação mantém os indicadores anteriores. [Problema e solução](docs/problem-solution.md).
 
@@ -35,11 +37,11 @@ Abra [o relatório local](http://localhost:3103/report.html). No Linux, substitu
 
 O HTML é uma leitura dos dados capturados na geração, sem atualização automática. Abre também como arquivo local e mantém o conteúdo acessível sem JavaScript.
 
-- **Execução:** decisão da última tentativa, arquivo ou regra que exige atenção e caminho para conferir a pendência. Cobertura, contadores e registro técnico ficam nos detalhes. Etapas mostram somente tempos medidos.
-- **Indicadores:** receita, vendas, unidades, ticket e recortes por dia, produto e loja. Os números pertencem à publicação identificada no topo.
+- **Execução:** decisão, lote, arquivo ou regra e próximo destino no mesmo registro. A cobertura mostra cada loja como confirmada, pendente ou com zero movimento confirmado. Contadores e tempos medidos ficam nos detalhes.
+- **Indicadores:** receita, vendas, unidades, ticket e recortes por dia, produto e loja. Identidade, data e janela comercial pertencem à publicação consultada, inclusive quando ela é anterior à tentativa bloqueada. Datas sem observação não viram zeros no gráfico.
 - **Arquivos:** IDs completos, versões Delta, fontes bronze e hashes das referências aprovadas.
 
-Compare `artifacts/report.html`, `blocked-report.html` e `failure-report.html`. O relatório distingue publicação concluída com auditoria incompleta de falha anterior à publicação; um tempo medido não prova sozinho o sucesso de uma etapa. [Comportamento e validação da interface](docs/interface.md).
+Compare `artifacts/report.html`, `blocked-report.html` e `failure-report.html`. O relatório distingue publicação concluída com auditoria incompleta de falha anterior à publicação; um tempo medido não prova sozinho o sucesso de uma etapa. [Comportamento da interface](docs/interface.md), [matriz de qualidade e comparação antes/depois](docs/frontend-quality.md), [indicadores](docs/images/interface-v3/indicators.png) e [arquivos](docs/images/interface-v3/files.png).
 
 ## Como a publicação é protegida
 
@@ -51,7 +53,7 @@ A saída oficial é um manifesto que aponta para versões exatas das tabelas. Is
 
 ## Evidências e limites
 
-A reconstrução do runtime passou em 188 testes, incluindo 15 integrações Spark/Delta. Depois de incorporar a interface, passaram os 182 unitários da fonte combinada, lint e tipos. O scan integral registra zero achados altos/críticos e um aviso médio por versão no Commons Lang corrigido por backport. As evidências distinguem cada revisão e os limites dos testes. [Resultados, fontes e reprodução](docs/verification.md).
+A reconstrução do runtime passou em 188 testes, incluindo 15 integrações Spark/Delta. Uma revisão anterior da interface registrou 182 unitários da fonte combinada, lint e tipos. A composição atual passou em 193 unitários, incluindo 43 do renderer, lint, tipos, build do wheel e verificações de navegador; não reexecutou Spark. [Qualidade da interface e limites](docs/frontend-quality.md). O scan histórico registra zero achados altos/críticos e um aviso médio por versão no Commons Lang corrigido por backport. As evidências distinguem cada revisão. [Resultados, fontes e reprodução](docs/verification.md).
 
 Delta faz transação por tabela; o manifesto e o lock do volume mantêm a consistência entre tabelas. Não há VACUUM automático. O relatório mostra até 500 linhas, 20 produtos e 366 dias, com os totais do conjunto inteiro. Não contém histórico completo de execuções. Estorno parcial, orquestração e monitoramento contínuo estão fora do escopo. [Código](src/retail_pipeline/pipeline.py) · [Decisões técnicas](docs/decisoes-tecnicas.md) · [Proposta para Fabric](docs/fabric-mapping.md).
 

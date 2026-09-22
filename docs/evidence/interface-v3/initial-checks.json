@@ -1,0 +1,86 @@
+{
+  "commands": [
+    {
+      "name": "lint",
+      "command": [
+        "ruff",
+        "check",
+        "src",
+        "tests",
+        "scripts"
+      ],
+      "exit_code": 0,
+      "seconds": 0.62,
+      "log": "lint.txt"
+    },
+    {
+      "name": "format",
+      "command": [
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "tests",
+        "scripts"
+      ],
+      "exit_code": 0,
+      "seconds": 0.309,
+      "log": "format.txt"
+    },
+    {
+      "name": "types",
+      "command": [
+        "mypy",
+        "--cache-dir",
+        "/tmp/mypy",
+        "src/retail_pipeline"
+      ],
+      "exit_code": 0,
+      "seconds": 11.622,
+      "log": "types.txt"
+    },
+    {
+      "name": "unit",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "tests/unit",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml=/out/unit-tests.xml"
+      ],
+      "exit_code": 1,
+      "seconds": 2.906,
+      "log": "unit.txt"
+    },
+    {
+      "name": "wheel",
+      "command": "setuptools.build_meta.build_wheel, copied source in ephemeral /tmp/package",
+      "exit_code": 0,
+      "log": "build.txt"
+    }
+  ],
+  "tools": {
+    "pytest": "9.0.3",
+    "ruff": "0.6.9",
+    "mypy": "1.11.2",
+    "pyspark": "4.2.0",
+    "setuptools": "84.0.0",
+    "wheel": "0.48.0"
+  },
+  "packaged_assets": {
+    "report.css": {
+      "sha256": "49e9ca154ab960e251ba19a581fd228058a00e5dff3e916e8e68b7019c34ae43",
+      "bytes": 17668,
+      "matches_source": true
+    },
+    "report.js": {
+      "sha256": "b2afab9b51b88725cb1ecdcf713d763a9ecc5b901da52f4a2d6f53e1898246f4",
+      "bytes": 2330,
+      "matches_source": true
+    }
+  },
+  "scope": "Existing image, network none, read-only source and root filesystem, ephemeral tmpfs. Unit tests and Python package only; no JVM/Spark/Compose/service started."
+}
