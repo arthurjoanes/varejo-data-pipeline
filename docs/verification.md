@@ -135,8 +135,18 @@ docker compose run --rm --entrypoint python pipeline scripts/render_review.py
 node scripts/visual-review.cjs
 ~~~
 
-Não é necessário repetir a demo nem o benchmark. O script verifica três vistas em 1440, 1366, 768, 390 e 320 CSS px, foco e histórico de âncoras, expansão por teclado, 30 totais diários equivalentes ao gráfico e 360 linhas loja/dia em detalhe. A cópia é testada com Clipboard API interceptada e fallback indisponível, sem escrever no clipboard real. Uma sessão sem JavaScript verifica leitura e expansão nativa. As capturas ficam em `docs/images/interface` e as medições em `docs/evidence/interface`. O registro distingue ampliação CSS, viewport equivalente e as limitações de acessibilidade.
+Não é necessário repetir a demo nem o benchmark. O script verifica três vistas em 1440, 1366, 768, 390 e 320 CSS px, foco e histórico de âncoras, expansão por teclado, 30 totais diários equivalentes ao gráfico e 360 linhas loja/dia em detalhe. A cópia é testada com Clipboard API interceptada e fallback indisponível, sem escrever no clipboard real. Uma sessão sem JavaScript verifica leitura e expansão nativa. As capturas atuais ficam em `docs/images/interface-v2` e as medições em `docs/evidence/interface-v2`; a pasta `interface` conserva a revisão anterior e os payloads de origem. O registro distingue ampliação CSS, viewport equivalente e as limitações de acessibilidade.
 
 ## Limites
 
 Não há VACUUM automático, backup ou política de retenção. Fabric ainda não foi executado. Duração e memória estão registradas por execução.
+
+## Refinamento da interface — 22/09/2026
+
+Esta rodada altera apresentação e seleção de texto do relatório, sem alterar processamento, publicação ou contratos. Os payloads da demonstração histórica foram renderizados offline; não houve nova execução Spark, benchmark ou build.
+
+- **38 testes do relatório aprovados**, incluindo escape, valores, estados sem conclusão, auditoria incompleta e agrupamento de arquivo/loja sem perder ocorrências por ordem ou limite. [JUnit](evidence/interface-v2/reporting-tests.xml). Ruff e mypy da fonte de apresentação aprovados.
+- **20 capturas** com Edge: três vistas em cinco larguras (1440, 1366, 768, 390 e 320 px), bloqueio expandido em quatro larguras e estados de publicação, falha, qualidade, ausência, execução sem conclusão e auditoria incompleta. [Registro](evidence/interface-v2/visual-review.json).
+- Teclado, foco, histórico, link de salto, IDs/copiar/fallback, equivalência gráfico/tabela, conteúdo longo, alinhamento dos painéis, coluna de expansão, borda da ocorrência aberta, contadores e redução de movimento verificados. Impressão expõe painéis e detalhes; sem JavaScript, os detalhes nativos continuam acessíveis.
+
+A ampliação foi feita por CSS a 200% e viewport equivalente de 683 CSS px/DPR 2; não é uma prova de zoom nativo. As amostras de contraste atendem 4,5:1, sem equivaler a auditoria completa de acessibilidade. Não houve leitor de tela nem revisão de paginação integral de PDF. [Escopo e hashes da fonte](evidence/interface-v2/review-manifest.json). As contagens e provas de runtime anteriores descrevem suas próprias revisões.

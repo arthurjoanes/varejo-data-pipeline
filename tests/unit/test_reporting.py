@@ -8,6 +8,88 @@ from retail_pipeline.report_view import build_report_html
 from retail_pipeline.reporting import _read_published_tables
 
 
+@pytest.mark.parametrize("reverse", [False, True])
+def test_missing_delivery_keeps_related_record_without_repeating_primary_incident(
+    reverse: bool,
+) -> None:
+    attempt = {
+        "state": "BLOCKED",
+        "run_id": "missing-file",
+        "stages": {"ingestion": 3.1185},
+        "stats": {"received": 3, "rejected": 0, "violations": 0},
+        "issues": [
+            {"code": "MISSING_FILE", "store_id": "S02", "file": "S02.csv", "severity": "ERROR"},
+            {"code": "MISSING_STORE", "store_id": "S02", "severity": "ERROR"},
+        ],
+    }
+    if reverse:
+        attempt["issues"].reverse()
+    page = build_report_html(ReportPayload(snapshot={"run_id": "previous"}, latest_attempt=attempt))
+    assert "<h1>Publicação bloqueada</h1>" in page
+    assert "Falta receber S02.csv da loja S02." in page
+    assert 'href="#pendencias">Conferir pendência' in page
+    assert "Publicação anterior preservada" in page
+    assert "Arquivo não recebido" in page
+    assert "Ocorrências relacionadas (1)" in page
+    assert "MISSING_STORE" in page and "MISSING_FILE" in page
+    assert "0 rejeitados</strong> de 3 registros recebidos" in page
+    assert "stage-inspector" not in page and "dominant-stage" not in page
+    assert "3,1185 s" in page
+    assert (
+        '<details class="issue error" open><summary><span class="issue-title">Arquivo não recebido'
+        in page
+    )
+
+
+def test_missing_store_without_identity_is_not_grouped_by_missing_identity() -> None:
+    page = build_report_html(
+        ReportPayload(
+            latest_attempt={
+                "state": "BLOCKED",
+                "issues": [
+                    {"code": "MISSING_FILE"},
+                    {"code": "MISSING_STORE"},
+                ],
+            }
+        )
+    )
+    assert "Ocorrências relacionadas" not in page
+    assert "Arquivo não recebido" in page and "Loja sem entrega confirmada" in page
+
+
+def test_truncated_missing_file_does_not_hide_visible_store_issues() -> None:
+    page = build_report_html(
+        ReportPayload(
+            latest_attempt={
+                "state": "BLOCKED",
+                "issues": [
+                    *[{"code": "MISSING_STORE", "store_id": "S02"} for _ in range(50)],
+                    {"code": "MISSING_FILE", "store_id": "S02"},
+                ],
+            }
+        )
+    )
+    assert "Nenhuma ocorrência registrada" not in page
+    assert "Exibindo 50 de 51 ocorrências" in page
+    assert "Loja sem entrega confirmada" in page
+
+
+@pytest.mark.parametrize(
+    "state,title",
+    [
+        ("VALIDATED", "Entrega validada, sem publicação"),
+        ("UNRECOGNIZED", "Resultado da tentativa não reconhecido"),
+    ],
+)
+def test_inconclusive_attempt_does_not_inherit_published_success(state: str, title: str) -> None:
+    page = build_report_html(
+        ReportPayload(snapshot={"run_id": "previous"}, latest_attempt={"state": state})
+    )
+    assert f"<h1>{title}</h1>" in page
+    assert "<h1>Fechamento publicado</h1>" not in page
+    assert f"Estado registrado: {state}" in page
+
+
 def test_report_escapes_source_content_in_all_display_regions() -> None:
     hostile = '<img src=x onerror="alert(1)"> & origem'
     attempt = {
@@ -270,7 +352,7 @@ def test_published_zero_movement_keeps_real_zero_indicators() -> None:
 
 def test_unfinished_attempt_is_not_success_or_a_zero_measurement() -> None:
     html = build_report_html(ReportPayload(latest_attempt={"state": "RUNNING", "stats": {}}))
-    assert '<span class="badge neutral">Sem resultado final</span>' in html
+    assert "<h1>Execução sem resultado final</h1>" in html
     assert "<dt>Recebidos</dt><dd>—</dd>" in html
     assert "Execução sem resultado final" in html
     assert '<span class="badge success">' not in html
@@ -331,7 +413,7 @@ def test_quality_precedes_indicators_and_coverage_keeps_exceptions_visible() -> 
     assert 'role="tab' not in html
     assert "Seções do relatório" in html
     assert "1 rejeitado</strong> de 1 registro recebido" in html
-    assert 'class="dominant-stage">Qualidade · 3,2 s' in html
+    assert 'class="stage-name">Qualidade</span>' in html
     assert "3,2 s" in html and "3,2345 s" in html
     coverage = html.split("Cobertura da entrega", 1)[1].split("<details>", 1)[0]
     assert "S02" in coverage and "S99" in coverage
@@ -440,7 +522,7 @@ def test_unmeasured_stages_are_not_drawn_as_successful_steps() -> None:
             }
         )
     )
-    rail = html.split('<aside class="stage-rail"', 1)[1].split("</aside>", 1)[0]
+    rail = html.split('<section class="stage-rail"', 1)[1].split("</section>", 1)[0]
     assert "Ingestão" in rail
     assert "Indicadores" not in rail
     assert "Publicação" not in rail

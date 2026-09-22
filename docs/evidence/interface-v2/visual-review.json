@@ -1,0 +1,133 @@
+{
+  "captured_at": "2026-09-22T05:48:14.056Z",
+  "browser": "153.0.4234.48",
+  "playwright": "1.63.0",
+  "results": [
+    {
+      "width": 1440,
+      "view": "qualidade",
+      "viewport": 1440,
+      "document": 1440
+    },
+    {
+      "width": 1440,
+      "view": "indicadores",
+      "viewport": 1440,
+      "document": 1440
+    },
+    {
+      "width": 1440,
+      "view": "proveniencia",
+      "viewport": 1440,
+      "document": 1440
+    },
+    {
+      "width": 1366,
+      "view": "qualidade",
+      "viewport": 1366,
+      "document": 1366
+    },
+    {
+      "width": 1366,
+      "view": "indicadores",
+      "viewport": 1366,
+      "document": 1366
+    },
+    {
+      "width": 1366,
+      "view": "proveniencia",
+      "viewport": 1366,
+      "document": 1366
+    },
+    {
+      "width": 768,
+      "view": "qualidade",
+      "viewport": 768,
+      "document": 768
+    },
+    {
+      "width": 768,
+      "view": "indicadores",
+      "viewport": 768,
+      "document": 768
+    },
+    {
+      "width": 768,
+      "view": "proveniencia",
+      "viewport": 768,
+      "document": 768
+    },
+    {
+      "width": 390,
+      "view": "qualidade",
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "width": 390,
+      "view": "indicadores",
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "width": 390,
+      "view": "proveniencia",
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "width": 320,
+      "view": "qualidade",
+      "viewport": 320,
+      "document": 320
+    },
+    {
+      "width": 320,
+      "view": "indicadores",
+      "viewport": 320,
+      "document": 320
+    },
+    {
+      "width": 320,
+      "view": "proveniencia",
+      "viewport": 320,
+      "document": 320
+    }
+  ],
+  "contrast": [
+    {
+      "name": "primary",
+      "ratio": 12.866
+    },
+    {
+      "name": "muted",
+      "ratio": 4.632
+    },
+    {
+      "name": "link",
+      "ratio": 6.492
+    },
+    {
+      "name": "success",
+      "ratio": 6.508
+    },
+    {
+      "name": "failure",
+      "ratio": 6.235
+    },
+    {
+      "name": "selected navigation",
+      "ratio": 7.385
+    }
+  ],
+  "screenshots": 20,
+  "data": "Historical demo and benchmark snapshots replayed from docs/evidence/interface/payloads; no new pipeline run. Empty/running/audit are presentation fixtures.",
+  "keyboard": "Panel navigation and focus, browser history, deep link, daily/store tables and stage expansion passed. Skip link preserves Indicators/Files, focuses main, and survives back/forward.",
+  "clipboard": "Exact ID delivered to intercepted Clipboard API; unavailable fallback selects full ID. System clipboard not used.",
+  "no_script": "All three panels visible; equivalent daily table and full publication ID available; native disclosure works.",
+  "states": "Published, blocked with previous publication, failed before publication, invalid first delivery, empty, running snapshot and incomplete audit.",
+  "magnification": "All three views at CSS zoom 200% in 1366px; equivalent 683 CSS px layout viewport with DPR2 also checked. Neither is native browser zoom.",
+  "long_content": "320px: long batch/run identifiers, issue code and unbroken diagnostic text; no page overflow and full ID retained.",
+  "refinements": "Blocker cause/CTA/focus; one primary incident, related record preserved; full-height parent border; desktop counter baseline; consistent mobile panel edges; fixed toggle column for long summaries; 180ms transitions disabled with reduced motion.",
+  "limits": "Contrast samples, not a full accessibility audit. No screen-reader audit or native browser-zoom check. Print reveals panels and disclosure content; full PDF pagination was not audited."
+}
