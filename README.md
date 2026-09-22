@@ -13,7 +13,7 @@ O operador aprova um calendário de lojas esperadas, e o pipeline valida as revi
 - CANCEL preserva o histórico e retira o item dos indicadores. Somente um UPSERT de revisão maior pode reativá-lo; revisões antigas não alteram o estado.
 - Erro financeiro ou de cobertura bloqueia o lote inteiro.
 
-Os 156 testes (15 de integração, incluindo 14 com Spark e Delta reais e um lock multiprocesso) cobrem falha entre tabelas, retomada sem duplicação e lock entre processos. [Verificação](docs/verification.md).
+Os testes cobrem falha entre tabelas, retomada sem duplicação e lock entre processos. A revisão do runtime passou na suíte de 166 testes, com 15 integrações; o ajuste posterior de preservação de evidência foi validado por 151 unitários e uma integração real. [Resultados, fontes e limites da verificação](docs/verification.md).
 
 ## Rodar no Windows
 
@@ -39,4 +39,6 @@ Delta faz transação por tabela; o manifesto e o lock do volume mantêm a consi
 
 Python, PySpark, Delta Lake, Spark SQL e Docker. Licença MIT.
 
-O runtime foi verificado para o batch local isolado. As dependências JVM têm achados conhecidos, com condições de exposição e triagem explícitas em [segurança](docs/security.md); o projeto não é uma implantação pública de Spark.
+O runtime usa Spark 4.2.0 e Delta 4.4.0, com atualizações coordenadas das bibliotecas JVM e orçamento configurável de entrada. As dependências JVM têm achados conhecidos, com condições de exposição e triagem explícitas em [segurança](docs/security.md); o projeto não é uma implantação pública de Spark.
+
+A migração, os hashes dos artefatos e os riscos residuais estão em [atualização do runtime](docs/runtime-upgrade.md).

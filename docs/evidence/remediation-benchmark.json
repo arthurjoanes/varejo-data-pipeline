@@ -1,0 +1,66 @@
+{
+  "container_limit": "3 GiB / 2 CPUs; Spark local[2], driver 1 GiB, shuffle 2",
+  "container_peak_memory_bytes": 1358082048,
+  "data_dir": "/data/benchmarks/999e1e5952234160b6c2c39c4febf37e",
+  "elapsed_including_report_seconds": 100.154,
+  "generation_seconds": 0.538,
+  "generator_version": 2,
+  "memory_scope": "cgroup memory.peak: container inteiro, inclusive cache de páginas",
+  "network": "none (Compose)",
+  "pipeline_seconds": 83.6454,
+  "publication": {
+    "accepted_batches": [
+      "demo30k"
+    ],
+    "publication_id": "4c986039b3194c7784cad9bba3363b6e",
+    "published_at": "2026-09-22T01:35:36.793013+00:00",
+    "run_id": "385fe092d8854c5c876be646718bd485",
+    "sources": [
+      {
+        "batch_id": "demo30k",
+        "bronze_path": "/data/benchmarks/999e1e5952234160b6c2c39c4febf37e/runs/385fe092d8854c5c876be646718bd485/bronze",
+        "bronze_version": 0,
+        "operator_reference_hash": "676ef04feeefb29cff40e901477750705660d1e4e6fc6988762d875c4f6c0df3",
+        "reference_hashes": {
+          "catalog.json": "9485a487b8f53360fc62586c856159f14cee5ce946de5ea0e8b0d152d719e2bc",
+          "schedule.json": "958632609f8bdf3b1928c7b3918f9d809c2783512e8bc0d8011e6595cc01e8f5"
+        },
+        "run_id": "385fe092d8854c5c876be646718bd485"
+      }
+    ],
+    "tables": {
+      "bronze": {
+        "path": "/data/benchmarks/999e1e5952234160b6c2c39c4febf37e/runs/385fe092d8854c5c876be646718bd485/bronze",
+        "version": 0
+      },
+      "gold_product_day": {
+        "path": "/data/benchmarks/999e1e5952234160b6c2c39c4febf37e/tables/gold_product_day",
+        "version": 0
+      },
+      "gold_store_day": {
+        "path": "/data/benchmarks/999e1e5952234160b6c2c39c4febf37e/tables/gold_store_day",
+        "version": 0
+      },
+      "history": {
+        "path": "/data/benchmarks/999e1e5952234160b6c2c39c4febf37e/tables/history",
+        "version": 0
+      },
+      "silver": {
+        "path": "/data/benchmarks/999e1e5952234160b6c2c39c4febf37e/tables/silver",
+        "version": 0
+      }
+    }
+  },
+  "python": "3.11.16",
+  "rows": 30000,
+  "seed": 42,
+  "spark": "4.2.0",
+  "totals": {
+    "days": 30,
+    "net_revenue_brl": "1141858.51",
+    "sales_count": 10008,
+    "stores": 12,
+    "units": 89903
+  },
+  "measurement_note": "Executed concurrently with the isolated integration suite; this is a functional capacity check, not a controlled performance comparison with the old runtime."
+}

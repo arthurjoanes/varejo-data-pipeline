@@ -1,0 +1,434 @@
+{
+  "reviewed_at": "2026-09-22",
+  "base": "pyspark==4.2.0",
+  "policy": "Replace complete upstream artifacts, preserve Maven metadata; all replacements require full Spark/Delta integration tests and image scan.",
+  "replacements": [
+    {
+      "source": "jackson-core-2.21.2.jar",
+      "source_sha256": "12e8655b100267b44d0f14d01b1f5082a5105e616174dc4307be1a761e92407b",
+      "target": "jackson-core-2.21.7.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.21.7/jackson-core-2.21.7.jar",
+      "sha256": "8c5623b98f32d5f7e1287ff61ed50e08ab7b11381e991fff89327faabba42261"
+    },
+    {
+      "source": "jackson-databind-2.21.2.jar",
+      "source_sha256": "8c982f01f148d805f0aaac2339011244757e0df7c6ff8951f2fa3f433b8ed849",
+      "target": "jackson-databind-2.21.7.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.21.7/jackson-databind-2.21.7.jar",
+      "sha256": "1290c2795e93e8a6861a6c4d9ff0d844d32f5ea178362cb2721edf5561e828b1"
+    },
+    {
+      "source": "jackson-dataformat-yaml-2.21.2.jar",
+      "source_sha256": "d25551812fa0c14f37cabaa9401e63eadcea42ce36311183af5622d5bc8a1bc7",
+      "target": "jackson-dataformat-yaml-2.21.7.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.21.7/jackson-dataformat-yaml-2.21.7.jar",
+      "sha256": "df2b3e6a194181dc067b7211d750926b4ae9e4f3c892a0005b8219a9b59be681"
+    },
+    {
+      "source": "jackson-datatype-jsr310-2.21.2.jar",
+      "source_sha256": "a083d57cd1c4a28fefcc6bd071740779eb7fc1c22a3c1b40451b5477c443f02f",
+      "target": "jackson-datatype-jsr310-2.21.7.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.7/jackson-datatype-jsr310-2.21.7.jar",
+      "sha256": "5989b937f0aa5b6407e7a061077c9bfcac0590dc0a32e54b2fac6a3e2d49e812"
+    },
+    {
+      "source": "jackson-module-scala_2.13-2.21.2.jar",
+      "source_sha256": "24f56b094ae46ab4005ac703a1be14be72dd8f0d81111508fc6e35163f251452",
+      "target": "jackson-module-scala_2.13-2.21.7.jar",
+      "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/module/jackson-module-scala_2.13/2.21.7/jackson-module-scala_2.13-2.21.7.jar",
+      "sha256": "f2963e4f184b581957f15086997800a6cd8eb865234d28274c3b814c911b9629"
+    },
+    {
+      "source": "log4j-1.2-api-2.25.4.jar",
+      "source_sha256": "7b1a61507950ea67b3d6b11437ee37fad9db06f855c92c25c08aee074c757395",
+      "target": "log4j-1.2-api-2.25.5.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-1.2-api/2.25.5/log4j-1.2-api-2.25.5.jar",
+      "sha256": "4dd812dc5a6343f542a9e0046b1ec78ecf10bdd5a8c15745101cdd8b9aa24974"
+    },
+    {
+      "source": "log4j-api-2.25.4.jar",
+      "source_sha256": "c4b642a7f047275215de117e0e3847eb2c7711d84a0aa7433e7b3c096daf341d",
+      "target": "log4j-api-2.25.5.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.25.5/log4j-api-2.25.5.jar",
+      "sha256": "64777f73ea0b3104c04eb82befbdccc30a425a19e83ad06cb2f93aa303511863"
+    },
+    {
+      "source": "log4j-core-2.25.4.jar",
+      "source_sha256": "10fee2c0485d54fa44ee75d314f6295508f7b932281873db61a91b88073200e6",
+      "target": "log4j-core-2.25.5.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.25.5/log4j-core-2.25.5.jar",
+      "sha256": "050c4f85deb48b055e9c041ac39043fbb79ce477841a11a1eb2969c86c6a0072"
+    },
+    {
+      "source": "log4j-layout-template-json-2.25.4.jar",
+      "source_sha256": "a2f8d03f39ff62de75d4524c9ee085f167e201da91652141097a60643ce22e85",
+      "target": "log4j-layout-template-json-2.25.5.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-layout-template-json/2.25.5/log4j-layout-template-json-2.25.5.jar",
+      "sha256": "27c37313e20c16bf0178e38d9d1a5c7320e34c03aa35bc2c66a589ea14abf545"
+    },
+    {
+      "source": "log4j-slf4j2-impl-2.25.4.jar",
+      "source_sha256": "dd897abc5eb3a6d965426c7937b92dd43e67c82d9819bea5d19f311516c68be3",
+      "target": "log4j-slf4j2-impl-2.25.5.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-slf4j2-impl/2.25.5/log4j-slf4j2-impl-2.25.5.jar",
+      "sha256": "8cab16dd6fc4c8f14c1c473022cb217512f2bbb2d59a70f8ec90a268d64d8831"
+    },
+    {
+      "source": "lz4-java-1.11.0.jar",
+      "source_sha256": "535c5578cab5dcd0a438e202df80091632b873c0370c25d9b1c1ad1d73577207",
+      "target": "lz4-java-1.11.3.jar",
+      "url": "https://repo.maven.apache.org/maven2/at/yawk/lz4/lz4-java/1.11.3/lz4-java-1.11.3.jar",
+      "sha256": "ffdfceacabf20fef15547ab2113374cb2c2b42634f5ac14be72c296a77fd49f8"
+    },
+    {
+      "source": "netty-all-4.2.13.Final.jar",
+      "source_sha256": "1751e53349aaaa4f1c7bd8ebce01dd6eb19ffb10c7796f3219823e3619c856ab",
+      "target": "netty-all-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-all/4.2.18.Final/netty-all-4.2.18.Final.jar",
+      "sha256": "e27d429527d65e6eff0c3f3ed8badbf8af25ec47db682b748bab256feda8fb65"
+    },
+    {
+      "source": "netty-buffer-4.2.13.Final.jar",
+      "source_sha256": "39e9ab9ecaff178898a5eb37568096f1efd4f768a7bd162e0cde3eefa19137d5",
+      "target": "netty-buffer-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.2.18.Final/netty-buffer-4.2.18.Final.jar",
+      "sha256": "fdf236d2b76aa9710684401fdad7dff9dec56e43da5d39172c9a55ba5f14b360"
+    },
+    {
+      "source": "netty-codec-4.2.13.Final.jar",
+      "source_sha256": "ead6e40832fac34be975b66d21bbdac005f6e83f643406b146655777fa767d2a",
+      "target": "netty-codec-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.2.18.Final/netty-codec-4.2.18.Final.jar",
+      "sha256": "439645eb5061f8f50fbf27afacce394e4cecc4d373e1f7a384837e4661d5f430"
+    },
+    {
+      "source": "netty-codec-base-4.2.13.Final.jar",
+      "source_sha256": "a0407d1e9b77e9807aabf367e06602475faab567bfcb8e07ff5bd22c24cd923e",
+      "target": "netty-codec-base-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-codec-base/4.2.18.Final/netty-codec-base-4.2.18.Final.jar",
+      "sha256": "7e4612bead7ba88ac6f7908fa722f90ad6835ea96505c9e40b2f93686c1f61f3"
+    },
+    {
+      "source": "netty-codec-compression-4.2.13.Final.jar",
+      "source_sha256": "15a1cea261831a8b92c02aa5ca1a51a180a4c6ff873a01ecaaf53f0ebe1db6e3",
+      "target": "netty-codec-compression-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-codec-compression/4.2.18.Final/netty-codec-compression-4.2.18.Final.jar",
+      "sha256": "9d8a4b9a6a2a166ec5a4bbe51a78b4f6a726457c51d81495743c7e7ccb9f4765"
+    },
+    {
+      "source": "netty-codec-dns-4.2.13.Final.jar",
+      "source_sha256": "703f11b6d1c5f8566aa237b749046fe9f201928f305f541e21d445299e3f49e5",
+      "target": "netty-codec-dns-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-codec-dns/4.2.18.Final/netty-codec-dns-4.2.18.Final.jar",
+      "sha256": "6f4b6da1483a82a637804740c2fb61385c9337a5e7ae5e357720cc03ba60b728"
+    },
+    {
+      "source": "netty-codec-http-4.2.13.Final.jar",
+      "source_sha256": "81b6c95341571c30cbdad977dfe140648fd3bf5fc13939f4d0be4d1929d544cb",
+      "target": "netty-codec-http-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-codec-http/4.2.18.Final/netty-codec-http-4.2.18.Final.jar",
+      "sha256": "2d50765eb58591ce35146c54ca032a257808d2165d8985a8522c70ea1470e8d7"
+    },
+    {
+      "source": "netty-codec-http2-4.2.13.Final.jar",
+      "source_sha256": "2321f651bae1679ca1e646a1c1171b6a6cc21015bdfa2aee829ed9130f5b1da8",
+      "target": "netty-codec-http2-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-codec-http2/4.2.18.Final/netty-codec-http2-4.2.18.Final.jar",
+      "sha256": "a45a2b06c377b9c87c21ae2b37f04c8d808192590a73d977e7a60fd59921f283"
+    },
+    {
+      "source": "netty-codec-socks-4.2.13.Final.jar",
+      "source_sha256": "b45100145a3a093bb4b9fc572409c771e8e78339dd91a2909574faf44f6d7832",
+      "target": "netty-codec-socks-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-codec-socks/4.2.18.Final/netty-codec-socks-4.2.18.Final.jar",
+      "sha256": "25dea7bc1ad990ab8959065f0690b63574d8db4f51033cd98458fc84c59367f3"
+    },
+    {
+      "source": "netty-common-4.2.13.Final.jar",
+      "source_sha256": "cccffbdd68586b5473c67d6ac37145625e7abbfae304e7a512616576b0187697",
+      "target": "netty-common-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-common/4.2.18.Final/netty-common-4.2.18.Final.jar",
+      "sha256": "5d97cae5669685872339698efe13f74fe3cdb2dccdb36963b2352bd95acf7070"
+    },
+    {
+      "source": "netty-handler-4.2.13.Final.jar",
+      "source_sha256": "50efc30aeca2ef21311f2502389e500bfc168c311edb1ae04a2db4d6bb5d7f7f",
+      "target": "netty-handler-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-handler/4.2.18.Final/netty-handler-4.2.18.Final.jar",
+      "sha256": "6d5a08d9dd6d7d0211202e22dbb1629b23a62550335c7e80892da1d4cb115540"
+    },
+    {
+      "source": "netty-handler-proxy-4.2.13.Final.jar",
+      "source_sha256": "7abd80166644f63b95dbe6fd9dd0e37402cd49067335d6af63ef1ce442430cf5",
+      "target": "netty-handler-proxy-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-handler-proxy/4.2.18.Final/netty-handler-proxy-4.2.18.Final.jar",
+      "sha256": "d7786de71c0d405b80b4262e0c585618e6f20e7fd3188cb4f599ffc4029ee9ea"
+    },
+    {
+      "source": "netty-resolver-4.2.13.Final.jar",
+      "source_sha256": "2cd68d6a746aeb2ec92923fa168d250526d7ad3dbe1877e7bcbe6e8acdb2c193",
+      "target": "netty-resolver-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.2.18.Final/netty-resolver-4.2.18.Final.jar",
+      "sha256": "68373ec544cf769ba17bf2ef455166d98f2c260dff536edf35ef57067a9c155f"
+    },
+    {
+      "source": "netty-resolver-dns-4.2.13.Final.jar",
+      "source_sha256": "f77815b3423b3513856ab7b43ac3f6c743a9c22ed23946f7c056ff6f0a238282",
+      "target": "netty-resolver-dns-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-resolver-dns/4.2.18.Final/netty-resolver-dns-4.2.18.Final.jar",
+      "sha256": "7dd3ec96bef04abc91a0f461f8acc19ebc0738c257ea653aea9dd0ad67b3b1ce"
+    },
+    {
+      "source": "netty-transport-4.2.13.Final.jar",
+      "source_sha256": "d9b2200bfe6e47c2dfa2f0952df6fbdfd42bf58bdd9007e9ac17c789274388c5",
+      "target": "netty-transport-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.2.18.Final/netty-transport-4.2.18.Final.jar",
+      "sha256": "eac4f12068db4489e60c6520fad663e5d872f0436a7c641aa9e08db649947863"
+    },
+    {
+      "source": "netty-transport-classes-epoll-4.2.13.Final.jar",
+      "source_sha256": "2ed9cf6ca8bee3ae80501938e5fa0b7c20947d704222a774a60ae65d38e0285e",
+      "target": "netty-transport-classes-epoll-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-transport-classes-epoll/4.2.18.Final/netty-transport-classes-epoll-4.2.18.Final.jar",
+      "sha256": "3677ca998f3db749d3fdb0fb1b1674f9809f4fbe8f819a346f4858dfb16c4d95"
+    },
+    {
+      "source": "netty-transport-classes-kqueue-4.2.13.Final.jar",
+      "source_sha256": "56baf57a0adae95291722e4adc2f01abdee59ac1d160877a9bf9e3f76be35131",
+      "target": "netty-transport-classes-kqueue-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-transport-classes-kqueue/4.2.18.Final/netty-transport-classes-kqueue-4.2.18.Final.jar",
+      "sha256": "be48ee5b8a2328a1f4f2160270344175612dd9567787727de0dbaecb694beb51"
+    },
+    {
+      "source": "netty-transport-native-epoll-4.2.13.Final-linux-aarch_64.jar",
+      "source_sha256": "1d98e1994c1d67cf6cd77a548eb5ac6decdf4991c0affad696bdc2b52f2ad7ff",
+      "target": "netty-transport-native-epoll-4.2.18.Final-linux-aarch_64.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-epoll/4.2.18.Final/netty-transport-native-epoll-4.2.18.Final-linux-aarch_64.jar",
+      "sha256": "542ec436b3bc5ed6eed946573ce0ad2c8776517badb949817d06c7294b9d023e"
+    },
+    {
+      "source": "netty-transport-native-epoll-4.2.13.Final-linux-riscv64.jar",
+      "source_sha256": "da37f50c976195c9667eacca99b72e9963b82e4277b24ef06359bb22da13e32b",
+      "target": "netty-transport-native-epoll-4.2.18.Final-linux-riscv64.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-epoll/4.2.18.Final/netty-transport-native-epoll-4.2.18.Final-linux-riscv64.jar",
+      "sha256": "cecb20bc4a4429a9787903914f91c3719b6b6e209b2a366d39fba04ee41fae91"
+    },
+    {
+      "source": "netty-transport-native-epoll-4.2.13.Final-linux-x86_64.jar",
+      "source_sha256": "da03900523c0521e8d1d090258577bef003eecd65d9f00d7753be44043891490",
+      "target": "netty-transport-native-epoll-4.2.18.Final-linux-x86_64.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-epoll/4.2.18.Final/netty-transport-native-epoll-4.2.18.Final-linux-x86_64.jar",
+      "sha256": "32a340971182d901cea513588549cfadc392bb7342f930379a6e34d853a331f0"
+    },
+    {
+      "source": "netty-transport-native-kqueue-4.2.13.Final-osx-aarch_64.jar",
+      "source_sha256": "fced7b8ea179737f3cabf69742df069d64961ec08955cfa51f78ce46431c6105",
+      "target": "netty-transport-native-kqueue-4.2.18.Final-osx-aarch_64.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-kqueue/4.2.18.Final/netty-transport-native-kqueue-4.2.18.Final-osx-aarch_64.jar",
+      "sha256": "7e0ab76f3935ca036a7fb19d34821b8d22c69fbd75a22d4b344fd65668d23131"
+    },
+    {
+      "source": "netty-transport-native-kqueue-4.2.13.Final-osx-x86_64.jar",
+      "source_sha256": "0a0732e8caed5496ad93f5b57f4bd8ace0e8131a3a76b0465365a1590323c7b1",
+      "target": "netty-transport-native-kqueue-4.2.18.Final-osx-x86_64.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-kqueue/4.2.18.Final/netty-transport-native-kqueue-4.2.18.Final-osx-x86_64.jar",
+      "sha256": "ad0a842bc9f8064dec6ee3c264e0f24131ebe690e9757616c4700490956d7f1f"
+    },
+    {
+      "source": "netty-transport-native-unix-common-4.2.13.Final.jar",
+      "source_sha256": "052b8429276ac96bd1f1067ce963b4e57c627ca331071f4df2e63f759234f6b1",
+      "target": "netty-transport-native-unix-common-4.2.18.Final.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.2.18.Final/netty-transport-native-unix-common-4.2.18.Final.jar",
+      "sha256": "cada7023d09136af128511ca94421d69dc84d0f1f64c9e1f127a1271bb62932a"
+    },
+    {
+      "source": "parquet-column-1.17.0.jar",
+      "source_sha256": "2fcd38628897c3b547b92d0abf7200ec84e9eb3fb9e8450b196142e4d5229044",
+      "target": "parquet-column-1.18.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/parquet/parquet-column/1.18.1/parquet-column-1.18.1.jar",
+      "sha256": "2bfc18fbf3fe8e971780a080e46f6d6cb3e69695ad3a746bd11d46ea8fd90171"
+    },
+    {
+      "source": "parquet-common-1.17.0.jar",
+      "source_sha256": "697ef2603a427eb997837cec5d7a1290322425e63678f37257d8f2e8619f2c4e",
+      "target": "parquet-common-1.18.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/parquet/parquet-common/1.18.1/parquet-common-1.18.1.jar",
+      "sha256": "a8c710f2d0ddb4b1332e596cd91f74305b66ae1d7235c798a8b48ddbfb9d31d6"
+    },
+    {
+      "source": "parquet-encoding-1.17.0.jar",
+      "source_sha256": "affb09b7f468b6437afe78cdb229ed5631bbca5a578fb9cac22ead2187b9339a",
+      "target": "parquet-encoding-1.18.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/parquet/parquet-encoding/1.18.1/parquet-encoding-1.18.1.jar",
+      "sha256": "a9414b00d8a4658933476aab8a7a64c51ad669fd7b752cbe5809bcd0e29e2c00"
+    },
+    {
+      "source": "parquet-format-structures-1.17.0.jar",
+      "source_sha256": "9b251f36df0bf61c80e23f07f76e3564d1b6566dea98210cc92a80e3075c0116",
+      "target": "parquet-format-structures-1.18.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/parquet/parquet-format-structures/1.18.1/parquet-format-structures-1.18.1.jar",
+      "sha256": "6613a8fd105c4f7f1578ff1f39476c30fdf485b0ac714c30444a9f70045892bb"
+    },
+    {
+      "source": "parquet-hadoop-1.17.0.jar",
+      "source_sha256": "c47b0a875951fa191fadf8c5d13742e8938bdda9779b2d8fec5c5345ac9e0184",
+      "target": "parquet-hadoop-1.18.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/parquet/parquet-hadoop/1.18.1/parquet-hadoop-1.18.1.jar",
+      "sha256": "efbf7b0374a14f075afbad53632fb6ed76d39239ce39d970f581f3512d00ee0b"
+    },
+    {
+      "source": "parquet-jackson-1.17.0.jar",
+      "source_sha256": "7a4fe149acf7b2381e5c4d0677c075e11e4289ff944fb99be70c9f7d337027fe",
+      "target": "parquet-jackson-1.18.1.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/parquet/parquet-jackson/1.18.1/parquet-jackson-1.18.1.jar",
+      "sha256": "1914fed4ed18999ce98ad844aa5d0b09f31027be329ffd82d861d6f7c6f097c7"
+    },
+    {
+      "source": "vertx-auth-common-4.5.26.jar",
+      "source_sha256": "d18e8c606f337083023fb954ca60ea5a06a4fe54196f683711469946e2540dce",
+      "target": "vertx-auth-common-4.5.34.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/vertx/vertx-auth-common/4.5.34/vertx-auth-common-4.5.34.jar",
+      "sha256": "2fc9f280b2193718db2bde020e8ca9107eff2a78d27389b7c4db63f72980c4de"
+    },
+    {
+      "source": "vertx-core-4.5.26.jar",
+      "source_sha256": "409e5e5977cf8491ccf2500aeb054b24a543f4fa967fc1852d850dc1cf931e9f",
+      "target": "vertx-core-4.5.34.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/vertx/vertx-core/4.5.34/vertx-core-4.5.34.jar",
+      "sha256": "750ec27491f9eea3df24e3a85670a0b1998827bb729ec95b2d9d3dbbfdf8792c"
+    },
+    {
+      "source": "vertx-uri-template-4.5.26.jar",
+      "source_sha256": "f35c63f032300c1598ec687c26bb27bb27e66b2a4cb5d564da6dd48e174baffb",
+      "target": "vertx-uri-template-4.5.34.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/vertx/vertx-uri-template/4.5.34/vertx-uri-template-4.5.34.jar",
+      "sha256": "d303e9f044347bc350241dfb2150f05d3b93d6c7f56c74757861ca582e8f62df"
+    },
+    {
+      "source": "vertx-web-client-4.5.26.jar",
+      "source_sha256": "17ab04c1a702b11814949e0393b3051b4b8dce81c66b8c79e6333333bc340688",
+      "target": "vertx-web-client-4.5.34.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/vertx/vertx-web-client/4.5.34/vertx-web-client-4.5.34.jar",
+      "sha256": "1cc978b8a2f5f0b6dcb5e717f1174750eca10aa844fe17f579183c5f69cfdfa7"
+    },
+    {
+      "source": "vertx-web-common-4.5.26.jar",
+      "source_sha256": "382d78cefa8f5869d0448dcbb4b52dfeaa1ff9ed8e52b8995dd22e30c92a2ec7",
+      "target": "vertx-web-common-4.5.34.jar",
+      "url": "https://repo.maven.apache.org/maven2/io/vertx/vertx-web-common/4.5.34/vertx-web-common-4.5.34.jar",
+      "sha256": "378371867305e73cddcea7027217d9a9fddbd18e57de74021824cb2bf1962019"
+    }
+  ],
+  "removed_optional_components": [
+    {
+      "path": "derby-10.16.1.1.jar",
+      "sha256": "ede804cb04e871d7c52d2414e952ab939f9ef243abb7bd0ce7dbeb6e1e28bd0b",
+      "reason": "Embedded Derby SQL/LDAP is outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "derbyshared-10.16.1.1.jar",
+      "sha256": "27d4be683a45f6c15940167277ce39bb7e26b9f6dc0bc05efbcf813cac5d2b8f",
+      "reason": "Embedded Derby SQL/LDAP is outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "derbytools-10.16.1.1.jar",
+      "sha256": "db052f92508e966ee8b0c5c9eca84cb11cbf0b0d78e608dc89340d4bb6c07314",
+      "reason": "Embedded Derby SQL/LDAP is outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "connect-repl/spark-connect-client-jvm_2.13-4.2.0.jar",
+      "sha256": "c31e52a432ee2b7325cd6b4640e99869999c2b4fbbb6b11ea0651102063efb7d",
+      "reason": "Spark Connect interactive remote client is outside the supported local batch."
+    },
+    {
+      "path": "hive-cli-2.3.10.jar",
+      "sha256": "a60c94060a08100dfb2cfefbb273373b16ab55540548a74e3f01075a97f5b043",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-jdbc-2.3.10.jar",
+      "sha256": "d68b59a0c78faada79657af09cc8256b748963828a35d75881c25642a1ba0414",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-serde-2.3.10.jar",
+      "sha256": "d29877f0a83fbee1d43495520e6b186f157d3a0999b12a2a8b21840be6230206",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-exec-2.3.10-core.jar",
+      "sha256": "1699ff817dd73db685ff112f109ec7ae380e0a6fa1a204166e55f66268fcd801",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-metastore-2.3.10.jar",
+      "sha256": "20786e707c40793b5e23688c61dc1959b3c828a821945712a530983cb7ea6c24",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-shims-common-2.3.10.jar",
+      "sha256": "03e7dbde1aec45904b04f46910cbbadee800d5d88403fa646bb67ca0557d93d1",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-shims-0.23-2.3.10.jar",
+      "sha256": "1eb002e63c6c165fa65b5b6b43d26fda5b8f04c3ac8e13d5a3625ba6bc79cd44",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-service-rpc-4.0.0.jar",
+      "sha256": "78b544d19579cec2ee4d07f9599cece6af9dc7f829d44f6070db5a7425eb6372",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-storage-api-2.8.1.jar",
+      "sha256": "2bb77d246a9724a371301049239c6e53039efe4136b0ed34ee5a9c7b3cd861d8",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-beeline-2.3.10.jar",
+      "sha256": "569ec193ae8619c06479705ab0ad3b11c81c095c825c657ae389054cc027de16",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "spark-hive_2.13-4.2.0.jar",
+      "sha256": "6b0a90d90b9c0fd316a3b1bbe7f445e3631abde185a00308adb15f76b1594246",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-common-2.3.10.jar",
+      "sha256": "b6a26be6eaf7ead173edfb2a654f72bdbf5fd1d5bb5ab99144a21a2205593831",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "hive-shims-2.3.10.jar",
+      "sha256": "bafd52d8fc0a9c02c18f9771dc82d6ebc270e1331c31c668e2c4c02fc4bf1bfd",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "jline-3.29.0-jdk8.jar",
+      "sha256": "ed2680487642df95379f220c09c0f77e25095713387e2bc00c2d6581bb79c804",
+      "reason": "Interactive JVM shell and Telnet server are not used by the Python batch CLI."
+    },
+    {
+      "path": "hive-shims-scheduler-2.3.10.jar",
+      "sha256": "cdb5f8866ae54b125fe88748cc7ffcd065de4603529b9ca1a756c8c550b2ade2",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "libthrift-0.16.0.jar",
+      "sha256": "b311ad08f7dc5ba90139910ec8619460914a4a2952f738603f1d7803ffdbe0a8",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "spark-hive-thriftserver_2.13-4.2.0.jar",
+      "sha256": "e4dc64503a7061e6fc2bf86996c95579168dc7c6281ddea5a3981b1972e51afa",
+      "reason": "Hive/Thrift SQL services are outside the supported in-memory catalog batch."
+    },
+    {
+      "path": "jline-2.14.6.jar",
+      "sha256": "97d1acaac82409be42e622d7a54d3ae9d08517e8aefdea3d2ba9791150c2f02d",
+      "reason": "Interactive JVM shell and Telnet server are not used by the Python batch CLI."
+    }
+  ]
+}

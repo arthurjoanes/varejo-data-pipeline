@@ -1,0 +1,524 @@
+{
+  "data_dir": "/data/demos/bcc829bed202461185004eb642863b88",
+  "duration_seconds": 247.375,
+  "quality_check": {
+    "batch_id": "quality-review",
+    "coverage": {
+      "expected": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "missing": [],
+      "received": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "zero_movement": [
+        "S03"
+      ]
+    },
+    "duration_seconds": 29.0113,
+    "issues": [
+      {
+        "code": "UNKNOWN_PRODUCT",
+        "count": 1,
+        "file": "S01.csv",
+        "line": 5,
+        "scope": "row",
+        "severity": "ERROR"
+      },
+      {
+        "code": "INVALID_QUANTITY",
+        "count": 1,
+        "file": "S01.csv",
+        "line": 5,
+        "scope": "row",
+        "severity": "ERROR"
+      },
+      {
+        "code": "INVALID_UNIT_PRICE_BRL",
+        "count": 1,
+        "file": "S01.csv",
+        "line": 5,
+        "scope": "row",
+        "severity": "ERROR"
+      },
+      {
+        "code": "INVALID_SOLD_AT",
+        "count": 1,
+        "file": "S01.csv",
+        "line": 5,
+        "scope": "row",
+        "severity": "ERROR"
+      }
+    ],
+    "publication_id": null,
+    "run_id": "b72b1e3d2aea42dbb36e9168bedcb77d",
+    "stages": {
+      "ingestion": 29.0073
+    },
+    "started_at": "2026-09-22T01:28:46.373205+00:00",
+    "state": "BLOCKED",
+    "stats": {
+      "conflicts": 0,
+      "duplicates": 0,
+      "received": 5,
+      "rejected": 1,
+      "revision_checks_executed": 0,
+      "stale": 0,
+      "valid": 4,
+      "violations": 4
+    }
+  },
+  "report": "/app/artifacts/remediation-demo/report.html",
+  "steps": [
+    {
+      "result": {
+        "batch_id": "fixture-valid",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 38.7238,
+        "issues": [],
+        "publication_id": "de12a11a0b114daba122e11da049560e",
+        "run_id": "0433040cabeb4547875afa9a32083fc0",
+        "stages": {
+          "gold": 5.7156,
+          "ingestion": 6.1881,
+          "publication": 3.0229,
+          "quality": 7.7842,
+          "reconciliation": 1.7367,
+          "silver": 14.2729
+        },
+        "started_at": "2026-09-22T01:29:15.416230+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 0,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 0,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "64.00",
+      "step": "fixture-valid"
+    },
+    {
+      "result": {
+        "batch_id": "fixture-valid",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 9.0802,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 4,
+            "message": "Revisão antiga guardada; o estado atual não mudou.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "de12a11a0b114daba122e11da049560e",
+        "run_id": "ef6e06079c6e46cfbf53b85bda72b4fe",
+        "stages": {
+          "ingestion": 3.4486,
+          "quality": 5.6307
+        },
+        "started_at": "2026-09-22T01:29:56.403936+00:00",
+        "state": "NO_CHANGE",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 4,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 0,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "64.00",
+      "step": "repeat"
+    },
+    {
+      "result": {
+        "batch_id": "missing-delivery",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [
+            "S02"
+          ],
+          "received": [
+            "S01",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 3.8151,
+        "issues": [
+          {
+            "code": "MISSING_FILE",
+            "file": "S02.csv",
+            "severity": "ERROR",
+            "store_id": "S02"
+          },
+          {
+            "code": "MISSING_STORE",
+            "severity": "ERROR",
+            "store_id": "S02"
+          }
+        ],
+        "publication_id": null,
+        "run_id": "471ce36dd90642c2b58355e92740d465",
+        "stages": {
+          "ingestion": 3.814
+        },
+        "started_at": "2026-09-22T01:30:06.110186+00:00",
+        "state": "BLOCKED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 0,
+          "received": 3,
+          "rejected": 0,
+          "revision_checks_executed": 0,
+          "stale": 0,
+          "valid": 3,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "64.00",
+      "step": "missing-delivery"
+    },
+    {
+      "result": {
+        "batch_id": "missing-delivery",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 39.8943,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 4,
+            "message": "Revisão antiga guardada; o estado atual não mudou.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "5767ae91a09048729b2bb6a428ef60de",
+        "run_id": "9411754062fb4adf8bbd59f76b93f38b",
+        "stages": {
+          "gold": 8.5155,
+          "ingestion": 4.7978,
+          "publication": 4.3471,
+          "quality": 7.9093,
+          "reconciliation": 2.5131,
+          "silver": 11.8084
+        },
+        "started_at": "2026-09-22T01:30:11.729069+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 4,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 0,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "64.00",
+      "step": "complete-delivery"
+    },
+    {
+      "result": {
+        "batch_id": "late-correction",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 29.7837,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 3,
+            "message": "Revisão antiga guardada; o estado atual não mudou.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "d3d3883d0921495b8f663ab3731cf5f8",
+        "run_id": "c18167bcb3d5429e8283a8520c318a82",
+        "stages": {
+          "gold": 5.2281,
+          "ingestion": 4.1021,
+          "publication": 3.1064,
+          "quality": 4.779,
+          "reconciliation": 1.6556,
+          "silver": 10.9095
+        },
+        "started_at": "2026-09-22T01:30:52.552971+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 3,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 0,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "77.00",
+      "step": "late-correction"
+    },
+    {
+      "result": {
+        "batch_id": "late-cancellation",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 29.2674,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 3,
+            "message": "Revisão antiga guardada; o estado atual não mudou.",
+            "severity": "INFO"
+          },
+          {
+            "code": "STALE_REVISION",
+            "count": 1,
+            "message": "Revisão antiga guardada; o estado atual não mudou.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "61549717e6f049a18273f32ad4f406a8",
+        "run_id": "40d06651e45a4b7780468612a59e1772",
+        "stages": {
+          "gold": 4.9174,
+          "ingestion": 3.6543,
+          "publication": 3.0832,
+          "quality": 6.3133,
+          "reconciliation": 1.6096,
+          "silver": 9.6868
+        },
+        "started_at": "2026-09-22T01:31:22.756236+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 3,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 1,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "57.00",
+      "step": "late-cancellation"
+    },
+    {
+      "result": {
+        "batch_id": "recoverable",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 24.9115,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 3,
+            "message": "Revisão antiga guardada; o estado atual não mudou.",
+            "severity": "INFO"
+          },
+          {
+            "code": "STALE_REVISION",
+            "count": 1,
+            "message": "Revisão antiga guardada; o estado atual não mudou.",
+            "severity": "INFO"
+          },
+          {
+            "code": "TECHNICAL_FAILURE",
+            "message": "Falha de teste: before_publish",
+            "severity": "ERROR",
+            "type": "InjectedFailure"
+          }
+        ],
+        "publication_id": null,
+        "run_id": "f75da4d7c7cd4909bfcfa7e440196e22",
+        "stages": {
+          "gold": 4.1697,
+          "ingestion": 3.4447,
+          "publication": 2.5499,
+          "quality": 5.6334,
+          "reconciliation": 1.4262,
+          "silver": 7.6847
+        },
+        "started_at": "2026-09-22T01:31:52.433279+00:00",
+        "state": "TECHNICAL_FAILURE",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 3,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 1,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "57.00",
+      "step": "recoverable"
+    },
+    {
+      "result": {
+        "batch_id": "recoverable",
+        "coverage": {
+          "expected": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "missing": [],
+          "received": [
+            "S01",
+            "S02",
+            "S03"
+          ],
+          "zero_movement": [
+            "S03"
+          ]
+        },
+        "duration_seconds": 29.0435,
+        "issues": [
+          {
+            "code": "EXACT_DUPLICATE",
+            "count": 3,
+            "message": "Revisão antiga guardada; o estado atual não mudou.",
+            "severity": "INFO"
+          },
+          {
+            "code": "STALE_REVISION",
+            "count": 1,
+            "message": "Revisão antiga guardada; o estado atual não mudou.",
+            "severity": "INFO"
+          }
+        ],
+        "publication_id": "6f1c665686954b2db71c66382ff28e9a",
+        "run_id": "73b95b453d874bd6bed1c3824bd7bcfe",
+        "stages": {
+          "gold": 6.6297,
+          "ingestion": 3.393,
+          "publication": 3.192,
+          "quality": 5.8801,
+          "reconciliation": 1.6409,
+          "silver": 8.3057
+        },
+        "started_at": "2026-09-22T01:32:21.584165+00:00",
+        "state": "PUBLISHED",
+        "stats": {
+          "conflicts": 0,
+          "duplicates": 3,
+          "received": 4,
+          "rejected": 0,
+          "revision_checks_executed": 1,
+          "stale": 1,
+          "valid": 4,
+          "violations": 0
+        }
+      },
+      "revenue_brl": "77.00",
+      "step": "recovery"
+    }
+  ]
+}

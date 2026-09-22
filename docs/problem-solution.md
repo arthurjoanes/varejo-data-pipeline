@@ -14,7 +14,7 @@ O operador aprova cadastro/calendário separadamente da entrega; o pipeline acei
 | Falha depois do primeiro Gold e antes do ponteiro | Manifesto com versionAsOf; retomada reconstrói o candidato | Snapshot anterior estável; retry publica uma vez sem duplicação |
 | Outro processo mantém o lock | Lock na fronteira de `process_batch`, antes de criar tentativa | WriterBusy antes da tentativa; kernel libera o lock após saída |
 
-Os dois primeiros casos estão no [teste de negócio](../tests/integration/test_business_thesis.py). Os demais estão na suíte de 156 testes. O teste de lock cobre admissão de escritores antes do Spark e liberação pelo kernel; não exercita duas JVMs nem commits simultâneos.
+Os dois primeiros casos estão no [teste de negócio](../tests/integration/test_business_thesis.py). Os demais estão na suíte descrita em [verificação](verification.md). O teste de lock cobre admissão de escritores antes do Spark e liberação pelo kernel; não exercita duas JVMs nem commits simultâneos.
 
 ## Como reproduzir
 

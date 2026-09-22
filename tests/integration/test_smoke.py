@@ -7,7 +7,7 @@ from pyspark.sql import SparkSession
 
 @pytest.mark.integration
 def test_real_delta_merge_and_time_travel(spark: SparkSession, tmp_path: Path) -> None:
-    assert spark.version == "3.5.9"
+    assert spark.version == "4.2.0"
     assert spark.sparkContext.master == "local[2]"
     assert spark.sparkContext.uiWebUrl is None
     assert spark.conf.get("spark.sql.catalogImplementation") == "in-memory"

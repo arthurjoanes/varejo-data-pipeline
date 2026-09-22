@@ -7,7 +7,7 @@ from pyspark.sql import SparkSession
 def create_spark() -> SparkSession:
     """Usa apenas os jars instalados no build."""
     jar_dir = Path(os.environ.get("DELTA_JARS_DIR", "/opt/delta-jars"))
-    jars = [jar_dir / f"{name}-3.2.1.jar" for name in ("delta-spark_2.12", "delta-storage")]
+    jars = [jar_dir / f"{name}-4.4.0.jar" for name in ("delta-spark_4.2_2.13", "delta-storage")]
     missing = [str(path) for path in jars if not path.is_file()]
     if missing:
         raise RuntimeError(f"Jars Delta ausentes; execute o setup Docker: {', '.join(missing)}")

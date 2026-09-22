@@ -1,5 +1,6 @@
 """Oráculos manuais para fronteiras que atravessam CSV, Spark, Delta e HTML."""
 
+import json
 from datetime import date
 from decimal import Decimal
 from pathlib import Path
@@ -16,7 +17,7 @@ pytestmark = pytest.mark.integration
 
 
 def test_date_and_money_boundaries_survive_delta_storage(
-    spark: SparkSession, tmp_path: Path
+    spark: SparkSession, tmp_path: Path, monkeypatch
 ) -> None:
     base = fixture_rows()[0]
     rows = [
@@ -60,6 +61,17 @@ def test_date_and_money_boundaries_survive_delta_storage(
     report = generate_report(spark, root, tmp_path / "report.html").read_text(encoding="utf-8")
     assert "R$ 999.999.999.990.001,02" in report
     assert "31/12/9999" in report
+    # A contenção da próxima entrega não pode mudar os valores já publicados.
+    monkeypatch.setenv("RETAIL_MAX_FILE_BYTES", "16")
+    blocked = process_batch(spark, root, source)
+    assert blocked.state == "BLOCKED", blocked.issues
+    assert blocked.exit_code == 2
+    assert any(issue["code"] == "INPUT_FILE_BYTES_LIMIT" for issue in blocked.issues)
+    assert load_snapshot(root) == snapshot
+    reference_evidence = root / "runs" / blocked.run_id / "evidence/operator-references.json"
+    assert json.loads(reference_evidence.read_text()) == json.loads(
+        (root / "operator-references.json").read_text()
+    )
 
 
 def test_zero_movement_all_cancellations_and_free_sales_have_distinct_ticket_meaning(

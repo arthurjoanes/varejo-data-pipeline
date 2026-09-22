@@ -1,0 +1,338 @@
+{
+  "image_id": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
+  "replacements": [
+    {
+      "artifact": "jackson-core-2.21.7.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "jackson-databind-2.21.7.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "jackson-dataformat-yaml-2.21.7.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "jackson-datatype-jsr310-2.21.7.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "jackson-module-scala_2.13-2.21.7.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "log4j-1.2-api-2.25.5.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "log4j-api-2.25.5.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "log4j-core-2.25.5.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "log4j-layout-template-json-2.25.5.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "log4j-slf4j2-impl-2.25.5.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "lz4-java-1.11.3.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-all-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-buffer-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-codec-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-codec-base-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-codec-compression-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-codec-dns-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-codec-http-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-codec-http2-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-codec-socks-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-common-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-handler-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-handler-proxy-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-resolver-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-resolver-dns-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-transport-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-transport-classes-epoll-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-transport-classes-kqueue-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-transport-native-epoll-4.2.18.Final-linux-aarch_64.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-transport-native-epoll-4.2.18.Final-linux-riscv64.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-transport-native-epoll-4.2.18.Final-linux-x86_64.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-transport-native-kqueue-4.2.18.Final-osx-aarch_64.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-transport-native-kqueue-4.2.18.Final-osx-x86_64.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "netty-transport-native-unix-common-4.2.18.Final.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "parquet-column-1.18.1.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "parquet-common-1.18.1.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "parquet-encoding-1.18.1.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "parquet-format-structures-1.18.1.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "parquet-hadoop-1.18.1.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "parquet-jackson-1.18.1.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "vertx-auth-common-4.5.34.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "vertx-core-4.5.34.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "vertx-uri-template-4.5.34.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "vertx-web-client-4.5.34.jar",
+      "hash_matches": true,
+      "original_absent": true
+    },
+    {
+      "artifact": "vertx-web-common-4.5.34.jar",
+      "hash_matches": true,
+      "original_absent": true
+    }
+  ],
+  "removed_optional_components": [
+    {
+      "artifact": "derby-10.16.1.1.jar",
+      "absent": true
+    },
+    {
+      "artifact": "derbyshared-10.16.1.1.jar",
+      "absent": true
+    },
+    {
+      "artifact": "derbytools-10.16.1.1.jar",
+      "absent": true
+    },
+    {
+      "artifact": "connect-repl/spark-connect-client-jvm_2.13-4.2.0.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-cli-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-jdbc-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-serde-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-exec-2.3.10-core.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-metastore-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-shims-common-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-shims-0.23-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-service-rpc-4.0.0.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-storage-api-2.8.1.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-beeline-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "spark-hive_2.13-4.2.0.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-common-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-shims-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "jline-3.29.0-jdk8.jar",
+      "absent": true
+    },
+    {
+      "artifact": "hive-shims-scheduler-2.3.10.jar",
+      "absent": true
+    },
+    {
+      "artifact": "libthrift-0.16.0.jar",
+      "absent": true
+    },
+    {
+      "artifact": "spark-hive-thriftserver_2.13-4.2.0.jar",
+      "absent": true
+    },
+    {
+      "artifact": "jline-2.14.6.jar",
+      "absent": true
+    }
+  ],
+  "python_packages": {
+    "wheel": "0.48.0",
+    "Pygments": "2.21.0",
+    "iniconfig": "2.0.0",
+    "typing_extensions": "4.12.2",
+    "py4j": "0.10.9.9",
+    "pytest": "9.0.3",
+    "zipp": "3.20.2",
+    "pluggy": "1.5.0",
+    "ruff": "0.6.9",
+    "setuptools": "84.0.0",
+    "mypy": "1.11.2",
+    "importlib_metadata": "8.5.0",
+    "pyspark": "4.2.0",
+    "packaging": "24.1",
+    "mypy-extensions": "1.0.0",
+    "delta_spark": "4.4.0"
+  }
+}

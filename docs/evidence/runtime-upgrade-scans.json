@@ -1,0 +1,53 @@
+{
+  "scanner": "Trivy0.74.0",
+  "reviewed_at_utc": "2026-09-22",
+  "filters": [],
+  "stages": [
+    {
+      "stage": "spark-4.2-stock",
+      "image_id": "sha256:877a2bdc189548c9208e6c41d427572e8ff86f5aa0f71c57c805b4d1569e3e44",
+      "counts": {
+        "MEDIUM": 56,
+        "HIGH": 35,
+        "CRITICAL": 3
+      },
+      "occurrences": 94,
+      "unique_ids": 54,
+      "os_python_findings": 0
+    },
+    {
+      "stage": "patched-with-optional-modules",
+      "image_id": "sha256:08d6e226611c78463f941d61262fd9f6220ba587c20de81fa331ff9287620af3",
+      "counts": {
+        "HIGH": 11,
+        "MEDIUM": 12
+      },
+      "occurrences": 23,
+      "unique_ids": 21,
+      "os_python_findings": 0
+    },
+    {
+      "stage": "supported-local-batch",
+      "image_id": "sha256:bfef20f3767767c1513d4f22125a02d52ddb60267a2522614adaa34a3b260dfc",
+      "counts": {
+        "HIGH": 7,
+        "MEDIUM": 11
+      },
+      "occurrences": 18,
+      "unique_ids": 18,
+      "os_python_findings": 0
+    },
+    {
+      "stage": "delivery-after-approved-reference-evidence-fix",
+      "image_id": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
+      "counts": {
+        "HIGH": 7,
+        "MEDIUM": 11
+      },
+      "occurrences": 18,
+      "unique_ids": 18,
+      "os_python_findings": 0,
+      "dependency_findings_unchanged": true
+    }
+  ]
+}

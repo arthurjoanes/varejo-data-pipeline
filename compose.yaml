@@ -28,6 +28,10 @@ services:
       MYPY_CACHE_DIR: /data/cache/mypy
       PYTHONDONTWRITEBYTECODE: "1"
       PYTEST_ADDOPTS: "-o cache_dir=/data/cache/pytest"
+      RETAIL_MAX_JSON_BYTES: ${RETAIL_MAX_JSON_BYTES:-1048576}
+      RETAIL_MAX_FILE_BYTES: ${RETAIL_MAX_FILE_BYTES:-67108864}
+      RETAIL_MAX_TOTAL_BYTES: ${RETAIL_MAX_TOTAL_BYTES:-268435456}
+      RETAIL_MAX_FILES: ${RETAIL_MAX_FILES:-1000}
     volumes:
       - type: bind
         source: .

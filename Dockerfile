@@ -22,9 +22,10 @@ COPY requirements.lock requirements-build.lock /app/
 RUN python -m pip install --no-cache-dir --no-deps --require-hashes -r requirements-build.lock \
     && python -m pip install --no-cache-dir --no-deps --no-build-isolation --require-hashes -r requirements.lock \
     && python -m pip check
-COPY scripts/download_jars.py /tmp/download_jars.py
+COPY scripts/download_jars.py scripts/patch_runtime_jars.py runtime-jars.lock.json /tmp/
 RUN python /tmp/download_jars.py \
-    && rm /tmp/download_jars.py \
+    && python /tmp/patch_runtime_jars.py /tmp/runtime-jars.lock.json \
+    && rm /tmp/download_jars.py /tmp/patch_runtime_jars.py /tmp/runtime-jars.lock.json \
     && mkdir -p /data/tmp/spark /app/artifacts \
     && java -version \
     && python --version

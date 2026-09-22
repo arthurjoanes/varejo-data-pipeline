@@ -6,9 +6,8 @@ import csv
 import hashlib
 import json
 import os
-import shutil
 import stat
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import TextIO
 
@@ -20,6 +19,7 @@ from retail_pipeline.contracts import (
     valid_identifier,
     validate_row,
 )
+from retail_pipeline.input_limits import InputLimits
 from retail_pipeline.references import ReferenceConfig
 
 
@@ -35,11 +35,35 @@ class PreparedBatch:
     reference_hashes: dict[str, str | None]
 
 
-def _snapshot(source: Path, target: Path, issues: list[dict[str, object]]) -> None:
+def _snapshot(
+    source: Path, target: Path, issues: list[dict[str, object]], limits: InputLimits
+) -> bool:
     target.mkdir(parents=True, exist_ok=False)
+    copied_bytes = 0
+    file_count = 0
+
+    def finish(complete: bool, code: str | None = None, path: str | None = None) -> bool:
+        if code:
+            add_issue(issues, code, file=path, message="Entrega excede o orçamento configurado.")
+        (target.parent / "snapshot.json").write_text(
+            stable_json(
+                {
+                    "complete": complete,
+                    "copied_bytes": copied_bytes,
+                    "files_seen": file_count,
+                    "limits": asdict(limits),
+                    "stopped_at": path,
+                    "reason": code,
+                }
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        return complete
+
     if not source.is_dir() or source.is_symlink():
         add_issue(issues, "INPUT_NOT_DIRECTORY")
-        return
+        return finish(False)
     for parent, directories, files in os.walk(source, followlinks=False):
         directories.sort()
         files.sort()
@@ -51,6 +75,9 @@ def _snapshot(source: Path, target: Path, issues: list[dict[str, object]]) -> No
         for name in files:
             candidate = Path(parent) / name
             relative = candidate.relative_to(source)
+            file_count += 1
+            if file_count > limits.files:
+                return finish(False, "INPUT_FILE_COUNT_LIMIT", relative.as_posix())
             if candidate.is_symlink():
                 add_issue(issues, "UNSAFE_SYMLINK", file=relative.as_posix())
                 continue
@@ -72,9 +99,29 @@ def _snapshot(source: Path, target: Path, issues: list[dict[str, object]]) -> No
                         add_issue(issues, "UNSAFE_FILE_TYPE", file=relative.as_posix())
                         continue
                     with destination.open("wb") as copied:
-                        shutil.copyfileobj(original, copied)
+                        file_bytes = 0
+                        ceiling = limits.file_bytes
+                        code = "INPUT_FILE_BYTES_LIMIT"
+                        if relative.suffix.lower() == ".json" and limits.json_bytes < ceiling:
+                            ceiling, code = limits.json_bytes, "INPUT_JSON_BYTES_LIMIT"
+                        while True:
+                            available = min(ceiling - file_bytes, limits.total_bytes - copied_bytes)
+                            # One extra byte distinguishes exact-fit from oversized input,
+                            # including a file that grows after it was opened/stat'ed.
+                            block = original.read(min(64 * 1024, available + 1))
+                            if not block:
+                                break
+                            accepted = block[:available]
+                            copied.write(accepted)
+                            file_bytes += len(accepted)
+                            copied_bytes += len(accepted)
+                            if len(block) > available:
+                                if file_bytes < ceiling:
+                                    code = "INPUT_TOTAL_BYTES_LIMIT"
+                                return finish(False, code, relative.as_posix())
             except OSError as error:
                 add_issue(issues, "FILE_COPY_FAILED", file=relative.as_posix(), message=str(error))
+    return finish(True)
 
 
 def _reject_nonfinite(value: str) -> None:
@@ -90,12 +137,21 @@ def _unique_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
     return result
 
 
-def _read_json(path: Path, issues: list[dict[str, object]], label: str) -> dict[str, object]:
+def _read_json(
+    path: Path, issues: list[dict[str, object]], label: str, *, limits: InputLimits | None = None
+) -> dict[str, object]:
+    limits = limits or InputLimits.from_environment()
     try:
-        with path.open(encoding="utf-8") as handle:
-            value = json.load(
-                handle, parse_constant=_reject_nonfinite, object_pairs_hook=_unique_object
-            )
+        with path.open("rb") as handle:
+            payload = handle.read(limits.json_bytes + 1)
+        if len(payload) > limits.json_bytes:
+            add_issue(issues, "INPUT_JSON_BYTES_LIMIT", file=path.name, limit=limits.json_bytes)
+            return {}
+        value = json.loads(
+            payload.decode("utf-8"),
+            parse_constant=_reject_nonfinite,
+            object_pairs_hook=_unique_object,
+        )
         if not isinstance(value, dict):
             raise ValueError("A raiz deve ser um objeto JSON.")
         stable_json(value).encode("utf-8")
@@ -193,6 +249,7 @@ def prepare_batch(
     run_id: str,
     *,
     operator_references: ReferenceConfig | None = None,
+    limits: InputLimits | None = None,
 ) -> PreparedBatch:
     """Valida documentos; `process_batch` sempre exige referências externas aprovadas.
 
@@ -200,20 +257,46 @@ def prepare_batch(
     esse modo isolado não autoriza publicação e serve aos testes de formato.
     """
     issues: list[dict[str, object]] = []
+    limits = limits or InputLimits.from_environment()
     raw = evidence_dir / "raw"
     input_dir = input_dir.absolute()
     if raw.resolve().is_relative_to(input_dir.resolve()):
         raise ValueError("A cópia deve ficar fora do diretório de entrada.")
-    _snapshot(input_dir, raw, issues)
-    manifest = _read_json(raw / "manifest.json", issues, "MANIFEST")
-    manifest_hash, files, zero = validate_manifest(manifest, issues)
-    catalog = _read_json(raw / "catalog.json", issues, "CATALOG")
-    schedule = _read_json(raw / "schedule.json", issues, "SCHEDULE")
-    stores, products, expected = validate_references(catalog, schedule, manifest, issues)
+    complete = _snapshot(input_dir, raw, issues, limits)
     if operator_references is not None:
         (evidence_dir / "operator-references.json").write_text(
             stable_json(operator_references.document) + "\n", encoding="utf-8"
         )
+    if not complete:
+        rows_path = evidence_dir / "rows.ndjson"
+        rows_path.write_text("", encoding="utf-8")
+        stats = {"received": 0, "valid": 0, "rejected": 0, "violations": 0}
+        incomplete_coverage: dict[str, list[str]] = {
+            "expected": [],
+            "received": [],
+            "missing": [],
+            "zero_movement": [],
+        }
+        (evidence_dir / "quality.json").write_text(
+            stable_json({"issues": issues, "stats": stats, "coverage": incomplete_coverage}) + "\n",
+            encoding="utf-8",
+        )
+        return PreparedBatch(
+            f"incomplete-{run_id}",
+            logical_hash({}),
+            {},
+            rows_path,
+            issues,
+            stats,
+            incomplete_coverage,
+            {"catalog.json": None, "schedule.json": None},
+        )
+    manifest = _read_json(raw / "manifest.json", issues, "MANIFEST", limits=limits)
+    manifest_hash, files, zero = validate_manifest(manifest, issues)
+    catalog = _read_json(raw / "catalog.json", issues, "CATALOG", limits=limits)
+    schedule = _read_json(raw / "schedule.json", issues, "SCHEDULE", limits=limits)
+    stores, products, expected = validate_references(catalog, schedule, manifest, issues)
+    if operator_references is not None:
         stores, products, expected = validate_references(
             operator_references.catalog, operator_references.schedule, manifest, issues
         )

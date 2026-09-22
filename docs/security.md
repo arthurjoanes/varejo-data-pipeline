@@ -14,20 +14,25 @@ Os testes de contrato verificam arquivos externos, symlinks, FIFO, caminhos e JS
 
 ## Achados de dependências
 
-A varredura de 21/09/2026 com Trivy 0.74.0 incluiu sistema operacional, Python e todos os JARs, sem `ignore-unfixed`, filtro de severidade ou arquivo de exclusão. A base foi atualizada para Alpine 3.24 e OpenJDK 17.0.20; pip e ensurepip foram removidos depois da instalação com hashes. Resultado e identidade da imagem estão em [security-scan.json](evidence/security-scan.json).
+A varredura de 22/09/2026 com Trivy 0.74.0 incluiu sistema operacional, Python e todos os JARs presentes, sem `ignore-unfixed`, filtro de severidade ou exclusão de achados. A imagem usa Alpine 3.24, OpenJDK 17.0.20, Spark 4.2.0 e Delta 4.4.0. O resultado integral e a identidade da imagem estão em [security-scan.json](evidence/security-scan.json).
 
-O runtime Spark 3.5.9 ainda distribui bibliotecas Java com vulnerabilidades conhecidas, inclusive cópias embutidas em Hadoop e Spark. Não há alegação de zero vulnerabilidades. Os achados HIGH e CRITICAL foram examinados por pacote, versão, caminho do JAR e identificador em [security-triage.json](evidence/security-triage.json). A conclusão de ausência de caminho de exploração no batch suportado é uma inferência da leitura e dos testes de restrição; não é uma reprodução de exploit de cada CVE.
+O upgrade, 45 substituições coordenadas de artefatos completos e a remoção de 22 componentes opcionais reduziram 145 ocorrências JVM (5 críticas, 61 altas) para **18 ocorrências/18 IDs: zero críticas, 7 altas e 11 médias**. OS e Python não tiveram achados no scanner. Os binários removidos e os hashes anteriores/novos constam em `runtime-jars.lock.json`; nenhum metadado de vulnerabilidade foi apagado para esconder bibliotecas presentes. [Escopo exato e decisões do upgrade](runtime-upgrade.md).
 
-| Família | Precondição ausente no fluxo suportado |
+**Os 18 achados residuais não estão corrigidos.** A [triagem individual](evidence/security-triage.json) inclui versão, caminho, identificador, severidade, referência e a precondição ausente no batch suportado. A conclusão de ausência desse caminho é uma inferência de arquitetura e configuração, apoiada pelos testes de isolamento; não é reprodução de cada CVE.
+
+| Componente residual | Precondição ausente e limite da mitigação |
 | --- | --- |
-| Netty e Jetty | Entrada HTTP, HTTP/2, SPDY ou TLS de clientes externos; UI e rede do batch estão desabilitadas. |
-| Mesos, ZooKeeper, Derby, Thrift e Telnet | Serviços distribuídos, servidor SQL/Thrift, LDAP ou terminal remoto; o processo é local e usa catálogo em memória. |
-| Jackson, Gson, JSON-Smart e BeanUtils | Desserialização Java arbitrária, seleção de classes ou binding reflexivo de propriedades da entrega. |
-| Avro, Aircompressor e LZ4 | Schemas Avro e blocos comprimidos produzidos por terceiros; somente CSV/JSON são aceitos como entrega. |
-| Protobuf, Nimbus JWT, OkHttp e DNSJava | Protocolos remotos, tokens ou respostas de serviços externos processados pelo batch. |
-| Commons IO | XML fornecido pelo remetente para `XmlStreamReader`. |
+| Jackson sombreado em Hadoop | Parser assíncrono remoto ou binding Java com polimorfismo, endereços, views/records controlados pelo remetente. JSON de entrada é limitado e lido por Python; estado Delta não vem de terceiros. |
+| Jetty sombreado em Hadoop/Spark | Servidor HTTP, Digest, proxy ou UI acessível. Rede do batch e UI Spark estão desabilitadas; servidor opcional de relatório é Python, separado e em loopback. |
+| JLine sombreado em Hadoop | Servidor Telnet remoto. Nenhum terminal/serviço Telnet é iniciado. |
+| Commons Configuration sombreado em Hadoop | YAML externo cíclico. O contrato aceita somente CSV/JSON; configuração do runtime pertence ao operador. |
+| Commons Lang 2.6 | Nome arbitrário de classe passado a `ClassUtils.getClass`. A entrega não possui esse recurso. Não existe correção compatível na linha 2.x; migrar para Lang 3 requer atualizar consumidores. |
 
-Essa análise deixa de valer se forem adicionados notebooks, cluster remoto, leitura de tabelas externas, serviços de rede, plugins ou alterações diretas do volume por terceiros. Migrar Spark/Delta ou substituir JARs sombreados exige testes de compatibilidade próprios; remover metadados para silenciar o scanner não é uma correção.
+Essa análise deixa de valer com notebooks, cluster remoto, leitura de tabelas externas, serviços de rede, plugins ou alterações diretas do volume por terceiros. Hadoop 3.5.0 e Spark core 4.2.0 ainda incorporam classes vulneráveis sombreadas; um JAR externo corrigido não as substitui. Um rebuild customizado demanda identificação, dependências fixadas e validação upstream adicional; essa pendência está registrada no documento de atualização, sem alegação de correção.
+
+## Orçamento de entrada
+
+Por padrão: 1 MiB por JSON, 64 MiB por arquivo, 256 MiB por tentativa e 1.000 arquivos. Os bytes são contados enquanto são copiados, e JSON é limitado antes de parsing. `snapshot.json` marca a evidência parcial e a tentativa é bloqueada sem mudar a publicação anterior. [Configuração, códigos e retenção](data-contract.md). O orçamento por tentativa não é quota acumulada do disco.
 
 ## Reprodução e CI
 

@@ -84,6 +84,14 @@ Antes de interpretar a entrega, a ingestão copia arquivos regulares para `evide
 
 Códigos estáveis principais: `MISSING_FILE`, `MISSING_STORE`, `UNEXPECTED_FILE`, `UNSAFE_PATH`, `UNSAFE_SYMLINK`, `HASH_MISMATCH`, `ROW_COUNT_MISMATCH`, `SCHEMA_MISMATCH`, `ROW_WIDTH_MISMATCH`, `CSV_DECODE_ERROR`, `EMPTY_FILE`, `EMPTY_WITHOUT_ZERO_CONFIRMATION`, `INVALID_ZERO_CONFIRMATION`, `COVERAGE_MISMATCH`, `UNKNOWN_STORE`, `UNKNOWN_PRODUCT`, `INVALID_QUANTITY`, `INVALID_REVISION`, `INVALID_UNIT_PRICE_BRL`, `INVALID_LINE_DISCOUNT_BRL`, `DISCOUNT_EXCEEDS_GROSS`, `INVALID_SOLD_AT`, `INVALID_SOURCE_UPDATED_AT`. Todos bloqueiam a publicação. Erros adicionais identificam configurações/manifestos malformados. Contagens agregadas de cada regra são limitadas ao número de códigos, não à massa de registros.
 
+## Orçamento da entrada
+
+O snapshot limita bytes efetivamente lidos, sem confiar somente no tamanho informado pelo arquivo: 1 MiB por JSON, 64 MiB por arquivo, 256 MiB por entrega e 1.000 arquivos, incluindo inesperados. Ajuste `RETAIL_MAX_JSON_BYTES`, `RETAIL_MAX_FILE_BYTES`, `RETAIL_MAX_TOTAL_BYTES` e `RETAIL_MAX_FILES` no `.env`, sempre com inteiros positivos. O menor teto prevalece. A leitura de JSON para `configure` também respeita o limite antes de decodificar ou analisar o documento.
+
+Ao exceder um teto, a cópia para imediatamente. O prefixo já copiado permanece em `evidence/raw`, e `evidence/snapshot.json` registra `complete: false`, bytes copiados, caminho interrompido, motivo e limites. Esse prefixo **não é uma entrega completa**: nenhuma linha é interpretada a partir dele, e a tentativa fica BLOCKED (saída 2). A publicação anterior permanece igual. Os códigos são `INPUT_JSON_BYTES_LIMIT`, `INPUT_FILE_BYTES_LIMIT`, `INPUT_TOTAL_BYTES_LIMIT` e `INPUT_FILE_COUNT_LIMIT`. Um arquivo exatamente no limite é aceito.
+
+O orçamento é por tentativa. Não define quota acumulada do volume nem elimina a necessidade de retenção de `runs`, arquivos Delta e logs. Preserve evidências necessárias à auditoria e faça backup antes de limpar estados ou migrar runtimes.
+
 ## Fixture e geração
 
 Fixture manual: S01/A1 linha1 `2 × 10 − 1 = 19`; S01/A1 linha2 `1 × 5 = 5`; S01/A2 linha1 `3 × 7,50 − 2,50 = 20`; S02/B1 linha1 `1 × 20 = 20`; S03 confirma zero. Total R$ 64,00, 4 linhas, 7 unidades e 3 vendas. S01 tem R$ 44,00, 6 unidades, 2 vendas e ticket R$ 22,00; S02 tem R$ 20,00 e ticket R$ 20,00. Produto P01 soma R$ 39,00 e 3 unidades; P02 R$ 5,00 e 1 unidade; P03 R$ 20,00 e 3 unidades.

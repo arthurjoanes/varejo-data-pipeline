@@ -18,7 +18,7 @@ flowchart LR
 ```
 
 ## Runtime e recursos
-Python 3.11.16, OpenJDK 17.0.20+8 (Alpine 17.0.20_p8-r0), PySpark 3.5.9, Delta Lake 3.2.1 (Scala 2.12). Matriz oficial permite Delta 3.2.x + Spark 3.5.x; Spark 3.5 suporta Java 17/Python >=3.8. Versões exatas no build/lock. Jars embutidos na imagem, sem Maven em execução. O smoke verifica sessão, escrita, leitura, MERGE e versionAsOf.
+Python 3.11.16, OpenJDK 17.0.20+8 (Alpine 17.0.20_p8-r0), PySpark 4.2.0 e Delta Lake 4.4.0 (Scala 2.13, artefato delta-spark_4.2_2.13). A combinação é suportada nas notas oficiais Delta 4.4.0. Versões, hashes das substituições JVM e componentes opcionais removidos estão nos locks e em [atualização do runtime](runtime-upgrade.md). Este é o runtime do batch local com catálogo em memória, sem Hive/Thrift, Derby ou REPL remoto.
 
 Docker Compose `pf-varejo-data`; volume nomeado exclusivo para entrada gerada, Delta, temporários e logs. Exportação pequena em `artifacts/`. Spark local[2], shuffle 2, UI desabilitada, JVM inicialmente 1 GiB e container limitado a 3 GiB/2 CPUs. Execução sob demanda. HTML local, servidor opcional 127.0.0.1:3103.
 
@@ -50,7 +50,7 @@ Riscos: caminho host com Unicode/espaços (somente fontes/exportações em bind)
 ## Fontes consultadas
 - https://docs.delta.io/releases/
 - https://docs.delta.io/delta-update/
-- https://archive.apache.org/dist/spark/docs/3.5.9/
+- https://spark.apache.org/docs/4.2.0/
 - https://docs.docker.com/desktop/features/wsl/best-practices/
 
 ## Detalhes de implementação

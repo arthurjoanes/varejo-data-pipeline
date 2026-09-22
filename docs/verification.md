@@ -2,9 +2,27 @@
 
 Arquivos em artifacts são gerados localmente e não são pré-requisitos do clone. O comando `scripts/verify_problem.py` grava os resultados em `artifacts/`; passos em [demo.md](demo.md).
 
-## Verificação de publicação em 21/09/2026
+## Revisão de segurança em 22/09/2026 (UTC)
 
-Uma cópia contendo somente arquivos públicos candidatos foi construída e executada em Docker Linux, sem `.env`, caches ou dados da instalação anterior. [Registro da execução](evidence/publication.json).
+Spark 4.2.0/Delta 4.4.0, com 45 JARs substituídos integralmente, 22 componentes opcionais removidos e limites de entrada. [Registro consolidado](evidence/remediation.json).
+
+| Verificação | Resultado |
+| --- | --- |
+| Suíte completa do runtime atualizado | 166 aprovados, zero falhas/pulados, em 1.350,58 s: 151 unitários e 15 integrações. [JUnit](evidence/remediation-tests.xml). |
+| Ajuste posterior da evidência | Depois da suíte completa, a gravação de `operator-references.json` foi antecipada para também preservar a referência aprovada quando a cópia ultrapassa o orçamento. Foram repetidos os [151 unitários](evidence/remediation-final-unit.xml) e [uma integração real](evidence/remediation-final-focused.xml), todos aprovados. Essa integração verifica a referência preservada, o bloqueio por bytes e a publicação anterior intacta. A suíte integral não foi repetida após esse ajuste restrito. |
+| Ruff, formato e mypy na fonte final | Aprovados; 36 arquivos Python e 16 módulos de aplicação. |
+| Demo CLI do runtime atualizado | Oito passos aprovados, receitas 64 → 64 → 64 → 64 → 77 → 57 → 57 → 77, incluindo falha/retomada. [Resultado](evidence/remediation-demo.json). |
+| Migração da fixture anterior | Spark 3.5.9 publicou R$ 64,00; Spark 4.2.0 releu, reconheceu reenvio sem mudança e corrigiu para R$ 77,00, com leitura da versão anterior preservada. [Resultado](evidence/runtime-migration.json). |
+| Volume demonstrativo | 30 mil linhas, mesmos totais esperados: R$ 1.141.858,51, 10.008 vendas, 89.903 unidades, 12 lojas/30 dias. Pipeline em 83,65 s e pico de 1.358.082.048 bytes. Houve concorrência com testes isolados: é validação funcional, não comparação controlada de desempenho. [Medição](evidence/remediation-benchmark.json). |
+| Scan da imagem final | OS/Python sem achados; JVM com 18 residuais não corrigidos, 7 HIGH e 11 MEDIUM, zero CRITICAL. Sem exclusões no scanner. [Scan e triagem](security.md). |
+
+A suíte completa, a demo e o benchmark usaram a imagem `bfef20f37677…`; o ajuste posterior foi incorporado à imagem final `91f08a83dbb7…`, novamente inventariada e escaneada. As identidades completas e os SHA-256 do código estão nos registros de [fonte da suíte completa](evidence/remediation-full-suite-source.json) e [fonte final](evidence/remediation-source.json). Os 16 módulos da fonte final correspondem byte a byte aos arquivos da imagem final. Os testes usaram o código/testes do bind do checkout; a integração manteve esse bind somente leitura, rede desabilitada e os limites do Compose. [Isolamento observado na suíte](evidence/remediation-full-suite-isolation.json).
+
+Os registros distinguem SHA-256 dos arquivos locais e OIDs dos blobs Git após normalização por `.gitattributes`. Parte do checkout Windows tinha CRLF; o conteúdo publicado usa LF. Portanto, o hash local não é apresentado como hash dos bytes do clone público. As capturas de tela abaixo continuam pertencendo à execução histórica, sem nova validação visual nesta revisão.
+
+## Evidência histórica de publicação em 21/09/2026
+
+Esta execução usou Spark 3.5.9/Delta 3.2.1. Uma cópia contendo somente arquivos públicos candidatos foi construída e executada em Docker Linux, sem `.env`, caches ou dados da instalação anterior. [Registro da execução](evidence/publication.json).
 
 | Verificação | Resultado |
 | --- | --- |
@@ -23,13 +41,13 @@ As medições são desta execução, com limite de 3 GiB/2 CPUs; não são uma p
 | --- | --- |
 | Python | 3.11.16 |
 | Java | OpenJDK 17.0.20+8 (Alpine 17.0.20_p8-r0) |
-| PySpark / Spark | 3.5.9 |
-| Delta Lake / Scala | 3.2.1 / 2.12 |
+| PySpark / Spark | 4.2.0 |
+| Delta Lake / Scala | 4.4.0 / 2.13 |
 | pytest | 9.0.3 |
 
-A [matriz oficial Delta](https://docs.delta.io/releases/) admite Delta 3.2.x com Spark 3.5.x. A [manutenção Spark 3.5.9](https://spark.apache.org/releases/spark-release-3-5-9.html) preserva essa linha. Os digests das imagens oficiais estão no Dockerfile; dependências Python têm versão e SHA-256 em requirements.lock e requirements-build.lock. O build instala ferramentas de construção antes dos pacotes, sem resolução isolada implícita. Os dois jars Delta são conferidos por SHA-256 em scripts/download_jars.py.
+As [notas Delta 4.4.0](https://github.com/delta-io/delta/releases/tag/v4.4.0) confirmam suporte ao Spark 4.2.0; o JAR específico é `delta-spark_4.2_2.13`. Os digests estão no Dockerfile; dependências Python têm hashes nos locks; os JARs Delta são conferidos por SHA-256 em `scripts/download_jars.py`. O build instala ferramentas de construção antes dos pacotes, sem resolução isolada implícita. O [lock JVM](../runtime-jars.lock.json) registra substituições completas e componentes opcionais removidos; [motivos e pendências](runtime-upgrade.md).
 
-Base e dependências fixadas não significam imagem reproduzível byte a byte: apk instala as dependências do runtime a partir dos repositórios Alpine durante o build. A consulta histórica OSV de 16 pins Python está em [dependencies.json](evidence/dependencies.json). A varredura atual inclui sistema operacional, Python e bibliotecas JVM: [resultado e triagem](security.md).
+Base e dependências fixadas não significam imagem reproduzível byte a byte: apk instala as dependências do runtime a partir dos repositórios Alpine durante o build. A consulta OSV de 16 pins Python está em [dependencies.json](evidence/dependencies.json). A varredura atual inclui sistema operacional, Python e bibliotecas JVM: [resultado e triagem](security.md).
 
 ## Comandos verificáveis
 

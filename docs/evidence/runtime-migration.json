@@ -1,0 +1,17 @@
+{
+  "tested_at_utc": "2026-09-22",
+  "scope": "Synthetic four-row fixture; isolated volume; not a certification of arbitrary external Delta tables.",
+  "seed": {
+    "phase": "seed",
+    "spark": "3.5.9",
+    "total_brl": "64.00"
+  },
+  "resume": {
+    "phase": "resume",
+    "spark": "4.2.0",
+    "total_brl": "77.00",
+    "previous_version_total_brl": "64.00",
+    "replay": "NO_CHANGE",
+    "report": "passed"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "reviewed_at_utc": "2026-09-22",
+  "runtime": {
+    "python": "3.11.16",
+    "spark": "4.2.0",
+    "delta": "4.4.0",
+    "scala": "2.13",
+    "java": "17.0.20"
+  },
+  "full_suite": {
+    "image_id": "sha256:bfef20f3767767c1513d4f22125a02d52ddb60267a2522614adaa34a3b260dfc",
+    "source": "remediation-full-suite-source.json",
+    "junit": "remediation-tests.xml",
+    "tests": 166,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 1350.578,
+    "timestamp_utc": "2026-09-22T01:22:22.158184+00:00"
+  },
+  "final_source": {
+    "image_id": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
+    "source": "remediation-source.json",
+    "change_after_full_suite": "Move approved operator-reference evidence write before the early return on incomplete input snapshot; add assertions for unit and real integration. No change to publication logic. Complete suite was not rerun after this bounded change.",
+    "unit": {
+      "junit": "remediation-final-unit.xml",
+      "tests": 151,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 4.998,
+      "timestamp_utc": "2026-09-22T01:47:57.412043+00:00"
+    },
+    "focused_integration": {
+      "junit": "remediation-final-focused.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 65.238,
+      "timestamp_utc": "2026-09-22T01:48:21.344837+00:00"
+    },
+    "focused_case": "tests/integration/test_boundaries.py::test_date_and_money_boundaries_survive_delta_storage",
+    "static": {
+      "ruff": "passed",
+      "format_python_files": 36,
+      "mypy_source_modules": 16
+    }
+  },
+  "demo": {
+    "image_id": "sha256:bfef20f3767767c1513d4f22125a02d52ddb60267a2522614adaa34a3b260dfc",
+    "evidence": "remediation-demo.json",
+    "steps": 8,
+    "duration_seconds": 247.375,
+    "totals_brl": [
+      "64.00",
+      "64.00",
+      "64.00",
+      "64.00",
+      "77.00",
+      "57.00",
+      "57.00",
+      "77.00"
+    ]
+  },
+  "migration": {
+    "evidence": "runtime-migration.json",
+    "seed_spark": "3.5.9",
+    "resume_image_id": "sha256:bfef20f3767767c1513d4f22125a02d52ddb60267a2522614adaa34a3b260dfc",
+    "scope": "Four-row synthetic fixture; not arbitrary external Delta tables."
+  },
+  "benchmark": {
+    "image_id": "sha256:bfef20f3767767c1513d4f22125a02d52ddb60267a2522614adaa34a3b260dfc",
+    "evidence": "remediation-benchmark.json",
+    "rows": 30000,
+    "functional_totals_match_historical_fixture": true,
+    "measurement_note": "Executed concurrently with the isolated integration suite; this is a functional capacity check, not a controlled performance comparison with the old runtime."
+  },
+  "scan": {
+    "image_id": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
+    "scanner": "Trivy 0.74.0",
+    "evidence": "security-scan.json",
+    "triage": "security-triage.json",
+    "filters": [],
+    "jvm_occurrences": 18,
+    "jvm_unique_ids": 18,
+    "counts": {
+      "CRITICAL": 0,
+      "HIGH": 7,
+      "MEDIUM": 11,
+      "LOW": 0
+    },
+    "os_python_findings": 0,
+    "residual_status": "not_fixed",
+    "new_high_critical_without_applicable_triage": 0
+  },
+  "jar_inventory": {
+    "evidence": "runtime-jar-verification.json",
+    "complete_replacements_verified": 45,
+    "optional_removals_verified": 22,
+    "source_and_destination_hashes": "../../runtime-jars.lock.json"
+  },
+  "limitations": [
+    "No production or arbitrary external-table certification.",
+    "No controlled performance comparison; benchmark ran concurrently with isolated integration tests.",
+    "No new browser visual validation; screenshots are historical.",
+    "Working CRLF hashes and normalized Git blob OIDs are separately recorded.",
+    "Residual JVM architecture assessment is not reproduction of every CVE."
+  ]
+}

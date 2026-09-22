@@ -1,0 +1,33 @@
+{
+  "image_id": "sha256:bfef20f3767767c1513d4f22125a02d52ddb60267a2522614adaa34a3b260dfc",
+  "network": "none",
+  "read_only": true,
+  "memory_bytes": 3221225472,
+  "nano_cpus": 2000000000,
+  "cap_drop": [
+    "ALL"
+  ],
+  "cap_add": [
+    "CAP_DAC_OVERRIDE"
+  ],
+  "security_opt": [
+    "no-new-privileges:true"
+  ],
+  "mounts": [
+    {
+      "target": "/app",
+      "type": "bind",
+      "writable": false
+    },
+    {
+      "target": "/app/artifacts",
+      "type": "bind",
+      "writable": true
+    },
+    {
+      "target": "/data",
+      "type": "volume",
+      "writable": true
+    }
+  ]
+}
