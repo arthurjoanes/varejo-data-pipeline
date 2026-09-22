@@ -4,6 +4,10 @@ Desenvolvi este laboratório para conferir entregas e revisões de vendas antes 
 
 Uma soma correta pode esconder uma loja ausente ou contar uma venda duas vezes. Por isso, o relatório separa a tentativa mais recente da publicação que continua disponível quando uma entrega é bloqueada.
 
+![Página principal do Varejo Data Pipeline](docs/readme/home.png)
+
+*Página principal da demonstração.*
+
 [Na prática](#na-prática) · [Implementação](#implementação) · [Executar e verificar](#executar-e-verificar) · [Limites e manutenção](#limites-e-manutenção)
 
 <p><img src="docs/readme/uso.svg" width="800" height="8" alt=""></p>
