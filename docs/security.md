@@ -50,4 +50,6 @@ python3 scripts/check_image_scan.py artifacts/security-scan.json
 
 O CI preserva o relatório integral e bloqueia HIGH/CRITICAL novos ou cuja versão, caminho, pacote ou severidade tenha mudado. A triagem reconhece somente as entradas Java listadas nominalmente; não aceita vulnerabilidades do sistema ou de Python. Mudanças nas condições de isolamento exigem nova análise, mesmo se os identificadores de CVE permanecerem iguais. O workflow separado de Gitleaks verifica segredos no histórico Git.
 
+A configuração Gitleaks mantém todas as regras padrão e uma exceção por caminho **e valor exatos**: o fingerprint público de assinatura das versões Python, presente no histórico/ambiente da imagem em `docs/evidence/security-scan.json`. O valor foi conferido com o [Dockerfile oficial Python 3.11/Alpine](https://github.com/docker-library/python/blob/master/3.11/alpine3.24/Dockerfile); não é uma chave privada nem uma credencial. Outro valor nesse arquivo ou o mesmo valor em outro caminho continua sendo verificado. Essa exceção não altera a varredura de vulnerabilidades Trivy.
+
 A cobertura depende das bases públicas do scanner. O aviso de Trivy sobre a versão Alpine não constar na tabela de EOL não impede a análise de pacotes; ele não é uma prova de suporte nem de ausência de vulnerabilidades desconhecidas.

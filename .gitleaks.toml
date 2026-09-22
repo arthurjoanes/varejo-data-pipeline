@@ -1,0 +1,15 @@
+title = "Varejo Data Pipeline secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+# Source: https://github.com/docker-library/python/blob/master/3.11/alpine3.24/Dockerfile
+description = "Public Python release signing fingerprint in the complete container scan"
+condition = "AND"
+regexTarget = "secret"
+paths = ['''^docs/evidence/security-scan\.json$''']
+regexes = ['''^A035C8C19219BA821ECEA86B64E628F8D684696D$''']
