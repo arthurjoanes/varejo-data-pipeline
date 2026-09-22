@@ -4,9 +4,9 @@ import hashlib
 import json
 import sys
 from pathlib import Path
-from urllib.request import urlopen
 
 import pyspark
+from fetch_artifact import fetch_artifact
 
 
 def main() -> None:
@@ -24,10 +24,7 @@ def main() -> None:
         # An upstream repack or an inconsistent family must stop the build.
         if hashlib.sha256(original.read_bytes()).hexdigest() != artifact["source_sha256"]:
             raise RuntimeError(f"JAR original inesperado: {original.name}")
-        with urlopen(artifact["url"], timeout=120) as response:
-            content = response.read()
-        if hashlib.sha256(content).hexdigest() != artifact["sha256"]:
-            raise RuntimeError(f"SHA-256 inválido: {replacement.name}")
+        content = fetch_artifact(artifact["url"], artifact["sha256"], replacement.name)
         if replacement.exists():
             raise RuntimeError(f"JAR de destino duplicado: {replacement.name}")
         replacement.write_bytes(content)

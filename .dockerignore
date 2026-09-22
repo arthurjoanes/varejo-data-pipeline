@@ -12,3 +12,8 @@ artifacts
 data/generated
 build
 dist
+vendor/**/target
+vendor/**/.cache
+vendor/**/downloads
+vendor/**/output
+vendor/**/outputs

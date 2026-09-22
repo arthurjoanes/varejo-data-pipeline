@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0
+# Replacement for upstream build/spark-build-info. The date is the source-commit
+# epoch used for reproducibility, not the time this local build happened.
+set -eu
+resource_dir="$1"
+mkdir -p "$resource_dir"
+cat > "${resource_dir%/}/spark-version-info.properties" <<EOF
+version=$2
+user=root
+revision=32f7299601108917fb01920a54e084595b7b3bf8
+branch=v4.2.0+varejo-jetty-12.1.13
+date=2026-07-11T15:18:11Z
+url=https://github.com/apache/spark.git
+docroot=https://spark.apache.org/docs/4.2.0
+EOF

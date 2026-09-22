@@ -1,0 +1,38 @@
+{
+  "artifact_identity": "local.retail.pipeline:spark-core-retail_2.13:4.2.0-jetty-12.1.13.1",
+  "upstream_spark_version": "4.2.0",
+  "upstream_commit": "32f7299601108917fb01920a54e084595b7b3bf8",
+  "reproducible_timestamp": "2026-07-11T15:18:11Z",
+  "timestamp_meaning": "Source commit timestamp used for reproducible packaging; not a claim about wall-clock build time.",
+  "scala_binary_version": "2.13",
+  "source_url": "https://archive.apache.org/dist/spark/spark-4.2.0/spark-4.2.0.tgz",
+  "source_sha256": "6e7be4c3eee79903ed6c413f434fb2526b7ccd031f1f99a8db5c24cc5f66e8cd",
+  "source_sha512": "7446f8667e6966f4c0f1caffd41bcd54c9f6b2cecfe5a406332e8b7ce3512033e3f887c805a2d2ec96c90f4281002be3e86fa02cbf00075e2483a5d3eb8d7e20",
+  "source_checksum_url": "https://archive.apache.org/dist/spark/spark-4.2.0/spark-4.2.0.tgz.sha512",
+  "builder_image": "maven:3.9.15-eclipse-temurin-17@sha256:527989ca6d3279cc9494d665f617374c428eccd7248dbadf0d03bceaa70b9c5d",
+  "jetty_version": "12.1.13",
+  "changes": [
+    "Recompile the official Spark core module with the complete Jetty family at 12.1.13, preserving official relocation and resource transformers.",
+    "Keep upstream Spark runtime version 4.2.0 and original Maven dependency metadata; custom identity is recorded separately in this embedded manifest and the artifact filename.",
+    "Reduce Scala compiler heap reservation for the bounded builder; no application source changes.",
+    "Replace environment-dependent build metadata generation with truthful pinned source lineage and SOURCE_DATE_EPOCH."
+  ],
+  "toolchain": {
+    "java": "Eclipse Temurin 17.0.19+10",
+    "maven": "3.9.15",
+    "scala": "2.13.18",
+    "platform": "linux/amd64"
+  },
+  "maven_inputs": {
+    "path": "vendor/spark-core/inputs.sha256",
+    "sha256": "3cf71db23e29bbd445beac77746fa35dc6308e5320f527e117a75cbb742f9303",
+    "count": 1630,
+    "repository": "https://repo.maven.apache.org/maven2/",
+    "compilation_network": "offline Maven after hash-verified bootstrap"
+  },
+  "recipe_sha256": {
+    "build.sh": "0238ee475f891f8ce1a9cf66788e40a272effe3aec223ac24986e64de6c292cc",
+    "fetch-inputs.sh": "23a74fcfb650d93ff02c9c57383b3b422e2dec599412f5c83f6adf15152d7de1",
+    "spark-build-info": "67781de9a1d742780a3c9e9f378274c4e1a8456efd703d5ae521e74938b055c8"
+  }
+}

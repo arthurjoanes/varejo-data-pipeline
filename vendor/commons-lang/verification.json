@@ -1,0 +1,1014 @@
+{
+  "artifact": "commons-lang-2.6-retail-classutils-v1.jar",
+  "comparative_trivy_scan": {
+    "finding_in_each": {
+      "id": "CVE-2025-48924",
+      "severity": "MEDIUM"
+    },
+    "interpretation": "Version-based advisory match remains visible on the explicitly identified backport; this is not a zero-findings result.",
+    "name": "commons-lang-final.json",
+    "original_and_candidate_maven_identity": "commons-lang:commons-lang:2.6",
+    "sha256": "e0d843f5b08c278d2640754685256a1fe3d62818baa76d949eea20902b240f7b"
+  },
+  "component": "commons-lang",
+  "current_recipe_scoped_verification": {
+    "builder_source_sha256": "eba101ba14a8a35bf7d446f58e1b12d5c47312a8126b0f2da7ff771fbe8538fa",
+    "scoped_backport_gates_pass": true,
+    "source_lock_sha256": "d873df054e2d761aceef227d7ab55f217821961afc2465759a105370ea5b3427",
+    "status": "scoped-backport-gates-passed",
+    "test_harness_sha256": "ce5ca6920aef8b829196baecd290915190a84ac1a4eeaa0c81c8a05e607f1ba6",
+    "tests": {
+      "baseline-classutils": {
+        "errors": 1,
+        "exit_code": 1,
+        "failures": 0,
+        "problems": [
+          {
+            "kind": "error",
+            "test": "testGetClassSOE(org.apache.commons.lang.ClassUtilsTest)",
+            "type": "java.lang.StackOverflowError"
+          }
+        ],
+        "skipped": 0,
+        "tests": 44
+      },
+      "baseline-regression": {
+        "errors": 1,
+        "exit_code": 1,
+        "failures": 0,
+        "problems": [
+          {
+            "kind": "error",
+            "test": "testGetClassSOE(org.apache.commons.lang.ClassUtilsTest)",
+            "type": "java.lang.StackOverflowError"
+          }
+        ],
+        "skipped": 0,
+        "tests": 1
+      },
+      "patched-classutils": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "problems": [],
+        "skipped": 0,
+        "tests": 44
+      },
+      "patched-regression": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "problems": [],
+        "skipped": 0,
+        "tests": 1
+      }
+    },
+    "upstream_full_suite_status": "not-run",
+    "validation_scope": "patched-class-and-official-regression"
+  },
+  "current_recipe_sha256": {
+    "scripts/build_commons_lang.py": "eba101ba14a8a35bf7d446f58e1b12d5c47312a8126b0f2da7ff771fbe8538fa",
+    "vendor/commons-lang/Builder.Dockerfile": "0f7457b745b8df160aae4a6cb0310d6e3865e0455ec298058ee2366f070416ab",
+    "vendor/commons-lang/CVE-2025-48924.patch": "f91b65239f657ebe759fe9c94dfe1f79d9967ea53f527c5f88c00c2aab050856",
+    "vendor/commons-lang/UpstreamTestRunner.java": "ce5ca6920aef8b829196baecd290915190a84ac1a4eeaa0c81c8a05e607f1ba6",
+    "vendor/commons-lang/source-lock.json": "d873df054e2d761aceef227d7ab55f217821961afc2465759a105370ea5b3427"
+  },
+  "earlier_compile_limitation": {
+    "explanation": "Unmodified upstream enum package cannot compile under Java 8 syntax; pinned ECJ source/target 1.4 now compiles all test sources. Production ClassUtils uses javac --release 8.",
+    "name": "compile-tests-javac17-failed.log",
+    "sha256": "aec072b2ea13b715c995d22384929f17196caa9a4c6551a55349763a54e60972"
+  },
+  "full_upstream_verification": {
+    "builder_source_sha256": "c643fe42e3e5ea7d660d3cfd1c6d6576ba8df25502bd96633a523b111cd1f464",
+    "scoped_backport_gates_pass": true,
+    "source_lock_sha256": "8144ffa5efb481363cea136845d0b7ec375001c3d6413271974543055958922b",
+    "status": "requires-review",
+    "test_harness_sha256": "ce5ca6920aef8b829196baecd290915190a84ac1a4eeaa0c81c8a05e607f1ba6",
+    "test_order": "Stable alphabetical order of existing JUnit suite children; original test methods and assertions unchanged",
+    "tests": {
+      "baseline-all": {
+        "errors": 9,
+        "exit_code": 1,
+        "failures": 21,
+        "problems": [
+          {
+            "kind": "error",
+            "test": "testGetClassSOE(org.apache.commons.lang.ClassUtilsTest)",
+            "type": "java.lang.StackOverflowError"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionHierarchyCompare(org.apache.commons.lang.builder.CompareToBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionHierarchyCompareExcludeFields(org.apache.commons.lang.builder.CompareToBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionHierarchyCompareTransients(org.apache.commons.lang.builder.CompareToBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testInteger(org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testIntegerWithTransients(org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionBoolean(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionCharacter(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionDoubleArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionDoubleArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionFloatArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionFloatArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionHierarchy(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionIntArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionIntArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionInteger(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionLongArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionLongArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionObjectArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionShortArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionhortArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionyteArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testSelfInstanceTwoVarsReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testSelfInstanceVarReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testSimpleReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testColorEnumEqualsWithDifferentClassLoaders(org.apache.commons.lang.enum.EnumTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testColorEnumEqualsWithDifferentClassLoaders(org.apache.commons.lang.enums.EnumTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testFormat(org.apache.commons.lang.time.FastDateFormatTest)",
+            "type": "junit.framework.ComparisonFailure"
+          },
+          {
+            "kind": "failure",
+            "test": "testShortDateStyleWithLocales(org.apache.commons.lang.time.FastDateFormatTest)",
+            "type": "junit.framework.ComparisonFailure"
+          }
+        ],
+        "skipped": 0,
+        "tests": 1974
+      },
+      "baseline-classutils": {
+        "errors": 1,
+        "exit_code": 1,
+        "failures": 0,
+        "problems": [
+          {
+            "kind": "error",
+            "test": "testGetClassSOE(org.apache.commons.lang.ClassUtilsTest)",
+            "type": "java.lang.StackOverflowError"
+          }
+        ],
+        "skipped": 0,
+        "tests": 44
+      },
+      "baseline-regression": {
+        "errors": 1,
+        "exit_code": 1,
+        "failures": 0,
+        "problems": [
+          {
+            "kind": "error",
+            "test": "testGetClassSOE(org.apache.commons.lang.ClassUtilsTest)",
+            "type": "java.lang.StackOverflowError"
+          }
+        ],
+        "skipped": 0,
+        "tests": 1
+      },
+      "patched-all": {
+        "errors": 8,
+        "exit_code": 1,
+        "failures": 21,
+        "problems": [
+          {
+            "kind": "error",
+            "test": "testReflectionHierarchyCompare(org.apache.commons.lang.builder.CompareToBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionHierarchyCompareExcludeFields(org.apache.commons.lang.builder.CompareToBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionHierarchyCompareTransients(org.apache.commons.lang.builder.CompareToBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testInteger(org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testIntegerWithTransients(org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionBoolean(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionCharacter(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionDoubleArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionDoubleArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionFloatArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionFloatArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionHierarchy(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionIntArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionIntArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "error",
+            "test": "testReflectionInteger(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "java.lang.reflect.InaccessibleObjectException"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionLongArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionLongArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionObjectArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionShortArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionhortArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testReflectionyteArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testSelfInstanceTwoVarsReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testSelfInstanceVarReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testSimpleReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testColorEnumEqualsWithDifferentClassLoaders(org.apache.commons.lang.enum.EnumTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testColorEnumEqualsWithDifferentClassLoaders(org.apache.commons.lang.enums.EnumTest)",
+            "type": "junit.framework.AssertionFailedError"
+          },
+          {
+            "kind": "failure",
+            "test": "testFormat(org.apache.commons.lang.time.FastDateFormatTest)",
+            "type": "junit.framework.ComparisonFailure"
+          },
+          {
+            "kind": "failure",
+            "test": "testShortDateStyleWithLocales(org.apache.commons.lang.time.FastDateFormatTest)",
+            "type": "junit.framework.ComparisonFailure"
+          }
+        ],
+        "skipped": 0,
+        "tests": 1974
+      },
+      "patched-classutils": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "problems": [],
+        "skipped": 0,
+        "tests": 44
+      },
+      "patched-regression": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "problems": [],
+        "skipped": 0,
+        "tests": 1
+      }
+    },
+    "upstream_baseline_failure_set_unchanged_except_fixed_regression": true,
+    "upstream_discovered_test_classes": 98,
+    "upstream_full_suite_status": "failed",
+    "upstream_pom_excludes_preserved": [
+      "EntitiesPerformanceTest.java",
+      "RandomUtilsFreqTest.java"
+    ],
+    "upstream_test_source_files": 149,
+    "validation_scope": "full-upstream-suite"
+  },
+  "initial_unordered_attempt": {
+    "baseline": {
+      "errors": 9,
+      "exit_code": 1,
+      "failures": 28,
+      "problems": [
+        {
+          "kind": "error",
+          "test": "testGetClassSOE(org.apache.commons.lang.ClassUtilsTest)",
+          "type": "java.lang.StackOverflowError"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionHierarchyCompare(org.apache.commons.lang.builder.CompareToBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionHierarchyCompareExcludeFields(org.apache.commons.lang.builder.CompareToBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionHierarchyCompareTransients(org.apache.commons.lang.builder.CompareToBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testIntegerWithTransients(org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testInteger(org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionInteger(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionCharacter(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionBoolean(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionObjectArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionLongArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionIntArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionShortArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testSimpleReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionArrayAndObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionFloatArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionBooleanArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionFloatArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionLongArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionIntArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionhortArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionByteArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionCharArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionDoubleArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionBooleanArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionHierarchy(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionArrayCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionArrayCycleLevel2(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionArrayArrayCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testSelfInstanceVarReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testSelfInstanceTwoVarsReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testColorEnumEqualsWithDifferentClassLoaders(org.apache.commons.lang.enum.EnumTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testColorEnumEqualsWithDifferentClassLoaders(org.apache.commons.lang.enums.EnumTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testShortDateStyleWithLocales(org.apache.commons.lang.time.FastDateFormatTest)",
+          "type": "junit.framework.ComparisonFailure"
+        },
+        {
+          "kind": "failure",
+          "test": "testFormat(org.apache.commons.lang.time.FastDateFormatTest)",
+          "type": "junit.framework.ComparisonFailure"
+        }
+      ],
+      "skipped": 0,
+      "tests": 1974
+    },
+    "limitation": "Additional order-dependent differences prevented comparison; these failures were preserved, not counted as passing.",
+    "patched": {
+      "errors": 8,
+      "exit_code": 1,
+      "failures": 27,
+      "problems": [
+        {
+          "kind": "error",
+          "test": "testReflectionHierarchyCompare(org.apache.commons.lang.builder.CompareToBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionHierarchyCompareExcludeFields(org.apache.commons.lang.builder.CompareToBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionHierarchyCompareTransients(org.apache.commons.lang.builder.CompareToBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testIntegerWithTransients(org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testInteger(org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionBoolean(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionObjectArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionInteger(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "error",
+          "test": "testReflectionCharacter(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "java.lang.reflect.InaccessibleObjectException"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionLongArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionIntArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionShortArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionyteArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionCharArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionDoubleArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionFloatArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionBooleanArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionFloatArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionLongArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionIntArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionhortArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionByteArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionCharArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionDoubleArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionBooleanArrayArray(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionHierarchy(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionArrayCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionArrayCycleLevel2(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionArrayArrayCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testSimpleReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testReflectionArrayAndObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testColorEnumEqualsWithDifferentClassLoaders(org.apache.commons.lang.enum.EnumTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testColorEnumEqualsWithDifferentClassLoaders(org.apache.commons.lang.enums.EnumTest)",
+          "type": "junit.framework.AssertionFailedError"
+        },
+        {
+          "kind": "failure",
+          "test": "testShortDateStyleWithLocales(org.apache.commons.lang.time.FastDateFormatTest)",
+          "type": "junit.framework.ComparisonFailure"
+        },
+        {
+          "kind": "failure",
+          "test": "testFormat(org.apache.commons.lang.time.FastDateFormatTest)",
+          "type": "junit.framework.ComparisonFailure"
+        }
+      ],
+      "skipped": 0,
+      "tests": 1974
+    },
+    "status": "requires-review",
+    "test_order": "JUnit reflection order, prior to alphabetical normalization"
+  },
+  "jar_sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05",
+  "limits": [
+    "44 ClassUtils tests include the separately executed official regression; do not count it twice.",
+    "The complete 1974-case upstream suite still fails 29 cases under JDK 17; baseline minus the fixed regression has the identical test/type set.",
+    "Public/protected API and targeted tests do not certify all downstream behavior.",
+    "Spark/Delta pipeline integration and unfiltered final-image scan are separate gates."
+  ],
+  "post_full_suite_changes": "Only Ruff formatting, equivalent named comparison key instead of a lambda, and moving obsolete CRLF preparation fingerprints out of the source lock. The unchanged JAR and harness were verified again by the current scoped build; the earlier full-suite source and raw failure reports remain preserved. No full-suite pass is claimed.",
+  "preservation": {
+    "added_entries": [
+      "META-INF/varejo-commons-lang-CVE-2025-48924.patch",
+      "META-INF/varejo-commons-lang.json"
+    ],
+    "changed_class": "org/apache/commons/lang/ClassUtils.class",
+    "original_entries": 155,
+    "raw_compressed_members_and_metadata_preserved": true,
+    "unchanged_entries": 154,
+    "upstream_manifest_license_notice_preserved": true
+  },
+  "provenance_path": "META-INF/varejo-commons-lang.json",
+  "provenance_sha256": "cde6bb4d78ceddc14812dcee5a8064815b45366cdfcff1dc3fd9fae515dbe07d",
+  "public_protected_api_unchanged": true,
+  "raw_reports_location": "Preserved external build outputs; these names/hashes identify the recorded files. Reproduction emits fresh XML and logs under the selected --output directory; timings/stack traces may differ.",
+  "raw_xml_reports": [
+    {
+      "name": "baseline-all.xml",
+      "run": "output",
+      "sha256": "57bbb7c13cd583f11adfe1e8895013d0563c78023ac9b57096e8d57a58fb57b8",
+      "size_bytes": 326756
+    },
+    {
+      "name": "baseline-regression.xml",
+      "run": "output",
+      "sha256": "093526c204f0bee370bfb38b987bed882e0ba15fd8e0e00b449640862c220844",
+      "size_bytes": 71070
+    },
+    {
+      "name": "patched-all.xml",
+      "run": "output",
+      "sha256": "698dc2763e6f01f862cdf0830d9e2c52081da538857cbb8603e934e493e9e5f9",
+      "size_bytes": 254349
+    },
+    {
+      "name": "patched-regression.xml",
+      "run": "output",
+      "sha256": "5b672e07ee9567fd9fe3945aaf81db9a0c6c67e1984e13f1475cd69f64fc0b31",
+      "size_bytes": 220
+    },
+    {
+      "name": "baseline-all.xml",
+      "run": "output-stable-order",
+      "sha256": "283bab26edfb03914740b53a7cc503bd522c7c3096e53314e3e8bda85847d125",
+      "size_bytes": 316046
+    },
+    {
+      "name": "baseline-classutils.xml",
+      "run": "output-stable-order",
+      "sha256": "d6485323d87337f37664a0c403ac3d746fc1d7021a51aa9f6b61e17d170a2b2c",
+      "size_bytes": 75303
+    },
+    {
+      "name": "baseline-regression.xml",
+      "run": "output-stable-order",
+      "sha256": "093526c204f0bee370bfb38b987bed882e0ba15fd8e0e00b449640862c220844",
+      "size_bytes": 71070
+    },
+    {
+      "name": "patched-all.xml",
+      "run": "output-stable-order",
+      "sha256": "c6a5ad41dcbc539f6d2ce3c479e38e9fbda1ae146732cac1a6fcd8fb2507a109",
+      "size_bytes": 245188
+    },
+    {
+      "name": "patched-classutils.xml",
+      "run": "output-stable-order",
+      "sha256": "34fff054e511f0f745259cc4903e52d564ec8df1a5b2c12f3497bf96ade34a07",
+      "size_bytes": 4453
+    },
+    {
+      "name": "patched-regression.xml",
+      "run": "output-stable-order",
+      "sha256": "5b672e07ee9567fd9fe3945aaf81db9a0c6c67e1984e13f1475cd69f64fc0b31",
+      "size_bytes": 220
+    },
+    {
+      "name": "baseline-all.xml",
+      "run": "output-final-upstream",
+      "sha256": "283bab26edfb03914740b53a7cc503bd522c7c3096e53314e3e8bda85847d125",
+      "size_bytes": 316046
+    },
+    {
+      "name": "baseline-classutils.xml",
+      "run": "output-final-upstream",
+      "sha256": "547cd6073b0cd05997b3a4fbc84da0b2f0a93c0e8f2b1404ded59558376baac1",
+      "size_bytes": 75301
+    },
+    {
+      "name": "baseline-regression.xml",
+      "run": "output-final-upstream",
+      "sha256": "093526c204f0bee370bfb38b987bed882e0ba15fd8e0e00b449640862c220844",
+      "size_bytes": 71070
+    },
+    {
+      "name": "patched-all.xml",
+      "run": "output-final-upstream",
+      "sha256": "c6a5ad41dcbc539f6d2ce3c479e38e9fbda1ae146732cac1a6fcd8fb2507a109",
+      "size_bytes": 245188
+    },
+    {
+      "name": "patched-classutils.xml",
+      "run": "output-final-upstream",
+      "sha256": "34fff054e511f0f745259cc4903e52d564ec8df1a5b2c12f3497bf96ade34a07",
+      "size_bytes": 4453
+    },
+    {
+      "name": "patched-regression.xml",
+      "run": "output-final-upstream",
+      "sha256": "5b672e07ee9567fd9fe3945aaf81db9a0c6c67e1984e13f1475cd69f64fc0b31",
+      "size_bytes": 220
+    },
+    {
+      "name": "baseline-classutils.xml",
+      "run": "output-reviewed",
+      "sha256": "547cd6073b0cd05997b3a4fbc84da0b2f0a93c0e8f2b1404ded59558376baac1",
+      "size_bytes": 75301
+    },
+    {
+      "name": "baseline-regression.xml",
+      "run": "output-reviewed",
+      "sha256": "4791bb3ca1b23c161cf2ac9cd1e493dd8459ce5cfc46895664049fa89b222a20",
+      "size_bytes": 71117
+    },
+    {
+      "name": "patched-classutils.xml",
+      "run": "output-reviewed",
+      "sha256": "34fff054e511f0f745259cc4903e52d564ec8df1a5b2c12f3497bf96ade34a07",
+      "size_bytes": 4453
+    },
+    {
+      "name": "patched-regression.xml",
+      "run": "output-reviewed",
+      "sha256": "5b672e07ee9567fd9fe3945aaf81db9a0c6c67e1984e13f1475cd69f64fc0b31",
+      "size_bytes": 220
+    }
+  ],
+  "recorded_on": "2026-09-22",
+  "reproduction_builds": [
+    {
+      "build_manifest_sha256": "760b90d83a19c89e90fa7eea01de247daadf5be953ad2ec8fc91e2f1d31a4aa1",
+      "jar_sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05",
+      "run": "output"
+    },
+    {
+      "build_manifest_sha256": "68141dd9861ce4db855cc63c88729acec482f1fc01ed6b5dfeb20a38935c0407",
+      "jar_sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05",
+      "run": "output-stable-order"
+    },
+    {
+      "build_manifest_sha256": "07836c85766e17cbf9c868ee1049aec8ac4945eb6de39e4b8e137afef4102fea",
+      "jar_sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05",
+      "run": "output-final"
+    },
+    {
+      "build_manifest_sha256": "a18eb36f9d4224fb9299a7876e12b2c82c167ee18d925e63b8b4e8284117fbfd",
+      "jar_sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05",
+      "run": "output-final-upstream"
+    },
+    {
+      "build_manifest_sha256": "07b1303ad486a9a4910f18d8a4522cf3c7214eab18c5e8f14a23f2d2e528665d",
+      "jar_sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05",
+      "run": "output-reviewed"
+    }
+  ],
+  "schema_version": 1
+}

@@ -39,6 +39,6 @@ Delta faz transação por tabela; o manifesto e o lock do volume mantêm a consi
 
 Python, PySpark, Delta Lake, Spark SQL e Docker. Licença MIT.
 
-O runtime usa Spark 4.2.0 e Delta 4.4.0, com atualizações coordenadas das bibliotecas JVM e orçamento configurável de entrada. As dependências JVM têm achados conhecidos, com condições de exposição e triagem explícitas em [segurança](docs/security.md); o projeto não é uma implantação pública de Spark.
+O runtime usa Spark 4.2.0 e Delta 4.4.0, com orçamento configurável de entrada e dependências JVM fixadas por hash. Três componentes têm builds locais identificados: Spark core com Jetty atualizado, assembly Hadoop para o batch local e Commons Lang 2.6 com um patch oficial específico. O primeiro build compila esses componentes e baixa suas ferramentas; exige mais tempo, rede e espaço. A execução do batch continua local e sem rede. As receitas foram verificadas em Linux/amd64. [Segurança, provas e limites](docs/security.md).
 
-A migração, os hashes dos artefatos e os riscos residuais estão em [atualização do runtime](docs/runtime-upgrade.md).
+A migração, os hashes dos artefatos e a manutenção dos builds estão em [atualização do runtime](docs/runtime-upgrade.md).

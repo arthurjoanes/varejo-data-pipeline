@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "runtime_image_id": "sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3",
+  "base_commit": "60e0ff335efe6b119cac238aef9ffa8df69c035c",
+  "scope": "Builds identificados de Spark core, Hadoop runtime e Commons Lang para o batch local existente. A imagem foi testada com código e testes montados somente leitura; a revisão posterior da interface será identificada separadamente.",
+  "full_suite_before_interface": {
+    "status": "passed",
+    "tests": 188,
+    "integration_tests": 15,
+    "unit_tests": 173,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_seconds": 1003.963,
+    "source_unchanged": true,
+    "result": "jvm-rebuild-full-suite.json",
+    "junit": "jvm-rebuild-tests.xml",
+    "source_and_build_materials": "jvm-rebuild-source-before-interface.json"
+  },
+  "runtime_isolation": {
+    "network_mode": "none",
+    "read_only_rootfs": true,
+    "read_only_application_bind": true,
+    "writable_locations": ["/data", "/app/artifacts"],
+    "memory_bytes": 3221225472,
+    "cpus": 2,
+    "cap_drop": ["ALL"],
+    "cap_add": ["DAC_OVERRIDE"],
+    "no_new_privileges": true,
+    "data_volume": "isolated disposable proof volume; no existing operator state used"
+  },
+  "scan": {
+    "file": "security-scan.json",
+    "sha256": "407549ed22a8e964d587edd6359562989c1c9cc84d769228eeeb839da8d47143",
+    "scanner": "Trivy 0.74.0",
+    "vulnerability_database_updated_at_utc": "2026-09-21T19:11:02.692566039Z",
+    "java_identification_database_updated_at_utc": "2026-09-19T01:01:52.688391724Z",
+    "exclusions": [],
+    "severity_filter": null,
+    "ignore_unfixed": false,
+    "high_critical": 0,
+    "medium": 1,
+    "medium_id": "CVE-2025-48924",
+    "explanation": "Metadados Maven Commons Lang 2.6 preservados no backport. O alerta por versão permanece; hash, patch oficial e regressão comprovam a alteração do código.",
+    "individual_treatment": "security-triage.json"
+  },
+  "build_validation": {
+    "platform": "linux/amd64",
+    "complete_component_contracts": "../../runtime-jars.lock.json",
+    "commons_lang": "../../vendor/commons-lang/verification.json",
+    "hadoop_runtime": "../../vendor/hadoop-runtime/reproduction.json",
+    "spark_core": "../../vendor/spark-core/provenance.json",
+    "clean_rebuilds_same_jar_hashes": true,
+    "full_image_byte_reproducibility_claim": false,
+    "cache_note": "Caches BuildKit locais foram aquecidos com materiais cujos hashes foram verificados. Cada receita mantém as verificações em cache hits. O build normal sem cache baixa os materiais; o tempo observado localmente não prevê um primeiro build."
+  },
+  "limits": [
+    "Não foram reproduzidos individualmente todos os 18 CVEs; a matriz distingue atualização, remoção completa e regressão dirigida.",
+    "A suíte upstream Commons Lang completa mantém 29 problemas no Java 17, também presentes no original além da regressão corrigida. Os 44 testes de ClassUtils passam; não se declara a suíte upstream completa aprovada.",
+    "Não certifica funcionalidades Hadoop HTTP, Hive ou Spark Connect fora do batch original, nem tabelas/configurações de terceiros.",
+    "Scan é um snapshot das bases públicas e não prova ausência de vulnerabilidades desconhecidas.",
+    "A interface publicada durante a execução ainda precisa ser incorporada e verificada; seus testes serão registrados separadamente."
+  ],
+  "post_interface_validation": {"status": "pending"}
+}

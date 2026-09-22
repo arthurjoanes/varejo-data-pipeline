@@ -1,0 +1,7 @@
+{
+  "image": "maven:3.9.11-eclipse-temurin-17@sha256:e4a7ace3dc0d645ed97f8d9ad0b0d3f0b14fa8d150138f27f116d7105a639b82",
+  "maven": "3.9.11",
+  "java": "Temurin 17.0.17+10",
+  "source_date_epoch": 1790035200,
+  "project_build_output_timestamp": "2026-09-22T00:00:00Z"
+}

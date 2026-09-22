@@ -1,0 +1,479 @@
+{
+  "upstream": "org.apache.hadoop:hadoop-client-runtime:3.5.0",
+  "source_artifact": {
+    "file": "hadoop-client-runtime-3.5.0.jar",
+    "sha256": "b7db3e60c5df1cd37c2995b3e0142e57487260706834e5325bbe0a5e683eedf1"
+  },
+  "custom_build": "retail-security.1; not an Apache release",
+  "artifact": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+  "sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
+  "bytes": 30123117,
+  "toolchain": "maven:3.9.11-eclipse-temurin-17@sha256:e4a7ace3dc0d645ed97f8d9ad0b0d3f0b14fa8d150138f27f116d7105a639b82",
+  "source_date_epoch": "1790035200",
+  "upstream_sources": {
+    "tag": "rel/release-3.5.0",
+    "sources": [
+      {
+        "path": "upstream/runtime.pom.xml",
+        "url": "https://raw.githubusercontent.com/apache/hadoop/rel/release-3.5.0/hadoop-client-modules/hadoop-client-runtime/pom.xml",
+        "sha256": "f5a1580fde7a4fd89513c6ed94027236b6a4e27eaf5147e1e8711d72c468c8de"
+      },
+      {
+        "path": "upstream/project.pom.xml",
+        "url": "https://raw.githubusercontent.com/apache/hadoop/rel/release-3.5.0/hadoop-project/pom.xml",
+        "sha256": "592faadca05d91d7339323b02494d39955a8f08909ecbe893518debbf58453d7"
+      },
+      {
+        "path": "upstream/LICENSE.txt",
+        "url": "https://raw.githubusercontent.com/apache/hadoop/rel/release-3.5.0/LICENSE.txt",
+        "sha256": "558e26751f0c7f72b79ce8b1be2c03b38629dbb639d6412f940603451f6cecd2"
+      },
+      {
+        "path": "upstream/NOTICE.txt",
+        "url": "https://raw.githubusercontent.com/apache/hadoop/rel/release-3.5.0/NOTICE.txt",
+        "sha256": "bd8d44431e4ce7a8d03d194d6d11f6d1b3206de594885825ef7ce98ee40c456e"
+      }
+    ]
+  },
+  "build_definition": {
+    "pom.xml": "346bc36b6303f42af16aafcd7f81aeb7cbfe429eef2e4275f38750fe245d3a8b",
+    "settings.xml": "e58f1182d6757c43d07a9b4eb99867ed04ed47df432bd38eaec9fd4efacfc841",
+    "inputs.lock.json": "70daf198421da08a50212c97d58f0bdc6c40ab8406ab6cb21869fdad53aed057"
+  },
+  "changes": "See embedded META-INF/varejo-hadoop-runtime.json and reviewed pom.xml against upstream/runtime.pom.xml",
+  "whole_components_excluded": [
+    "org.eclipse.jetty:*",
+    "org.eclipse.jetty.websocket:*"
+  ],
+  "jline_provider_resource_relocations": [
+    {
+      "input_artifact": "org.jline:jline:3.30.17",
+      "resource": "META-INF/jline/providers/dumb",
+      "original_sha256": "48252719e3f40a0eb6197ce9ad989c179103b807e91b17f31868c0835ce08056",
+      "relocated_sha256": "cae213d2925cf5a1524845ce57d75e40e1cc623eaef6e55ce40b648a72150a5f",
+      "change": "Relocate provider class value to the existing Hadoop shading namespace. Preserve complete provider resource."
+    },
+    {
+      "input_artifact": "org.jline:jline:3.30.17",
+      "resource": "META-INF/jline/providers/exec",
+      "original_sha256": "cc3e8b83e01f2550d8e9369b3763ab42b88122667cfa3f85998d252871e18b86",
+      "relocated_sha256": "4eef99f09893d7ed87b335e6ca6f75fbcc97231d84e33bc7e53f723c02cd89cc",
+      "change": "Relocate provider class value to the existing Hadoop shading namespace. Preserve complete provider resource."
+    },
+    {
+      "input_artifact": "org.jline:jline:3.30.17",
+      "resource": "META-INF/jline/providers/ffm",
+      "original_sha256": "ada38b6c74ee716d369c9f462f719d1872425b09809859d7531da53c1b6d991c",
+      "relocated_sha256": "73e5477155c4ee5d3dc386bfcdda6356c7ceb97c93c5ef96bc8cec73d7a17603",
+      "change": "Relocate provider class value to the existing Hadoop shading namespace. Preserve complete provider resource."
+    },
+    {
+      "input_artifact": "org.jline:jline:3.30.17",
+      "resource": "META-INF/jline/providers/jni",
+      "original_sha256": "7ec5c51d27102bdc4a083a76de447eb2c519424f4d8caf72e2ab9bbeebd52757",
+      "relocated_sha256": "20bede744e2758bcad25cc43c1833a79d15cdde4017d7c592c115f316d563f6f",
+      "change": "Relocate provider class value to the existing Hadoop shading namespace. Preserve complete provider resource."
+    }
+  ],
+  "external_runtime_dependencies_used_in_probe": [
+    {
+      "artifact": "hadoop-client-api-3.5.0.jar",
+      "sha256": "cc59446ec9ebaceae56fdb8d8c21477766dc5d426325642151c796bec5c4e6b7"
+    },
+    {
+      "artifact": "jcl-over-slf4j-2.0.17.jar",
+      "sha256": "affd06771589ebfe454bb11315a4f466ecaa135b95f3e7939534cf1d2fd7064c"
+    },
+    {
+      "artifact": "slf4j-api-2.0.17.jar",
+      "sha256": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832"
+    },
+    {
+      "artifact": "snappy-java-1.1.10.8.jar",
+      "sha256": "50485d06037fea3d6e40c968386feeca6338cc9872e25549593ff3eb352cefcc"
+    }
+  ],
+  "maven_packages_in_jar": [
+    {
+      "groupId": "org.apache.hadoop",
+      "artifactId": "hadoop-client-runtime",
+      "version": "3.5.0"
+    },
+    {
+      "artifactId": "hadoop-client-runtime-retail",
+      "groupId": "local.retail.pipeline",
+      "version": "3.5.0-security.1"
+    },
+    {
+      "groupId": "org.apache.hadoop.thirdparty",
+      "artifactId": "hadoop-shaded-protobuf_3_25",
+      "version": "1.5.0"
+    },
+    {
+      "groupId": "org.apache.hadoop.thirdparty",
+      "artifactId": "hadoop-shaded-guava",
+      "version": "1.5.0"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "33.4.8-jre"
+    },
+    {
+      "artifactId": "failureaccess",
+      "groupId": "com.google.guava",
+      "version": "1.0.3"
+    },
+    {
+      "artifactId": "error_prone_annotations",
+      "groupId": "com.google.errorprone",
+      "version": "2.36.0"
+    },
+    {
+      "artifactId": "j2objc-annotations",
+      "groupId": "com.google.j2objc",
+      "version": "3.0.0"
+    },
+    {
+      "version": "9999.0-empty-to-avoid-conflict-with-guava",
+      "groupId": "com.google.guava",
+      "artifactId": "listenablefuture"
+    },
+    {
+      "artifactId": "commons-cli",
+      "groupId": "commons-cli",
+      "version": "1.9.0"
+    },
+    {
+      "version": "3.6.1",
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-math3"
+    },
+    {
+      "version": "4.5.13",
+      "groupId": "org.apache.httpcomponents",
+      "artifactId": "httpclient"
+    },
+    {
+      "artifactId": "commons-codec",
+      "groupId": "commons-codec",
+      "version": "1.15"
+    },
+    {
+      "artifactId": "commons-io",
+      "groupId": "commons-io",
+      "version": "2.22.0"
+    },
+    {
+      "artifactId": "commons-net",
+      "groupId": "commons-net",
+      "version": "3.9.0"
+    },
+    {
+      "version": "4.4",
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-collections4"
+    },
+    {
+      "version": "2.3.6",
+      "groupId": "jakarta.servlet.jsp",
+      "artifactId": "jakarta.servlet.jsp-api"
+    },
+    {
+      "groupId": "jakarta.ws.rs",
+      "artifactId": "jakarta.ws.rs-api",
+      "version": "2.1.6"
+    },
+    {
+      "version": "1.2.1",
+      "groupId": "jakarta.activation",
+      "artifactId": "jakarta.activation-api"
+    },
+    {
+      "artifactId": "commons-configuration2",
+      "groupId": "org.apache.commons",
+      "version": "2.15.1"
+    },
+    {
+      "artifactId": "commons-lang3",
+      "groupId": "org.apache.commons",
+      "version": "3.20.0"
+    },
+    {
+      "artifactId": "commons-text",
+      "groupId": "org.apache.commons",
+      "version": "1.15.0"
+    },
+    {
+      "version": "1.11.5",
+      "groupId": "org.apache.avro",
+      "artifactId": "avro"
+    },
+    {
+      "artifactId": "jackson-core",
+      "groupId": "com.fasterxml.jackson.core",
+      "version": "2.18.11"
+    },
+    {
+      "version": "1.1",
+      "groupId": "com.google.re2j",
+      "artifactId": "re2j"
+    },
+    {
+      "artifactId": "gson",
+      "groupId": "com.google.code.gson",
+      "version": "2.9.0"
+    },
+    {
+      "artifactId": "nimbus-jose-jwt",
+      "groupId": "com.nimbusds",
+      "version": "10.4"
+    },
+    {
+      "version": "1.0-1",
+      "groupId": "com.github.stephenc.jcip",
+      "artifactId": "jcip-annotations"
+    },
+    {
+      "groupId": "org.apache.curator",
+      "artifactId": "curator-framework",
+      "version": "5.2.0"
+    },
+    {
+      "artifactId": "kerb-util",
+      "groupId": "org.apache.kerby",
+      "version": "2.0.3"
+    },
+    {
+      "artifactId": "kerby-config",
+      "groupId": "org.apache.kerby",
+      "version": "2.0.3"
+    },
+    {
+      "artifactId": "kerb-crypto",
+      "groupId": "org.apache.kerby",
+      "version": "2.0.3"
+    },
+    {
+      "groupId": "org.apache.curator",
+      "artifactId": "curator-client",
+      "version": "5.2.0"
+    },
+    {
+      "groupId": "org.apache.curator",
+      "artifactId": "curator-recipes",
+      "version": "5.2.0"
+    },
+    {
+      "artifactId": "commons-compress",
+      "groupId": "org.apache.commons",
+      "version": "1.26.1"
+    },
+    {
+      "artifactId": "kerb-core",
+      "groupId": "org.apache.kerby",
+      "version": "2.0.3"
+    },
+    {
+      "artifactId": "kerby-pkix",
+      "groupId": "org.apache.kerby",
+      "version": "2.0.3"
+    },
+    {
+      "artifactId": "kerby-asn1",
+      "groupId": "org.apache.kerby",
+      "version": "2.0.3"
+    },
+    {
+      "artifactId": "kerby-util",
+      "groupId": "org.apache.kerby",
+      "version": "2.0.3"
+    },
+    {
+      "artifactId": "jackson-databind",
+      "groupId": "com.fasterxml.jackson.core",
+      "version": "2.18.11"
+    },
+    {
+      "version": "4.2.1",
+      "groupId": "org.codehaus.woodstox",
+      "artifactId": "stax2-api"
+    },
+    {
+      "version": "5.4.0",
+      "groupId": "com.fasterxml.woodstox",
+      "artifactId": "woodstox-core"
+    },
+    {
+      "artifactId": "dnsjava",
+      "groupId": "dnsjava",
+      "version": "3.6.1"
+    },
+    {
+      "version": "4.4.13",
+      "groupId": "org.apache.httpcomponents",
+      "artifactId": "httpcore"
+    },
+    {
+      "artifactId": "jackson-annotations",
+      "groupId": "com.fasterxml.jackson.core",
+      "version": "2.18.11"
+    },
+    {
+      "artifactId": "jakarta.xml.bind-api",
+      "groupId": "jakarta.xml.bind",
+      "version": "2.3.3"
+    },
+    {
+      "artifactId": "jansi-core",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-builtins",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-native",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-reader",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-remote-ssh",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-remote-telnet",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-style",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-terminal",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-terminal-ffm",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-terminal-jansi",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-terminal-jna",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline-terminal-jni",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "artifactId": "jline",
+      "groupId": "org.jline",
+      "version": "3.30.17"
+    },
+    {
+      "version": "4.0.4",
+      "groupId": "jakarta.servlet",
+      "artifactId": "jakarta.servlet-api"
+    },
+    {
+      "version": "2.18.11",
+      "groupId": "com.fasterxml.jackson.module",
+      "artifactId": "jackson-module-jaxb-annotations"
+    },
+    {
+      "version": "2.18.11",
+      "groupId": "com.fasterxml.jackson.jaxrs",
+      "artifactId": "jackson-jaxrs-json-provider"
+    },
+    {
+      "version": "2.18.11",
+      "groupId": "com.fasterxml.jackson.jaxrs",
+      "artifactId": "jackson-jaxrs-base"
+    },
+    {
+      "version": "2.4.4",
+      "groupId": "net.jodah",
+      "artifactId": "failsafe"
+    },
+    {
+      "version": "0.1.55",
+      "groupId": "com.jcraft",
+      "artifactId": "jsch"
+    }
+  ],
+  "services": [
+    "META-INF/services/",
+    "META-INF/services/javax.xml.stream.XMLEventFactory",
+    "META-INF/services/javax.xml.stream.XMLInputFactory",
+    "META-INF/services/javax.xml.stream.XMLOutputFactory",
+    "META-INF/services/org.apache.hadoop.shaded.com.fasterxml.jackson.core.JsonFactory",
+    "META-INF/services/org.apache.hadoop.shaded.com.fasterxml.jackson.core.ObjectCodec",
+    "META-INF/services/org.apache.hadoop.shaded.com.fasterxml.jackson.databind.Module",
+    "META-INF/services/org.apache.hadoop.shaded.javax.ws.rs.ext.MessageBodyReader",
+    "META-INF/services/org.apache.hadoop.shaded.javax.ws.rs.ext.MessageBodyWriter",
+    "META-INF/services/org.apache.hadoop.shaded.org.codehaus.stax2.validation.XMLValidationSchemaFactory.dtd",
+    "META-INF/services/org.apache.hadoop.shaded.org.codehaus.stax2.validation.XMLValidationSchemaFactory.relaxng",
+    "META-INF/services/org.apache.hadoop.shaded.org.codehaus.stax2.validation.XMLValidationSchemaFactory.w3c",
+    "META-INF/services/org.apache.hadoop.shaded.org.jline.terminal.spi.TerminalProvider",
+    "META-INF/services/org/",
+    "META-INF/services/org/jline/",
+    "META-INF/services/org/jline/terminal/",
+    "META-INF/services/org/jline/terminal/provider/",
+    "META-INF/services/org/jline/terminal/provider/jansi",
+    "META-INF/services/org/jline/terminal/provider/jna",
+    "META-INF/services/sun.net.spi.nameservice.NameServiceDescriptor"
+  ],
+  "retained_legal_materials": 61,
+  "component_checks": {
+    "returncode": 0,
+    "network": "none",
+    "memory_limit_mib": 512,
+    "stdout": "PASS local-fs sequence-file jackson-roundtrip jackson-chunk-budget yaml-hierarchy-normal yaml-hierarchy-cycle jline-dumb jetty-absent\n",
+    "source_sha256": "91ff512fcb933312dac850ef7e55b7031776b013ed51883a283f66627807001a",
+    "external_dependencies": {
+      "matches_runtime_image": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
+      "artifacts": [
+        {
+          "artifact": "hadoop-client-api-3.5.0.jar",
+          "url": "https://repo.maven.apache.org/maven2/org/apache/hadoop/hadoop-client-api/3.5.0/hadoop-client-api-3.5.0.jar",
+          "sha256": "cc59446ec9ebaceae56fdb8d8c21477766dc5d426325642151c796bec5c4e6b7"
+        },
+        {
+          "artifact": "jcl-over-slf4j-2.0.17.jar",
+          "url": "https://repo.maven.apache.org/maven2/org/slf4j/jcl-over-slf4j/2.0.17/jcl-over-slf4j-2.0.17.jar",
+          "sha256": "affd06771589ebfe454bb11315a4f466ecaa135b95f3e7939534cf1d2fd7064c"
+        },
+        {
+          "artifact": "slf4j-api-2.0.17.jar",
+          "url": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar",
+          "sha256": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832"
+        },
+        {
+          "artifact": "snappy-java-1.1.10.8.jar",
+          "url": "https://repo.maven.apache.org/maven2/org/xerial/snappy/snappy-java/1.1.10.8/snappy-java-1.1.10.8.jar",
+          "sha256": "50485d06037fea3d6e40c968386feeca6338cc9872e25549593ff3eb352cefcc"
+        }
+      ]
+    }
+  },
+  "scope": "Component checks only. Full Spark/Delta pipeline, migration, publication and image scan are integration gates outside this artifact."
+}

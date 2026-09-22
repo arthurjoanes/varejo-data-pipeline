@@ -1,8 +1,8 @@
 """Baixa os jars no build; a execução usa os arquivos da imagem."""
 
-import hashlib
 from pathlib import Path
-from urllib.request import urlopen
+
+from fetch_artifact import fetch_artifact
 
 MAVEN = "https://repo.maven.apache.org/maven2/io/delta"
 JARS = {
@@ -16,10 +16,7 @@ def main() -> None:
     target.mkdir(parents=True, exist_ok=True)
     for artifact, expected in JARS.items():
         filename = f"{artifact}-4.4.0.jar"
-        with urlopen(f"{MAVEN}/{artifact}/4.4.0/{filename}", timeout=120) as response:
-            payload = response.read()
-        if hashlib.sha256(payload).hexdigest() != expected:
-            raise RuntimeError(f"SHA-256 inválido: {filename}")
+        payload = fetch_artifact(f"{MAVEN}/{artifact}/4.4.0/{filename}", expected, filename)
         (target / filename).write_bytes(payload)
 
 

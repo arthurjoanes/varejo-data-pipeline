@@ -1,0 +1,899 @@
+{
+  "scope": "Resolved graph, including whole artifacts excluded by the upstream/local shade rules",
+  "artifacts": [
+    {
+      "artifact": "aopalliance-repackaged-2.6.1.jar",
+      "sha256": "bad77f9278d753406360af9e4747bd9b3161554ea9cd3d62411a0ae1f2c141fd",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "avro-1.11.5.jar",
+      "sha256": "b3c55da4c58304f823f4a2161a308888b9e7b8bc1c7387a4fa3ca1cd48617f93",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "bcprov-jdk18on-1.82.jar",
+      "sha256": "14cde2fdfaa8890480a8e5b67aceef0c90f96682c1e23c133bafdc9e0b3255ce",
+      "legal_materials": []
+    },
+    {
+      "artifact": "commons-cli-1.9.0.jar",
+      "sha256": "d3d530d0f28fd0fbbffe2b0b338f70e8cb96f1605579e2e3abd4db29cac24e69",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-codec-1.15.jar",
+      "sha256": "b3e9f6d63a790109bf0d056611fbed1cf69055826defeb9894a71369d246ed63",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-collections4-4.4.jar",
+      "sha256": "1df8b9430b5c8ed143d7815e403e33ef5371b2400aadbe9bda0883762e0846d1",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-compress-1.26.1.jar",
+      "sha256": "27bb5d40f37c3bb7205b4a0540247df057715e9f6cbbd97d626ab8b50318bb04",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-configuration2-2.15.1.jar",
+      "sha256": "61ba5eaab8a17087042fe3d6811573bb85ccbdd6bd9d21ad464e6e20559dd1e8",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-io-2.22.0.jar",
+      "sha256": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-lang3-3.20.0.jar",
+      "sha256": "69e5c9fa35da7a51a5fd2099dfe56a2d8d32cf233e2f6d770e796146440263f4",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-logging-1.3.6.jar",
+      "sha256": "f8ead8943401081dea0aa824b5b1ba40a0e4ed297a572a0f02258150a0b62357",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-math3-3.6.1.jar",
+      "sha256": "1e56d7b058d28b65abd256b8458e3885b674c1d588fa43cd7d1cbb9c7ef2b308",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-net-3.9.0.jar",
+      "sha256": "e3c1566f821b84489308cd933f57e8c00dd8714dc96b898bef844386510d3461",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "commons-text-1.15.0.jar",
+      "sha256": "58d2da30f058512a1e7f914e39241deca4dff5c27a085b4ed2faa9e7208067f6",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "curator-client-5.2.0.jar",
+      "sha256": "345ec409bc026e114e8fd471a9273f631a3a494f0e091b092c1ac94499ddee4f",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "curator-framework-5.2.0.jar",
+      "sha256": "9a6b6ec713bd4145fa6912f2197a1f642806c10d4ba87561dfec551f6eaec4f1",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "curator-recipes-5.2.0.jar",
+      "sha256": "45e755b95763c9db8b8c465098ec72a33ee7c82132145a32dc9844d699c5b7f3",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "dnsjava-3.6.1.jar",
+      "sha256": "f9def222ef5c0406216663ca45ca0950781541e22558b217aa779f36fbd24ab5",
+      "legal_materials": [
+        "META-INF/LICENSE"
+      ]
+    },
+    {
+      "artifact": "failsafe-2.4.4.jar",
+      "sha256": "ac3f916e536db9a69f93706f778e90e2be476bdebea0c45cca6d9675ee99ec30",
+      "legal_materials": []
+    },
+    {
+      "artifact": "failureaccess-1.0.3.jar",
+      "sha256": "cbfc3906b19b8f55dd7cfd6dfe0aa4532e834250d7f080bd8d211a3e246b59cb",
+      "legal_materials": [
+        "META-INF/LICENSE"
+      ]
+    },
+    {
+      "artifact": "gson-2.9.0.jar",
+      "sha256": "c96d60551331a196dac54b745aa642cd078ef89b6f267146b705f2c2cbef052d",
+      "legal_materials": []
+    },
+    {
+      "artifact": "guava-33.4.8-jre.jar",
+      "sha256": "f3d7f57f67fd622f4d468dfdd692b3a5e3909246c28017ac3263405f0fe617ed",
+      "legal_materials": [
+        "META-INF/LICENSE"
+      ]
+    },
+    {
+      "artifact": "hadoop-annotations-3.5.0.jar",
+      "sha256": "f2291ae546bb40bc30d1ea5c527b48b3277b51bfeb3dbd2941a7d6f98c5f37bf",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-auth-3.5.0.jar",
+      "sha256": "dd3f8552262124fa13e8b16962d75dc84a6761a3356faf40505af480accc17ad",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-client-3.5.0.jar",
+      "sha256": "3055051a0e270101fde3b91d0e79978c05f0953e7da51258b0fdf762fb35b8ef",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-client-api-3.5.0.jar",
+      "sha256": "cc59446ec9ebaceae56fdb8d8c21477766dc5d426325642151c796bec5c4e6b7",
+      "legal_materials": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-common-3.5.0.jar",
+      "sha256": "dad07af66b59454e71b046a2fce0c0fddb9c522eadd146075e6add82aad86ce6",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-hdfs-client-3.5.0.jar",
+      "sha256": "cf51412f4019259e3bbeb6fcdb23cfd0afd4d38704b82ef14b6dfcc0b1855880",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-mapreduce-client-common-3.5.0.jar",
+      "sha256": "24db16a3def573251766389952e672c2fcfa12691220c4d00bd0cf719291e6cc",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-mapreduce-client-core-3.5.0.jar",
+      "sha256": "59cd4a0ae2c7d504336883ab4b1e6b4307eaf82105f05f8c527ec43a792aeaed",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-mapreduce-client-jobclient-3.5.0.jar",
+      "sha256": "6f298ec7b0521b61ef6ce16fa74a9f6332a55a03746d323e13f8aa8d0b79f07e",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-shaded-guava-1.5.0.jar",
+      "sha256": "70d5c152622df6fffbf8836af7833215dc7acdd5d9c881af11b8c0fbf30cdc0a",
+      "legal_materials": [
+        "META-INF/NOTICE-binary",
+        "META-INF/NOTICE.txt",
+        "META-INF/licenses-binary/LICENSE.protobuf.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-shaded-protobuf_3_25-1.5.0.jar",
+      "sha256": "b3182ff49abd6c3ee0f0504bcea027434e7f2dfd7b5cc7111c6292ba3e9f3b8e",
+      "legal_materials": [
+        "META-INF/NOTICE-binary",
+        "META-INF/NOTICE.txt",
+        "META-INF/licenses-binary/LICENSE.protobuf.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-yarn-api-3.5.0.jar",
+      "sha256": "da38049beaf2a64a073d1409d0909a9d23354299d62ec334c11d8b4af0291a8a",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-yarn-client-3.5.0.jar",
+      "sha256": "94f6af470412b3bdc6adcdc5d4c3a8d8485eca456bcc5faff0eda45719d1d744",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hadoop-yarn-common-3.5.0.jar",
+      "sha256": "e2dd7c60847a0e7c168bf2b52bc4d414f7c073c6e04e5b6848d07f63b9642e5f",
+      "legal_materials": [
+        "META-INF/NOTICE.txt",
+        "META-INF/LICENSE.txt"
+      ]
+    },
+    {
+      "artifact": "hk2-api-2.6.1.jar",
+      "sha256": "c2cb80a01e58440ae57d5ee59af4d4d94e5180e04aff112b0cb611c07d61e773",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "hk2-locator-2.6.1.jar",
+      "sha256": "febc668deb9f2000c76bd4918d8086c0a4c74d07bd0c60486b72c6bd38b62874",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "hk2-utils-2.6.1.jar",
+      "sha256": "30727f79086452fdefdab08451d982c2082aa239d9f75cdeb1ba271e3c887036",
+      "legal_materials": [
+        "META-INF/NOTICE.md",
+        "META-INF/LICENSE.md"
+      ]
+    },
+    {
+      "artifact": "httpclient-4.5.13.jar",
+      "sha256": "6fe9026a566c6a5001608cf3fc32196641f6c1e5e1986d1037ccdbd5f31ef743",
+      "legal_materials": [
+        "META-INF/NOTICE",
+        "META-INF/LICENSE"
+      ]
+    },
+    {
+      "artifact": "httpcore-4.4.13.jar",
+      "sha256": "e06e89d40943245fcfa39ec537cdbfce3762aecde8f9c597780d2b00c2b43424",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "j2objc-annotations-3.0.0.jar",
+      "sha256": "88241573467ddca44ffd4d74aa04c2bbfd11bf7c17e0c342c94c9de7a70a7c64",
+      "legal_materials": []
+    },
+    {
+      "artifact": "jackson-annotations-2.18.11.jar",
+      "sha256": "9eab0d36da981645392427eedcb087e13be542488e37f935723dc0be50d18a53",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "jackson-core-2.18.11.jar",
+      "sha256": "825fa72dfb9e2f8a642322f1390dbac22c30d15ebd6dc6b3772158821ee124eb",
+      "legal_materials": [
+        "META-INF/FastDoubleParser-LICENSE",
+        "META-INF/FastDoubleParser-ThirdParty-LICENSE",
+        "META-INF/LICENSE",
+        "META-INF/Schubfach-LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "jackson-databind-2.18.11.jar",
+      "sha256": "075ad94a76c3edf83e1972dc26f476361eb6b9d0e260d93fc11105509bc79cab",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "jackson-jaxrs-base-2.18.11.jar",
+      "sha256": "7ac14feba8c41f36d31c8e4f249de8a02971054a4dcc5c8529f9d0131bad2f4b",
+      "legal_materials": [
+        "META-INF/LICENSE"
+      ]
+    },
+    {
+      "artifact": "jackson-jaxrs-json-provider-2.18.11.jar",
+      "sha256": "347118c93c9c9d202f71d635a9fc33bc822c65f2be7acd7c1309adfaf47e2697",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "jackson-module-jaxb-annotations-2.18.11.jar",
+      "sha256": "6ef536c210df2d5ba2ece053567702eee714a8543b36b1c3dcc430073b12d065",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "jakarta.activation-api-1.2.1.jar",
+      "sha256": "8b0a0f52fa8b05c5431921a063ed866efaa41dadf2e3a7ee3e1961f2b0d9645b",
+      "legal_materials": [
+        "META-INF/NOTICE.md",
+        "META-INF/LICENSE.md"
+      ]
+    },
+    {
+      "artifact": "jakarta.annotation-api-1.3.5.jar",
+      "sha256": "85fb03fc054cdf4efca8efd9b6712bbb418e1ab98241c4539c8585bbc23e1b8a",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "jakarta.inject-2.6.1.jar",
+      "sha256": "5e88c123b3e41bca788b2683118867d9b6dec714247ea91c588aed46a36ee24f",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "jakarta.servlet-api-4.0.4.jar",
+      "sha256": "586e27706c21258f5882f43be06904f49b02db9ac54e345d393fe4a32494d127",
+      "legal_materials": []
+    },
+    {
+      "artifact": "jakarta.servlet.jsp-api-2.3.6.jar",
+      "sha256": "e915fa9db7245592460dfaf1a2df9cdfe800cc3976562ed492870db56369dde9",
+      "legal_materials": []
+    },
+    {
+      "artifact": "jakarta.validation-api-2.0.2.jar",
+      "sha256": "b42d42428f3d922c892a909fa043287d577c0c5b165ad9b7d568cebf87fc9ea4",
+      "legal_materials": []
+    },
+    {
+      "artifact": "jakarta.ws.rs-api-2.1.6.jar",
+      "sha256": "4cea299c846c8a6e6470cbfc2f7c391bc29b9caa2f9264ac1064ba91691f4adf",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "jakarta.xml.bind-api-2.3.3.jar",
+      "sha256": "c04539f472e9a6dd0c7685ea82d677282269ab8e7baca2e14500e381e0c6cec5",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "javassist-3.30.2-GA.jar",
+      "sha256": "eba37290994b5e4868f3af98ff113f6244a6b099385d9ad46881307d3cb01aaf",
+      "legal_materials": []
+    },
+    {
+      "artifact": "jersey-client-2.46.jar",
+      "sha256": "97318a81535314bf9a3ef7ed92ccdd62d42000971fea74807f3668afc95aa694",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "jersey-common-2.46.jar",
+      "sha256": "a2e2aae5e63c4bb55f47508702ebecc3598802e758de75d92c7bda985bc6415f",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.markdown",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "jersey-container-servlet-2.46.jar",
+      "sha256": "1953e27fa86b95ebc16caa393ce0c3ba3e7c445f2b2793ad5c4bc7d4c0f63a46",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "jersey-container-servlet-core-2.46.jar",
+      "sha256": "e9be12ee694f541f4acfe29b45b22f03568a2f28fc644f968399186590f8180b",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "jersey-hk2-2.46.jar",
+      "sha256": "1f5973286b514d758ea1b447aaf844c1cab0d50b77509d123f2bc8fd6db23886",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "jersey-server-2.46.jar",
+      "sha256": "4e79f6cac34a675798e4626c2517dcc6179dd84ff2ed9165ddec7b8b113256e3",
+      "legal_materials": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.markdown",
+        "META-INF/NOTICE.md"
+      ]
+    },
+    {
+      "artifact": "jetty-client-9.4.58.v20250814.jar",
+      "sha256": "629371e5f65f321832930538bd485e5fd637d180412ea75f592881921e2d4b83",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "jetty-http-9.4.58.v20250814.jar",
+      "sha256": "8f49b8583fc8dbbfe3a0ba80a04c97df64ebabca2981b56ee403c989aba9d4da",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "jetty-io-9.4.58.v20250814.jar",
+      "sha256": "f55b2cc7c05244fd7b1773e99979b740002b0186e45b8a688243d89c7006fe21",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "jetty-security-9.4.58.v20250814.jar",
+      "sha256": "301548ebf008551a3a4312b04df0ea0468acc2780f863b83cc9cf0d668e62252",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "jetty-servlet-9.4.58.v20250814.jar",
+      "sha256": "1c6bb17326147e642c8a41e4657b32bca5057c8958db4da770d09c0904aefcff",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "jetty-util-9.4.58.v20250814.jar",
+      "sha256": "8d591679d318d20c8fb2b1e83900562b3c4571ff7a189696be700293e0204146",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "jetty-util-ajax-9.4.58.v20250814.jar",
+      "sha256": "185430a2eafcdffba18204dbf51cb18436ab4ca09b74d97c1dc13abbadd9704b",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "jetty-webapp-9.4.58.v20250814.jar",
+      "sha256": "3f58ac238deb2218140ffa446661c1d1323752bc4b4ae01653d9500c3fca38aa",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "jetty-xml-9.4.58.v20250814.jar",
+      "sha256": "2fc7f7364ec009fe2bbae574554994cef16c4230de170bd6be51ecd6f6bb95d3",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "jline-3.30.17.jar",
+      "sha256": "32ca18a3b5c742bc8a7b42af61ad9b3320dab525361b793ea9e3cb361e292c1d",
+      "legal_materials": []
+    },
+    {
+      "artifact": "jsch-0.1.55.jar",
+      "sha256": "d492b15a6d2ea3f1cc39c422c953c40c12289073dbe8360d98c0f6f9ec74fc44",
+      "legal_materials": []
+    },
+    {
+      "artifact": "jspecify-1.0.0.jar",
+      "sha256": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+      "legal_materials": []
+    },
+    {
+      "artifact": "jsr305-3.0.2.jar",
+      "sha256": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+      "legal_materials": []
+    },
+    {
+      "artifact": "kerb-core-2.0.3.jar",
+      "sha256": "89247dda5c0e61e8c658ed36109ca6ec662ebae9fa2c40d937466035d023419b",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "kerb-crypto-2.0.3.jar",
+      "sha256": "9e368bdc1e8a22e87c775e42d0a15599bdd9e16954f55a964f42ff1d9f94adb2",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "kerb-util-2.0.3.jar",
+      "sha256": "59da956d1c65f5ddfe43606ccfcccd1a4508936fb726d01b2f3753b292b97b34",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "kerby-asn1-2.0.3.jar",
+      "sha256": "3f1532d2bfa0dd6fec171744a07990c0046e0f2f0f65ca21780b408a3827dbd2",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "kerby-config-2.0.3.jar",
+      "sha256": "5137cab8fd70ce322f92a6ab7678f63d2660dab2c14d339dabae9f8e14067d06",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "kerby-pkix-2.0.3.jar",
+      "sha256": "aec2d810b0ad3ff939bd4c70ebfce96539642c20f52cb3fbe4852dc827fec2c9",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "kerby-util-2.0.3.jar",
+      "sha256": "65afc7a01a6d43b7db9e0a6768a750607fd318656da10a7f654414a5ccf5dc8a",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "sha256": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "legal_materials": []
+    },
+    {
+      "artifact": "metrics-core-3.2.4.jar",
+      "sha256": "a083e3f3bdf4173d7065cdd4521964394a840d586bf8653676203d18354a6d2c",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-all-4.1.130.Final.jar",
+      "sha256": "ffe4e8f925c428493e03f395df65fdcba6e6482ad517029172b119275add2dd4",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-buffer-4.1.130.Final.jar",
+      "sha256": "00a522b67ea35cb7b4dd9cf27f85c6c58f5e306785aa045302e5f6b2d4944a87",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-4.1.130.Final.jar",
+      "sha256": "52636bc29bd62120b97bbe5d1d21eab9b1cb2bef8efbb54d2221c5f3fa08d8cd",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-dns-4.1.130.Final.jar",
+      "sha256": "814bf9e764a2a9e4d7ace718f661e1f19d2a2cc35b2d3ac0065d4306cfec34ad",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-haproxy-4.1.130.Final.jar",
+      "sha256": "7195ce9d4fb0c466173fe7fb9562c6c3e380e3511a22355d15c16da349c6aa33",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-http-4.1.130.Final.jar",
+      "sha256": "5b6addc1df7b3397a193bd6544a8bfdb18ecac99fd13bee4ec75b1781a664e5e",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-http2-4.1.130.Final.jar",
+      "sha256": "f8ffdb550368fd5dee7c7f1393fa49552522f280ed8de96aebf4269cab0dc8f3",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-memcache-4.1.130.Final.jar",
+      "sha256": "07934c0523c64e85f695253add1e64189d821dad6dddb6054c610761da755e19",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-mqtt-4.1.130.Final.jar",
+      "sha256": "24da9fbae79dc30c49dd49ba47048f5daedb1ff05a91eb44bd44b27a07ce05a2",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-redis-4.1.130.Final.jar",
+      "sha256": "0b4973a41b1c9dc049961f9f3b7d09d595c7546837954d9fdea8e239c6dba8ba",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-smtp-4.1.130.Final.jar",
+      "sha256": "0fa35d715a693a49aa3cbd3d469d67f006994798713bbb6f8f24af738b7dacee",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-socks-4.1.130.Final.jar",
+      "sha256": "9b8f8b2fab256411936ddf5358c3eb6b184c49ea7b8b01f40d473fa94ed7b92c",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-stomp-4.1.130.Final.jar",
+      "sha256": "69ec3633a34787f59f95ae394657841660215fbfd236e6c28fd1d2e6b5c8f27a",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-codec-xml-4.1.130.Final.jar",
+      "sha256": "ae76e9dd7246d95b66daa7306f0d1b52fc286f76f0fcba1aabd52db7666579f4",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-common-4.1.130.Final.jar",
+      "sha256": "53921f28dd5a352b1bed0e1cbcc54d013dc60ffebeae9b2b1e53eabef317e581",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-handler-4.1.130.Final.jar",
+      "sha256": "98c78ec187ca30a4b9775bf6f632f5c9929db6bf06a60e6971f945813880ca0f",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-handler-proxy-4.1.130.Final.jar",
+      "sha256": "33656875d0001587eea4a9778cf2242b418bc887ed03b2d37ef3969e0b7d3b5e",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-handler-ssl-ocsp-4.1.130.Final.jar",
+      "sha256": "36dfbe584d2cf7f01f8bf7ceb9b1430e4d0c3d7acb759ba5576df47a7eccc5db",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-resolver-4.1.130.Final.jar",
+      "sha256": "48c5b218a89d184e1b601d46433957f515fcefdb4464182b1348bce4f5a18f35",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-resolver-dns-4.1.130.Final.jar",
+      "sha256": "bbc4d5ce181a2322941b480b1bbf01faa75254eee4d3a8e146317315f61a8283",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-resolver-dns-classes-macos-4.1.130.Final.jar",
+      "sha256": "946e81879b128d6e59d398c218a830b6127e0a539eb63ee5ac0028b0178ca2f0",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-resolver-dns-native-macos-4.1.130.Final-osx-aarch_64.jar",
+      "sha256": "5ffadb42c5bb105ad413a38e7a8f14cf7268610f45cc363405075e3506cf4ba9",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-resolver-dns-native-macos-4.1.130.Final-osx-x86_64.jar",
+      "sha256": "ac14827e8baaa6b95cf8dbd25a90108e1016f171fac568ed75536f3fadb0f1ea",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-4.1.130.Final.jar",
+      "sha256": "1bf573266d271f856705a9984d25449c56a1d73c02a16af12033ceccfe555dbb",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-classes-epoll-4.1.130.Final.jar",
+      "sha256": "1c352508d70aca1ccc3068daac907ad1e9d8dc68b07148d57426730bf0d0c8b6",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-classes-kqueue-4.1.130.Final.jar",
+      "sha256": "56487b7d42ca520a1d737463de71809da72276bf9e3d1aa16cd043378152760c",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-native-epoll-4.1.130.Final-linux-aarch_64.jar",
+      "sha256": "49b26640f82b33e7c60cbe53487546dd0eaa09c28d0338077c1ef7b46a12463a",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-native-epoll-4.1.130.Final-linux-riscv64.jar",
+      "sha256": "cad7274faf7204e6edb5527df385d7291feab9bc8d6e6e13cc4e252c51d7606a",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-native-epoll-4.1.130.Final-linux-x86_64.jar",
+      "sha256": "d5d4611cb667eb215667c65aabfc75f8d9ef24de2a3e3a32eb28204f9c2a7a30",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-native-epoll-4.1.130.Final.jar",
+      "sha256": "2ebe4278bced6908a13c85a068982b695fd7b07f1eb3dc82c9e7ccab00d3587e",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-native-kqueue-4.1.130.Final-osx-aarch_64.jar",
+      "sha256": "9a6f231324d42fe236a410b0232f1c7d227810a1cc4c275c51992817d5c8bffa",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-native-kqueue-4.1.130.Final-osx-x86_64.jar",
+      "sha256": "123386d877b01e4a7a0e0c7de67795aceadaba3d11d9e804821b1a1229bdf4a3",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-native-unix-common-4.1.130.Final.jar",
+      "sha256": "cf5efc4168597d7cd14695b469418cac2a1134533f9a0c82ef0538d796fd39e1",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-rxtx-4.1.130.Final.jar",
+      "sha256": "9c12442f56edea87f385bd78d079539b2c07666af696bb600a14221c0b842502",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-sctp-4.1.130.Final.jar",
+      "sha256": "b5f18b9045948a3a638de871fadf5036d1ce7505704f3f8d3eca181beaf2008f",
+      "legal_materials": []
+    },
+    {
+      "artifact": "netty-transport-udt-4.1.130.Final.jar",
+      "sha256": "4ac1e53f82d9fa1ba0f3593562e88bd7a1041d3e6e77b2bcdb2c3a56a8829ce0",
+      "legal_materials": []
+    },
+    {
+      "artifact": "nimbus-jose-jwt-10.4.jar",
+      "sha256": "6f13f3480ddc53d820d276f582f54843cff1daf5c6e35e534947e9de7723b46b",
+      "legal_materials": []
+    },
+    {
+      "artifact": "osgi-resource-locator-1.0.3.jar",
+      "sha256": "aab5d7849f7cfcda2cc7c541ba1bd365151d42276f151c825387245dfde3dd74",
+      "legal_materials": []
+    },
+    {
+      "artifact": "re2j-1.1.jar",
+      "sha256": "24ada84d1b5de584e3e84b06f0c7dd562cee6eafe8dea8083bd8eb123823bbe7",
+      "legal_materials": []
+    },
+    {
+      "artifact": "reload4j-1.2.22.jar",
+      "sha256": "222f90d3e69541218ef6e70547749d693bd4c1846817e5bd7949b3e28950f99f",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ]
+    },
+    {
+      "artifact": "slf4j-api-1.7.36.jar",
+      "sha256": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+      "legal_materials": []
+    },
+    {
+      "artifact": "snappy-java-1.1.10.4.jar",
+      "sha256": "55b30c94e5c4cc2d4b6976916098d0678a8a6cc7427fa8c875621bd94e731ac8",
+      "legal_materials": []
+    },
+    {
+      "artifact": "stax2-api-4.2.1.jar",
+      "sha256": "678567e48b51a42c65c699f266539ad3d676d4b1a5b0ad7d89ece8b9d5772579",
+      "legal_materials": [
+        "META-INF/LICENSE"
+      ]
+    },
+    {
+      "artifact": "websocket-api-9.4.58.v20250814.jar",
+      "sha256": "213d146065ebf2cbfa8a9c06b4cdfe79f94c0af3f93c15d9e67c0e3af015067f",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "websocket-client-9.4.58.v20250814.jar",
+      "sha256": "fdb8648fb1139ab001c8d5ebc4f3ab5baf007f48bd86ec2969c504ac3011f878",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "websocket-common-9.4.58.v20250814.jar",
+      "sha256": "07c62b7ceaff2d7160aff98b912f28da9f2c66ed7adec972e39af5176afec1ae",
+      "legal_materials": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE.txt"
+      ]
+    },
+    {
+      "artifact": "woodstox-core-5.4.0.jar",
+      "sha256": "dbb958cb89f1d45238b061e146249494ff887f5f42b671a3956e98956e0d5c53",
+      "legal_materials": [
+        "META-INF/LICENSE"
+      ]
+    }
+  ]
+}

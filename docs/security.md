@@ -12,23 +12,15 @@ O escopo suportado é o batch Docker local com o Compose deste repositório. A e
 
 Os testes de contrato verificam arquivos externos, symlinks, FIFO, caminhos e JSON profundamente aninhado. O smoke real verifica master local, driver loopback, ausência de UI, catálogo em memória, MERGE e leitura por versão. A suíte também cobre escape do conteúdo no HTML. Esses controles reduzem a superfície de entrada; não corrigem bibliotecas de terceiros.
 
-## Achados de dependências
+## Dependências e builds identificados
 
-A varredura de 22/09/2026 com Trivy 0.74.0 incluiu sistema operacional, Python e todos os JARs presentes, sem `ignore-unfixed`, filtro de severidade ou exclusão de achados. A imagem usa Alpine 3.24, OpenJDK 17.0.20, Spark 4.2.0 e Delta 4.4.0. O resultado integral e a identidade da imagem estão em [security-scan.json](evidence/security-scan.json).
+A revisão anterior passou de 145 para 18 ocorrências JVM, incluindo sete HIGH. Os resultados continuam no histórico Git. A revisão atual reconstrói as cópias incorporadas aos JARs: Spark core usa Jetty 12.1.13; o assembly Hadoop atualiza Jackson, JLine e Commons Configuration e exclui os artefatos completos Jetty 9/websocket. Esses componentes HTTP não pertenciam ao batch local originalmente suportado. Os testes de publicação, correção, cancelamento e recuperação continuam obrigatórios. Os builds têm nomes próprios, versões reais, licenças e proveniência; não são releases oficiais Apache. [Decisões e receitas](runtime-upgrade.md).
 
-O upgrade, 45 substituições coordenadas de artefatos completos e a remoção de 22 componentes opcionais reduziram 145 ocorrências JVM (5 críticas, 61 altas) para **18 ocorrências/18 IDs: zero críticas, 7 altas e 11 médias**. OS e Python não tiveram achados no scanner. Os binários removidos e os hashes anteriores/novos constam em `runtime-jars.lock.json`; nenhum metadado de vulnerabilidade foi apagado para esconder bibliotecas presentes. [Escopo exato e decisões do upgrade](runtime-upgrade.md).
+Commons Lang 2.6 recebe o [patch oficial Apache 904afa78](https://github.com/apache/commons-lang/commit/904afa78cc58e2897f47eeac0781c3ba6f95b5e6) para trocar a recursão de `ClassUtils.getClass` por iteração. A frase da revisão anterior sobre inexistência de correção compatível na linha 2.x estava incorreta: esse patch se aplica a `LANG_2_6`. Mantêm-se as coordenadas `commons-lang:commons-lang:2.6`, com nome e manifesto próprios para identificar o backport.
 
-**Os 18 achados residuais não estão corrigidos.** A [triagem individual](evidence/security-triage.json) inclui versão, caminho, identificador, severidade, referência e a precondição ausente no batch suportado. A conclusão de ausência desse caminho é uma inferência de arquitetura e configuração, apoiada pelos testes de isolamento; não é reprodução de cada CVE.
+O scan comparativo continua apontando CVE-2025-48924/MEDIUM por versão no original e no corrigido. O achado bruto permanece visível. Os 44 testes upstream de `ClassUtils` passam no corrigido; no original, a regressão oficial lança `StackOverflowError`. A API pública/protegida e os outros 154 membros do JAR foram preservados. A suíte histórica completa **não passou**: entre 1.974 casos, ainda existem 21 falhas e oito erros no Java 17, iguais aos do original além da regressão corrigida. O comando dessa suíte continua retornando erro. [Receita e limites do backport](../vendor/commons-lang/README.md).
 
-| Componente residual | Precondição ausente e limite da mitigação |
-| --- | --- |
-| Jackson sombreado em Hadoop | Parser assíncrono remoto ou binding Java com polimorfismo, endereços, views/records controlados pelo remetente. JSON de entrada é limitado e lido por Python; estado Delta não vem de terceiros. |
-| Jetty sombreado em Hadoop/Spark | Servidor HTTP, Digest, proxy ou UI acessível. Rede do batch e UI Spark estão desabilitadas; servidor opcional de relatório é Python, separado e em loopback. |
-| JLine sombreado em Hadoop | Servidor Telnet remoto. Nenhum terminal/serviço Telnet é iniciado. |
-| Commons Configuration sombreado em Hadoop | YAML externo cíclico. O contrato aceita somente CSV/JSON; configuração do runtime pertence ao operador. |
-| Commons Lang 2.6 | Nome arbitrário de classe passado a `ClassUtils.getClass`. A entrega não possui esse recurso. Não existe correção compatível na linha 2.x; migrar para Lang 3 requer atualizar consumidores. |
-
-Essa análise deixa de valer com notebooks, cluster remoto, leitura de tabelas externas, serviços de rede, plugins ou alterações diretas do volume por terceiros. Hadoop 3.5.0 e Spark core 4.2.0 ainda incorporam classes vulneráveis sombreadas; um JAR externo corrigido não as substitui. Um rebuild customizado demanda identificação, dependências fixadas e validação upstream adicional; essa pendência está registrada no documento de atualização, sem alegação de correção.
+O [scan integral da imagem](evidence/security-scan.json) `sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3`, em 22/09/2026, identificou 441 pacotes JVM e manteve somente CVE-2025-48924/MEDIUM no JAR corrigido de Commons Lang: zero HIGH/CRITICAL. Os 52 pacotes Alpine e 28 Python tiveram zero achados. Trivy 0.74.0 usou a base de vulnerabilidades atualizada em 21/09/2026 às 19:11 UTC; não houve filtro de severidade, exclusão de achados ou `ignore-unfixed`. Os 18 achados anteriores estão preservados na [triagem histórica](evidence/security-triage-before-rebuild.json), com [tratamento individual e limites de cobertura](evidence/security-triage.json). A suíte dessa imagem passou em 188 testes, incluindo 15 integrações Spark/Delta, sem falhas ou casos pulados; a fonte ficou inalterada durante a execução. [Resultado e hashes da fonte](evidence/jvm-rebuild-full-suite.json) · [JUnit](evidence/jvm-rebuild-tests.xml).
 
 ## Orçamento de entrada
 
@@ -48,7 +40,7 @@ docker run --rm \
 python3 scripts/check_image_scan.py artifacts/security-scan.json
 ```
 
-O CI preserva o relatório integral e bloqueia HIGH/CRITICAL novos ou cuja versão, caminho, pacote ou severidade tenha mudado. A triagem reconhece somente as entradas Java listadas nominalmente; não aceita vulnerabilidades do sistema ou de Python. Mudanças nas condições de isolamento exigem nova análise, mesmo se os identificadores de CVE permanecerem iguais. O workflow separado de Gitleaks verifica segredos no histórico Git.
+O CI preserva o relatório integral e reprova qualquer HIGH/CRITICAL, inclusive conhecido ou sem atualização disponível. Não aceita exceções baseadas no perfil local. Uma ocorrência MEDIUM permanece visível mesmo quando não dispara esse limiar; o backport de Commons Lang é comprovado separadamente por hash e regressão. O workflow separado de Gitleaks verifica segredos no histórico Git.
 
 A configuração Gitleaks mantém todas as regras padrão e uma exceção por caminho **e valor exatos**: o fingerprint público de assinatura das versões Python, presente no histórico/ambiente da imagem em `docs/evidence/security-scan.json`. O valor foi conferido com o [Dockerfile oficial Python 3.11/Alpine](https://github.com/docker-library/python/blob/master/3.11/alpine3.24/Dockerfile); não é uma chave privada nem uma credencial. Outro valor nesse arquivo ou o mesmo valor em outro caminho continua sendo verificado. Essa exceção não altera a varredura de vulnerabilidades Trivy.
 
