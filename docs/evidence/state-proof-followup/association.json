@@ -1,0 +1,392 @@
+{
+  "reviewed_at_utc": "2026-09-22T11:38:13.317179+00:00",
+  "base_commit": "939f2b74eba7b32fb35b31d61b410c510a8b425c",
+  "historical_artifacts": {
+    "count": 20,
+    "png_count": 6,
+    "all_git_oids_equal": true,
+    "files": [
+      {
+        "path": "docs/evidence/state-proof/attributes-at-measurement.txt",
+        "base_git_oid": "adc8e4226d67c6f94bea94bc64b2ee5f1236a855",
+        "final_git_oid": "adc8e4226d67c6f94bea94bc64b2ee5f1236a855",
+        "equal": true,
+        "sha256": "40d895304eb0e34279ee500f70b95b46e031669300e7d50979d60cd771d891e6"
+      },
+      {
+        "path": "docs/evidence/state-proof/attributes-at-restore.txt",
+        "base_git_oid": "2f114a9e235d4ca201ea5887391f9f422fcfe152",
+        "final_git_oid": "2f114a9e235d4ca201ea5887391f9f422fcfe152",
+        "equal": true,
+        "sha256": "516ec7712f39e249b4cdac27364ab7f3c6334dc7c9fa4fa2e47d4313d299a0d7"
+      },
+      {
+        "path": "docs/evidence/state-proof/capture.cjs",
+        "base_git_oid": "f595d533620b5f94cc7faa3e8db12cd774702113",
+        "final_git_oid": "f595d533620b5f94cc7faa3e8db12cd774702113",
+        "equal": true,
+        "sha256": "5a85956caa5ec50fb23bc2e295fd66c826823923a0a83f2e0dd2d5435cfa5d06"
+      },
+      {
+        "path": "docs/evidence/state-proof/captures.json",
+        "base_git_oid": "f6381da23321b9267f0610fca0e991641396b1a8",
+        "final_git_oid": "f6381da23321b9267f0610fca0e991641396b1a8",
+        "equal": true,
+        "sha256": "052ef514b43d6946c4c7aa0f987b60431a204a9b640ea6460da7f593f961ee0a"
+      },
+      {
+        "path": "docs/evidence/state-proof/index.json",
+        "base_git_oid": "ba4efeddb624e9a752c2d0ba11fba8e2a757ccb2",
+        "final_git_oid": "ba4efeddb624e9a752c2d0ba11fba8e2a757ccb2",
+        "equal": true,
+        "sha256": "090f81ff0bf06ed1e42e3dba31711d638c0041d87e842d6a46fa945aef7e8857"
+      },
+      {
+        "path": "docs/evidence/state-proof/measurement.json",
+        "base_git_oid": "9755c0019eefb2ebfd0222e459d9c226380b4970",
+        "final_git_oid": "9755c0019eefb2ebfd0222e459d9c226380b4970",
+        "equal": true,
+        "sha256": "a9843e968ebb3f5156460cdd15d9965ae5bc2fd0bc53617e427ce560f96793fb"
+      },
+      {
+        "path": "docs/evidence/state-proof/publication-supplement.json",
+        "base_git_oid": "affffdf8b9810f6cd80f1895b0eac05bdffb99a4",
+        "final_git_oid": "affffdf8b9810f6cd80f1895b0eac05bdffb99a4",
+        "equal": true,
+        "sha256": "93e6c1fdeae1f9a0d4db9cbf0be77c8a976c212c2c1062b57c8454347ef4d4d1"
+      },
+      {
+        "path": "docs/evidence/state-proof/regressions.json",
+        "base_git_oid": "08f061e002562d5cd725d74e7b5db2a57e298e16",
+        "final_git_oid": "08f061e002562d5cd725d74e7b5db2a57e298e16",
+        "equal": true,
+        "sha256": "e976a8d0f01a96e47b368c242808fd1afdcae738eedb3f32e5b21146705307c7"
+      },
+      {
+        "path": "docs/evidence/state-proof/reports/blocked.html",
+        "base_git_oid": "33e72ba519ff44d14c53622f60fa5076392cd219",
+        "final_git_oid": "33e72ba519ff44d14c53622f60fa5076392cd219",
+        "equal": true,
+        "sha256": "9234c9cecec08ec56977a204e4911303fe0bc7ffc875f2df14b925844fd343b5"
+      },
+      {
+        "path": "docs/evidence/state-proof/reports/corrected.html",
+        "base_git_oid": "5910c82fa937c55f6effaf1ee592318aefe8e864",
+        "final_git_oid": "5910c82fa937c55f6effaf1ee592318aefe8e864",
+        "equal": true,
+        "sha256": "fdf28d80085321008c18fca75086b4f03ec9db7c44541d5e28c6a820a7f5ef8e"
+      },
+      {
+        "path": "docs/evidence/state-proof/reports/publication.html",
+        "base_git_oid": "cc29d038428d25a27a0022e4e6cbcec2acb2597a",
+        "final_git_oid": "cc29d038428d25a27a0022e4e6cbcec2acb2597a",
+        "equal": true,
+        "sha256": "d57908331b2e8b389e212e1120f5ec74d2b771d8655b1a5af8e14d6a9f2e508e"
+      },
+      {
+        "path": "docs/evidence/state-proof/reports/recovery.html",
+        "base_git_oid": "e7dcc69929559a80bcfc081d2c566f5ebf9bd14c",
+        "final_git_oid": "e7dcc69929559a80bcfc081d2c566f5ebf9bd14c",
+        "equal": true,
+        "sha256": "7476eb027efe9c3ec87edba48104b3b923b3adfcf35fd0dea89f68b1248b1e7e"
+      },
+      {
+        "path": "docs/evidence/state-proof/restore.json",
+        "base_git_oid": "8f4a52c976b7519d1d9aa5977ed046db0fd9c95e",
+        "final_git_oid": "8f4a52c976b7519d1d9aa5977ed046db0fd9c95e",
+        "equal": true,
+        "sha256": "bf79b22510a07658fd9dc633ab92aa16fe5f02af6ad62b395f6e920e2070d74e"
+      },
+      {
+        "path": "docs/evidence/state-proof/runtime-dependencies.json",
+        "base_git_oid": "0369c17f183749583bb6975fe0ed8975dec39090",
+        "final_git_oid": "0369c17f183749583bb6975fe0ed8975dec39090",
+        "equal": true,
+        "sha256": "c37f4b3f9bfcd425e61ccfa763b264fa54359b9f0c58055306b44f0d7ca2b65f"
+      },
+      {
+        "path": "docs/images/state-proof/blocked-1440.png",
+        "base_git_oid": "18dc2a7f14ee4b1582f27c1229988632b0812c4c",
+        "final_git_oid": "18dc2a7f14ee4b1582f27c1229988632b0812c4c",
+        "equal": true,
+        "sha256": "1c73893e26c5045d3529270158d3064498fabe2f523a0f7a7fb53ef3f6ab798c"
+      },
+      {
+        "path": "docs/images/state-proof/blocked-390.png",
+        "base_git_oid": "d1b9eec1b7d446276bc30e49ece0e178b3812270",
+        "final_git_oid": "d1b9eec1b7d446276bc30e49ece0e178b3812270",
+        "equal": true,
+        "sha256": "ea4815ea2899f98e65f5aa92b03e2c490701dda041865eaa5d3961ecb773f14f"
+      },
+      {
+        "path": "docs/images/state-proof/corrected-1440.png",
+        "base_git_oid": "b8706cbf6034e87db2e306adb4b52d8176778530",
+        "final_git_oid": "b8706cbf6034e87db2e306adb4b52d8176778530",
+        "equal": true,
+        "sha256": "41d50e78e04415a95b4c1f7bedfa0723c5bebfb054050f9ea5f51c8e693cd676"
+      },
+      {
+        "path": "docs/images/state-proof/corrected-390.png",
+        "base_git_oid": "c298a8f7419d3a2e20d3c07a3c4aed5988e9fe74",
+        "final_git_oid": "c298a8f7419d3a2e20d3c07a3c4aed5988e9fe74",
+        "equal": true,
+        "sha256": "82a01857e37904b1c864ffa4a26bdf67643a211a1dfa119dbc2be5ca4a5e6c5f"
+      },
+      {
+        "path": "docs/images/state-proof/publication-1440.png",
+        "base_git_oid": "00d5abe6f7ccbacabece8a783f7644d15ba01d19",
+        "final_git_oid": "00d5abe6f7ccbacabece8a783f7644d15ba01d19",
+        "equal": true,
+        "sha256": "271059c919baa3f308682c6001c1122578a89d833650ca7929ea8e5a37c2f8e3"
+      },
+      {
+        "path": "docs/images/state-proof/recovery-1440.png",
+        "base_git_oid": "50ddc58c2d661568d533231059ef812a1e53c532",
+        "final_git_oid": "50ddc58c2d661568d533231059ef812a1e53c532",
+        "equal": true,
+        "sha256": "6c32cdbbd8bf33ebb6c7de207e4870a2f2c7234ca3a22470159b162dfa74f2ac"
+      }
+    ],
+    "index_references_verified": 19
+  },
+  "source_comparisons": {
+    "restore": {
+      "proof_sha256": "bf79b22510a07658fd9dc633ab92aa16fe5f02af6ad62b395f6e920e2070d74e",
+      "recorded_source_head": "636e8408f1108ce387ddc291318d2d1ebe042dee",
+      "recorded_files": 282,
+      "unchanged_git_oids": 271,
+      "changed_sources": [
+        {
+          "path": ".gitattributes",
+          "executed_source_git_oid": "dab552681f728a47bf4788c2b44702483d154b36",
+          "base_commit_git_oid": "ddb9630dca953c7f7afe3d22e392c2d9c923a3f5",
+          "final_commit_git_oid": "1b7b47cb2bc9ed24080f49d614cfb6689ad5fbca",
+          "already_changed_at_base": true
+        },
+        {
+          "path": "pyproject.toml",
+          "executed_source_git_oid": "176e493682189bd9815aaacd380314e1782f597d",
+          "base_commit_git_oid": "176e493682189bd9815aaacd380314e1782f597d",
+          "final_commit_git_oid": "a1869d5542864c437f632bd6509b6a39e7ff46e0",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "scripts/a11y-review.cjs",
+          "executed_source_git_oid": "a402d5b3442bb4ad74b0fda384513b0168c01638",
+          "base_commit_git_oid": "a402d5b3442bb4ad74b0fda384513b0168c01638",
+          "final_commit_git_oid": "619d7ddc0446e151912dca964263be9c8d29bf98",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "scripts/render_review.py",
+          "executed_source_git_oid": "9bc7182aff3a9e8cc1102aeb4a9c4a3266d1fdb7",
+          "base_commit_git_oid": "9bc7182aff3a9e8cc1102aeb4a9c4a3266d1fdb7",
+          "final_commit_git_oid": "7a15056e5610caf69cf1de5924f48c03542f2d39",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "scripts/visual-review.cjs",
+          "executed_source_git_oid": "7e625d031de4b0a07f077d40c4424303db69fce9",
+          "base_commit_git_oid": "7e625d031de4b0a07f077d40c4424303db69fce9",
+          "final_commit_git_oid": "a95bfcec890757fb1c58ad0a5bcec11a76311ddb",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/report.css",
+          "executed_source_git_oid": "2d2eb701d8b81d513955c165cf1b87fd7e6cdbb0",
+          "base_commit_git_oid": "2d2eb701d8b81d513955c165cf1b87fd7e6cdbb0",
+          "final_commit_git_oid": "55080b6621c9931ba2e8cc07c497b1f8126cc3c4",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/report.js",
+          "executed_source_git_oid": "7d27e8888b64b6698fc10f1f2f99cce259e8ca05",
+          "base_commit_git_oid": "7d27e8888b64b6698fc10f1f2f99cce259e8ca05",
+          "final_commit_git_oid": "da3ab47381e2048dafc4be8bed2dc4ecfd67028d",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/report_view.py",
+          "executed_source_git_oid": "cd978f2091ba8ccd14e7cc8abeff9af6819b5c0a",
+          "base_commit_git_oid": "cd978f2091ba8ccd14e7cc8abeff9af6819b5c0a",
+          "final_commit_git_oid": "de3dad890b982cb4f068fa8286cf9fda1924ed20",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/reporting.py",
+          "executed_source_git_oid": "78b9ae3ef5e945912a2f4e5e13273af5a5e2bf4c",
+          "base_commit_git_oid": "78b9ae3ef5e945912a2f4e5e13273af5a5e2bf4c",
+          "final_commit_git_oid": "cb315f01366d6a96d42c8be5c7348f45f2a73082",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "tests/integration/test_boundaries.py",
+          "executed_source_git_oid": "4924a2945fa09ddb46bd51e772b8fd5dfc8522f9",
+          "base_commit_git_oid": "4924a2945fa09ddb46bd51e772b8fd5dfc8522f9",
+          "final_commit_git_oid": "c72175b6d80e64d34dfc00c19ab49e07add3c0d4",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "tests/unit/test_reporting.py",
+          "executed_source_git_oid": "ba6c9b18aaf4c028eebabd44edff794b522f735a",
+          "base_commit_git_oid": "ba6c9b18aaf4c028eebabd44edff794b522f735a",
+          "final_commit_git_oid": "39cf75211d530d1e2d5e8bbed9a25d2049bab479",
+          "already_changed_at_base": false
+        }
+      ],
+      "post_proof_added_source_paths": [
+        {
+          "path": "src/retail_pipeline/assets/brand-mark.svg",
+          "final_git_oid": "def5f91486291a5846cd259c3c433e110952c138",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/assets/brand-mono.svg",
+          "final_git_oid": "64d76075a77d44061bcb3ca08ab0afcd03abc7c6",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/assets/favicon.svg",
+          "final_git_oid": "847dd6f463c9d72d9f2c318fd49f604bde8a4bfd",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/assets/source-sans-3.woff2",
+          "final_git_oid": "96cc9fd06ceb275ec3d6103ad97c5647212c88c5",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/assets/source-sans-LICENSE.md",
+          "final_git_oid": "22c601b82f29fc6bb801445098c9f23ffdca4f94",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/report_assets.py",
+          "final_git_oid": "70f7671e419536dce4bfec7fe92aa7bde719631a",
+          "present_at_base": false
+        }
+      ],
+      "missing_recorded_paths": []
+    },
+    "measurement": {
+      "proof_sha256": "a9843e968ebb3f5156460cdd15d9965ae5bc2fd0bc53617e427ce560f96793fb",
+      "recorded_source_head": "636e8408f1108ce387ddc291318d2d1ebe042dee",
+      "recorded_files": 282,
+      "unchanged_git_oids": 271,
+      "changed_sources": [
+        {
+          "path": ".gitattributes",
+          "executed_source_git_oid": "adc8e4226d67c6f94bea94bc64b2ee5f1236a855",
+          "base_commit_git_oid": "ddb9630dca953c7f7afe3d22e392c2d9c923a3f5",
+          "final_commit_git_oid": "1b7b47cb2bc9ed24080f49d614cfb6689ad5fbca",
+          "already_changed_at_base": true
+        },
+        {
+          "path": "pyproject.toml",
+          "executed_source_git_oid": "176e493682189bd9815aaacd380314e1782f597d",
+          "base_commit_git_oid": "176e493682189bd9815aaacd380314e1782f597d",
+          "final_commit_git_oid": "a1869d5542864c437f632bd6509b6a39e7ff46e0",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "scripts/a11y-review.cjs",
+          "executed_source_git_oid": "a402d5b3442bb4ad74b0fda384513b0168c01638",
+          "base_commit_git_oid": "a402d5b3442bb4ad74b0fda384513b0168c01638",
+          "final_commit_git_oid": "619d7ddc0446e151912dca964263be9c8d29bf98",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "scripts/render_review.py",
+          "executed_source_git_oid": "9bc7182aff3a9e8cc1102aeb4a9c4a3266d1fdb7",
+          "base_commit_git_oid": "9bc7182aff3a9e8cc1102aeb4a9c4a3266d1fdb7",
+          "final_commit_git_oid": "7a15056e5610caf69cf1de5924f48c03542f2d39",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "scripts/visual-review.cjs",
+          "executed_source_git_oid": "7e625d031de4b0a07f077d40c4424303db69fce9",
+          "base_commit_git_oid": "7e625d031de4b0a07f077d40c4424303db69fce9",
+          "final_commit_git_oid": "a95bfcec890757fb1c58ad0a5bcec11a76311ddb",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/report.css",
+          "executed_source_git_oid": "2d2eb701d8b81d513955c165cf1b87fd7e6cdbb0",
+          "base_commit_git_oid": "2d2eb701d8b81d513955c165cf1b87fd7e6cdbb0",
+          "final_commit_git_oid": "55080b6621c9931ba2e8cc07c497b1f8126cc3c4",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/report.js",
+          "executed_source_git_oid": "7d27e8888b64b6698fc10f1f2f99cce259e8ca05",
+          "base_commit_git_oid": "7d27e8888b64b6698fc10f1f2f99cce259e8ca05",
+          "final_commit_git_oid": "da3ab47381e2048dafc4be8bed2dc4ecfd67028d",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/report_view.py",
+          "executed_source_git_oid": "cd978f2091ba8ccd14e7cc8abeff9af6819b5c0a",
+          "base_commit_git_oid": "cd978f2091ba8ccd14e7cc8abeff9af6819b5c0a",
+          "final_commit_git_oid": "de3dad890b982cb4f068fa8286cf9fda1924ed20",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/reporting.py",
+          "executed_source_git_oid": "78b9ae3ef5e945912a2f4e5e13273af5a5e2bf4c",
+          "base_commit_git_oid": "78b9ae3ef5e945912a2f4e5e13273af5a5e2bf4c",
+          "final_commit_git_oid": "cb315f01366d6a96d42c8be5c7348f45f2a73082",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "tests/integration/test_boundaries.py",
+          "executed_source_git_oid": "4924a2945fa09ddb46bd51e772b8fd5dfc8522f9",
+          "base_commit_git_oid": "4924a2945fa09ddb46bd51e772b8fd5dfc8522f9",
+          "final_commit_git_oid": "c72175b6d80e64d34dfc00c19ab49e07add3c0d4",
+          "already_changed_at_base": false
+        },
+        {
+          "path": "tests/unit/test_reporting.py",
+          "executed_source_git_oid": "ba6c9b18aaf4c028eebabd44edff794b522f735a",
+          "base_commit_git_oid": "ba6c9b18aaf4c028eebabd44edff794b522f735a",
+          "final_commit_git_oid": "39cf75211d530d1e2d5e8bbed9a25d2049bab479",
+          "already_changed_at_base": false
+        }
+      ],
+      "post_proof_added_source_paths": [
+        {
+          "path": "src/retail_pipeline/assets/brand-mark.svg",
+          "final_git_oid": "def5f91486291a5846cd259c3c433e110952c138",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/assets/brand-mono.svg",
+          "final_git_oid": "64d76075a77d44061bcb3ca08ab0afcd03abc7c6",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/assets/favicon.svg",
+          "final_git_oid": "847dd6f463c9d72d9f2c318fd49f604bde8a4bfd",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/assets/source-sans-3.woff2",
+          "final_git_oid": "96cc9fd06ceb275ec3d6103ad97c5647212c88c5",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/assets/source-sans-LICENSE.md",
+          "final_git_oid": "22c601b82f29fc6bb801445098c9f23ffdca4f94",
+          "present_at_base": false
+        },
+        {
+          "path": "src/retail_pipeline/report_assets.py",
+          "final_git_oid": "70f7671e419536dce4bfec7fe92aa7bde719631a",
+          "present_at_base": false
+        }
+      ],
+      "missing_recorded_paths": []
+    }
+  },
+  "compared_commit": "93d80c02fc038c51e421bec9de911eda9b23e64c",
+  "comparison_note": "44cd017 and93d80c0 differ only in docs/evidence/interface-v4/assets.json. Runtime source association is identical. The new follow-up adds documentation only; it does not rerun restore or measurement."
+}

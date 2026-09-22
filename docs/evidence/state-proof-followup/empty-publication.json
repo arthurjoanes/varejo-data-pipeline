@@ -1,0 +1,48 @@
+{
+  "status": "PASSED",
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "46",
+    "time": "173.731",
+    "timestamp": "2026-09-22T11:33:44.439012+00:00",
+    "hostname": "9159a48b980e"
+  },
+  "image": "sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3",
+  "source_unchanged": true,
+  "elapsed_seconds": 176.71899999999732,
+  "limit": "Directed diagnostic verification of the reader fix using historical renderer and original assertions. Final integrated UI is a different source and is checked by its own exact-commit CI.",
+  "started_at": "2026-09-22T11:33:42.419298+00:00",
+  "completed_at": "2026-09-22T11:36:39.133396+00:00",
+  "base_commit": "939f2b74eba7b32fb35b31d61b410c510a8b425c",
+  "tested_source_files": 282,
+  "source_delta": [
+    {
+      "path": "src/retail_pipeline/reporting.py",
+      "base_git_oid": "78b9ae3ef5e945912a2f4e5e13273af5a5e2bf4c",
+      "sha256_local_bytes": "de3156992b59969521fddf4eb285e9311c9a26b2c1c2e18bfdabe19c90115a44",
+      "git_blob_oid": "cb315f01366d6a96d42c8be5c7348f45f2a73082"
+    }
+  ],
+  "junit": {
+    "path": "targeted.xml",
+    "sha256": "121332643148d2ada1867c714a8352d1603c5a73a14ac03186641444a70bb508"
+  },
+  "original_private_result_sha256": "0406e5864f5af9b85eb658c68d1e7dafd5bb209cb90f119f9ca7c0835b348c2f",
+  "command": "python -m pytest -q -p no:cacheprovider --junitxml=/evidence/targeted.xml tests/unit/test_reporting.py tests/integration/test_boundaries.py",
+  "isolation": {
+    "network": "none",
+    "source_read_only": true,
+    "root_filesystem_read_only": true,
+    "memory_bytes": 3221225472,
+    "cpus": 2,
+    "pids_limit": 1024
+  },
+  "cleanup": {
+    "own_containers_removed": true,
+    "new_volume_preserved": true,
+    "external_resources_deleted": false
+  }
+}

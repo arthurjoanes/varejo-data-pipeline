@@ -2,6 +2,14 @@
 
 A demonstração editorial posterior usou a imagem `95abfa120b95…`, construída do código da base `93d80c0` com a exportação de HTML do teste. Seu [scan próprio](evidence/editorial-20260922/security.json), com base de 22/09 às 07:24 UTC, registrou zero HIGH/CRITICAL e um MEDIUM. A imagem `3cc3b95c…` e os resultados JVM abaixo permanecem históricos; não identificam o artefato dessa demonstração.
 
+## Correção posterior da publicação vazia — 22/09/2026
+
+O [CI de `939f2b7`](https://github.com/arthurjoanes/varejo-data-pipeline/actions/runs/35708715138) teve 241 testes aprovados e uma falha. `Spark.sum` devolvia `None` para a publicação confirmada sem linhas, e o relatório exibia ausência em vez de totais aditivos zero. Os scans de imagem desse job não rodaram após a falha. A correção conta linhas e define zero somente quando não há nenhuma; ticket e datas continuam indefinidos sem vendas.
+
+Para conferir a causa, uma cópia isolada de `939f2b7` recebeu somente o leitor corrigido. Os **43 testes de relatório e três integrações de fronteira passaram**, mantendo as assertions HTML originais: vazio e cancelamento total têm receita zero e ticket indefinido; três vendas gratuitas têm ticket zero. A execução usou a imagem 3cc identificada abaixo, sem rede, fonte somente leitura, 3 GiB/2 CPUs/1.024 PIDs. Pytest levou 173,731 s; o ensaio completo, incluindo preparação e limpeza, 176,719 s. [Resultado, identidade e limites](evidence/state-proof-followup/empty-publication.json) · [JUnit](evidence/state-proof-followup/targeted.xml).
+
+Esse teste dirigido usa o renderer anterior. A fonte integrada em `44cd017` inclui a interface nova e testes por métricas nomeadas; sua suíte completa pertence ao CI do respectivo commit. As provas anteriores de restore e medição não foram reexecutadas nem tiveram seus hashes substituídos. [Associação das fontes históricas](state-recovery.md).
+
 ## Recuperação e medição local — 22/09/2026
 
 O [índice desta entrega](evidence/state-proof/index.json) separa a restauração, a medição e as tentativas de regressão. A [história operacional](state-recovery.md) explica o problema, as escolhas, as capturas e os limites.
