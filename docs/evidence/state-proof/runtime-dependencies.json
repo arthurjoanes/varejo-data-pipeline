@@ -1,0 +1,225 @@
+{
+  "delta_jars": [
+    {
+      "name": "delta-spark_4.2_2.13-4.4.0.jar",
+      "sha256": "27d4fd8b1f879535c573ed1c718177d6a27f24d3e626ba02e216369725721ead"
+    },
+    {
+      "name": "delta-storage-4.4.0.jar",
+      "sha256": "c46735481fa8e326b0957be02b4420cbcab4b325bb08009b7f2045a95133f1cc"
+    }
+  ],
+  "delta_spark": "4.4.0",
+  "embedded_build_records": [
+    {
+      "name": "commons-lang.json",
+      "sha256": "cde6bb4d78ceddc14812dcee5a8064815b45366cdfcff1dc3fd9fae515dbe07d"
+    },
+    {
+      "name": "hadoop-runtime.json",
+      "sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d"
+    },
+    {
+      "name": "spark-core.json",
+      "sha256": "78f441f425fdc5542009d2f57a3b91939f93aaad5d7f3d2fe0ae90a43389cbaa"
+    }
+  ],
+  "locked_jars": [
+    {
+      "name": "jackson-core-2.21.7.jar",
+      "sha256": "8c5623b98f32d5f7e1287ff61ed50e08ab7b11381e991fff89327faabba42261"
+    },
+    {
+      "name": "jackson-databind-2.21.7.jar",
+      "sha256": "1290c2795e93e8a6861a6c4d9ff0d844d32f5ea178362cb2721edf5561e828b1"
+    },
+    {
+      "name": "jackson-dataformat-yaml-2.21.7.jar",
+      "sha256": "df2b3e6a194181dc067b7211d750926b4ae9e4f3c892a0005b8219a9b59be681"
+    },
+    {
+      "name": "jackson-datatype-jsr310-2.21.7.jar",
+      "sha256": "5989b937f0aa5b6407e7a061077c9bfcac0590dc0a32e54b2fac6a3e2d49e812"
+    },
+    {
+      "name": "jackson-module-scala_2.13-2.21.7.jar",
+      "sha256": "f2963e4f184b581957f15086997800a6cd8eb865234d28274c3b814c911b9629"
+    },
+    {
+      "name": "log4j-1.2-api-2.25.5.jar",
+      "sha256": "4dd812dc5a6343f542a9e0046b1ec78ecf10bdd5a8c15745101cdd8b9aa24974"
+    },
+    {
+      "name": "log4j-api-2.25.5.jar",
+      "sha256": "64777f73ea0b3104c04eb82befbdccc30a425a19e83ad06cb2f93aa303511863"
+    },
+    {
+      "name": "log4j-core-2.25.5.jar",
+      "sha256": "050c4f85deb48b055e9c041ac39043fbb79ce477841a11a1eb2969c86c6a0072"
+    },
+    {
+      "name": "log4j-layout-template-json-2.25.5.jar",
+      "sha256": "27c37313e20c16bf0178e38d9d1a5c7320e34c03aa35bc2c66a589ea14abf545"
+    },
+    {
+      "name": "log4j-slf4j2-impl-2.25.5.jar",
+      "sha256": "8cab16dd6fc4c8f14c1c473022cb217512f2bbb2d59a70f8ec90a268d64d8831"
+    },
+    {
+      "name": "lz4-java-1.11.3.jar",
+      "sha256": "ffdfceacabf20fef15547ab2113374cb2c2b42634f5ac14be72c296a77fd49f8"
+    },
+    {
+      "name": "netty-all-4.2.18.Final.jar",
+      "sha256": "e27d429527d65e6eff0c3f3ed8badbf8af25ec47db682b748bab256feda8fb65"
+    },
+    {
+      "name": "netty-buffer-4.2.18.Final.jar",
+      "sha256": "fdf236d2b76aa9710684401fdad7dff9dec56e43da5d39172c9a55ba5f14b360"
+    },
+    {
+      "name": "netty-codec-4.2.18.Final.jar",
+      "sha256": "439645eb5061f8f50fbf27afacce394e4cecc4d373e1f7a384837e4661d5f430"
+    },
+    {
+      "name": "netty-codec-base-4.2.18.Final.jar",
+      "sha256": "7e4612bead7ba88ac6f7908fa722f90ad6835ea96505c9e40b2f93686c1f61f3"
+    },
+    {
+      "name": "netty-codec-compression-4.2.18.Final.jar",
+      "sha256": "9d8a4b9a6a2a166ec5a4bbe51a78b4f6a726457c51d81495743c7e7ccb9f4765"
+    },
+    {
+      "name": "netty-codec-dns-4.2.18.Final.jar",
+      "sha256": "6f4b6da1483a82a637804740c2fb61385c9337a5e7ae5e357720cc03ba60b728"
+    },
+    {
+      "name": "netty-codec-http-4.2.18.Final.jar",
+      "sha256": "2d50765eb58591ce35146c54ca032a257808d2165d8985a8522c70ea1470e8d7"
+    },
+    {
+      "name": "netty-codec-http2-4.2.18.Final.jar",
+      "sha256": "a45a2b06c377b9c87c21ae2b37f04c8d808192590a73d977e7a60fd59921f283"
+    },
+    {
+      "name": "netty-codec-socks-4.2.18.Final.jar",
+      "sha256": "25dea7bc1ad990ab8959065f0690b63574d8db4f51033cd98458fc84c59367f3"
+    },
+    {
+      "name": "netty-common-4.2.18.Final.jar",
+      "sha256": "5d97cae5669685872339698efe13f74fe3cdb2dccdb36963b2352bd95acf7070"
+    },
+    {
+      "name": "netty-handler-4.2.18.Final.jar",
+      "sha256": "6d5a08d9dd6d7d0211202e22dbb1629b23a62550335c7e80892da1d4cb115540"
+    },
+    {
+      "name": "netty-handler-proxy-4.2.18.Final.jar",
+      "sha256": "d7786de71c0d405b80b4262e0c585618e6f20e7fd3188cb4f599ffc4029ee9ea"
+    },
+    {
+      "name": "netty-resolver-4.2.18.Final.jar",
+      "sha256": "68373ec544cf769ba17bf2ef455166d98f2c260dff536edf35ef57067a9c155f"
+    },
+    {
+      "name": "netty-resolver-dns-4.2.18.Final.jar",
+      "sha256": "7dd3ec96bef04abc91a0f461f8acc19ebc0738c257ea653aea9dd0ad67b3b1ce"
+    },
+    {
+      "name": "netty-transport-4.2.18.Final.jar",
+      "sha256": "eac4f12068db4489e60c6520fad663e5d872f0436a7c641aa9e08db649947863"
+    },
+    {
+      "name": "netty-transport-classes-epoll-4.2.18.Final.jar",
+      "sha256": "3677ca998f3db749d3fdb0fb1b1674f9809f4fbe8f819a346f4858dfb16c4d95"
+    },
+    {
+      "name": "netty-transport-classes-kqueue-4.2.18.Final.jar",
+      "sha256": "be48ee5b8a2328a1f4f2160270344175612dd9567787727de0dbaecb694beb51"
+    },
+    {
+      "name": "netty-transport-native-epoll-4.2.18.Final-linux-aarch_64.jar",
+      "sha256": "542ec436b3bc5ed6eed946573ce0ad2c8776517badb949817d06c7294b9d023e"
+    },
+    {
+      "name": "netty-transport-native-epoll-4.2.18.Final-linux-riscv64.jar",
+      "sha256": "cecb20bc4a4429a9787903914f91c3719b6b6e209b2a366d39fba04ee41fae91"
+    },
+    {
+      "name": "netty-transport-native-epoll-4.2.18.Final-linux-x86_64.jar",
+      "sha256": "32a340971182d901cea513588549cfadc392bb7342f930379a6e34d853a331f0"
+    },
+    {
+      "name": "netty-transport-native-kqueue-4.2.18.Final-osx-aarch_64.jar",
+      "sha256": "7e0ab76f3935ca036a7fb19d34821b8d22c69fbd75a22d4b344fd65668d23131"
+    },
+    {
+      "name": "netty-transport-native-kqueue-4.2.18.Final-osx-x86_64.jar",
+      "sha256": "ad0a842bc9f8064dec6ee3c264e0f24131ebe690e9757616c4700490956d7f1f"
+    },
+    {
+      "name": "netty-transport-native-unix-common-4.2.18.Final.jar",
+      "sha256": "cada7023d09136af128511ca94421d69dc84d0f1f64c9e1f127a1271bb62932a"
+    },
+    {
+      "name": "parquet-column-1.18.1.jar",
+      "sha256": "2bfc18fbf3fe8e971780a080e46f6d6cb3e69695ad3a746bd11d46ea8fd90171"
+    },
+    {
+      "name": "parquet-common-1.18.1.jar",
+      "sha256": "a8c710f2d0ddb4b1332e596cd91f74305b66ae1d7235c798a8b48ddbfb9d31d6"
+    },
+    {
+      "name": "parquet-encoding-1.18.1.jar",
+      "sha256": "a9414b00d8a4658933476aab8a7a64c51ad669fd7b752cbe5809bcd0e29e2c00"
+    },
+    {
+      "name": "parquet-format-structures-1.18.1.jar",
+      "sha256": "6613a8fd105c4f7f1578ff1f39476c30fdf485b0ac714c30444a9f70045892bb"
+    },
+    {
+      "name": "parquet-hadoop-1.18.1.jar",
+      "sha256": "efbf7b0374a14f075afbad53632fb6ed76d39239ce39d970f581f3512d00ee0b"
+    },
+    {
+      "name": "parquet-jackson-1.18.1.jar",
+      "sha256": "1914fed4ed18999ce98ad844aa5d0b09f31027be329ffd82d861d6f7c6f097c7"
+    },
+    {
+      "name": "vertx-auth-common-4.5.34.jar",
+      "sha256": "2fc9f280b2193718db2bde020e8ca9107eff2a78d27389b7c4db63f72980c4de"
+    },
+    {
+      "name": "vertx-core-4.5.34.jar",
+      "sha256": "750ec27491f9eea3df24e3a85670a0b1998827bb729ec95b2d9d3dbbfdf8792c"
+    },
+    {
+      "name": "vertx-uri-template-4.5.34.jar",
+      "sha256": "d303e9f044347bc350241dfb2150f05d3b93d6c7f56c74757861ca582e8f62df"
+    },
+    {
+      "name": "vertx-web-client-4.5.34.jar",
+      "sha256": "1cc978b8a2f5f0b6dcb5e717f1174750eca10aa844fe17f579183c5f69cfdfa7"
+    },
+    {
+      "name": "vertx-web-common-4.5.34.jar",
+      "sha256": "378371867305e73cddcea7027217d9a9fddbd18e57de74021824cb2bf1962019"
+    },
+    {
+      "name": "commons-lang-2.6-retail-classutils-v1.jar",
+      "sha256": "126c5be1f710dd2f4336867e24df864ecb1896bde68e9204a9ba31c3f58dbf05"
+    },
+    {
+      "name": "spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar",
+      "sha256": "5f0a0669ad6b7e3fda0d46fab28522d59b5d6accda78cf559457b719b2744901"
+    },
+    {
+      "name": "hadoop-client-runtime-3.5.0-retail-security.1.jar",
+      "sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13"
+    }
+  ],
+  "pyspark": "4.2.0",
+  "python": "3.11.16",
+  "removed_artifacts_absent": true,
+  "runtime_lock_sha256": "2f253afea80d036bea4914bc08a20740b2eddee975ea3031f1b4ccbffc7d6911"
+}

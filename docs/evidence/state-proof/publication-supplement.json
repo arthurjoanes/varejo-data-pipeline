@@ -1,0 +1,10 @@
+{
+  "recorded_at": "2026-09-22T09:03:17.312413+00:00",
+  "scope": "Publication attributes and capture collector added after runtime proofs. No processing or measurement rerun; raw executed attributes preserved exactly.",
+  "changed_operational_source": ".gitattributes",
+  "at_restore_sha256": "516ec7712f39e249b4cdac27364ab7f3c6334dc7c9fa4fa2e47d4313d299a0d7",
+  "at_measurement_sha256": "40d895304eb0e34279ee500f70b95b46e031669300e7d50979d60cd771d891e6",
+  "at_publication_sha256": "f5ffe9502b1df836ba8e123a961a2dbdc42a1645d4c6856b337995d5ae58844e",
+  "reason": "Preserve JSON, HTML and capture-collector LF bytes on checkout; keep exact historical attribute bytes as archived evidence.",
+  "all_other_runtime_sources_unchanged": true
+}

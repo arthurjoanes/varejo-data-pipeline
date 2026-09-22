@@ -65,3 +65,7 @@ Idempotência significa igualdade dos dados de negócio e indicadores ao reapres
 Recompor silver e recalcular gold reduz estados intermediários e simplifica correções de data, cancelamentos e recuperação. O custo cresce com todo o histórico aceito, e o startup do Spark pesa no volume pequeno. É uma decisão proporcional a uma demonstração de cerca de 30 mil linhas.
 
 Uma evolução incremental precisa guardar o estado anterior e o novo de cada chave, identificar ambos os dias afetados, tratar chaves canceladas/reativadas, proteger o histórico elegível e preservar o mesmo protocolo de publicação. O teste de equivalência é comparar o incremental à recomputação completa em cenários gerados e fixtures manuais.
+
+## Recuperar antes de descartar histórico
+
+A [prova local](state-recovery.md) preserva diretórios Delta completos. É uma escolha conservadora: ocupa mais espaço, mas evita escolher arquivos descartáveis sem saber quais versões antigas ainda dependem deles. Cópia fria, sem escritor concorrente, e destino novo permitem comparar bytes e publicações. O custo de recomputação é medido separadamente com históricos fixos; não usamos o volume sintético como justificativa automática para cluster ou processamento incremental.

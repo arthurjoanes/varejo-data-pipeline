@@ -1,0 +1,114 @@
+{
+  "artifacts": [
+    {
+      "path": "regressions.json",
+      "sha256": "e976a8d0f01a96e47b368c242808fd1afdcae738eedb3f32e5b21146705307c7"
+    },
+    {
+      "path": "runtime-dependencies.json",
+      "sha256": "c37f4b3f9bfcd425e61ccfa763b264fa54359b9f0c58055306b44f0d7ca2b65f"
+    },
+    {
+      "path": "restore.json",
+      "sha256": "bf79b22510a07658fd9dc633ab92aa16fe5f02af6ad62b395f6e920e2070d74e"
+    },
+    {
+      "path": "measurement.json",
+      "sha256": "a9843e968ebb3f5156460cdd15d9965ae5bc2fd0bc53617e427ce560f96793fb"
+    },
+    {
+      "path": "reports/publication.html",
+      "sha256": "d57908331b2e8b389e212e1120f5ec74d2b771d8655b1a5af8e14d6a9f2e508e"
+    },
+    {
+      "path": "reports/blocked.html",
+      "sha256": "9234c9cecec08ec56977a204e4911303fe0bc7ffc875f2df14b925844fd343b5"
+    },
+    {
+      "path": "reports/recovery.html",
+      "sha256": "7476eb027efe9c3ec87edba48104b3b923b3adfcf35fd0dea89f68b1248b1e7e"
+    },
+    {
+      "path": "reports/corrected.html",
+      "sha256": "fdf28d80085321008c18fca75086b4f03ec9db7c44541d5e28c6a820a7f5ef8e"
+    },
+    {
+      "path": "captures.json",
+      "sha256": "052ef514b43d6946c4c7aa0f987b60431a204a9b640ea6460da7f593f961ee0a"
+    },
+    {
+      "path": "capture.cjs",
+      "sha256": "5a85956caa5ec50fb23bc2e295fd66c826823923a0a83f2e0dd2d5435cfa5d06"
+    },
+    {
+      "path": "attributes-at-restore.txt",
+      "sha256": "516ec7712f39e249b4cdac27364ab7f3c6334dc7c9fa4fa2e47d4313d299a0d7"
+    },
+    {
+      "path": "attributes-at-measurement.txt",
+      "sha256": "40d895304eb0e34279ee500f70b95b46e031669300e7d50979d60cd771d891e6"
+    },
+    {
+      "path": "publication-supplement.json",
+      "sha256": "93e6c1fdeae1f9a0d4db9cbf0be77c8a976c212c2c1062b57c8454347ef4d4d1"
+    },
+    {
+      "path": "../../images/state-proof/publication-1440.png",
+      "sha256": "271059c919baa3f308682c6001c1122578a89d833650ca7929ea8e5a37c2f8e3"
+    },
+    {
+      "path": "../../images/state-proof/blocked-1440.png",
+      "sha256": "1c73893e26c5045d3529270158d3064498fabe2f523a0f7a7fb53ef3f6ab798c"
+    },
+    {
+      "path": "../../images/state-proof/recovery-1440.png",
+      "sha256": "6c32cdbbd8bf33ebb6c7de207e4870a2f2c7234ca3a22470159b162dfa74f2ac"
+    },
+    {
+      "path": "../../images/state-proof/corrected-1440.png",
+      "sha256": "41d50e78e04415a95b4c1f7bedfa0723c5bebfb054050f9ea5f51c8e693cd676"
+    },
+    {
+      "path": "../../images/state-proof/blocked-390.png",
+      "sha256": "ea4815ea2899f98e65f5aa92b03e2c490701dda041865eaa5d3961ecb773f14f"
+    },
+    {
+      "path": "../../images/state-proof/corrected-390.png",
+      "sha256": "82a01857e37904b1c864ffa4a26bdf67643a211a1dfa119dbc2be5ca4a5e6c5f"
+    }
+  ],
+  "existing_scan_association": {
+    "created_at": "2026-09-22T03:52:56.391082936Z",
+    "image_id": "sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3",
+    "path": "../security-scan.json",
+    "scope": "Associação ao scan existente desta imagem; não houve novo scan nesta prova. Não se atribui o scan à tentativa histórica bfef.",
+    "severity_counts": {
+      "MEDIUM": 1
+    },
+    "sha256": "67e69365ca3cad257e7422cac8451ddc21dde7053a36da7da2ae65a5be10d3b0"
+  },
+  "image_id": "sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3",
+  "limits": [
+    "Backup e restore no mesmo host; não é plano de desastre contra perda do computador.",
+    "Retenção protege diretórios Delta e Bronze referenciados; não autoriza remover arquivos individuais ou executar VACUUM.",
+    "As duas tentativas falhas de pré-flight permanecem em regressions.json; nenhuma delas é amostra da medição.",
+    "Antes da medição, o teto adicional foi ajustado de 512 para 1024 PIDs após pids.events max=11 e pids.peak=512; memória, CPU, cargas e prazos foram mantidos.",
+    "Snapshots externos diferentes: nenhum container em execução no início, ui-api-art-review observado no fim. Carga externa não controlada; não atribuir essa mudança ao runner nem inferir comparação causal ou capacidade geral."
+  ],
+  "measurement_status": "passed",
+  "published_at": "2026-09-22T09:00:34.360162+00:00",
+  "raw_state_published": false,
+  "restore_status": "passed",
+  "schema_version": 1,
+  "capture_scope": "Local rendering of four reports produced by the restore scenario. Not a live monitor, visual comparison study, accessibility certification, or another Spark execution.",
+  "publication_source_changes": {
+    "recorded_at": "2026-09-22T09:03:17.312413+00:00",
+    "scope": "Publication attributes and capture collector added after runtime proofs. No processing or measurement rerun; raw executed attributes preserved exactly.",
+    "changed_operational_source": ".gitattributes",
+    "at_restore_sha256": "516ec7712f39e249b4cdac27364ab7f3c6334dc7c9fa4fa2e47d4313d299a0d7",
+    "at_measurement_sha256": "40d895304eb0e34279ee500f70b95b46e031669300e7d50979d60cd771d891e6",
+    "at_publication_sha256": "f5ffe9502b1df836ba8e123a961a2dbdc42a1645d4c6856b337995d5ae58844e",
+    "reason": "Preserve JSON, HTML and capture-collector LF bytes on checkout; keep exact historical attribute bytes as archived evidence.",
+    "all_other_runtime_sources_unchanged": true
+  }
+}

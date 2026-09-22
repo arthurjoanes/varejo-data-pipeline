@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Entrega das lojas, diagnóstico da tentativa e indicadores do fechamento publicado.">
+<title>Fechamento de vendas · Varejo Data Pipeline</title><style>:root { color-scheme:light; --ink:#24334b; --muted:#536278; --line:#d5deeb; --blue:#334fb0; --canvas:#f2f5fa; --paper:#fff; --danger:#963d37; --success:#226348; --warning:#76550e; }
+* { box-sizing:border-box; }
+[hidden] { display:none!important; }
+html { scroll-padding-top:20px; }
+body { margin:0; color:var(--ink); background:var(--canvas); font:15px/1.55 "Segoe UI",Aptos,Arial,sans-serif; }
+h1,h2,h3,p { margin:0; }
+h1,h2,h3 { line-height:1.25; text-wrap:balance; }
+h1 { font-size:28px; font-weight:700; letter-spacing:-.65px; }
+h2 { font-size:26px; letter-spacing:-.5px; }
+h3 { font-size:17px; font-weight:650; }
+p + p { margin-top:8px; }
+a { color:var(--blue); text-underline-offset:3px; }
+a:hover { text-decoration-thickness:2px; }
+a,button,summary { touch-action:manipulation; -webkit-tap-highlight-color:#dce5ff; }
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,[tabindex]:focus-visible { outline:3px solid var(--blue); outline-offset:4px; }
+button,input { font:inherit; }
+button { cursor:pointer; }
+code { font:12px/1.6 Consolas,monospace; overflow-wrap:anywhere; }
+.numeric,.stage-time,.metric strong,.coverage-total { font-variant-numeric:tabular-nums; }
+.skip-link { position:absolute; top:-100px; left:16px; z-index:20; padding:12px; background:white; }
+.skip-link:focus { top:10px; }
+.app-bar { display:flex; align-items:center; gap:28px; padding:15px max(24px,calc((100vw - 1280px)/2 + 24px)); background:var(--paper); border-bottom:1px solid var(--line); }
+.brand { display:flex; align-items:center; gap:10px; color:var(--ink); text-decoration:none; font-size:19px; font-weight:700; }
+.brand svg { width:28px; height:28px; fill:var(--blue); stroke:var(--blue); stroke-width:2; }
+.brand span span { display:block; font-size:12px; font-weight:400; color:var(--muted); }
+.app-location { color:var(--muted); font-size:14px; border-left:1px solid var(--line); padding-left:28px; }
+.snapshot-label { margin-left:auto; color:var(--muted); font-size:12px; }
+main { max-width:1280px; min-width:0; margin:auto; padding:24px 24px 20px; }
+.report-caption { display:flex; align-items:baseline; justify-content:space-between; gap:20px; margin-bottom:16px; }
+.report-caption h1 { font-size:20px; font-weight:650; letter-spacing:0; }
+.decision-copy h2 { font-size:28px; }
+.demo-label,.meta,.footnote,.muted { font-size:12px; color:var(--muted); overflow-wrap:anywhere; }
+.report-nav { display:flex; gap:28px; margin:0 0 24px; border-bottom:1px solid #bac9df; }
+.report-nav a { position:relative; display:flex; align-items:center; min-height:48px; padding:8px 2px; color:var(--muted); text-decoration:none; font-size:15px; }
+.report-nav a::after { content:""; position:absolute; height:3px; bottom:-1px; left:0; right:0; background:var(--blue); opacity:0; transform:scaleX(.65); transition:opacity 180ms ease,transform 180ms ease; }
+.report-nav a[aria-current] { color:var(--blue); font-weight:650; }
+.report-nav a[aria-current]::after { opacity:1; transform:scaleX(1); }
+.report-nav a:hover { color:var(--blue); }
+.panel { min-width:0; margin-bottom:28px; scroll-margin-top:20px; }
+.closing-sheet { border:1px solid var(--line); border-radius:8px; background:var(--paper); overflow:clip; }
+.decision-record { border-bottom:1px solid var(--line); }
+.attempt-identity { display:grid; grid-template-columns:minmax(180px,1fr) 2fr; gap:24px; padding:16px 28px; background:#edf2fb; border-top:1px solid var(--line); }
+.record-label { color:var(--muted); font-size:12px; margin-bottom:5px; }
+.batch-name { margin:0; }
+.batch-name .id-link { font:600 17px/1.5 "Segoe UI",Aptos,sans-serif; overflow-wrap:anywhere; }
+.attempt-clock { margin:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+dt { color:var(--muted); font-size:12px; }
+dd { margin:3px 0 0; min-width:0; overflow-wrap:anywhere; }
+.attempt-clock dd { font-size:13px; }
+.decision-copy { padding:26px 28px; min-width:0; }
+.decision-reason { margin-top:10px; max-width:70ch; }
+.decision-actions { display:flex; align-items:center; flex-wrap:wrap; gap:8px 24px; margin-top:20px; }
+.decision-action { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:9px 16px; border-radius:4px; background:var(--blue); color:white; font-size:14px; font-weight:600; text-decoration:none; }
+.decision-action:hover { background:#243f97; }
+.resume-guide { max-width:70ch; }
+.resume-guide p { font-size:13px; margin:8px 0 0; }
+.execution-workspace { min-width:0; }
+.coverage-summary { padding:24px 28px; }
+.group-heading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:16px; }
+.coverage-total { color:var(--muted); font-size:14px; }
+.store-ledger { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 28px; }
+.store-ledger li { min-width:0; display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 0; border-bottom:1px solid var(--line); }
+.store-name { font-weight:650; overflow-wrap:anywhere; }
+.delivery-state { font-size:12px; text-align:right; }
+.delivery-state.confirmed { color:var(--success); }
+.delivery-state.pending { color:var(--danger); font-weight:600; }
+.delivery-state.unknown { color:var(--muted); }
+.record-disclosure { border-top:1px solid var(--line); }
+.coverage-summary > .record-disclosure { border:0; margin-top:8px; }
+.coverage { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin:8px 0; }
+.coverage dd { display:flex; flex-wrap:wrap; gap:5px; }
+.chip { display:inline-block; max-width:100%; padding:3px 7px; border:1px solid var(--line); border-radius:3px; font-size:12px; overflow-wrap:anywhere; background:#f5f7fb; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; }
+.diagnostic-section { padding:24px 28px; border-top:1px solid var(--line); }
+.diagnostic-section > h3 { margin-bottom:16px; }
+.issue { border:1px solid var(--line); border-left:3px solid #7384ab; border-radius:4px; margin-top:12px; }
+.issue.error { border-left-color:#ae5147; }
+.issue.warning { border-left-color:#9b781c; }
+.issue > summary { display:grid; grid-template-columns:minmax(0,1fr) 20px; gap:14px; align-items:center; list-style:none; padding:14px 16px; color:var(--ink); }
+.issue > summary::-webkit-details-marker { display:none; }
+.issue > summary::after { content:"+"; text-align:center; font-size:19px; font-weight:400; color:var(--muted); }
+.issue[open] > summary::after { content:"−"; }
+.issue[open] > summary { background:#f6f8fc; border-bottom:1px solid var(--line); }
+.issue-title { min-width:0; overflow-wrap:anywhere; }
+.issue-key,.issue-count { display:block; margin-top:3px; font-size:12px; color:var(--muted); font-weight:400; }
+.issue-body { padding:16px; font-size:14px; overflow-wrap:anywhere; }
+.issue-body > p { max-width:78ch; }
+.issue-record { border-top:1px solid var(--line); margin-top:14px; }
+.issue-context { display:flex; flex-wrap:wrap; gap:16px; margin:12px 0; }
+.issue-context dd { font-size:13px; }
+.issue-code { font-size:12px; color:var(--muted); margin-top:12px; }
+.severity { font-weight:600; color:var(--ink); }
+.related-issues { margin-top:10px; }
+.clean { padding:5px 0; color:var(--muted); font-size:14px; }
+.clean span { color:var(--success); }
+.technical-register { border-top:1px solid var(--line); padding:4px 28px 18px; background:#fafbfe; }
+.technical-register > .record-disclosure:first-child { border:0; }
+.run-record { display:inline-flex; align-items:center; min-height:40px; font-size:13px; }
+summary { cursor:pointer; min-height:44px; padding:12px 0; color:var(--blue); font-size:14px; font-weight:600; }
+summary:hover { color:#243f97; }
+summary::marker { font-size:11px; }
+details[open] > summary { margin-bottom:8px; }
+.quality-outcome { display:flex; flex-wrap:wrap; align-items:baseline; gap:12px 24px; padding:12px 0; font-size:14px; }
+.quality-outcome p { margin:0; }
+.quality-outcome strong { font-weight:650; }
+.quality-outcome.has-rejections strong { color:var(--danger); }
+.counters { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 28px; margin:14px 0; }
+.counters > div { display:flex; justify-content:space-between; align-items:baseline; gap:14px; border-bottom:1px solid var(--line); padding:8px 0; }
+.counters dt { font-size:13px; }
+.counters dd { margin:0; font-variant-numeric:tabular-nums; }
+.not-assessed { font-size:12px; color:var(--muted); }
+.stage-rail { padding:8px 0 16px; }
+.rail-heading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.rail-heading > span { font-size:12px; color:var(--muted); }
+.stage > summary { display:grid; grid-template-columns:26px minmax(0,1fr) auto; gap:10px; align-items:center; border-bottom:1px solid var(--line); }
+.stage-number { font-size:12px; color:var(--muted); }
+.stage-name { font-size:14px; }
+.stage-time { font-size:13px; font-weight:400; color:var(--muted); }
+.stage-note { padding:10px 16px 16px 36px; font-size:13px; }
+.footnote { margin-top:12px; }
+.publication-bridge { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:18px 2px; font-size:13px; color:var(--muted); }
+.publication-bridge p { max-width:80ch; }
+.publication-bridge > a { flex-shrink:0; padding:8px 0; }
+.previous-failure { border-top:1px solid var(--line); }
+.failure-notice { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; background:#fff6f2; border-left:3px solid var(--danger); padding:16px; font-size:14px; }
+.badge { display:inline-flex; padding:4px 8px; border:1px solid; border-radius:4px; font-size:12px; white-space:nowrap; }
+.badge.danger { color:var(--danger); background:#fcf0ed; border-color:#e3bbb5; }
+.badge.success { color:var(--success); background:#edf7f1; border-color:#b9d7c5; }
+.badge.neutral { color:var(--muted); background:#f2f5fa; border-color:var(--line); }
+.audit-note { background:#fff8e8; color:var(--warning); padding:14px; border-left:3px solid var(--warning); margin-bottom:16px; }
+.publication-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; padding:4px 0 18px; }
+.publication-note { font-size:13px; color:var(--muted); margin-top:10px; }
+.id-link { font-family:Consolas,monospace; font-size:13px; }
+.publication-window { display:grid; gap:5px; font-size:13px; text-align:right; }
+.publication-window span { color:var(--muted); font-size:12px; }
+.publication-context { padding:14px 18px; background:#e8eef9; border-left:3px solid var(--blue); font-size:14px; margin-bottom:20px; }
+.subnav { display:flex; flex-wrap:wrap; gap:24px; margin:0 0 20px; }
+.subnav a { display:inline-flex; align-items:center; min-height:40px; font-size:14px; }
+.metrics { display:grid; grid-template-columns:1.4fr repeat(3,minmax(0,1fr)); padding:22px 0; border-top:1px solid #bac9df; border-bottom:1px solid #bac9df; margin-bottom:24px; }
+.metric { min-width:0; padding:0 24px; }
+.metric:first-child { padding-left:0; }
+.metric + .metric { border-left:1px solid var(--line); }
+.metric-label { font-size:13px; font-weight:600; }
+.metric strong { display:block; font-size:29px; font-weight:650; letter-spacing:-.6px; margin:6px 0; overflow-wrap:anywhere; }
+.metric.accent strong { color:var(--blue); }
+.metric p:last-child { font-size:12px; color:var(--muted); max-width:28ch; }
+.analytics-grid { display:grid; align-items:start; grid-template-columns:minmax(0,1.4fr) minmax(320px,1fr); grid-template-rows:max-content minmax(0,1fr); gap:24px; }
+.analytics-grid > .data-section { margin-bottom:0; }
+#receita { grid-column:1; grid-row:1; }
+#produtos { grid-column:2; grid-row:1 / 3; }
+#lojas { grid-column:1; grid-row:2; }
+.data-section { min-width:0; background:var(--paper); border:1px solid var(--line); padding:24px; margin-bottom:24px; border-radius:6px; }
+.data-section > h3 { margin-bottom:10px; }
+.diagnostic-heading { display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
+.chart { overflow:auto; margin:22px 0 10px; }
+.chart svg { display:block; width:100%; min-width:590px; }
+.chart-label { font:15px "Segoe UI",sans-serif; fill:var(--muted); }
+.table-scroll { overflow:auto; margin-top:12px; scrollbar-width:thin; }
+table { width:100%; border-collapse:collapse; font-size:14px; }
+th { text-align:left; font-weight:600; font-size:12px; color:var(--muted); background:#edf2f9; }
+th,td { padding:12px; border-bottom:1px solid var(--line); vertical-align:top; }
+tbody tr:hover { background:#f5f7fb; }
+.numeric { text-align:right; white-space:nowrap; }
+#lojas table { min-width:670px; }
+#lojas .table-scroll { max-height:520px; }
+#lojas th { position:sticky; top:0; }
+.provenance-workspace { display:grid; grid-template-columns:350px minmax(0,1fr); background:var(--paper); border:1px solid var(--line); border-radius:6px; }
+.identity-register,.source-register { min-width:0; padding:24px; }
+.identity-register { border-right:1px solid var(--line); background:#edf2fb; }
+.source-register > h3 { margin:24px 0 12px; }
+.source-register > h3:first-child { margin-top:0; }
+.section-head { margin-bottom:20px; }
+.section-head .meta { margin-top:8px; }
+.copy-field { min-width:0; margin:18px 0; }
+.copy-field label { display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
+.copy-field > div { display:flex; gap:8px; }
+.copy-field input { min-width:0; width:100%; padding:10px; color:var(--ink); border:1px solid #7186a9; background:white; border-radius:4px; font:13px Consolas,monospace; }
+.copy-field button { min-height:44px; padding:8px 12px; color:var(--blue); background:white; border:1px solid #7186a9; border-radius:4px; font-size:13px; }
+.copy-field button:hover { background:#e3ebfc; }
+.copy-status:empty { display:none; }
+.copy-status:not(:empty) { font-size:13px; padding:12px; background:#dfe9ff; }
+.identity-detail,.source-record { border-top:1px solid var(--line); }
+.source-fields { display:grid; grid-template-columns:130px minmax(0,1fr); gap:10px 16px; }
+.source-fields dd { margin:0; font-size:13px; }
+.reference-hashes p { margin:14px 0; }
+.reference-hashes span { color:var(--muted); font-size:12px; }
+.reference-hashes code { display:block; margin-top:5px; }
+.provenance { min-width:550px; table-layout:fixed; }
+.provenance th:first-child { width:28%; }
+.provenance th:nth-child(2) { width:12%; }
+.provenance small { display:block; font-size:12px; color:var(--muted); margin-top:5px; }
+.empty { padding:12px 0; color:var(--muted); }
+.empty-state { padding:28px; }
+.empty-state p { margin-top:12px; }
+.report-footer { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; padding:18px 0 0; border-top:1px solid var(--line); font-size:12px; color:var(--muted); }
+@media(max-width:1100px) {
+ .analytics-grid { grid-template-columns:1fr; grid-template-rows:auto; }
+ #receita,#produtos,#lojas { grid-column:auto; grid-row:auto; }
+ .store-ledger { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .provenance-workspace { grid-template-columns:300px minmax(0,1fr); }
+ .metric { padding:0 16px; }
+ .metric strong { font-size:25px; }
+}
+@media(max-width:760px) {
+ .app-location { display:none; }
+ .report-caption { align-items:flex-start; flex-direction:column; gap:4px; }
+ main { padding:20px 18px; }
+ .attempt-identity { padding:16px 20px; grid-template-columns:1fr; gap:12px; }
+ .attempt-clock { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+ .decision-copy { padding:22px 20px; }
+ .coverage-summary,.diagnostic-section { padding:22px 20px; }
+ .group-heading { flex-direction:column; gap:6px; }
+ .technical-register { padding:4px 20px 16px; }
+ .store-ledger,.coverage { grid-template-columns:1fr; }
+ .publication-bridge,.publication-heading { flex-direction:column; align-items:flex-start; gap:10px; }
+ .publication-window { text-align:left; }
+ .publication-bridge > a { padding:4px 0; }
+ .provenance-workspace { grid-template-columns:1fr; }
+ .identity-register { border-right:0; border-bottom:1px solid var(--line); }
+ .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 0; }
+ .metric:nth-child(3) { padding-left:0; border-left:0; }
+ .metric strong { font-size:27px; }
+ .data-section { padding:20px; }
+ .diagnostic-heading { flex-direction:column; gap:6px; }
+ .source-fields { grid-template-columns:1fr; gap:3px; }
+ .source-fields dd { margin-bottom:10px; }
+}
+@media(max-width:440px) {
+ .app-bar { padding:14px 18px; gap:10px; }
+ .snapshot-label { max-width:110px; text-align:right; }
+ .decision-copy h2 { font-size:26px; }
+ h2 { font-size:25px; }
+ .report-nav { gap:24px; }
+ .report-nav a { font-size:14px; }
+ .counters { grid-template-columns:1fr; }
+ .attempt-clock { gap:12px; }
+ .decision-actions { align-items:center; gap:8px 16px; }
+ .issue > summary { padding:12px; }
+ .issue-body { padding:12px; }
+ .metric strong { font-size:23px; }
+ .metric { padding-right:0; }
+ .metric.metric-wide { grid-column:1 / -1; padding:0; border-left:0; }
+ .metrics:has(.metric-wide) .metric { padding-left:0; border-left:0; }
+ .identity-register,.source-register { padding:20px; }
+ .failure-notice { flex-wrap:wrap; }
+}
+@media print {
+ @page { margin:14mm; }
+ body { background:white; font-size:10pt; }
+ .skip-link,.report-nav,.subnav,.decision-actions,.copy-field button { display:none!important; }
+ .app-bar,main { padding:10px 0; max-width:none; }
+ .app-location { display:none; }
+ .panel[hidden] { display:block!important; }
+ .panel { margin-top:24px; }
+ .decision-record,.analytics-grid,.provenance-workspace { display:block; }
+ .analytics-grid > .data-section { margin-bottom:24px; }
+ .attempt-identity,.identity-register { border:0; background:white; }
+ .store-ledger { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .table-scroll,#lojas .table-scroll { overflow:visible; max-height:none; }
+ .chart { overflow:visible; }
+ .chart svg { min-width:0; }
+ table,.provenance,#lojas table { min-width:0; font-size:9pt; }
+ td,th { padding:6px; overflow-wrap:anywhere; }
+ details::details-content { content-visibility:visible; }
+ .issue,.metric,tr { break-inside:avoid; }
+ h2,h3 { break-after:avoid; }
+}
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; scroll-behavior:auto!important; } }
+</style></head><body>
+<a class="skip-link" href="#content">Ir para o fechamento</a>
+<div class="app-shell"><header class="app-bar">
+<a class="brand" href="#qualidade"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 5h8v8H5zM19 19h8v8h-8zM19 5h8v8h-8z"/><path d="M13 9h6M23 13v6" fill="none"/></svg><span>Varejo <span>Data Pipeline</span></span></a>
+<span class="app-location">Conferência de fechamento</span><span class="snapshot-label">Snapshot · somente leitura</span></header>
+<main id="content" tabindex="-1">
+<div class="report-caption"><h1>Fechamento de vendas</h1><p class="demo-label">Demonstração com dados sintéticos.</p></div>
+<nav class="report-nav" aria-label="Seções do relatório"><a href="#qualidade" data-view-link="qualidade">Execução</a><a href="#indicadores" data-view-link="indicadores">Indicadores</a><a href="#proveniencia" data-view-link="proveniencia">Arquivos</a></nav>
+<section class="panel" id="qualidade" data-report-view tabindex="-1" aria-labelledby="execution-title">
+<div class="closing-sheet">
+<header class="decision-record"><div class="decision-copy"><h2 id="execution-title">Fechamento publicado</h2><p class="decision-reason">Os indicadores pertencem à publicação identificada abaixo.</p><div class="decision-actions"><a class="decision-action" href="#indicadores">Consultar indicadores</a></div></div>
+<div class="attempt-identity"><div><p class="record-label">Lote da tentativa</p><p class="batch-name"><a class="id-link" href="#attempt-batch-id" aria-label="Ver ID completo do lote da tentativa em Arquivos e versões">fixture-valid</a></p></div><dl class="attempt-clock"><div><dt>Início registrado</dt><dd>22/09/2026 · 08:33:06 UTC</dd></div><div><dt>Período da entrega</dt><dd>Não informado no snapshot</dd></div></dl></div></header>
+
+    <div class="execution-workspace">
+    <section class="coverage-summary" aria-labelledby="coverage-title"><div class="group-heading"><h3 id="coverage-title">Cobertura da entrega</h3><p class="coverage-total">3 de 3 lojas com entrega confirmada</p></div><ul class="store-ledger"><li><span class="store-name">S01</span><span class="delivery-state confirmed">Entrega confirmada</span></li><li><span class="store-name">S02</span><span class="delivery-state confirmed">Entrega confirmada</span></li><li><span class="store-name">S03</span><span class="delivery-state confirmed">Zero movimento confirmado</span></li></ul><details class="record-disclosure"><summary>Listas registradas da cobertura</summary><dl class="coverage"><div><dt>Esperadas</dt><dd><span class="chip">S01</span><span class="chip">S02</span><span class="chip">S03</span></dd></div><div><dt>Recebidas</dt><dd><span class="chip">S01</span><span class="chip">S02</span><span class="chip">S03</span></dd></div><div><dt>Zero movimento confirmado</dt><dd><span class="chip">S03</span></dd></div></dl></details></section>
+    <section class="diagnostic-section" id="pendencias" tabindex="-1"><h3>Ocorrências da entrega</h3><p class="clean"><span aria-hidden="true">✓</span> Nenhuma ocorrência registrada nesta tentativa.</p></section>
+    <div class="technical-register">
+      <details class="quality-measurements record-disclosure"><summary>Contadores e validações técnicas</summary>
+      <div class="quality-outcome ">
+        <p><strong>0 rejeitados</strong> de 4 registros recebidos</p><p>0 violações de registros</p>
+      </div><section class="quality-diagnostics"><h3>Contadores da tentativa</h3><dl class="counters"><div><dt>Recebidos</dt><dd>4</dd></div><div><dt>Válidos</dt><dd>4</dd></div><div><dt>Rejeitados</dt><dd>0</dd></div><div><dt>Violações</dt><dd>0</dd></div><div><dt>Duplicatas exatas</dt><dd>0</dd></div><div><dt>Conflitos</dt><dd>0</dd></div><div><dt>Revisões antigas</dt><dd>0</dd></div></dl><p class="footnote">Rejeição: 0,00%. Cada linha rejeitada conta uma vez; uma linha pode gerar várias violações. Duplicatas e revisões antigas são diagnósticos e podem se sobrepor.</p></section></details>
+      <details class="timing-disclosure record-disclosure"><summary>Tempos medidos desta tentativa</summary><section class="stage-rail" aria-label="Etapas medidas da última tentativa"><div class="rail-heading"><h3>Etapas medidas</h3><span>Tempo registrado</span></div><details class="stage" name="measured-stage"><summary><span class="stage-number">01</span><span class="stage-name">Ingestão</span><span class="stage-time">10,5 s</span></summary><div class="stage-note"><p>Leitura e conferência dos arquivos recebidos.</p><p>Tempo exato: <b>10,4669 s</b></p></div></details><details class="stage" name="measured-stage"><summary><span class="stage-number">02</span><span class="stage-name">Qualidade</span><span class="stage-time">3,7 s</span></summary><div class="stage-note"><p>Validação das regras de dados e das revisões. O diagnóstico explica o resultado da tentativa.</p><p>Tempo exato: <b>3,6503 s</b></p></div></details><details class="stage" name="measured-stage"><summary><span class="stage-number">03</span><span class="stage-name">Estado dos itens</span><span class="stage-time">6,9 s</span></summary><div class="stage-note"><p>Cálculo do estado dos itens a partir das revisões aceitas.</p><p>Tempo exato: <b>6,9188 s</b></p></div></details><details class="stage" name="measured-stage"><summary><span class="stage-number">04</span><span class="stage-name">Indicadores</span><span class="stage-time">4,3 s</span></summary><div class="stage-note"><p>Cálculo dos indicadores de loja, produto e dia comercial.</p><p>Tempo exato: <b>4,2856 s</b></p></div></details><details class="stage" name="measured-stage"><summary><span class="stage-number">05</span><span class="stage-name">Reconciliação</span><span class="stage-time">1,3 s</span></summary><div class="stage-note"><p>Conferência dos resultados antes da decisão de publicação.</p><p>Tempo exato: <b>1,2623 s</b></p></div></details><details class="stage" name="measured-stage"><summary><span class="stage-number">06</span><span class="stage-name">Publicação</span><span class="stage-time">2,5 s</span></summary><div class="stage-note"><p>Etapa de publicação medida. O manifesto identifica a versão efetivamente publicada.</p><p>Tempo exato: <b>2,5203 s</b></p></div></details><p class="footnote">Uma medição não confirma, por si só, o sucesso da etapa.</p><details class="exact-durations"><summary>Registro completo de tempos</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Duração por etapa"><table><thead><tr><th scope="col">Etapa</th><th scope="col">Valor exato</th></tr></thead><tbody><tr><td>Ingestão</td><td class="numeric">10,4669 s</td></tr><tr><td>Qualidade</td><td class="numeric">3,6503 s</td></tr><tr><td>Estado dos itens</td><td class="numeric">6,9188 s</td></tr><tr><td>Indicadores</td><td class="numeric">4,2856 s</td></tr><tr><td>Reconciliação</td><td class="numeric">1,2623 s</td></tr><tr><td>Publicação</td><td class="numeric">2,5203 s</td></tr></tbody></table></div><p class="footnote">Duração total registrada: 29,1061 s.</p></details></section></details>
+      <a class="run-record" href="#attempt-identity">Ver registro da tentativa</a>
+    </div></div>
+    
+</div>
+<div class="publication-bridge"><p><strong>Publicação disponível.</strong> Confira a entrega das lojas, as revisões aceitas e os indicadores do fechamento publicado.</p><a href="#indicadores">Ver a publicação disponível</a></div>
+</section>
+<section class="panel" id="indicadores" data-report-view tabindex="-1" aria-labelledby="indicators-title"><header class="publication-heading"><div><h2 id="indicators-title">Indicadores de vendas</h2><p class="publication-note">Publicação <a class="id-link" href="#publication-id" aria-label="Ver ID completo da publicação em Arquivos e versões">252c3f54…b8f8</a> · 22/09/2026 · 08:33:32 UTC</p></div><div class="publication-window"><span>Janela comercial publicada</span><strong>01/01/2026 a 01/01/2026</strong></div></header>
+<p class="publication-context"><strong>Publicação disponível.</strong> Confira a entrega das lojas, as revisões aceitas e os indicadores do fechamento publicado.</p>
+<nav class="subnav" aria-label="Recortes dos indicadores"><a href="#receita">Receita por dia</a><a href="#produtos">Produtos</a><a href="#lojas">Loja / dia</a></nav>
+<section class="metrics" aria-label="Indicadores da publicação"><article class="metric accent"><p class="metric-label">Receita líquida</p><strong>R$ 64,00</strong><p>BRL · descontos aplicados · cancelados excluídos</p></article><article class="metric"><p class="metric-label">Unidades vendidas</p><strong>7</strong><p>4 itens de venda ativos</p></article><article class="metric"><p class="metric-label">Vendas</p><strong>3</strong><p>Distintas por loja e dia comercial</p></article><article class="metric"><p class="metric-label">Ticket médio</p><strong>R$ 21,33</strong><p>Receita ÷ vendas no período</p></article></section><div class="analytics-grid"><section id="receita" class="data-section" tabindex="-1"><div class="diagnostic-heading"><h3>Receita por dia</h3><span class="meta">BRL · dia comercial</span></div><div class="chart" tabindex="0" role="region" aria-label="Gráfico de receita por dia; rolagem horizontal disponível em telas estreitas"><svg viewBox="0 0 900 260" role="img" aria-label="Receita líquida por dia comercial, em reais"><title>Receita líquida por dia comercial</title><line x1="110" x2="880" y1="20" y2="20" stroke="#dae2ec"/><text x="98" y="24" text-anchor="end" class="chart-label">R$ 80,00</text><line x1="110" x2="880" y1="67" y2="67" stroke="#dae2ec"/><text x="98" y="71" text-anchor="end" class="chart-label">R$ 60,00</text><line x1="110" x2="880" y1="115" y2="115" stroke="#dae2ec"/><text x="98" y="119" text-anchor="end" class="chart-label">R$ 40,00</text><line x1="110" x2="880" y1="162" y2="162" stroke="#dae2ec"/><text x="98" y="166" text-anchor="end" class="chart-label">R$ 20,00</text><line x1="110" x2="880" y1="210" y2="210" stroke="#dae2ec"/><text x="98" y="214" text-anchor="end" class="chart-label">R$ 0,00</text><circle cx="110" cy="58" r="4" fill="#185c91"><title>01/01/2026: R$ 64,00</title></circle><text x="110" y="240" text-anchor="end" class="chart-label">01/01/2026</text></svg></div><p class="footnote">Dia comercial em America/Sao_Paulo.</p>
+<details class="data-detail"><summary>Valores por dia (1 dia exibido)</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Valores equivalentes ao gráfico de receita diária"><table><thead><tr><th scope="col">Dia comercial</th><th scope="col">Receita líquida</th></tr></thead><tbody><tr><td>01/01/2026</td><td class="numeric">R$ 64,00</td></tr></tbody></table></div></details></section>
+<section class="data-section" id="produtos" tabindex="-1"><h3>Produtos mais vendidos</h3>
+<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Produtos mais vendidos, unidades e receita líquida"><table><thead><tr><th scope="col">Produto</th><th scope="col">Unidades</th><th scope="col">Receita líquida</th></tr></thead><tbody><tr><td>P01</td><td class="numeric">3</td><td class="numeric">R$ 39,00</td></tr><tr><td>P03</td><td class="numeric">3</td><td class="numeric">R$ 20,00</td></tr><tr><td>P02</td><td class="numeric">1</td><td class="numeric">R$ 5,00</td></tr></tbody></table></div></section>
+<section class="data-section" id="lojas" tabindex="-1"><h3>Receita por loja e dia</h3>
+<details class="data-detail"><summary>Valores por loja e dia (2 linhas exibidas)</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Receita, unidades, vendas e ticket por loja e dia comercial"><table><thead><tr><th scope="col">Dia comercial</th><th scope="col">Loja</th><th scope="col">Receita líquida</th><th scope="col">Unidades</th><th scope="col">Vendas</th><th scope="col">Ticket médio</th></tr></thead><tbody><tr><td>01/01/2026</td><td>S01</td><td class="numeric">R$ 44,00</td><td class="numeric">6</td><td class="numeric">2</td><td class="numeric">R$ 22,00</td></tr><tr><td>01/01/2026</td><td>S02</td><td class="numeric">R$ 20,00</td><td class="numeric">1</td><td class="numeric">1</td><td class="numeric">R$ 20,00</td></tr></tbody></table></div></details></section></div></section>
+<section class="panel" id="proveniencia" data-report-view tabindex="-1" aria-labelledby="files-title"><div class="section-head"><div><h2 id="files-title">Arquivos e versões</h2><p class="meta">1 fonte bronze. Referências capturadas no manifesto da publicação.</p><p class="meta">Publicada em 22/09/2026 · 08:33:32 UTC.</p></div></div>
+<div class="provenance-workspace"><aside class="identity-register"><h3>Publicação identificada</h3><div class="copy-field"><label for="publication-id">ID da publicação</label><div><input id="publication-id" value="252c3f54a4e34d449d29eabf433ab8f8" readonly spellcheck="false" autocomplete="off" name="publication-id" translate="no"><button type="button" hidden data-copy-target="publication-id" aria-label="Copiar ID da publicação">Copiar</button></div></div><div class="copy-field"><label for="publication-run-id">Execução que publicou</label><div><input id="publication-run-id" value="69477c0a211f457099c1ca401fcc5eef" readonly spellcheck="false" autocomplete="off" name="publication-run-id" translate="no"><button type="button" hidden data-copy-target="publication-run-id" aria-label="Copiar Execução que publicou">Copiar</button></div></div>
+<p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+<details class="identity-detail" id="attempt-identity" tabindex="-1"><summary>IDs da última tentativa</summary>
+<p class=meta>Estado registrado: PUBLISHED</p><div class="copy-field"><label for="attempt-run-id">Execução da tentativa</label><div><input id="attempt-run-id" value="69477c0a211f457099c1ca401fcc5eef" readonly spellcheck="false" autocomplete="off" name="attempt-run-id" translate="no"><button type="button" hidden data-copy-target="attempt-run-id" aria-label="Copiar Execução da tentativa">Copiar</button></div></div>
+<div class="copy-field"><label for="attempt-batch-id">Lote da tentativa</label><div><input id="attempt-batch-id" value="fixture-valid" readonly spellcheck="false" autocomplete="off" name="attempt-batch-id" translate="no"><button type="button" hidden data-copy-target="attempt-batch-id" aria-label="Copiar Lote da tentativa">Copiar</button></div></div></details>
+<details class="identity-detail"><summary>IDs da última falha ou bloqueio</summary>
+<p class="meta">Execução com falha: indisponível.</p>
+<p class="meta">Lote com falha: indisponível.</p></details>
+</aside><div class="source-register"><h3 class="data-heading">Tabelas da publicação</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabelas, versões e caminhos Delta"><table class="provenance"><thead><tr><th scope="col">Tabela e grão</th><th scope="col">Versão</th><th scope="col">Caminho Delta</th></tr></thead><tbody><tr><td><code>bronze</code><small>Registros recebidos</small></td><td class="numeric">0</td><td><code>/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze</code></td></tr><tr><td><code>gold_product_day</code><small>Produto e dia comercial</small></td><td class="numeric">0</td><td><code>/data/proof/state/tables/gold_product_day</code></td></tr><tr><td><code>gold_store_day</code><small>Loja e dia comercial</small></td><td class="numeric">0</td><td><code>/data/proof/state/tables/gold_store_day</code></td></tr><tr><td><code>history</code><small>Revisões de itens aceitas</small></td><td class="numeric">0</td><td><code>/data/proof/state/tables/history</code></td></tr><tr><td><code>silver</code><small>Estado atual por item</small></td><td class="numeric">0</td><td><code>/data/proof/state/tables/silver</code></td></tr></tbody></table></div>
+<h3>Lotes publicados (1)</h3>
+<div class="chips"><span class="chip">fixture-valid</span></div>
+<h3>Fontes e referências aprovadas</h3><details class="source-record"><summary>Fonte · fixture-valid</summary><dl class="source-fields"><dt>Execução</dt><dd><code>69477c0a211f457099c1ca401fcc5eef</code></dd><dt>Caminho bronze</dt><dd><code>/data/proof/state/runs/69477c0a211f457099c1ca401fcc5eef/bronze</code></dd><dt>Versão bronze</dt><dd>0</dd></dl><div class="reference-hashes"><p><span>catalog.json · SHA-256</span><code>91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091</code></p><p><span>schedule.json · SHA-256</span><code>c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd</code></p></div></details>
+<p class="footnote">Use <code>explain</code> para consultar chaves, revisões e arquivos de uma amostra.</p></div></div></section>
+<footer class="report-footer"><span>Varejo Data Pipeline</span><span>Relatório local · sem atualização automática</span></footer>
+</main></div><script>// Navegação de um snapshot local. Sem consultas de rede ou atualização automática.
+// O HTML completo e os detalhes nativos continuam legíveis sem JavaScript.
+const views = [...document.querySelectorAll('[data-report-view]')];
+const navigation = [...document.querySelectorAll('[data-view-link]')];
+
+function showLocation(focus = false) {
+  let id;
+  try { id = decodeURIComponent(location.hash.slice(1)); } catch { id = ''; }
+  const target = document.getElementById(id);
+  const view = target?.closest('[data-report-view]')
+    || (target && views.find(panel => !panel.hidden))
+    || views[0];
+  if (!view) return;
+  for (const panel of views) panel.hidden = panel !== view;
+  for (const link of navigation) {
+    if (link.dataset.viewLink === view.id) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  }
+  // Âncoras de IDs revelam também o detalhe nativo que contém o campo.
+  if (target) {
+    let disclosure = target.closest('details');
+    while (disclosure) {
+      disclosure.open = true;
+      disclosure = disclosure.parentElement?.closest('details');
+    }
+  }
+  if (focus && target) {
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ block: 'start', behavior: 'instant' });
+  }
+}
+showLocation();
+window.addEventListener('hashchange', () => showLocation(true));
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (link.hash === location.hash) showLocation(true);
+  });
+});
+
+document.querySelectorAll('[data-copy-target]').forEach(button => {
+  button.hidden = false;
+  button.addEventListener('click', async () => {
+    const input = document.getElementById(button.dataset.copyTarget);
+    const status = document.getElementById('copy-status');
+    try {
+      if (!navigator.clipboard) throw new Error('Clipboard indisponível');
+      await navigator.clipboard.writeText(input.value);
+      status.textContent = 'ID copiado.';
+    } catch {
+      input.focus();
+      input.select();
+      let copied = false;
+      try { copied = document.execCommand('copy'); } catch { /* Seleção permite cópia manual. */ }
+      status.textContent = copied ? 'ID copiado.' : 'Falha ao copiar. ID selecionado; use Ctrl+C.';
+    }
+  });
+});
+</script></body></html>
