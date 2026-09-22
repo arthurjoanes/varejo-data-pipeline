@@ -1,0 +1,613 @@
+{
+  "after_failure_latest_totals": {
+    "gold_product_day": "64.00",
+    "gold_store_day": "74.00"
+  },
+  "after_failure_official_totals": {
+    "gold_product_day": "64.00",
+    "gold_store_day": "64.00"
+  },
+  "baseline_partial_date": {
+    "manual_correct_sales_count": 3,
+    "method": "Agrupamento direto da imagem recebida por origem/loja/venda/dia, Python independente",
+    "net_revenue_brl": "64.00",
+    "pipeline_decision": "BLOCKED: SALE_DATE_CONFLICT",
+    "sales_count": 4
+  },
+  "data_dir": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state",
+  "data_origin": "Synthetic manual fixture executed with real Spark and Delta",
+  "expected_final": [
+    [
+      "2026-01-01",
+      "S01",
+      "20.00",
+      1,
+      "20.00"
+    ],
+    [
+      "2026-01-01",
+      "S02",
+      "20.00",
+      1,
+      "20.00"
+    ],
+    [
+      "2026-01-02",
+      "S01",
+      "34.00",
+      1,
+      "34.00"
+    ]
+  ],
+  "expected_initial": [
+    [
+      "2026-01-01",
+      "S01",
+      "44.00",
+      2,
+      "22.00"
+    ],
+    [
+      "2026-01-01",
+      "S02",
+      "20.00",
+      1,
+      "20.00"
+    ]
+  ],
+  "final_publication": {
+    "accepted_batches": [
+      "base",
+      "complete-date-2",
+      "recoverable-3"
+    ],
+    "publication_id": "dae6c02ce9dc4875adcb37ec7cf0d89d",
+    "published_at": "2026-09-22T12:09:08.954843+00:00",
+    "run_id": "b971a31c30ca4814942d63d558a10650",
+    "sources": [
+      {
+        "batch_id": "base",
+        "bronze_path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/runs/b04400c395ad4ef191ef9fcbb3c24276/bronze",
+        "bronze_version": 0,
+        "operator_reference_hash": "bf4fa8654b53b1df53888f49f021af456d0589e595d872f112ee191baa563f4a",
+        "reference_hashes": {
+          "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+          "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+        },
+        "run_id": "b04400c395ad4ef191ef9fcbb3c24276"
+      },
+      {
+        "batch_id": "complete-date-2",
+        "bronze_path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/runs/87c92b2f994941aab43f4c6f4909bfa7/bronze",
+        "bronze_version": 0,
+        "operator_reference_hash": "bf4fa8654b53b1df53888f49f021af456d0589e595d872f112ee191baa563f4a",
+        "reference_hashes": {
+          "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+          "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+        },
+        "run_id": "87c92b2f994941aab43f4c6f4909bfa7"
+      },
+      {
+        "batch_id": "recoverable-3",
+        "bronze_path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/runs/b971a31c30ca4814942d63d558a10650/bronze",
+        "bronze_version": 0,
+        "operator_reference_hash": "bf4fa8654b53b1df53888f49f021af456d0589e595d872f112ee191baa563f4a",
+        "reference_hashes": {
+          "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+          "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+        },
+        "run_id": "b971a31c30ca4814942d63d558a10650"
+      }
+    ],
+    "tables": {
+      "bronze": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/runs/b971a31c30ca4814942d63d558a10650/bronze",
+        "version": 0
+      },
+      "gold_product_day": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/tables/gold_product_day",
+        "version": 2
+      },
+      "gold_store_day": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/tables/gold_store_day",
+        "version": 3
+      },
+      "history": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/tables/history",
+        "version": 3
+      },
+      "silver": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/tables/silver",
+        "version": 3
+      }
+    }
+  },
+  "initial_publication": {
+    "accepted_batches": [
+      "base"
+    ],
+    "publication_id": "b1f28be8c103457992f66060a96ece85",
+    "published_at": "2026-09-22T12:07:46.520442+00:00",
+    "run_id": "b04400c395ad4ef191ef9fcbb3c24276",
+    "sources": [
+      {
+        "batch_id": "base",
+        "bronze_path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/runs/b04400c395ad4ef191ef9fcbb3c24276/bronze",
+        "bronze_version": 0,
+        "operator_reference_hash": "bf4fa8654b53b1df53888f49f021af456d0589e595d872f112ee191baa563f4a",
+        "reference_hashes": {
+          "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+          "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+        },
+        "run_id": "b04400c395ad4ef191ef9fcbb3c24276"
+      }
+    ],
+    "tables": {
+      "bronze": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/runs/b04400c395ad4ef191ef9fcbb3c24276/bronze",
+        "version": 0
+      },
+      "gold_product_day": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/tables/gold_product_day",
+        "version": 0
+      },
+      "gold_store_day": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/tables/gold_store_day",
+        "version": 0
+      },
+      "history": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/tables/history",
+        "version": 0
+      },
+      "silver": {
+        "path": "/data/tmp/pytest-of-root/pytest-1/test_independent_coverage_whol0/state/tables/silver",
+        "version": 0
+      }
+    }
+  },
+  "limitations": "Fixture pequena, ambiente local, nenhuma inferência de throughput de produção.",
+  "observed_final": [
+    [
+      "2026-01-01",
+      "S01",
+      "20.00",
+      1,
+      "20.00"
+    ],
+    [
+      "2026-01-01",
+      "S02",
+      "20.00",
+      1,
+      "20.00"
+    ],
+    [
+      "2026-01-02",
+      "S01",
+      "34.00",
+      1,
+      "34.00"
+    ]
+  ],
+  "observed_initial_frozen": [
+    [
+      "2026-01-01",
+      "S01",
+      "44.00",
+      2,
+      "22.00"
+    ],
+    [
+      "2026-01-01",
+      "S02",
+      "20.00",
+      1,
+      "20.00"
+    ]
+  ],
+  "report_capture": "Each HTML reads the actual state immediately after its named step",
+  "reports": [
+    "published-initial.html",
+    "coverage-blocked.html",
+    "partial-date-blocked.html",
+    "whole-sale-corrected.html",
+    "failure-before-publication.html",
+    "report.html"
+  ],
+  "spark": "4.2.0",
+  "status": "passed",
+  "steps": [
+    {
+      "batch_id": "base",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 28.8303,
+      "issues": [],
+      "publication_id": "b1f28be8c103457992f66060a96ece85",
+      "run_id": "b04400c395ad4ef191ef9fcbb3c24276",
+      "stages": {
+        "gold": 3.9052,
+        "ingestion": 10.7096,
+        "publication": 2.2514,
+        "quality": 3.7179,
+        "reconciliation": 1.286,
+        "silver": 6.9582
+      },
+      "started_at": "2026-09-22T12:07:19.937275+00:00",
+      "state": "PUBLISHED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 0,
+        "received": 4,
+        "rejected": 0,
+        "revision_checks_executed": 1,
+        "stale": 0,
+        "valid": 4,
+        "violations": 0
+      }
+    },
+    {
+      "batch_id": "sender-reduced-calendar",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [
+          "S02"
+        ],
+        "received": [
+          "S01",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 2.9117,
+      "issues": [
+        {
+          "code": "MISSING_STORE",
+          "severity": "ERROR",
+          "store_id": "S02"
+        }
+      ],
+      "publication_id": null,
+      "run_id": "26f2302a72834f1d9bbe478aa683f719",
+      "stages": {
+        "ingestion": 2.9112
+      },
+      "started_at": "2026-09-22T12:07:50.663753+00:00",
+      "state": "BLOCKED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 0,
+        "received": 3,
+        "rejected": 0,
+        "revision_checks_executed": 0,
+        "stale": 0,
+        "valid": 3,
+        "violations": 0
+      }
+    },
+    {
+      "batch_id": "partial-date-99",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 10.9165,
+      "issues": [
+        {
+          "code": "EXACT_DUPLICATE",
+          "count": 3,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        },
+        {
+          "code": "SALE_DATE_CONFLICT",
+          "count": 1,
+          "message": "Itens ativos da mesma origem/loja/venda têm dias comerciais diferentes. Corrija a venda integralmente.",
+          "severity": "ERROR"
+        }
+      ],
+      "publication_id": null,
+      "run_id": "147b621e266e407f978db75c0b7a3c5e",
+      "stages": {
+        "ingestion": 2.7029,
+        "quality": 8.2129
+      },
+      "started_at": "2026-09-22T12:07:54.699977+00:00",
+      "state": "BLOCKED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 3,
+        "received": 4,
+        "rejected": 2,
+        "revision_checks_executed": 1,
+        "stale": 0,
+        "valid": 2,
+        "violations": 2
+      }
+    },
+    {
+      "batch_id": "partial-date-99",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 9.9525,
+      "issues": [
+        {
+          "code": "EXACT_DUPLICATE",
+          "count": 3,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        },
+        {
+          "code": "SALE_DATE_CONFLICT",
+          "count": 1,
+          "message": "Itens ativos da mesma origem/loja/venda têm dias comerciais diferentes. Corrija a venda integralmente.",
+          "severity": "ERROR"
+        }
+      ],
+      "publication_id": null,
+      "run_id": "9736b16be5cd4745966bd8b59d641f47",
+      "stages": {
+        "ingestion": 2.6293,
+        "quality": 7.3225
+      },
+      "started_at": "2026-09-22T12:08:05.625858+00:00",
+      "state": "BLOCKED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 3,
+        "received": 4,
+        "rejected": 2,
+        "revision_checks_executed": 1,
+        "stale": 0,
+        "valid": 2,
+        "violations": 2
+      }
+    },
+    {
+      "batch_id": "complete-date-2",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 18.095,
+      "issues": [
+        {
+          "code": "EXACT_DUPLICATE",
+          "count": 2,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        }
+      ],
+      "publication_id": "6209e1a4695442c6bf612e4d88eb0298",
+      "run_id": "87c92b2f994941aab43f4c6f4909bfa7",
+      "stages": {
+        "gold": 3.0706,
+        "ingestion": 2.5605,
+        "publication": 2.0059,
+        "quality": 3.673,
+        "reconciliation": 0.9145,
+        "silver": 5.8693
+      },
+      "started_at": "2026-09-22T12:08:16.594340+00:00",
+      "state": "PUBLISHED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 2,
+        "received": 4,
+        "rejected": 0,
+        "revision_checks_executed": 1,
+        "stale": 0,
+        "valid": 4,
+        "violations": 0
+      }
+    },
+    {
+      "batch_id": "recoverable-3",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 12.8126,
+      "issues": [
+        {
+          "code": "EXACT_DUPLICATE",
+          "count": 3,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        },
+        {
+          "code": "TECHNICAL_FAILURE",
+          "message": "Falha de teste: after_gold",
+          "severity": "ERROR",
+          "type": "InjectedFailure"
+        }
+      ],
+      "publication_id": null,
+      "run_id": "7680da88bd1f4285827b60e3798125b8",
+      "stages": {
+        "gold": 1.5821,
+        "ingestion": 2.6487,
+        "quality": 3.3648,
+        "silver": 5.2158
+      },
+      "started_at": "2026-09-22T12:08:36.262111+00:00",
+      "state": "TECHNICAL_FAILURE",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 3,
+        "received": 4,
+        "rejected": 0,
+        "revision_checks_executed": 1,
+        "stale": 0,
+        "valid": 4,
+        "violations": 0
+      }
+    },
+    {
+      "batch_id": "recoverable-3",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 17.7812,
+      "issues": [
+        {
+          "code": "EXACT_DUPLICATE",
+          "count": 3,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        }
+      ],
+      "publication_id": "dae6c02ce9dc4875adcb37ec7cf0d89d",
+      "run_id": "b971a31c30ca4814942d63d558a10650",
+      "stages": {
+        "gold": 3.1826,
+        "ingestion": 2.4746,
+        "publication": 2.0867,
+        "quality": 4.0691,
+        "reconciliation": 0.8637,
+        "silver": 5.1031
+      },
+      "started_at": "2026-09-22T12:08:53.256260+00:00",
+      "state": "PUBLISHED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 3,
+        "received": 4,
+        "rejected": 0,
+        "revision_checks_executed": 1,
+        "stale": 0,
+        "valid": 4,
+        "violations": 0
+      }
+    },
+    {
+      "batch_id": "recoverable-3",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 5.8181,
+      "issues": [
+        {
+          "code": "EXACT_DUPLICATE",
+          "count": 4,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        }
+      ],
+      "publication_id": "dae6c02ce9dc4875adcb37ec7cf0d89d",
+      "run_id": "c71a07fc4b1840a1a15030f5334732d6",
+      "stages": {
+        "ingestion": 2.4231,
+        "quality": 3.3943
+      },
+      "started_at": "2026-09-22T12:09:11.297507+00:00",
+      "state": "NO_CHANGE",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 4,
+        "received": 4,
+        "rejected": 0,
+        "revision_checks_executed": 1,
+        "stale": 0,
+        "valid": 4,
+        "violations": 0
+      }
+    }
+  ]
+}

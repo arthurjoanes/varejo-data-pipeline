@@ -1,0 +1,59 @@
+{
+  "scanner": "aquasec/trivy:0.74.0@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969",
+  "db_metadata": {
+    "Version": 2,
+    "NextUpdate": "2026-09-23T07:24:27.402428948Z",
+    "UpdatedAt": "2026-09-22T07:24:27.402429319Z",
+    "DownloadedAt": "2026-09-22T12:33:25.310956682Z"
+  },
+  "method": "Docker image IDs, OS and language vulnerabilities, all severities, empty ignorefile, unfixed findings included. No deployment/SBOM attestation audit.",
+  "command": "trivy image --image-src docker --skip-db-update --scanners vuln --ignorefile <empty> --format json <executed-image-id>",
+  "results": [
+    {
+      "name": "varejo",
+      "image_id": "sha256:95abfa120b95f32f5c3df29b69731c1d7656588c9ba444a7096db7a36309d924",
+      "started_at": "2026-09-22T12:50:42.411643+00:00",
+      "elapsed_seconds": 102.781,
+      "exit_code": 0,
+      "image_tags": [
+        "pf-varejo-editorial:20260922"
+      ],
+      "vulnerabilities": 1,
+      "severity_counts": {
+        "UNKNOWN": 0,
+        "LOW": 0,
+        "MEDIUM": 1,
+        "HIGH": 0,
+        "CRITICAL": 0
+      },
+      "targets": [
+        {
+          "target": "sha256:95abfa120b95f32f5c3df29b69731c1d7656588c9ba444a7096db7a36309d924 (alpine 3.24.2)",
+          "class": "os-pkgs",
+          "type": "alpine"
+        },
+        {
+          "target": "Java",
+          "class": "lang-pkgs",
+          "type": "jar"
+        },
+        {
+          "target": "Python",
+          "class": "lang-pkgs",
+          "type": "python-pkg"
+        }
+      ],
+      "report": "security/varejo.json",
+      "raw_report_sha256": "7fa15dfc93fc6cadf3259c63fcfd2f3d090f665cecfc29b73743241f1ebc7ea8",
+      "published_report_sha256": "ddffaba5507c78f8aec89c3115f638de17bec12a11cd768742fcfe1e0479c65a"
+    }
+  ],
+  "gate": "HIGH/CRITICAL assessed from full JSON; Trivy collection exit0 alone does not mean zero findings.",
+  "no_new_ignore_rules": true,
+  "limits": [
+    "Point-in-time vulnerability database, not proof of absence of all vulnerabilities.",
+    "No new SBOM/provenance attestation audit."
+  ],
+  "current_gate": "HIGH/CRITICAL0; one MEDIUM retained: commons-lang2.6/CVE-2025-48924; no fixed version given by this database. Not a clean-all-severities claim.",
+  "publication": "Curated full Results; only redundant image configuration/environment/history omitted. SHA-256 of each complete raw scan retained for external audit."
+}
