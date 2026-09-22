@@ -7,9 +7,10 @@ const playwrightModule = process.env.PLAYWRIGHT_MODULE || 'playwright';
 const { chromium } = require(playwrightModule);
 
 const root = path.resolve(__dirname, '..');
-const images = path.resolve(root, process.env.REVIEW_IMAGES || 'docs/images/interface-v4');
-const evidence = path.resolve(root, process.env.REVIEW_EVIDENCE || 'docs/evidence/interface-v4');
-const reportURL = name => pathToFileURL(path.join(root, 'artifacts', 'interface', `${name}.html`)).href;
+const images = path.resolve(root, process.env.REVIEW_IMAGES || 'artifacts/interface-review/images');
+const evidence = path.resolve(root, process.env.REVIEW_EVIDENCE || 'artifacts/interface-review/evidence');
+const htmlDirectory = path.resolve(root, process.env.REVIEW_HTML_DIR || 'artifacts/interface');
+const reportURL = name => pathToFileURL(path.join(htmlDirectory, `${name}.html`)).href;
 
 async function waitForView(page, view) {
   // A hash navigation can finish before the hashchange handler updates the DOM.

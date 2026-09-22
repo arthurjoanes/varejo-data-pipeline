@@ -92,7 +92,7 @@ A interface separa Execução, Indicadores e Arquivos. A publicação vigente co
 
 As capturas usam publicações da demonstração histórica de 21/09, originalmente processadas em Spark 3.5.9/Delta 3.2.1. O runtime atual apenas releu suas versões. Nos estados intermediários de bloqueio/falha, a apresentação foi reconstituída a partir do manifesto imutável e da tentativa registrada, sem modificar o ponteiro no volume. Os payloads registram o hash da evidência de origem e o modo de seleção. Testes de captura não substituem a suíte de integração do runtime descrita abaixo.
 
-Os [hashes da fonte verificada](evidence/interface/source.json) identificam os arquivos desta revisão. As imagens antigas continuam nos diretórios históricos; as novas estão em [images/interface](images/interface).
+Os [hashes da fonte verificada](evidence/interface/source.json) identificam os arquivos desta revisão histórica. A pasta [images/interface](images/interface) conserva as três capturas de jornadas vinculadas por hash. Os exports antigos sem referências foram arquivados fora do repositório; a [conferência posterior](image-review.md) registra a classificação e a apresentação atual.
 
 ## Revisão anterior de segurança em 22/09/2026 (UTC)
 
@@ -188,7 +188,7 @@ docker compose run --rm --entrypoint python pipeline scripts/render_review.py
 node scripts/visual-review.cjs
 ~~~
 
-Não é necessário repetir a demo nem o benchmark. O script verifica três vistas em 1440, 1366, 768, 390 e 320 CSS px, foco e histórico de âncoras, expansão por teclado, 30 totais diários equivalentes ao gráfico e 360 linhas loja/dia em detalhe. A cópia é testada com Clipboard API interceptada e fallback indisponível, sem escrever no clipboard real. Uma sessão sem JavaScript verifica leitura e expansão nativa. As capturas atuais ficam em `docs/images/interface-v2` e as medições em `docs/evidence/interface-v2`; a pasta `interface` conserva a revisão anterior e os payloads de origem. O registro distingue ampliação CSS, viewport equivalente e as limitações de acessibilidade.
+Não é necessário repetir a demo nem o benchmark. O script verifica três vistas em 1440, 1366, 768, 390 e 320 CSS px, foco e histórico de âncoras, expansão por teclado, 30 totais diários equivalentes ao gráfico e 360 linhas loja/dia em detalhe. A cópia é testada com Clipboard API interceptada e fallback indisponível, sem escrever no clipboard real. Uma sessão sem JavaScript verifica leitura e expansão nativa. Novas capturas ficam em `artifacts/interface-review/images` e as medições em `artifacts/interface-review/evidence`; as pastas `docs/evidence/interface*` conservam registros históricos e payloads de origem. [Saídas externas e conferência atual](image-review.md). O registro distingue ampliação CSS, viewport equivalente e as limitações de acessibilidade.
 
 ## Limites
 

@@ -14,9 +14,9 @@ A ingestão preserva os arquivos e confere o contrato em [`prepare_batch`](../sr
 
 No cenário executado em 22/09/2026, o remetente remove S02 dos arquivos **e do próprio calendário**. S01 entrega três itens válidos; S03 confirma zero. Aceitar somente o calendário recebido faria o lote parecer completo. Eu mantenho a expectativa aprovada pelo operador fora dessa entrada: S01, S02 e S03 continuam obrigatórias.
 
-![Fechamento bloqueado: S01 entregue, S02 pendente e S03 com zero confirmado.](images/editorial-20260922/coverage-blocked.png)
+![Cobertura em foco: S01 entregue, S02 pendente e S03 com zero confirmado.](images/current-20260922/coverage-focus.png)
 
-*A cobertura mostra duas de três lojas confirmadas e explica a pendência de S02. É um snapshot de uma execução local com dados sintéticos; a publicação anterior permanece disponível. [Imagem completa](images/editorial-20260922/coverage-blocked.png).*
+*Recorte nativo do renderer atual, em replay do snapshot histórico de entrega ausente. Mostra duas de três lojas confirmadas; zero movimento é diferente de ausência. O teste separado de calendário e remetente tem sua [captura operacional completa preservada](images/editorial-20260922/coverage-blocked.png).*
 
 A decisão acontece em [`configure_references`](../src/retail_pipeline/references.py) e na conferência de [`prepare_batch`](../src/retail_pipeline/ingestion.py). O [teste de negócio](../tests/integration/test_business_thesis.py) compara o manifesto antes/depois: bloquear não basta se os indicadores já tiverem mudado. A configuração é local e não implementa aprovação por múltiplas pessoas.
 
@@ -26,11 +26,11 @@ Na entrada inicial, os dois itens de A1 pertencem a 01/01. Uma revisão 99 muda 
 
 O pipeline agrupa o estado candidato por origem, loja e venda, antes de gravar as saídas candidatas. Se seus itens ativos ocupam mais de um dia comercial, bloqueia o lote inteiro com `SALE_DATE_CONFLICT`. A última publicação continua em R$ 64,00 e três vendas. Uma revisão 2 posterior que move **os dois** itens de A1 é aceita: a revisão 99 rejeitada não faz parte do histórico elegível. O resultado é S01/01-01 = R$ 20,00, S02/01-01 = R$ 20,00 e S01/02-01 = R$ 24,00, uma venda em cada linha. O [teste de negócio](../tests/integration/test_business_thesis.py), `test_independent_coverage_whole_sale_correction_and_recovery`, executa o contraexemplo e a correção.
 
-![Entrega completa bloqueada por uma venda dividida entre dias.](images/editorial-20260922/partial-date-blocked.png)
+[Captura histórica completa: entrega bloqueada por uma venda dividida entre dias](images/editorial-20260922/partial-date-blocked.png).
 
 *Todas as lojas estão confirmadas, mas os itens ativos de A1 ocupam dois dias. A tela distingue erro nos registros de falta de entrega. A contagem ingênua de quatro vendas e o esperado independente de três constam em [business-thesis.json](evidence/editorial-20260922/business-thesis.json).*
 
-![Publicação corrigida: receita de 64 reais, três vendas e valores por loja e dia.](images/editorial-20260922/whole-sale-corrected.png)
+[Captura histórica completa: publicação corrigida de R$ 64,00 e três vendas](images/editorial-20260922/whole-sale-corrected.png).
 
 *Depois da correção integral, os valores são 20 + 20 + 24 = R$ 64,00. A tabela permite conferir cada linha sem inferir valores pela cor da matriz. [Imagem completa](images/editorial-20260922/whole-sale-corrected.png).*
 
@@ -42,11 +42,11 @@ No mesmo teste, aumentar a quantidade do primeiro item de A1 de dois para três 
 
 O manifesto ainda aponta para as duas versões anteriores, ambas com R$ 64,00. A retomada reconstrói o candidato e publica R$ 74,00; repetir a mesma entrega retorna `NO_CHANGE`. Um leitor que guardou o manifesto inicial continua lendo R$ 64,00. Isso é verificado com leituras reais de versões Delta no [mesmo teste](../tests/integration/test_business_thesis.py). O exemplo é distinto da [demo de cancelamento e reativação](demo.md), que termina em R$ 77,00.
 
-![Indicadores preservados em 64 reais após uma falha antes da publicação.](images/editorial-20260922/failure-before-publication.png)
+[Captura histórica completa: indicadores preservados em R$ 64,00 após a falha](images/editorial-20260922/failure-before-publication.png).
 
 *O aviso associa R$ 64,00 à publicação anterior. A imagem prova o que o leitor vê; são as leituras Delta e os asserts do teste que comprovam o desacordo físico 74/64 e a visão oficial 64/64. Não houve incidente de produção: a falha foi controlada.*
 
-![Reexecução publicada em 74 reais, seguida de replay sem mudança do fechamento.](images/editorial-20260922/recovered.png)
+[Captura histórica completa: R$ 74,00 publicados e replay sem mudança](images/editorial-20260922/recovered.png).
 
 *Após retomar, 20 + 20 + 34 = R$ 74,00. A tentativa seguinte não altera a publicação. Idempotência significa repetir a entrada sem repetir seu efeito; o JSON registra o mesmo ID oficial no retry publicado e no replay.*
 
