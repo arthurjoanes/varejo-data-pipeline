@@ -39,7 +39,9 @@ Esses intervalos são do ambiente e da fixture descritos. A instalação sozinha
 
 ### Capturas do ensaio
 
-![Relatório da entrega bloqueada, com S02 pendente e publicação anterior preservada](images/state-proof/blocked-1440.png)
+**Layout histórico da prova de restauração.** Estes PNGs e seus HTMLs conservam os bytes vinculados ao ensaio. A composição atual, conferida separadamente, está em [revisão das imagens](image-review.md).
+
+[Captura histórica completa: S02 pendente e publicação anterior preservada](images/state-proof/blocked-1440.png).
 
 A tela identifica a ausência de `S02.csv`, distingue S03 com zero movimento confirmado e mantém a publicação anterior. As capturas vêm dos HTMLs gerados pelo ensaio, não de payloads inventados para esta documentação: [publicação](images/state-proof/publication-1440.png), [reposição](images/state-proof/recovery-1440.png), [correção](images/state-proof/corrected-1440.png) e [bloqueio no celular](images/state-proof/blocked-390.png). Os quatro [relatórios HTML](evidence/state-proof/reports/blocked.html) permitem alternar Execução, Indicadores e Arquivos.
 

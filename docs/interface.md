@@ -2,7 +2,7 @@
 
 O relatório é um snapshot: a geração consulta o manifesto uma vez, lê as versões Delta correspondentes e captura a última tentativa e a última falha disponíveis. Abrir o HTML depois não consulta o pipeline nem atualiza seu estado.
 
-A composição atual e a matriz completa das três vistas estão em [Qualidade da interface](frontend-quality.md). As capturas v2 e de jornadas abaixo documentam revisões anteriores, preservadas como histórico.
+A composição atual e a matriz completa das três vistas estão em [Qualidade da interface](frontend-quality.md). A [conferência das imagens](image-review.md) revalidou essa composição com a fonte atual. As capturas v2 e de jornadas abaixo documentam revisões anteriores, preservadas como histórico.
 
 ## Navegação
 
@@ -42,7 +42,7 @@ A opção `--capture` do script é de desenvolvimento: exige o volume que conté
 
 A verificação de navegador é `node scripts/visual-review.cjs`, com Playwright disponível no ambiente. `PLAYWRIGHT_MODULE` permite indicar um módulo instalado fora do repositório; `PLAYWRIGHT_CHANNEL=msedge` seleciona Edge. A biblioteca não é dependência do HTML. Resultados, escopo e limitações ficam em [verificação](verification.md).
 
-Capturas atuais: [execução](images/interface-v4/report.png), [bloqueio](images/interface-v4/blocked.png), [indicadores](images/interface-v4/indicators.png), [arquivos](images/interface-v4/files.png) e [tela estreita](images/interface-v4/report-390.png). As imagens `audit.png`, `empty.png` e `running.png` demonstram fixtures de apresentação, não novas execuções. [Evidências da direção atual](evidence/interface-v4/review-manifest.json).
+Layout atual com dados históricos: [execução](images/interface-v4/report.png), [bloqueio](images/interface-v4/blocked.png), [indicadores](images/interface-v4/indicators.png), [arquivos](images/interface-v4/files.png) e [tela estreita](images/interface-v4/report-390.png). Essas cinco imagens coincidiram byte a byte com a nova captura da fonte atual. As imagens `audit.png`, `empty.png` e `running.png` demonstram fixtures de apresentação, não novas execuções. [Conferência e limites](image-review.md), [evidência v4 original](evidence/interface-v4/review-manifest.json).
 
 ## Revisão anterior de jornadas em 22/09
 

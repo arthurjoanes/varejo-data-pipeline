@@ -2,6 +2,8 @@
 
 Direção visual v4, revisada em 22/09/2026. Baseline visual: `636e8408f1108ce387ddc291318d2d1ebe042dee`. Esta revisão usa os mesmos cinco payloads históricos. O [manifesto da revisão](evidence/interface-v4/review-manifest.json) registra fontes, normalização de hashes, assets e capturas; a [comparação](evidence/interface-v4/comparison.json) contém 14 pares nas mesmas dimensões e estados. As evidências v2, v3 e de restauração continuam históricas, sem substituição de seus resultados.
 
+A [conferência posterior das imagens](image-review.md) reproduziu a fonte atual: renderer, CSS, JavaScript e assets continuam correspondendo à v4. Os resultados e comparações abaixo pertencem à revisão v4 original; seus arquivos não foram sobrescritos pela nova conferência.
+
 ## Produto, diagnóstico e duas composições
 
 Quem confere o fechamento precisa separar três perguntas: **o que aconteceu com a tentativa**, **o que já está publicado** e **quais arquivos explicam a publicação**. Não há acompanhamento ao vivo, edição ou execução pela página.
@@ -71,7 +73,7 @@ A matriz usa tabela semântica e valores textuais equivalentes. Com JavaScript, 
 
 ## Estados e crítica das capturas
 
-| Estado | Prova atual |
+| Estado | Captura da revisão v4 |
 | --- | --- |
 | Publicado, demo30k | [Execução](images/interface-v4/report.png), [Indicadores](images/interface-v4/indicators.png), [Arquivos](images/interface-v4/files.png) — 12 lojas, 30 dias, 360 linhas loja/dia e 12 produtos históricos |
 | Bloqueio de cobertura | [Desktop](images/interface-v4/blocked.png), [390 px](images/interface-v4/blocked-report-qualidade-390.png), [1024 px](images/interface-v4/blocked-report-qualidade-1024.png) |
@@ -162,5 +164,7 @@ python -m pytest tests/unit -q
 ```
 
 Playwright e axe são ferramentas opcionais de desenvolvimento, não dependências do relatório. `PLAYWRIGHT_MODULE`/`AXE_MODULE` podem apontar para módulos instalados; `PLAYWRIGHT_CHANNEL=msedge` reproduz o motor desta revisão. `REVIEW_BASELINE_DIR` deve conter os HTMLs do commit inicial com os mesmos payloads; habilita a comparação e os pares. Sem essa variável, a suite funcional continua.
+
+Novas execuções gravam em `artifacts/interface-review`, sem sobrescrever as evidências históricas. `REVIEW_HTML_DIR`, `REVIEW_IMAGES` e `REVIEW_EVIDENCE` permitem manter toda a conferência fora do repositório; veja a [reprodução com saídas separadas](image-review.md#reproduzir-a-conferência).
 
 Histórico preservado: [revisão v3](evidence/interface-v3/review-manifest.json), [v2](evidence/interface-v2/review-manifest.json), [jornadas](evidence/interface-journeys/review.json) e [limpeza v2](evidence/interface-v2/cleanup.json). Esses registros descrevem fontes e contagens anteriores. A [verificação operacional](verification.md), o [problema e solução](problem-solution.md) e as [decisões técnicas](decisoes-tecnicas.md) continuam separados desta prova de apresentação.
