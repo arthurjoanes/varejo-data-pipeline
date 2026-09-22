@@ -1,10 +1,8 @@
 # Proposta para Microsoft Fabric
 
-Proposta técnica, sem execução no Fabric. As capacidades citadas foram conferidas em **22/09/2026** nas fontes Microsoft: [notebooks e atividade de pipeline](https://learn.microsoft.com/en-us/fabric/data-engineering/how-to-use-notebook), [tabelas Delta](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-and-delta-tables) e [runtime gerenciado](https://learn.microsoft.com/en-us/fabric/data-engineering/runtime). As adaptações abaixo são hipóteses a validar, não compatibilidade demonstrada. Não há preço ou economia medidos.
+Proposta técnica, sem execução no Fabric. O mapeamento usa as capacidades documentadas pela Microsoft para [notebooks e atividade de pipeline](https://learn.microsoft.com/en-us/fabric/data-engineering/how-to-use-notebook), [tabelas Delta](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-and-delta-tables) e [runtime gerenciado](https://learn.microsoft.com/en-us/fabric/data-engineering/runtime). As adaptações abaixo são hipóteses a validar, não compatibilidade demonstrada. Não há preço ou economia medidos.
 
 Proposta de adaptação para Fabric, ainda não executada.
-
-Fontes desta seção, conferidas em **22/09/2026**: [publication.py](../src/retail_pipeline/publication.py) · [compose.yaml](../compose.yaml).
 
 ## O que seria reaproveitado
 
@@ -20,8 +18,6 @@ O contrato de entrada, geração sintética, hashes canônicos, regras de qualid
 | HTML e `explain` por snapshot                      | Consumidores adaptados à publicação escolhida; Power BI exige um contrato de exposição próprio.                   |
 
 Delta é o formato principal de tabelas do Lakehouse e oferece integração com Spark. Isso reduz mudanças no modelo de dados, mas não torna configurações, versões de bibliotecas ou publicação automaticamente portáveis. [Lakehouse e tabelas Delta](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-and-delta-tables).
-
-Fontes desta seção, conferidas em **22/09/2026**: [publication.py](../src/retail_pipeline/publication.py) · [compose.yaml](../compose.yaml).
 
 ## O que precisa ser redesenhado
 
@@ -47,8 +43,6 @@ O Fabric gerencia o runtime Spark; a imagem Docker local não é enviada como se
 
 Operadores precisam de diagnóstico e quarentena; consumidores precisam apenas das publicações aprovadas. Contas, identidades, acesso entre workspaces e retenção serão definidos por ambiente. Uma rotina de manutenção não pode remover versões/arquivos referenciados por leitores ativos ou publicações retidas.
 
-Fontes desta seção, conferidas em **22/09/2026**: [publication.py](../src/retail_pipeline/publication.py) · [compose.yaml](../compose.yaml).
-
 ## Testes para a migração
 
 1. Executar smoke e fixtures manuais com o runtime Fabric selecionado e dependências registradas.
@@ -58,5 +52,3 @@ Fontes desta seção, conferidas em **22/09/2026**: [publication.py](../src/reta
 5. Consultar simultaneamente durante a promoção por todos os canais oficiais, incluindo modelo semântico se existir.
 6. Validar retenção e recuperação sem depender de arquivos locais da sessão Spark.
 7. Medir custos, duração, limites de capacidade e consumo do workload real antes de otimizar recomputação ou ampliar escala.
-
-Fontes desta seção, conferidas em **22/09/2026**: [publication.py](../src/retail_pipeline/publication.py) · [compose.yaml](../compose.yaml).

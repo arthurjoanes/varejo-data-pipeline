@@ -4,15 +4,11 @@ Desenvolvi este laboratório para a pessoa que precisa fechar vendas sem transfo
 
 Separei a expectativa da entrega: o operador aprova cadastro/calendário separadamente da entrega; o pipeline aceita apenas revisões de lotes publicados mais o candidato integralmente aprovado, mantém os itens ativos da mesma venda no mesmo dia comercial e publica um manifesto com versões Delta fixas. O consumidor captura esse manifesto uma vez. A decisão observável é publicar o fechamento ou bloquear e continuar servindo o anterior, com motivo e origem de cada indicador.
 
-Fontes desta seção, conferidas em **22/09/2026**: [test_business_thesis.py](../tests/integration/test_business_thesis.py) · [business-thesis.json](evidence/editorial-20260922/business-thesis.json).
-
 ## Da entrega ao indicador
 
 As quatro linhas de [`fixture_rows`](../src/retail_pipeline/generation.py) permitem conferir o fechamento sem Spark: S01/A1 tem `2 × 10 − 1 = 19` e `1 × 5 = 5`; S01/A2 tem `3 × 7,50 − 2,50 = 20`; S02/B1 tem `1 × 20 = 20`. São **R$ 64,00, sete unidades e três vendas**, embora existam quatro itens. S03 confirma zero movimento; ela não é uma loja esquecida no cálculo.
 
 A ingestão preserva os arquivos e confere o contrato em [`prepare_batch`](../src/retail_pipeline/ingestion.py). A execução valida o estado candidato em [`_process`](../src/retail_pipeline/pipeline.py); [`current_state` e `gold_tables`](../src/retail_pipeline/transformations.py) escolhem a revisão de cada item e calculam os recortes. Só depois da reconciliação, [`publish`](../src/retail_pipeline/publication.py) torna as versões visíveis. O [teste da fixture](../tests/unit/test_generation.py) confere a aritmética; a [jornada integrada](../tests/integration/test_pipeline.py) verifica publicação, replay, correção, cancelamento e reativação.
-
-Fontes desta seção, conferidas em **22/09/2026**: [generation.py](../src/retail_pipeline/generation.py) · [ingestion.py](../src/retail_pipeline/ingestion.py) · [pipeline.py](../src/retail_pipeline/pipeline.py).
 
 ## Exemplo: duas lojas entregues não completam três esperadas
 
@@ -23,8 +19,6 @@ No cenário executado em 22/09/2026, o remetente remove S02 dos arquivos **e do 
 _Recorte nativo do renderer atual, em replay do snapshot histórico de entrega ausente. Mostra duas de três lojas confirmadas; zero movimento é diferente de ausência. O teste separado de calendário e remetente tem sua [captura operacional completa preservada](images/editorial-20260922/coverage-blocked.png)._
 
 A decisão acontece em [`configure_references`](../src/retail_pipeline/references.py) e na conferência de [`prepare_batch`](../src/retail_pipeline/ingestion.py). O [teste de negócio](../tests/integration/test_business_thesis.py) compara o manifesto antes/depois: bloquear não basta se os indicadores já tiverem mudado. A configuração é local e não implementa aprovação por múltiplas pessoas.
-
-Fontes desta seção, conferidas em **22/09/2026**: [references.py](../src/retail_pipeline/references.py) · [ingestion.py](../src/retail_pipeline/ingestion.py) · [test_business_thesis.py](../tests/integration/test_business_thesis.py).
 
 ## Exemplo: uma soma certa com a contagem errada
 
@@ -39,8 +33,6 @@ _Todas as lojas estão confirmadas, mas os itens ativos de A1 ocupam dois dias. 
 [Captura histórica completa: publicação corrigida de R$ 64,00 e três vendas](images/editorial-20260922/whole-sale-corrected.png).
 
 _Depois da correção integral, os valores são 20 + 20 + 24 = R$ 64,00. A tabela permite conferir cada linha sem inferir valores pela cor da matriz. [Imagem completa](images/editorial-20260922/whole-sale-corrected.png)._
-
-Fontes desta seção, conferidas em **22/09/2026**: [test_business_thesis.py](../tests/integration/test_business_thesis.py) · [business-thesis.json](evidence/editorial-20260922/business-thesis.json).
 
 ## Exemplo: gravar uma tabela não publica o fechamento
 
@@ -60,8 +52,6 @@ _Após retomar, 20 + 20 + 34 = R$ 74,00. A tentativa seguinte não altera a publ
 
 Para conferir a decisão na interface, comece em **Execução**, leia a ocorrência e a cobertura, depois abra **Indicadores** e **Arquivos**. A tentativa explica o que aconteceu; o ID e as versões da publicação dizem a quais dados os números pertencem. [Guia da interface](interface.md).
 
-Fontes desta seção, conferidas em **22/09/2026**: [test_business_thesis.py](../tests/integration/test_business_thesis.py).
-
 ## Regras adotadas
 
 | Situação                                                 | Regra                                                                              | Resultado esperado                                                                                      |
@@ -74,8 +64,6 @@ Fontes desta seção, conferidas em **22/09/2026**: [test_business_thesis.py](..
 
 Os dois primeiros casos estão no [teste de negócio](../tests/integration/test_business_thesis.py). Os demais estão na suíte descrita em [verificação](verification.md). O teste de lock cobre admissão de escritores antes do Spark e liberação pelo kernel; não exercita duas JVMs nem commits simultâneos.
 
-Fontes desta seção, conferidas em **22/09/2026**: [test_business_thesis.py](../tests/integration/test_business_thesis.py).
-
 ## Como reproduzir
 
 ```powershell
@@ -84,12 +72,8 @@ docker compose run --rm --entrypoint python pipeline scripts/verify_problem.py -
 
 O comando cria estado temporário novo, roda o teste de negócio com Spark/Delta real e grava `business-thesis.json`, seis HTMLs dos estados observados, `tests.xml` e `verification.json` em `artifacts/thesis`. Sem `--thesis-only`, roda a suíte inteira. Passos e valores em [demo.md](demo.md).
 
-Fontes desta seção, conferidas em **22/09/2026**: [test_business_thesis.py](../tests/integration/test_business_thesis.py) · [business-thesis.json](evidence/editorial-20260922/business-thesis.json).
-
 ## Limites
 
 Além de manter a publicação diante de um lote inválido, é necessário recuperar seu histórico. A [prova em volume novo](state-recovery.md) preservou três publicações e suas versões, incluindo a correção de R$ 64 para R$ 77. Isso fecha uma lacuna operacional demonstrável no mesmo host; recuperação externa continua sendo trabalho separado.
 
 Azure/Fabric não estão provisionados; a medição local não representa desempenho de produção. O calendário é aprovado pelo operador local; não há autenticação multiusuário. A atomicidade é um protocolo de publicação sobre filesystem local Linux, não uma transação Delta multitabela ou lock distribuído. Sem VACUUM automático: leitores antigos dependem da retenção das versões referenciadas.
-
-Fontes desta seção, conferidas em **22/09/2026**: [test_business_thesis.py](../tests/integration/test_business_thesis.py) · [business-thesis.json](evidence/editorial-20260922/business-thesis.json).

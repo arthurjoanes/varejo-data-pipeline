@@ -4,8 +4,6 @@ Aqui explico as decisões implementadas e seus compromissos atuais. Não atribuo
 
 Na demonstração de 22/09/2026, eu conferi três fronteiras diferentes: **quem define a entrega esperada**, **qual revisão pode entrar no histórico** e **quando o candidato passa a ser oficial**. Os [exemplos com capturas](problem-solution.md) ligam essas fronteiras a números pequenos. Os [registros da execução](evidence/editorial-20260922/execution.json) distinguem build, teste e imagem de navegador.
 
-Fontes desta seção, conferidas em **22/09/2026**: [execution.json](evidence/editorial-20260922/execution.json).
-
 ## Onde as decisões aparecem no código
 
 | Problema enfrentado                                                                      | Decisão e motivo                                                                                                                                                                                                                                               | Limite e como conferir                                                                                                                                                                                                                                                          |
@@ -18,8 +16,6 @@ Fontes desta seção, conferidas em **22/09/2026**: [execution.json](evidence/ed
 | Falta de medição pode parecer zero e uma falha recente pode parecer perda da publicação. | [`_publication_context`, `_duration_panel` e `_quality_diagnostics`](../src/retail_pipeline/report_view.py) distinguem tentativa, publicação, ausência e não avaliação. As três vistas compartilham o mesmo payload capturado.                                 | HTML sem consulta ao vivo; não contém todas as execuções. [Testes de apresentação](../tests/unit/test_reporting.py) e [jornadas de navegador](../scripts/visual-review.cjs).                                                                                                    |
 
 As seções abaixo detalham os compromissos dessas escolhas. Os links apontam para a implementação e as regressões existentes; as execuções e seus limites ficam no [registro de verificação](verification.md).
-
-Fontes desta seção, conferidas em **22/09/2026**: [references.py](../src/retail_pipeline/references.py) · [test_operator_references.py](../tests/unit/test_operator_references.py) · [transformations.py](../src/retail_pipeline/transformations.py).
 
 ## Grão, chaves e revisões
 
@@ -36,8 +32,6 @@ O grão de entrada é uma imagem completa de uma revisão de um item de venda. A
 
 O hash canônico usa os campos de negócio tipados e normalizados. `run_id`, instante de execução e arquivo de chegada são proveniência; incluí-los no hash transformaria o mesmo evento reenviado em evento diferente. `dropDuplicates` sozinho não resolve revisão, conflito nem desempate de proveniência. Antes de `MERGE`, a origem precisa conter no máximo uma linha por chave.
 
-Fontes desta seção, conferidas em **22/09/2026**: [pipeline.py](../src/retail_pipeline/pipeline.py) · [publication.py](../src/retail_pipeline/publication.py) · [test_business_thesis.py](../tests/integration/test_business_thesis.py).
-
 ## Completude não é validade
 
 Um lote pode conter apenas linhas válidas e ainda estar incompleto porque uma loja foi omitida. A expectativa vem de configuração independente da entrega. Por outro lado, a presença de todas as lojas não garante tipos, referências e valores corretos.
@@ -45,8 +39,6 @@ Um lote pode conter apenas linhas válidas e ainda estar incompleto porque uma l
 “Não recebi nada da loja” e “a loja confirmou zero movimento” são fatos diferentes. A confirmação explícita permite conciliar expectativa e entrega sem inventar vendas. Arquivo vazio, arquivo ausente e conteúdo corrompido têm diagnósticos próprios. O mesmo `batch_id` conserva a identidade do manifesto mesmo quando bloqueado: pode-se repor um arquivo correto que estava ausente, mas uma mudança do contrato exige novo lote.
 
 Bronze guarda cópias de tentativas rejeitadas. Elas não se tornam autoridade para conflitos ou revisões futuras. O histórico de negócio elegível é selecionado pelo manifesto publicado, e não pela existência física de uma tabela candidata.
-
-Fontes desta seção, conferidas em **22/09/2026**: [pipeline.py](../src/retail_pipeline/pipeline.py) · [publication.py](../src/retail_pipeline/publication.py) · [test_business_thesis.py](../tests/integration/test_business_thesis.py).
 
 ## Dinheiro, calendário e contagens
 
@@ -60,8 +52,6 @@ Vendas são distintas por origem, loja, venda e dia comercial no conjunto ativo.
 
 Registro rejeitado é uma linha com pelo menos uma violação. Se uma linha tem três problemas, há um rejeitado e três violações. O percentual usa os registros recebidos como denominador; não promete completude quando um arquivo sequer chegou. Duplicatas e revisões antigas são contagens diagnósticas que podem se sobrepor a outros recortes.
 
-Fontes desta seção, conferidas em **22/09/2026**: [pipeline.py](../src/retail_pipeline/pipeline.py) · [publication.py](../src/retail_pipeline/publication.py) · [test_business_thesis.py](../tests/integration/test_business_thesis.py).
-
 ## O que torna a publicação consistente
 
 Delta fornece transações por tabela. Gravar dois gold em sequência não cria uma transação única entre eles. Implementei um fluxo com escritor exclusivo durante toda a execução mutante: gravar candidatos, reconciliar e trocar um único manifesto no filesystem Linux local. Caminho e `versionAsOf` de cada saída ficam registrados nele.
@@ -69,8 +59,6 @@ Delta fornece transações por tabela. Gravar dois gold em sequência não cria 
 Todos os leitores oficiais capturam o manifesto uma vez. Reconsultá-lo entre leituras poderia misturar silver de uma publicação e gold de outra. A falha depois do primeiro gold deixa candidatos físicos, mas preserva a visão oficial anterior. A retomada parte dessa visão oficial e reconstrói o candidato. `flock` é liberado pelo sistema operacional quando o processo termina; um mero arquivo de sinalização poderia ficar órfão.
 
 A garantia demonstrável é de consistência diante das falhas de processo testadas no ambiente local. Ela não implica consenso distribuído, proteção contra qualquer perda de energia ou equivalência do rename local com operações remotas. Não há `VACUUM` automático: remover arquivos de versões ainda referenciadas quebraria a leitura oficial.
-
-Fontes desta seção, conferidas em **22/09/2026**: [pipeline.py](../src/retail_pipeline/pipeline.py) · [publication.py](../src/retail_pipeline/publication.py) · [test_business_thesis.py](../tests/integration/test_business_thesis.py).
 
 ## Idempotência e custo de recomputar
 
@@ -80,10 +68,6 @@ Escolhi recompor silver e recalcular gold: isso reduz estados intermediários e 
 
 Uma evolução incremental precisa guardar o estado anterior e o novo de cada chave, identificar ambos os dias afetados, tratar chaves canceladas/reativadas, proteger o histórico elegível e preservar o mesmo protocolo de publicação. O teste de equivalência é comparar o incremental à recomputação completa em cenários gerados e fixtures manuais.
 
-Fontes desta seção, conferidas em **22/09/2026**: [pipeline.py](../src/retail_pipeline/pipeline.py) · [publication.py](../src/retail_pipeline/publication.py) · [test_business_thesis.py](../tests/integration/test_business_thesis.py).
-
 ## Recuperar antes de descartar histórico
 
 A [prova local](state-recovery.md) preserva diretórios Delta completos. É uma escolha conservadora: ocupa mais espaço, mas evita escolher arquivos descartáveis sem saber quais versões antigas ainda dependem deles. Cópia fria, sem escritor concorrente, e destino novo permitem comparar bytes e publicações. O custo de recomputação é medido separadamente com históricos fixos; não uso o volume sintético como justificativa automática para cluster ou processamento incremental.
-
-Fontes desta seção, conferidas em **22/09/2026**: [pipeline.py](../src/retail_pipeline/pipeline.py) · [publication.py](../src/retail_pipeline/publication.py) · [test_business_thesis.py](../tests/integration/test_business_thesis.py).

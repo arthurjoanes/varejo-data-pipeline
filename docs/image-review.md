@@ -8,8 +8,6 @@ Os cinco módulos de apresentação e os assets locais foram comparados com os h
 
 A revisão de imagens de **22/09/2026** produziu o recorte focalizado de **644 × 318 px**, capturado diretamente do painel de cobertura pelo navegador. A apresentação atual também preserva a imagem de abertura `docs/readme/home.png`; a contagem daquele ensaio não é inventário de todos os embeds posteriores. Os prints completos permanecem como links, preservando o contexto e os bytes das provas. O recorte usa o snapshot histórico de entrega ausente; não substitui a prova editorial separada de calendário/remetente.
 
-Fontes desta seção, conferidas em **22/09/2026**: [image-review-20260922.json](evidence/image-review-20260922.json).
-
 ## Origem de cada conjunto
 
 | Conjunto                                               | Classificação e tratamento                                                                                                                                                                                                                       |
@@ -24,8 +22,6 @@ Fontes desta seção, conferidas em **22/09/2026**: [image-review-20260922.json]
 | `docs/stack/*.svg`, `src/retail_pipeline/assets/*.svg` | Quatro ícones de stack e três recursos de marca; não são screenshots. Mantidos com licenças e usos atuais.                                                                                                                                       |
 
 O inventário externo classificou os **174 arquivos de imagem originais**, seus consumidores, hashes, tamanhos, duplicatas e decisões. As nove pranchas de inspeção incluem todas essas imagens e as 30 novas capturas. A revisão removeu 2.887.411 bytes de exports órfãos. Duplicatas que sustentam manifestos ou pares históricos permanecem para conservar esses contratos.
-
-Fontes desta seção, conferidas em **22/09/2026**: [image-review-20260922.json](evidence/image-review-20260922.json) · [capture-doc-focus.cjs](../scripts/capture-doc-focus.cjs).
 
 ## Reproduzir a conferência
 
@@ -46,8 +42,6 @@ node scripts/capture-doc-focus.cjs
 
 `PLAYWRIGHT_MODULE` e `AXE_MODULE` podem indicar instalações externas. O replay não inicia Spark, não executa lote/benchmark e não lê nem substitui o estado operacional. Sem overrides, os scripts de navegador agora escrevem em `artifacts/interface-review`, evitando sobrescrever provas em `docs/evidence` e `docs/images`.
 
-Fontes desta seção, conferidas em **22/09/2026**: [image-review-20260922.json](evidence/image-review-20260922.json) · [capture-doc-focus.cjs](../scripts/capture-doc-focus.cjs).
-
 ## Relatório local aberto
 
 O servidor da porta 3103 servia um HTML antigo, com a marca e a composição anteriores, apesar de a fonte já conter v4. O export ignorado `artifacts/report.html` foi regenerado com o mesmo payload histórico de R$ 77, após backup externo verificado. O HTML anterior não tinha vínculo de hash nas provas versionadas. A comparação dos dois HTMLs confirmou igualdade de quatro métricas, seis linhas das tabelas, seis campos de identidade e cinco registros de fontes.
@@ -59,5 +53,3 @@ O servidor usa o Compose normal, com o export montado somente para leitura. Para
 ```
 
 [Abrir relatório local](http://127.0.0.1:3103/report.html). A correção permanece no export local e não exige override externo. Uma futura demo gera um novo snapshot; abrir a página continua sendo leitura, sem nova execução do pipeline. Inventário, capturas completas novas, logs e backup desta revisão ficam fora do repositório.
-
-Fontes desta seção, conferidas em **22/09/2026**: [image-review-20260922.json](evidence/image-review-20260922.json) · [capture-doc-focus.cjs](../scripts/capture-doc-focus.cjs).

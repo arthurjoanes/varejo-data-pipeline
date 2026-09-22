@@ -15,8 +15,6 @@ Esses hashes também acompanham cada fonte nova no manifesto publicado e no `exp
 
 Origem: exportador sintético `synthetic-pos`, implementado em `generation.py`; nenhuma informação de empresa ou cliente real. Moeda única BRL, dia comercial em `America/Sao_Paulo`. A distribuição por loja, produto, horário e desconto é uma hipótese de simulação, sem representatividade estatística alegada.
 
-Fontes desta seção, conferidas em **22/09/2026**: [references.py](../src/retail_pipeline/references.py) · [ingestion.py](../src/retail_pipeline/ingestion.py).
-
 ## Arquivos e configuração
 
 Uma entrega contém `manifest.json`, `catalog.json`, `schedule.json` e CSVs UTF-8 sem BOM. Separador vírgula, aspas duplas conforme CSV, cabeçalho obrigatório na ordem abaixo. Quebras LF no gerador. Cabeçalho de arquivo e schema não são inferidos pelo Spark. Arquivo de zero bytes é inválido; CSV contendo apenas cabeçalho requer confirmação explícita de zero movimento. Todo arquivo inesperado bloqueia o lote.
@@ -57,8 +55,6 @@ Exemplo de manifesto, abreviado:
 
 `files` lista cada caminho uma vez. Hash é SHA-256 dos bytes, contagem exclui cabeçalho. Caminhos são relativos POSIX `.csv`, sem `..`, barra invertida, drive, caminho absoluto ou normalizações ambíguas. Symlinks são rejeitados sem ler o destino. `zero_movement` é uma lista de lojas esperadas, sem repetições e sem registros nessa entrega. `covered_stores`, opcional, deve coincidir exatamente com lojas dos arquivos mais confirmações. O campo opcional `correction_of` identifica o lote corrigido. Campos desconhecidos e chaves JSON duplicadas são inválidos.
 
-Fontes desta seção, conferidas em **22/09/2026**: [batch_contracts.py](../src/retail_pipeline/batch_contracts.py) · [references.py](../src/retail_pipeline/references.py).
-
 ## Grão e campos
 
 Grão: revisão completa de um item de venda. Todos os campos são obrigatórios e não nulos. Identificador seguro significa expressão `[A-Za-z0-9][A-Za-z0-9_.-]{0,63}`; não há remoção silenciosa de espaços. A chave é `source_system,store_id,sale_id,line_id`.
@@ -80,8 +76,6 @@ Grão: revisão completa de um item de venda. Todos os campos são obrigatórios
 
 Dinheiro não admite notação científica, sinal, vírgula, `NaN`, infinito ou arredondamento silencioso. Silver utiliza Decimal(18,2) em preço/desconto e Decimal(24,2) no líquido da linha; Gold utiliza Decimal(28,2) em receita/ticket; os limites por linha impedem overflow no bruto `quantity × unit_price_brl`. Desconto também deve caber em Decimal(18,2). `sold_at` e `source_updated_at` aceitam até 6 casas nos segundos. Datas sem timezone e datas impossíveis são bloqueadas. Minutos de offset devem ficar entre 00 e 59; o offset completo deve ser menor que 24 horas. O instante normalizado em UTC e o dia comercial de `sold_at` precisam caber nos anos 0001–9999 dos leitores Python. A persistência Parquet usa escrita `CORRECTED`, preservando o calendário gregoriano, inclusive em datas anteriores a 1900; não é uma conversão para calendários híbridos legados. Os timestamps são normalizados em UTC; source_updated_at é informativo e não ordena revisões nem impõe comparação causal entre relógios.
 
-Fontes desta seção, conferidas em **22/09/2026**: [retail_pipeline/contracts.py](../src/retail_pipeline/contracts.py) · [transformations.py](../src/retail_pipeline/transformations.py).
-
 ## Revisão, cancelamento e identidade
 
 `CANCEL` exige a mesma imagem completa e as mesmas validações de um UPSERT. Mantém histórico e estado tipado, porém não contribui para indicadores. Uma revisão maior UPSERT pode reativar o item. Correções podem alterar produto, quantidade, preço, desconto e instante da venda; a chave permanece estável. Revisão menor nunca substitui a maior.
@@ -91,8 +85,6 @@ No estado candidato, todos os itens ativos de `(source_system,store_id,sale_id)`
 Hash do payload cobre os 12 campos de negócio em JSON ordenado, UTF-8; inteiros sem zeros à esquerda, dinheiro com 2 casas, datas UTC com 6 casas. Não inclui run_id, nome do arquivo, linha ou horário de execução. Assim `10` e `10.00`, ou timestamps equivalentes com offsets distintos, representam o mesmo payload. Chave/revisão/payload igual é duplicata informativa; chave/revisão/payload diferente é conflito bloqueante. A autoridade histórica é somente o histórico referenciado pela publicação válida.
 
 `batch_id` identifica contrato imutável; `run_id` identifica tentativa. Hash lógico do manifesto ordena chaves JSON e listas sem significado de ordem (`files`, cobertura e zero movimento), preservando hashes físicos dos arquivos. Corrigir arquivo ausente/corrompido segundo o manifesto original permite reexecução. Alterar conteúdo esperado exige novo batch_id. Reordenar CSV exige novos hashes/manifesto e novo batch_id, mas mantém os eventos de negócio. Metadados de execução podem variar sem alterar indicadores.
-
-Fontes desta seção, conferidas em **22/09/2026**: [pipeline.py](../src/retail_pipeline/pipeline.py) · [transformations.py](../src/retail_pipeline/transformations.py).
 
 ## Bronze, quarentena e contagens
 
@@ -104,8 +96,6 @@ Antes de interpretar a entrega, a ingestão copia arquivos regulares para `evide
 
 Códigos estáveis principais: `MISSING_FILE`, `MISSING_STORE`, `UNEXPECTED_FILE`, `UNSAFE_PATH`, `UNSAFE_SYMLINK`, `HASH_MISMATCH`, `ROW_COUNT_MISMATCH`, `SCHEMA_MISMATCH`, `ROW_WIDTH_MISMATCH`, `CSV_DECODE_ERROR`, `EMPTY_FILE`, `EMPTY_WITHOUT_ZERO_CONFIRMATION`, `INVALID_ZERO_CONFIRMATION`, `COVERAGE_MISMATCH`, `UNKNOWN_STORE`, `UNKNOWN_PRODUCT`, `INVALID_QUANTITY`, `INVALID_REVISION`, `INVALID_UNIT_PRICE_BRL`, `INVALID_LINE_DISCOUNT_BRL`, `DISCOUNT_EXCEEDS_GROSS`, `INVALID_SOLD_AT`, `INVALID_SOURCE_UPDATED_AT`. Todos bloqueiam a publicação. Erros adicionais identificam configurações/manifestos malformados. Contagens agregadas de cada regra são limitadas ao número de códigos, não à massa de registros.
 
-Fontes desta seção, conferidas em **22/09/2026**: [ingestion.py](../src/retail_pipeline/ingestion.py) · [pipeline.py](../src/retail_pipeline/pipeline.py).
-
 ## Orçamento da entrada
 
 O snapshot limita bytes efetivamente lidos, sem confiar somente no tamanho informado pelo arquivo: 1 MiB por JSON, 64 MiB por arquivo, 256 MiB por entrega e 1.000 arquivos, incluindo inesperados. Ajuste `RETAIL_MAX_JSON_BYTES`, `RETAIL_MAX_FILE_BYTES`, `RETAIL_MAX_TOTAL_BYTES` e `RETAIL_MAX_FILES` no `.env`, sempre com inteiros positivos. O menor teto prevalece. A leitura de JSON para `configure` também respeita o limite antes de decodificar ou analisar o documento.
@@ -113,8 +103,6 @@ O snapshot limita bytes efetivamente lidos, sem confiar somente no tamanho infor
 Ao exceder um teto, a cópia para imediatamente. O prefixo já copiado permanece em `evidence/raw`, e `evidence/snapshot.json` registra `complete: false`, bytes copiados, caminho interrompido, motivo e limites. Esse prefixo **não é uma entrega completa**: nenhuma linha é interpretada a partir dele, e a tentativa fica BLOCKED (saída 2). A publicação anterior permanece igual. Os códigos são `INPUT_JSON_BYTES_LIMIT`, `INPUT_FILE_BYTES_LIMIT`, `INPUT_TOTAL_BYTES_LIMIT` e `INPUT_FILE_COUNT_LIMIT`. Um arquivo exatamente no limite é aceito.
 
 O orçamento é por tentativa. Não define quota acumulada do volume nem elimina a necessidade de retenção de `runs`, arquivos Delta e logs. Preserve evidências necessárias à auditoria e faça backup antes de limpar estados ou migrar runtimes.
-
-Fontes desta seção, conferidas em **22/09/2026**: [input_limits.py](../src/retail_pipeline/input_limits.py) · [ingestion.py](../src/retail_pipeline/ingestion.py) · [compose.yaml](../compose.yaml).
 
 ## Fixture e geração
 
@@ -126,12 +114,8 @@ Duplicatas, conflitos e revisões antigas só são avaliados depois que a integr
 
 Na apresentação monetária, o relatório arredonda valores calculados para duas casas com `ROUND_HALF_UP`, coerente com o cast decimal do ticket em Spark: `1.005` é exibido como `R$ 1,01`. Essa decisão afeta a apresentação de médias e não flexibiliza o contrato de entrada, que continua recusando dinheiro com mais de duas casas.
 
-Fontes desta seção, conferidas em **22/09/2026**: [generation.py](../src/retail_pipeline/generation.py) · [fixture-valid](../data/samples/fixture-valid) · [test_business_thesis.py](../tests/integration/test_business_thesis.py).
-
 ## Resumo sem vendas e apresentação
 
 Receita e unidades de uma publicação válida sem itens ativos são zero. O `explain` aplica a mesma regra às contribuições ativas selecionadas; um recorte vazio não confirma a cobertura da loja ou do período. Ticket médio é receita dividida pelas vendas: com zero vendas, o resumo guarda `None` e o relatório mostra `—` / “Sem vendas no período”. Com uma ou mais vendas de preço zero ou desconto integral, ticket zero é válido. O caso foi exercitado em Delta com zero movimento, todas as linhas CANCEL e reativação gratuita. Ausência de publicação continua distinta de uma publicação sem movimento.
 
 O eixo do gráfico utiliza intervalos arredondados em reais; os pontos e a tabela diária conservam os valores monetários exatos. Durações aparecem com uma casa na leitura rápida e com a precisão registrada em detalhe. IDs longos no resumo são abreviados, com acesso aos valores completos e cópia na proveniência.
-
-Fontes desta seção, conferidas em **22/09/2026**: [reporting.py](../src/retail_pipeline/reporting.py) · [report_view.py](../src/retail_pipeline/report_view.py) · [test_boundaries.py](../tests/integration/test_boundaries.py).

@@ -4,8 +4,6 @@ Direção visual v4, revisada em 22/09/2026. Baseline visual: `636e8408f1108ce38
 
 A [conferência posterior das imagens](image-review.md) reproduziu a fonte atual: renderer, CSS, JavaScript e assets continuam correspondendo à v4. Os resultados e comparações abaixo pertencem à revisão v4 original; seus arquivos não foram sobrescritos pela nova conferência.
 
-Fontes desta seção, conferidas em **22/09/2026**: [review-manifest.json](evidence/interface-v4/review-manifest.json) · [comparison.json](evidence/interface-v4/comparison.json).
-
 ## Produto, diagnóstico e duas composições
 
 Quem confere o fechamento precisa separar três perguntas: **o que aconteceu com a tentativa**, **o que já está publicado** e **quais arquivos explicam a publicação**. Não há acompanhamento ao vivo, edição ou execução pela página.
@@ -20,8 +18,6 @@ Antes de implementar, foram renderizadas duas propostas com **o mesmo snapshot d
 | [B — mesa de consulta](images/interface-v4/proposta-b.png)   | Publicação e métricas numa coluna contextual; série, ranking e matriz na coluna principal | Rejeitada para este recorte. A coluna reduz a análise e empurra loja/dia para o fim. Não há uma tarefa de edição que justifique um inspetor fixo. |
 
 As propostas são explorações da interface com dados históricos sintéticos, não provas novas do pipeline. A implementação final acrescenta limites monetários da escala, teclado, valores exatos, fontes licenciadas, estados e tabelas. O espaço abaixo de uma série curta fica livre: não se cria gráfico ou métrica para completar uma coluna.
-
-Fontes desta seção, conferidas em **22/09/2026**: [report_view.py](../src/retail_pipeline/report_view.py) · [review-manifest.json](evidence/interface-v4/review-manifest.json) · [accessibility.json](evidence/interface-v4/accessibility.json).
 
 ## Pesquisa visual e o que foi aplicado
 
@@ -38,8 +34,6 @@ As fontes abaixo foram abertas e suas figuras/interfaces inspecionadas em navega
 
 Prefect/GX continuam explicando a proximidade entre tentativa, resultado e regra nas revisões anteriores. Nesta rodada, não foram usados como justificativa para repetir a mesma estrutura. A [Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md) foi relida: semântica nativa, foco, movimento reduzido, texto longo, carregamento de fonte e estados. A revisão aplicou critérios de composição, semântica, foco e interação; React não se aplica ao renderer Python.
 
-Fontes desta seção, conferidas em **22/09/2026**: [report_view.py](../src/retail_pipeline/report_view.py) · [review-manifest.json](evidence/interface-v4/review-manifest.json) · [accessibility.json](evidence/interface-v4/accessibility.json).
-
 ## Identidade, fonte, superfícies e movimento
 
 A marca original combina três linhas de registro com um V aberto, usando a mesma geometria no [símbolo compacto](../src/retail_pipeline/assets/brand-mark.svg), [monocromático](../src/retail_pipeline/assets/brand-mono.svg) e [favicon](../src/retail_pipeline/assets/favicon.svg). O nome completo é texto real ao lado do símbolo. O SVG decorativo do link é ocultado da árvore acessível; o nome continua legível. A marca não comunica o resultado da execução: somente os rótulos de estado o fazem.
@@ -51,8 +45,6 @@ O [OFL 1.1 completo](../src/retail_pipeline/assets/source-sans-LICENSE.md), com 
 Tokens principais: texto `#263248`, apoio `#596274`, marca/foco `#49488F`, base `#F2F3F5`, contexto `#E5E8EF` e análise branca. Erro `#923B35`, confirmação `#226348` e alerta `#76550E` acompanham palavras. A escala azul da matriz representa receita; a barra índigo representa unidades. Não são estados operacionais.
 
 Corpo de 16 px; tabelas de 14 px; metadados de 12–13 px; títulos de 28–32 px. IDs usam monoespaçada. Valores extensos continuam inteiros: tamanho mínimo de 19 px e rolagem local focável se necessária, sem cortar centavos. Conteúdo centralizado, máximo de 1376 px com margens internas de 24 px; gutters e superfícies compartilham eixos. Transições de 180 ms servem apenas a hover, foco e seleção, desativadas com `prefers-reduced-motion`. Não há números animados, spinner de execução nem movimento infinito.
-
-Fontes desta seção, conferidas em **22/09/2026**: [assets.json](evidence/interface-v4/assets.json) · [font-glyphs.json](evidence/interface-v4/font-glyphs.json) · [visual-review.json](evidence/interface-v4/visual-review.json).
 
 ## Telas e dados
 
@@ -78,8 +70,6 @@ Exemplo de bloqueio: S01 e S03 recebidas, S03 com zero confirmado, S02.csv ausen
 A matriz não soma registros, interpola dias ou calcula indicador novo. A razão usada para cor/largura é apenas escala gráfica. Duplicatas de loja/dia recebem `!` e remetem à tabela, sem escolher ou somar uma receita silenciosamente. Datas não interpretáveis, mais de 366 dias entre extremos ou mais de 1.200 células possíveis usam um aviso e a tabela completa do recorte. O limite é verificado **antes** de materializar dias; datas 0001/1800/9999 não criam milhões de elementos. Totais sempre pertencem ao conjunto publicado; os avisos de truncamento do payload continuam explícitos.
 
 A matriz usa tabela semântica e valores textuais equivalentes. Com JavaScript, somente uma célula entra no percurso Tab; setas, Home e End mudam a seleção e o valor visível. “Consultar linha na tabela” revela e foca o registro. Sem JavaScript, a âncora nativa abre o detalhe correspondente. Nenhuma informação essencial depende só de hover ou da cor.
-
-Fontes desta seção, conferidas em **22/09/2026**: [report_view.py](../src/retail_pipeline/report_view.py) · [review-manifest.json](evidence/interface-v4/review-manifest.json) · [accessibility.json](evidence/interface-v4/accessibility.json).
 
 ## Estados e crítica das capturas
 
@@ -107,8 +97,6 @@ A inspeção identificou e corrigiu problemas concretos, além de overflow:
 - O espaço abaixo da decisão era branco sem conteúdo. Agora o contexto termina naturalmente e a análise ocupa sua própria superfície; não se estica conteúdo para simular densidade.
 
 A matriz mantém rolagem horizontal local em telas estreitas. Isso preserva eixo e dimensões; os registros exatos continuam acessíveis. A série também mantém sua tabela equivalente. A inspeção não declarou toda a paginação de PDF aprovada a partir de um screenshot de mídia print.
-
-Fontes desta seção, conferidas em **22/09/2026**: [render_review.py](../scripts/render_review.py).
 
 ## Matriz de onze dimensões — antes e depois
 
@@ -147,8 +135,6 @@ As prioridades abaixo expressam o impacto do problema observado, sem transformar
 
 Próxima validação segura: **P2**, tecnologia assistiva, zoom nativo e outro motor de navegador; **P3**, hardware lento e PDF página a página. A dimensão 8 permanece PC, a 9 permanece PC e a paginação integral do PDF permanece NV. Axe, tamanho do arquivo e screenshots não substituem essas verificações.
 
-Fontes desta seção, conferidas em **22/09/2026**: [comparison.json](evidence/interface-v4/comparison.json) · [review-manifest.json](evidence/interface-v3/review-manifest.json) · [visual-review.json](evidence/interface-v4/visual-review.json).
-
 ## Verificação, origem e limites
 
 - **200 testes unitários no candidato**, incluindo 50 do renderer; Ruff, formatação e mypy. Após integrar os 34 testes da prova de estado, **234 unitários**, lint, formato, tipos, wheel e smoke isolado passaram na fonte combinada. [Verificação após integração](evidence/interface-v4/merged/checks.json). [Comandos/versões](evidence/interface-v4/checks.json), [JUnit](evidence/interface-v4/unit-tests.xml). O primeiro gate de tipos pediu uma anotação `list[str]`, corrigida; nenhuma regra foi afrouxada.
@@ -164,8 +150,6 @@ Fontes desta seção, conferidas em **22/09/2026**: [comparison.json](evidence/i
 O replay de interface não reexecutou lotes, demo ou benchmark. Em trabalho separado, a investigação do CI encontrou que `Spark.sum` sobre a publicação vazia devolvia `None`: o leitor agora conta linhas e define zero somente para totais aditivos de **zero linhas**, preservando ticket/datas ausentes e valores não informados quando há linhas. [Leitor](../src/retail_pipeline/reporting.py), [integrações de fronteiras](../tests/integration/test_boundaries.py). Três integrações passaram para essa correção, incluindo vazio/cancelamento/venda gratuita e datas extremas. Aquele processo carregou o renderer antes de ajustes visuais finais; não é descrito como teste de toda a fonte final. O CI do commit integrado é o aceite remoto correspondente.
 
 A apresentação está em [report_view.py](../src/retail_pipeline/report_view.py), [report.css](../src/retail_pipeline/report.css), [report.js](../src/retail_pipeline/report.js) e [report_assets.py](../src/retail_pipeline/report_assets.py). Regressões: `_store_matrix`, `_product_ranking`, `_revenue_chart` e o [teste de relatório](../tests/unit/test_reporting.py); recursos empacotados no [pyproject.toml](../pyproject.toml). A normalização LF aplica-se somente a textos: WOFF2 é binário e seu SHA cobre os bytes originais.
-
-Fontes desta seção, conferidas em **22/09/2026**: [checks.json](evidence/interface-v4/merged/checks.json) · [checks.json](evidence/interface-v4/checks.json) · [unit-tests.xml](evidence/interface-v4/unit-tests.xml).
 
 ## Reprodução e histórico
 
@@ -184,5 +168,3 @@ Playwright e axe são ferramentas opcionais de desenvolvimento, não dependênci
 Novas execuções gravam em `artifacts/interface-review`, sem sobrescrever as evidências históricas. `REVIEW_HTML_DIR`, `REVIEW_IMAGES` e `REVIEW_EVIDENCE` permitem manter toda a conferência fora do repositório; veja a [reprodução com saídas separadas](image-review.md#reproduzir-a-conferência).
 
 Histórico preservado: [revisão v3](evidence/interface-v3/review-manifest.json), [v2](evidence/interface-v2/review-manifest.json), [jornadas](evidence/interface-journeys/review.json) e [limpeza v2](evidence/interface-v2/cleanup.json). Esses registros descrevem fontes e contagens anteriores. A [verificação operacional](verification.md), o [problema e solução](problem-solution.md) e as [decisões técnicas](decisoes-tecnicas.md) continuam separados desta prova de apresentação.
-
-Fontes desta seção, conferidas em **22/09/2026**: [review-manifest.json](evidence/interface-v3/review-manifest.json) · [review-manifest.json](evidence/interface-v2/review-manifest.json) · [review.json](evidence/interface-journeys/review.json).
