@@ -44,18 +44,40 @@ A demonstração histórica que termina em R$ 77,00 tem outra sequência e perma
 
 ## Arquitetura
 
+O fechamento passa por três fronteiras: **entrega recebida**, **candidato calculado** e **publicação autorizada para leitura**. O batch é um processo Spark local; as tabelas Delta compartilham o volume de estado, mas cada uma tem sua própria versão. Por isso, o ponto de publicação é um manifesto que fixa o conjunto de versões.
+
 ```mermaid
 flowchart TB
-    Input[Entrega da loja] --> Batch[Validação e batch]
-    Ref[Referências aprovadas] --> Batch
-    Batch --> Delta[(Tabelas Delta)]
-    Delta --> Publish[Manifesto de publicação]
-    Publish --> HTML[Relatório e explain]
+    Input["Entrega sintética<br/>Manifesto + CSVs"]
+    Ref["Referências aprovadas<br/>Lojas, produtos e calendário"]
+
+    subgraph Batch["Container pipeline · Spark local[2] · sem rede"]
+        direction LR
+        Ingest["Ingestão e qualidade<br/>Hash, cobertura e revisões"]
+        Tables[("Delta candidato<br/>history · silver · duas gold")]
+        Gate["Reconciliação persistida<br/>Receita, unidades e linhas"]
+        Ingest -->|"lote elegível"| Tables
+        Tables -->|"reler gold"| Gate
+    end
+
+    Input -->|"snapshot físico"| Batch
+    Ref -->|"contrato esperado"| Batch
+    Batch -->|"erro ou conflito: bloqueio"| Audit["Evidência da tentativa<br/>Bronze + quarentena"]
+    Batch -->|"reconciliado: troca atômica"| Pointer["publication.json<br/>Caminhos + versões Delta"]
+    Pointer -->|"snapshot único · versionAsOf"| Reader["report / explain<br/>HTML local ou JSON"]
 ```
 
-O [pipeline](src/retail_pipeline/pipeline.py) escreve versões candidatas e só troca o manifesto oficial depois das validações. O [leitor](src/retail_pipeline/reporting.py) captura esse manifesto uma vez; uma gravação interrompida não autoriza ler a versão física mais nova de cada tabela. O escritor é único e usa lock do filesystem Linux local, exercitado no [teste de interrupção](tests/integration/test_commit_boundary.py).
+| Responsabilidade | Implementação e contrato |
+| ---------------- | ------------------------ |
+| Fixar o que se espera das lojas | [`references.py`](src/retail_pipeline/references.py) grava `operator-references.json`; o calendário enviado na entrega não redefine a cobertura aprovada. |
+| Preservar e validar a entrada | [`ingestion.py`](src/retail_pipeline/ingestion.py) copia bytes antes do parsing; [`batch_contracts.py`](src/retail_pipeline/batch_contracts.py) e [`contracts.py`](src/retail_pipeline/contracts.py) conferem documentos e linhas. Um erro bloqueia o lote inteiro. |
+| Resolver revisões e calcular indicadores | [`pipeline.py`](src/retail_pipeline/pipeline.py) coordena as etapas; [`transformations.py`](src/retail_pipeline/transformations.py) deduplica histórico, escolhe a maior revisão e agrega apenas `UPSERT` nas duas gold. |
+| Tornar várias tabelas visíveis juntas | [`publication.py`](src/retail_pipeline/publication.py) mantém `flock` de escritor único e substitui o ponteiro JSON com `fsync` + `os.replace`; leitores usam os caminhos e versões registrados. |
+| Consultar e apresentar o fechamento | [`reporting.py`](src/retail_pipeline/reporting.py) lê um snapshot; [`report_model.py`](src/retail_pipeline/report_model.py) define o payload e [`report_view.py`](src/retail_pipeline/report_view.py) renderiza o HTML. |
 
-O [Compose](compose.yaml) separa o batch sem rede do servidor opcional do HTML em loopback. O relatório é um snapshot e não executa o pipeline ao ser aberto. Veja a [arquitetura completa](docs/architecture.md).
+No caminho principal, `run` adquire o lock, copia a entrega e compara suas revisões com o **histórico da publicação anterior**. Sem conflitos, grava candidatos, relê e reconcilia as duas gold, então troca `publication.json`. Se houver falha entre gravações, o ponteiro anterior continua válido; a retomada recompõe o candidato a partir dele. Repetir um lote já publicado retorna `NO_CHANGE` após as validações. [Fluxo e falhas exercitados](tests/integration/test_pipeline.py).
+
+O [Compose](compose.yaml) monta o estado em `/data`, o código somente para leitura em `/app` e as exportações em `artifacts/`. O servidor opcional acessa apenas as exportações; abrir o relatório não executa Spark nem atualiza os dados. Veja os [grãos das tabelas, a sequência de publicação e os limites de recuperação](docs/architecture.md).
 
 <a id="o-que-eu-implementei"></a>
 <a id="stack"></a>

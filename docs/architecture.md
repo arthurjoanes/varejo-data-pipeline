@@ -4,25 +4,53 @@
 
 Rede fictícia entrega revisões completas de itens de venda. O operador precisa distinguir entrega incompleta, bloqueio financeiro, falha técnica e reexecução sem mudança. O analista lê somente uma publicação consistente e rastreável. Dados exclusivamente sintéticos; BRL; dia comercial America/Sao_Paulo. Fora do MVP: reembolso parcial, streaming, APIs e cloud.
 
+O [README](../README.md#arquitetura) mostra o caminho da entrega até o relatório. Abaixo, a implantação separa quem escreve o estado de quem apenas entrega o HTML. Bronze, silver e gold são camadas de dados do mesmo batch local; não são serviços de rede.
+
 ```mermaid
-flowchart LR
-  G[Gerador determinístico] --> I[CSV + manifesto]
-  E[Cadastros e janelas esperadas] --> V[Contrato e qualidade]
-  I --> B[Bronze: cópia por tentativa]
-  B --> V
-  V --> H[Histórico elegível Delta]
-  H --> S[Silver: maior revisão por chave]
-  S --> D[Gold loja/dia e produto/dia]
-  D --> R[Reconciliação]
-  R --> P[Manifesto atômico: caminhos e versões]
-  P --> L[Relatório e explain com snapshot único]
+flowchart TB
+  Operator["Operador local<br/>scripts/pipeline.ps1 ou pipeline.sh"]
+  Input["Entrada sintética<br/>manifest.json, CSVs, catalog.json e schedule.json"]
+  subgraph Batch["Compose: pipeline · rede desabilitada · um escritor por estado"]
+    CLI["CLI Python<br/>validate / run"]
+    Engine["pipeline.py + transformations.py<br/>PySpark local[2] + JVM + Delta"]
+    Read["CLI report / explain<br/>reporting.py + report_view.py"]
+    CLI -->|"comando e raiz de estado"| Engine
+  end
+  State[("Volume nomeado em /data<br/>referências, tentativas, Delta e publicações")]
+  Export["Bind artifacts/<br/>report.html com CSS e JS embutidos"]
+  Server["Compose: report-server<br/>python -m http.server · bind somente leitura"]
+  Browser["Navegador<br/>127.0.0.1:3103/report.html"]
+
+  Operator -->|"execução sob demanda"| CLI
+  Operator -->|"gerar consulta após o processamento"| Read
+  Input -->|"snapshot físico antes do parsing"| Engine
+  Engine -->|"flock + gravações de candidatos e ponteiro"| State
+  State -->|"publication.json + Delta versionAsOf"| Read
+  Read -->|"exportar snapshot estático"| Export
+  Export -->|"único volume montado no servidor"| Server
+  Server -->|"HTTP somente em loopback no host"| Browser
 ```
+
+## Responsabilidades e chamadas
+
+| Fronteira | Entrada e responsabilidade | Saída verificável |
+| --------- | ------------------------- | ----------------- |
+| [CLI](../src/retail_pipeline/cli.py) | Valida argumentos; escolhe `configure`, `generate`, `validate`, `run`, `report`, `explain` ou `demo`. `configure` e `generate` dispensam Spark. | Código de saída e JSON de resultado; os wrappers [PowerShell](../scripts/pipeline.ps1) e [shell](../scripts/pipeline.sh) invocam o container. |
+| [Referências do operador](../src/retail_pipeline/references.py) | `configure_references` valida catálogo/calendário sob o lock e impede substituição diferente no mesmo estado. | `operator-references.json` e digest canônico, independentes da pasta recebida. |
+| [Ingestão](../src/retail_pipeline/ingestion.py) | `prepare_batch` copia a entrega, aplica [limites](../src/retail_pipeline/input_limits.py), confere SHA-256/contagens/cobertura e chama os contratos de documento e linha. | `PreparedBatch`: caminho de `rows.ndjson`, hashes, contagens, cobertura e `issues`; bytes originais em `evidence/raw/`. |
+| [Orquestração](../src/retail_pipeline/pipeline.py) | `process_batch` obtém o lock; `_process` aplica os bloqueios, detecta repetição e coordena as gravações. | `RunResult`, `runs/<run_id>/attempt.json`, eventos por etapa e candidato de publicação. |
+| [Transformações](../src/retail_pipeline/transformations.py) | `type_events`, `eligible_history`, `current_state`, `merge_state`, `gold_tables` e `reconcile` operam DataFrames/SQL. | Histórico deduplicado, uma imagem por item e agregados por loja/dia e produto/dia. |
+| [Publicação](../src/retail_pipeline/publication.py) | `publish` registra o manifesto e troca o ponteiro; `read_table` exige a versão registrada no snapshot. | `publications/<publication_id>.json`, `publication.json` e leitura com `versionAsOf`. |
+| [Consulta](../src/retail_pipeline/reporting.py) | `_read_published_tables` captura o ponteiro uma vez; `generate_report` lê gold e `explain_indicator` lê silver/histórico. | [ReportPayload](../src/retail_pipeline/report_model.py), HTML ou JSON com proveniência e amostra limitada. |
+| [Apresentação](../src/retail_pipeline/report_view.py) | Renderiza apenas o payload capturado e embute [CSS](../src/retail_pipeline/report.css)/[JavaScript](../src/retail_pipeline/report.js). | Arquivo autossuficiente; nenhum acesso do navegador ao volume Delta ou disparo de processamento. |
 
 ## Runtime e recursos
 
 Python 3.11.16, OpenJDK 17.0.20+8 (Alpine 17.0.20_p8-r0), PySpark 4.2.0 e Delta Lake 4.4.0 (Scala 2.13, artefato delta-spark_4.2_2.13). A combinação upstream consta das [notas oficiais Delta 4.4.0](https://github.com/delta-io/delta/releases/tag/v4.4.0). Essa fonte não certifica os rebuilds locais. Versões, hashes das substituições JVM e componentes opcionais removidos estão nos locks e em [atualização do runtime](runtime-upgrade.md). Este é o runtime do batch local com catálogo em memória, sem Hive/Thrift, Derby ou REPL remoto.
 
 Docker Compose `pf-varejo-data`; volume nomeado exclusivo para entrada gerada, Delta, temporários e logs. Exportação pequena em `artifacts/`. Spark local[2], shuffle 2, UI desabilitada, JVM inicialmente 1 GiB e container limitado a 3 GiB/2 CPUs. Execução sob demanda. HTML local, servidor opcional 127.0.0.1:3103.
+
+Os valores vêm de [compose.yaml](../compose.yaml) e [spark.py](../src/retail_pipeline/spark.py). O batch monta `/app` somente para leitura, `/data` para estado e `/app/artifacts` para exportar. O `report-server` usa o perfil opcional `report`, usuário `65534:65534`, 128 MiB/0,25 CPU e recebe somente o bind de exportações, somente para leitura. Não há scheduler nem fila: o operador inicia cada comando. O limite de recursos é configuração local, não capacidade medida.
 
 ## Contratos
 
@@ -44,6 +72,92 @@ Toda mutação usa flock Linux exclusivo, liberado pelo kernel ao sair. Reconstr
 
 Falhas após ingestão, primeira gold e antes da troca são injetáveis somente em modo demo/teste. Publicação anterior continua acessível, e retomada recompõe sem receita duplicada. Retenção indefinida no MVP: não há VACUUM/limpeza automática. Garantia de processo/filesystem Linux local, sem promessa de consenso distribuído ou resistência a toda perda de energia.
 
+### Sequência de uma tentativa
+
+```mermaid
+sequenceDiagram
+  actor O as Operador
+  participant P as process_batch
+  participant I as prepare_batch
+  participant D as Tabelas Delta
+  participant M as publication.json
+  participant R as report / explain
+  O->>P: run input_dir
+  P->>P: flock exclusivo, run_id, attempt RUNNING
+  P->>M: Capturar publicação anterior
+  P->>I: Copiar entrada, usar referências aprovadas
+  I-->>P: Rows, hashes, cobertura e issues
+  P->>D: Gravar Bronze e quarentena da tentativa
+  alt Erro físico, contrato ou cobertura
+    P-->>O: BLOCKED, ponteiro anterior preservado
+  else Contrato válido
+    P->>D: Ler history com versionAsOf anterior
+    P->>P: Conflitos, deduplicação e dia único da venda
+    alt Conflito de revisão ou de dia
+      P-->>O: BLOCKED, evidência do conflito
+    else Candidato elegível
+      P->>D: Gravar history, MERGE silver, gravar duas gold
+      P->>D: Reler gold e reconciliar totais
+      P->>P: candidate.json + manifesto de auditoria
+      P->>M: fsync + os.replace do ponteiro
+      P-->>O: PUBLISHED + publication_id
+    end
+  end
+  O->>R: report ou explain
+  R->>M: Capturar um único snapshot
+  R->>D: Ler cada tabela com versionAsOf do snapshot
+  R-->>O: HTML estático ou JSON rastreável
+```
+
+O diagrama mostra um lote novo em `run`. Há duas saídas adicionais depois das verificações de qualidade: `validate` retorna `VALIDATED`, sem gravar history/silver/gold; um `batch_id` que já pertence a `accepted_batches` retorna `NO_CHANGE`, conservando `publication_id`. Ambos ainda criam tentativa, evidência física, Bronze e quarentena. Portanto, validar não é uma operação sem escrita. A ausência de referências aprovadas bloqueia antes da ingestão.
+
+Uma exceção durante a escrita das tabelas ou a reconciliação resulta em `TECHNICAL_FAILURE`. As versões físicas candidatas podem ter avançado, mas a leitura oficial permanece no ponteiro anterior. Na próxima tentativa, o histórico elegível volta a ser o referenciado nesse ponteiro. O `MERGE` recompõe silver e remove linhas que só existiam em um candidato interrompido (`whenNotMatchedBySourceDelete`); a comparação por `exceptAll` nos dois sentidos exige equivalência com a projeção recalculada.
+
+### Grão e autoridade dos dados
+
+| Artefato relativo à raiz de estado | Grão e campos decisivos | Quem usa / quando é autoridade |
+| ---------------------------------- | ----------------------- | ------------------------------ |
+| `operator-references.json` | Catálogo de lojas/produtos e calendário por `source_system`/`window_id`; digest canônico. | Ingestão: define referências válidas e lojas esperadas. É configuração do operador, não do remetente. |
+| `batches/<sha256(batch_id)>.json` | Um contrato imutável por `batch_id`: manifesto, `manifest_hash` e hashes das referências recebidas. | Orquestração: recusa reutilização do ID com outro contrato, inclusive após bloqueio. Não significa que o lote foi aceito. |
+| `runs/<run_id>/evidence/` | `raw/`, `snapshot.json`, `rows.ndjson`, `quality.json` e cópia das referências aprovadas. | Diagnóstico físico por tentativa; limites podem deixar apenas um prefixo marcado `complete: false`. |
+| `runs/<run_id>/bronze/` | Uma linha legível do CSV, com os 12 campos de negócio e `batch_id`, `run_id`, arquivo, linha física, `payload_hash`, `raw_payload`, `errors`. | Delta por tentativa. Preserva proveniência; não autoriza publicação por si só. |
+| `runs/<run_id>/quarantine/` | Linhas Bronze cuja lista `errors` não está vazia. | Operador investiga violações; lote inteiro permanece bloqueado. Conflitos posteriores ficam em `revision_conflicts/` ou `sale_date_conflicts/`. |
+| `tables/history/` | Uma revisão por `(source_system, store_id, sale_id, line_id, revision)`, com proveniência da ocorrência preservada. | Só a versão publicada é autoridade para detectar conflitos e recompor o próximo candidato. |
+| `tables/silver/` | Uma imagem por `(source_system, store_id, sale_id, line_id)`, escolhida pela maior `revision`; mantém `CANCEL`. | Projeção do histórico, com `business_date` de São Paulo e `line_net_brl`; somente `UPSERT` alimenta métricas. |
+| `tables/gold_store_day/` | `(business_date, store_id)`: receita líquida, unidades, linhas, vendas distintas por origem/venda e ticket médio. | Relatório; versões candidatas aguardam reconciliação e publicação. |
+| `tables/gold_product_day/` | `(business_date, product_id)`: receita líquida, unidades e linhas. | Relatório e ranking derivado, usando a mesma publicação da gold de lojas. |
+| `publication.json` e `publications/<publication_id>.json` | `publication_id`, `run_id`, instante, lotes aceitos, caminhos/versões de cinco tabelas e fontes com hashes. | Ponteiro vigente e manifestos históricos. `sources` preserva também a referência Bronze de cada lote aceito. |
+| `runs/<run_id>/attempt.json` e `logs/events.jsonl` | Estado, issues, cobertura, contagens, duração total e por etapa. | Observabilidade do operador; falha nesse registro não desfaz um ponteiro já publicado. |
+
+`history`, `silver` e as duas gold compartilham diretórios entre tentativas; Delta acrescenta versões. Bronze é separado por tentativa. A referência `tables.bronze` do manifesto corresponde à tentativa recém-publicada; a lista `sources` conserva as referências das tentativas anteriores aceitas. Todos esses caminhos são produzidos em [pipeline.py](../src/retail_pipeline/pipeline.py); o contrato completo dos campos de entrada está em [dados](data-contract.md).
+
+### Bloqueios antes da publicação
+
+| Etapa | Regra que interrompe a tentativa | Evidência / efeito |
+| ----- | ------------------------------- | ----------------- |
+| Snapshot físico | Symlink/arquivo especial, caminho inválido, teto de bytes/arquivos, ausência de arquivo. | `snapshot.json` e `issues`; cópia incompleta não é interpretada como entrega válida. |
+| Contrato de entrega e linhas | Manifesto/catálogo/calendário inválidos, hash/contagem divergentes, loja esperada ausente, schema/tipo/dinheiro/data inválidos. | Bronze/quarentena e `quality.json`; confirmação explícita distingue loja sem movimento de loja ausente. |
+| Identidade | Outro manifesto ou outras referências recebidas com o mesmo `batch_id`. | `BATCH_ID_CONFLICT` / `BATCH_REFERENCE_CONFLICT`; é necessário novo ID para novo contrato. |
+| Revisões | Mesma chave e revisão com payload canônico diferente, no lote ou no histórico publicado. | `REVISION_CONFLICT`; duplicata exata e revisão antiga são apenas informativas. |
+| Consistência da venda | Itens ativos da mesma origem/loja/venda em mais de um dia comercial. | `SALE_DATE_CONFLICT`; bloqueia mesmo quando a soma da receita se mantém. |
+| Projeção e agregados | Silver persistida difere da projeção, ou receita/unidades/linhas divergem entre silver ativa e qualquer gold persistida. | Exceção técnica; nenhuma troca do ponteiro. Receita sozinha não substitui a regra de dia da venda. |
+
+### Visibilidade e recuperação por estado
+
+| Resultado de `process_batch` | Saída CLI | O que o leitor oficial vê | Próximo passo permitido |
+| --------------------------- | --------- | ------------------------- | ----------------------- |
+| `VALIDATED` | `0` | Publicação anterior, se existir. | Executar `run`; a validação deixou evidências, mas não publicou tabelas finais. |
+| `BLOCKED` | `2` | Publicação anterior, se existir. | Repor bytes previstos pelo manifesto original ou enviar novo contrato com novo `batch_id`. |
+| `TECHNICAL_FAILURE` antes do commit | `3` | Versões do ponteiro anterior, mesmo que existam candidatos mais novos no disco. | Reexecutar sob o lock; recompor a partir do histórico publicado. |
+| `PUBLISHED` | `0` | Novo conjunto de versões referenciado por `publication.json`. | Consultar por `report`/`explain` e conservar os arquivos referenciados. |
+| `NO_CHANGE` | `0` | Mesma publicação e mesmo ID do lote já aceito. | Nenhuma nova publicação é necessária. |
+
+`publish` primeiro grava `publications/<id>.json`, depois substitui `publication.json`, ambos com JSON temporário, `fsync` do arquivo, `os.replace` e `fsync` do diretório. Um manifesto de auditoria que ficou no disco antes de uma interrupção não é um novo ponteiro oficial. Não há transação Delta única entre tabelas: a consistência conjunta depende de todos os leitores usarem o manifesto.
+
+Após o commit, `record_failure` consulta o ponteiro para decidir se a tentativa ficou visível. Se ele já aponta para o `run_id`, falhar ao finalizar auditoria gera `AUDIT_WRITE_FAILURE` com severidade `WARNING` e mantém `PUBLISHED`. O relatório também reconhece esse caso. Essa fronteira é exercitada em [test_commit_boundary.py](../tests/integration/test_commit_boundary.py).
+
+O lock é `fcntl.flock(LOCK_EX | LOCK_NB)` sobre `writer.lock`: um segundo escritor recebe `WriterBusy`, e o kernel libera o lock ao encerrar o processo. Leitores não adquirem esse lock; fixam o snapshot e dependem da preservação das versões Delta. O escopo é filesystem Linux local com um escritor por raiz, sem coordenação entre máquinas ou serviços distribuídos.
+
 ## Alternativas e compromissos
 
 Mais simples: Python + SQLite é uma alternativa plausível a avaliar para o volume demonstrado; não houve comparação que comprove menor custo ou capacidade suficiente. Ela precisaria preservar os mesmos contratos de revisão, cobertura e publicação. Escolha atual: batch único Spark local com recomputação favorece inspeção e recuperação, ao custo de startup/JVM e escrita adicional. Mais complexa: Fabric/Airflow e processamento incremental exigiriam medir o ganho, além de rever custos, estado e coordenação da publicação; não justificado por 30 mil linhas. Bronze preservado em arquivos mais Delta é uma duplicação intencional para diagnóstico físico e consultas.
@@ -51,6 +165,17 @@ Mais simples: Python + SQLite é uma alternativa plausível a avaliar para o vol
 ## Riscos e testes
 
 Riscos: caminho host com Unicode/espaços (somente fontes/exportações em bind); mutações externas da entrada (copiar a entrada antes de validar); dinheiro/overflow (limites explícitos); candidato não publicado (versionAsOf obrigatório); escritor concorrente (flock real multiprocesso). Unitários cobrem contratos/geração e integração real cobre os cenários listados em verification.md, usando totais manuais. Smoke e jornada crítica em CI Docker. Relatório auto-contido revisado por screenshot real. Performance medida, sem extrapolar produção.
+
+| Propriedade arquitetural | Cobertura no repositório |
+| ------------------------ | ------------------------ |
+| Cobertura independente do remetente e correção integral do dia da venda | [test_business_thesis.py](../tests/integration/test_business_thesis.py) compara resultados literais e preservação da publicação após bloqueio. |
+| Revisões, cancelamento/reativação, repetição e interrupção antes do commit | [test_pipeline.py](../tests/integration/test_pipeline.py) exercita `after_ingestion`, `after_gold` e `before_publish`, além de lock multiprocesso. |
+| Falha de auditoria depois do commit e identidade das referências recebidas | [test_commit_boundary.py](../tests/integration/test_commit_boundary.py). |
+| Limites físicos e configuração aprovada | [test_input_limits.py](../tests/unit/test_input_limits.py) e [test_operator_references.py](../tests/unit/test_operator_references.py). |
+| Datas extremas, dinheiro, zero movimento, cancelamento completo e ticket indefinido | [test_boundaries.py](../tests/integration/test_boundaries.py). |
+| Preservação de versões e restauração do conjunto | [test_state_proof.py](../tests/unit/test_state_proof.py), [executor da prova](../scripts/prove_state.py) e [evidências de recuperação](state-recovery.md). |
+
+Os links identificam o mecanismo de teste; os resultados executados e suas datas estão em [verificação](verification.md). A revisão deste documento não constitui uma nova execução Spark ou uma nova medição.
 
 ## Fontes consultadas
 
