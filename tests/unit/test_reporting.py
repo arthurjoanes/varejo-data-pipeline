@@ -310,7 +310,7 @@ def test_chart_uses_readable_ticks_without_changing_exact_values(
     html = build_report_html(
         ReportPayload(daily=[{"business_date": "2026-01-01", "net_revenue_brl": Decimal(amount)}])
     )
-    svg = html.split("<svg", 1)[1].split("</svg>", 1)[0]
+    svg = html.split('<svg viewBox="0 0 900 260"', 1)[1].split("</svg>", 1)[0]
     for label in labels:
         assert label in svg
     assert "01/01/2026: R$ " in svg
@@ -375,3 +375,81 @@ def test_report_nav_includes_products_anchor() -> None:
         < html.index('href="#produtos"')
         < html.index('href="#lojas"')
     )
+
+
+@pytest.mark.parametrize("state", ["TECHNICAL_FAILURE", "PUBLISHED"])
+def test_publication_with_incomplete_audit_is_never_described_as_previous(state: str) -> None:
+    attempt = {
+        "run_id": "published-run",
+        "state": state,
+        "audit_incomplete": state == "PUBLISHED",
+        "duration_seconds": 12,
+    }
+    html = build_report_html(
+        ReportPayload(
+            snapshot={"publication_id": "current", "run_id": "published-run"},
+            latest_attempt=attempt,
+        )
+    )
+    context = html.split('<p class="publication-context">', 1)[1].split("</p>", 1)[0]
+    assert "Publicação disponível, com registro final da tentativa incompleto" in context
+    assert "publicação anterior" not in context
+    assert "falhou antes" not in context
+
+
+def test_blocked_coverage_only_claims_previous_indicators_when_a_snapshot_exists() -> None:
+    attempt = {"state": "BLOCKED", "coverage": {"expected": ["S01", "S02"], "received": ["S01"]}}
+    empty = build_report_html(ReportPayload(latest_attempt=attempt))
+    published = build_report_html(
+        ReportPayload(snapshot={"publication_id": "old"}, latest_attempt=attempt)
+    )
+    assert "Ainda não há indicadores publicados" in empty
+    assert "indicadores exibidos pertencem à publicação anterior" not in empty
+    assert "Fechamento bloqueado por cobertura" in published
+    assert "indicadores exibidos pertencem à publicação anterior" in published
+
+
+def test_source_provenance_escapes_paths_and_keeps_reference_hashes() -> None:
+    hostile = '<script>alert("source")</script>'
+    html = build_report_html(
+        ReportPayload(
+            snapshot={
+                "sources": [
+                    {
+                        "batch_id": "b1",
+                        "bronze_path": hostile,
+                        "bronze_version": 2,
+                        "reference_hashes": {hostile: "a" * 64},
+                    }
+                ]
+            }
+        )
+    )
+    assert hostile not in html
+    assert "a" * 64 in html
+    assert "Fonte · b1" in html
+    assert "Caminho bronze" in html
+
+
+def test_unmeasured_stages_are_not_drawn_as_successful_steps() -> None:
+    html = build_report_html(
+        ReportPayload(
+            latest_attempt={
+                "state": "BLOCKED",
+                "stages": {"ingestion": 1.5},
+            }
+        )
+    )
+    rail = html.split('<aside class="stage-rail"', 1)[1].split("</aside>", 1)[0]
+    assert "Ingestão" in rail
+    assert "Indicadores" not in rail
+    assert "Publicação" not in rail
+    assert "Uma medição não confirma, por si só, o sucesso da etapa" in rail
+
+
+@pytest.mark.parametrize("stats", [{}, {"received": 5}, {"rejected": 0}, {"received": 0}])
+def test_missing_rejection_inputs_do_not_imply_zero_or_inapplicable(stats: dict[str, int]) -> None:
+    html = build_report_html(ReportPayload(latest_attempt={"state": "RUNNING", "stats": stats}))
+    assert "Rejeição: indisponível" in html
+    assert "Rejeição: 0,00%" not in html
+    assert "Rejeição: não aplicável" not in html

@@ -1,32 +1,41 @@
-// Leitura e navegação funcionam sem este script.
+// Navegação de um snapshot local. Sem consultas de rede ou atualização automática.
+// O HTML completo e os detalhes nativos continuam legíveis sem JavaScript.
+const views = [...document.querySelectorAll('[data-report-view]')];
+const navigation = [...document.querySelectorAll('[data-view-link]')];
 
-// Marca na navegação a seção visível no momento.
-const navLinks = new Map();
-document.querySelectorAll('.report-nav a[href^="#"]').forEach(link => {
-  navLinks.set(link.getAttribute('href').slice(1), link);
-});
-if (navLinks.size && 'IntersectionObserver' in window) {
-  const order = [...navLinks.keys()];
-  const visible = new Set();
-  const setCurrent = current => {
-    navLinks.forEach((link, id) => {
-      if (id === current) link.setAttribute('aria-current', 'true');
-      else link.removeAttribute('aria-current');
-    });
-  };
-  const observer = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) visible.add(entry.target.id);
-      else visible.delete(entry.target.id);
+function showLocation(focus = false) {
+  let id;
+  try { id = decodeURIComponent(location.hash.slice(1)); } catch { id = ''; }
+  const target = document.getElementById(id);
+  const view = target?.closest('[data-report-view]')
+    || (target && views.find(panel => !panel.hidden))
+    || views[0];
+  if (!view) return;
+  for (const panel of views) panel.hidden = panel !== view;
+  for (const link of navigation) {
+    if (link.dataset.viewLink === view.id) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  }
+  // Âncoras de IDs revelam também o detalhe nativo que contém o campo.
+  if (target) {
+    let disclosure = target.closest('details');
+    while (disclosure) {
+      disclosure.open = true;
+      disclosure = disclosure.parentElement?.closest('details');
     }
-    const current = order.find(id => visible.has(id));
-    if (current) setCurrent(current);
-  }, { rootMargin: '-12% 0px -70% 0px', threshold: 0 });
-  order.forEach(id => {
-    const section = document.getElementById(id);
-    if (section) observer.observe(section);
-  });
+  }
+  if (focus && target) {
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ block: 'start', behavior: 'instant' });
+  }
 }
+showLocation();
+window.addEventListener('hashchange', () => showLocation(true));
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (link.hash === location.hash) showLocation(true);
+  });
+});
 
 document.querySelectorAll('[data-copy-target]').forEach(button => {
   button.hidden = false;
@@ -41,10 +50,8 @@ document.querySelectorAll('[data-copy-target]').forEach(button => {
       input.focus();
       input.select();
       let copied = false;
-      try { copied = document.execCommand('copy'); } catch { /* Mantém o ID selecionado para cópia manual. */ }
-      status.textContent = copied
-        ? 'ID copiado.'
-        : 'Falha ao copiar. ID selecionado; use Ctrl+C.';
+      try { copied = document.execCommand('copy'); } catch { /* Seleção permite cópia manual. */ }
+      status.textContent = copied ? 'ID copiado.' : 'Falha ao copiar. ID selecionado; use Ctrl+C.';
     }
   });
 });

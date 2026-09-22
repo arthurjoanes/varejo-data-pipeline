@@ -39,9 +39,9 @@ A jornada aprova as referências sintéticas separadamente antes de criar entreg
 
 ## Ver resultados
 
-1. Abra `artifacts/report.html`: receita final e publicação, indicadores SQL, cobertura, etapas e versões.
-2. Abra `artifacts/blocked-report.html`: a publicação válida aparece junto do bloqueio por loja ausente.
-3. Abra `artifacts/failure-report.html`: o candidato da reativação não aparece no total oficial.
+1. Abra `artifacts/report.html`: em **Execução**, confira a última tentativa; em **Indicadores**, confira a receita final de R$ 77,00. **Arquivos** identifica a publicação e suas versões.
+2. Abra `artifacts/blocked-report.html`: a publicação válida aparece junto do bloqueio por loja ausente. Abra a ocorrência para ver seu contexto e **Indicadores** para conferir R$ 64,00.
+3. Abra `artifacts/failure-report.html`: o candidato da reativação não aparece no total oficial. **Indicadores** mantém R$ 57,00 da publicação anterior.
 4. Abra `artifacts/explain.json`: amostra rotulada liga o indicador à origem. O documento se refere à primeira publicação; não se confunde com a versão final da demo.
 5. Veja `tests/integration/test_pipeline.py`: correção de data, revisão antiga, conflito, lote rejeitado, concorrência real e leitura por versão também são exercitados.
 

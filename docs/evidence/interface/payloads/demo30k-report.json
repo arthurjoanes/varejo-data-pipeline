@@ -1,0 +1,3554 @@
+{
+  "captured_at": "2026-09-22T03:21:49.638072+00:00",
+  "method": "Leitura Delta por versão; nenhum lote executado.",
+  "source_evidence": "docs/evidence/benchmark.json",
+  "source_sha256": "44a4e12d838feadcafe12cddb458f7101ad0aef47a25dbaeaa501df42b51e63b",
+  "payload": {
+    "synthetic_data": true,
+    "snapshot": {
+      "accepted_batches": [
+        "demo30k"
+      ],
+      "publication_id": "b2661dd0bc9640a58698cd3decee0506",
+      "published_at": "2026-09-21T23:40:14.059620+00:00",
+      "run_id": "0708e3fbc61d47518642137080bb3b52",
+      "sources": [
+        {
+          "batch_id": "demo30k",
+          "bronze_path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/runs/0708e3fbc61d47518642137080bb3b52/bronze",
+          "bronze_version": 0,
+          "operator_reference_hash": "676ef04feeefb29cff40e901477750705660d1e4e6fc6988762d875c4f6c0df3",
+          "reference_hashes": {
+            "catalog.json": "9485a487b8f53360fc62586c856159f14cee5ce946de5ea0e8b0d152d719e2bc",
+            "schedule.json": "958632609f8bdf3b1928c7b3918f9d809c2783512e8bc0d8011e6595cc01e8f5"
+          },
+          "run_id": "0708e3fbc61d47518642137080bb3b52"
+        }
+      ],
+      "tables": {
+        "bronze": {
+          "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/runs/0708e3fbc61d47518642137080bb3b52/bronze",
+          "version": 0
+        },
+        "gold_product_day": {
+          "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/tables/gold_product_day",
+          "version": 0
+        },
+        "gold_store_day": {
+          "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/tables/gold_store_day",
+          "version": 0
+        },
+        "history": {
+          "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/tables/history",
+          "version": 0
+        },
+        "silver": {
+          "path": "/data/benchmarks/0e40ed178e4a4f55bc7bd00a1ae043dc/tables/silver",
+          "version": 0
+        }
+      }
+    },
+    "latest_attempt": {
+      "batch_id": "demo30k",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "zero_movement": []
+      },
+      "duration_seconds": 69.4526,
+      "issues": [],
+      "publication_id": "b2661dd0bc9640a58698cd3decee0506",
+      "run_id": "0708e3fbc61d47518642137080bb3b52",
+      "stages": {
+        "gold": 5.8806,
+        "ingestion": 23.9926,
+        "publication": 4.1937,
+        "quality": 8.7947,
+        "reconciliation": 6.038,
+        "silver": 20.5494
+      },
+      "started_at": "2026-09-21T23:39:08.797066+00:00",
+      "state": "PUBLISHED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 0,
+        "received": 30000,
+        "rejected": 0,
+        "revision_checks_executed": 1,
+        "stale": 0,
+        "valid": 30000,
+        "violations": 0
+      }
+    },
+    "last_failed_attempt": null,
+    "summary": {
+      "net_revenue_brl": "1141858.51",
+      "units": 89903,
+      "item_lines": 30000,
+      "sales_count": 10008,
+      "first_date": "2026-01-01",
+      "last_date": "2026-01-30",
+      "average_ticket_brl": "114.0945753397282174260591527"
+    },
+    "daily": [
+      {
+        "business_date": "2026-01-01",
+        "net_revenue_brl": "37514.91"
+      },
+      {
+        "business_date": "2026-01-02",
+        "net_revenue_brl": "39440.21"
+      },
+      {
+        "business_date": "2026-01-03",
+        "net_revenue_brl": "38382.85"
+      },
+      {
+        "business_date": "2026-01-04",
+        "net_revenue_brl": "37869.51"
+      },
+      {
+        "business_date": "2026-01-05",
+        "net_revenue_brl": "38045.96"
+      },
+      {
+        "business_date": "2026-01-06",
+        "net_revenue_brl": "39037.46"
+      },
+      {
+        "business_date": "2026-01-07",
+        "net_revenue_brl": "37205.36"
+      },
+      {
+        "business_date": "2026-01-08",
+        "net_revenue_brl": "39692.92"
+      },
+      {
+        "business_date": "2026-01-09",
+        "net_revenue_brl": "37673.88"
+      },
+      {
+        "business_date": "2026-01-10",
+        "net_revenue_brl": "38674.75"
+      },
+      {
+        "business_date": "2026-01-11",
+        "net_revenue_brl": "37299.96"
+      },
+      {
+        "business_date": "2026-01-12",
+        "net_revenue_brl": "37996.85"
+      },
+      {
+        "business_date": "2026-01-13",
+        "net_revenue_brl": "37187.33"
+      },
+      {
+        "business_date": "2026-01-14",
+        "net_revenue_brl": "37841.66"
+      },
+      {
+        "business_date": "2026-01-15",
+        "net_revenue_brl": "38108.91"
+      },
+      {
+        "business_date": "2026-01-16",
+        "net_revenue_brl": "38328.60"
+      },
+      {
+        "business_date": "2026-01-17",
+        "net_revenue_brl": "39783.51"
+      },
+      {
+        "business_date": "2026-01-18",
+        "net_revenue_brl": "38371.98"
+      },
+      {
+        "business_date": "2026-01-19",
+        "net_revenue_brl": "38320.80"
+      },
+      {
+        "business_date": "2026-01-20",
+        "net_revenue_brl": "38073.89"
+      },
+      {
+        "business_date": "2026-01-21",
+        "net_revenue_brl": "38141.56"
+      },
+      {
+        "business_date": "2026-01-22",
+        "net_revenue_brl": "39703.54"
+      },
+      {
+        "business_date": "2026-01-23",
+        "net_revenue_brl": "37885.10"
+      },
+      {
+        "business_date": "2026-01-24",
+        "net_revenue_brl": "37162.61"
+      },
+      {
+        "business_date": "2026-01-25",
+        "net_revenue_brl": "37169.39"
+      },
+      {
+        "business_date": "2026-01-26",
+        "net_revenue_brl": "36384.73"
+      },
+      {
+        "business_date": "2026-01-27",
+        "net_revenue_brl": "37252.34"
+      },
+      {
+        "business_date": "2026-01-28",
+        "net_revenue_brl": "36842.12"
+      },
+      {
+        "business_date": "2026-01-29",
+        "net_revenue_brl": "38555.44"
+      },
+      {
+        "business_date": "2026-01-30",
+        "net_revenue_brl": "37910.38"
+      }
+    ],
+    "stores": [
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S01",
+        "net_revenue_brl": "3222.06",
+        "units": 251,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.07"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S02",
+        "net_revenue_brl": "2896.17",
+        "units": 226,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.43"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S03",
+        "net_revenue_brl": "2858.47",
+        "units": 239,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "102.09"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S04",
+        "net_revenue_brl": "2967.80",
+        "units": 240,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "105.99"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S05",
+        "net_revenue_brl": "2952.80",
+        "units": 250,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "105.46"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S06",
+        "net_revenue_brl": "2908.47",
+        "units": 238,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.87"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S07",
+        "net_revenue_brl": "3374.87",
+        "units": 259,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.53"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S08",
+        "net_revenue_brl": "3419.69",
+        "units": 257,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.13"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S09",
+        "net_revenue_brl": "3428.47",
+        "units": 266,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.45"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S10",
+        "net_revenue_brl": "3073.86",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.78"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S11",
+        "net_revenue_brl": "3408.63",
+        "units": 253,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.74"
+      },
+      {
+        "business_date": "2026-01-01",
+        "store_id": "S12",
+        "net_revenue_brl": "3003.62",
+        "units": 232,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "107.27"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S01",
+        "net_revenue_brl": "3433.58",
+        "units": 243,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.63"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S02",
+        "net_revenue_brl": "3542.58",
+        "units": 271,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "126.52"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S03",
+        "net_revenue_brl": "3031.51",
+        "units": 257,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.27"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S04",
+        "net_revenue_brl": "3298.52",
+        "units": 250,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.80"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S05",
+        "net_revenue_brl": "3392.53",
+        "units": 264,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.16"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S06",
+        "net_revenue_brl": "3321.98",
+        "units": 257,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.64"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S07",
+        "net_revenue_brl": "3234.56",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.52"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S08",
+        "net_revenue_brl": "3290.78",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.53"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S09",
+        "net_revenue_brl": "3366.40",
+        "units": 246,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.23"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S10",
+        "net_revenue_brl": "3274.16",
+        "units": 263,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.93"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S11",
+        "net_revenue_brl": "2901.27",
+        "units": 225,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.62"
+      },
+      {
+        "business_date": "2026-01-02",
+        "store_id": "S12",
+        "net_revenue_brl": "3352.34",
+        "units": 264,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.73"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S01",
+        "net_revenue_brl": "3174.05",
+        "units": 251,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.36"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S02",
+        "net_revenue_brl": "2808.87",
+        "units": 234,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "100.32"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S03",
+        "net_revenue_brl": "2737.75",
+        "units": 245,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "97.78"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S04",
+        "net_revenue_brl": "3424.43",
+        "units": 245,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.30"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S05",
+        "net_revenue_brl": "3396.88",
+        "units": 262,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.32"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S06",
+        "net_revenue_brl": "3215.76",
+        "units": 262,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.85"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S07",
+        "net_revenue_brl": "3154.44",
+        "units": 247,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "112.66"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S08",
+        "net_revenue_brl": "3023.32",
+        "units": 242,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "107.98"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S09",
+        "net_revenue_brl": "3320.81",
+        "units": 245,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.60"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S10",
+        "net_revenue_brl": "3546.72",
+        "units": 259,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "126.67"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S11",
+        "net_revenue_brl": "3096.88",
+        "units": 250,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.60"
+      },
+      {
+        "business_date": "2026-01-03",
+        "store_id": "S12",
+        "net_revenue_brl": "3482.94",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "124.39"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S01",
+        "net_revenue_brl": "2911.77",
+        "units": 237,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.99"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S02",
+        "net_revenue_brl": "3121.44",
+        "units": 250,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.48"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S03",
+        "net_revenue_brl": "3318.97",
+        "units": 266,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.53"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S04",
+        "net_revenue_brl": "3239.93",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.71"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S05",
+        "net_revenue_brl": "3395.86",
+        "units": 256,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.28"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S06",
+        "net_revenue_brl": "3207.67",
+        "units": 251,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.56"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S07",
+        "net_revenue_brl": "3305.91",
+        "units": 245,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.07"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S08",
+        "net_revenue_brl": "3320.75",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.60"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S09",
+        "net_revenue_brl": "3409.68",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.77"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S10",
+        "net_revenue_brl": "2986.01",
+        "units": 233,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "106.64"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S11",
+        "net_revenue_brl": "2902.37",
+        "units": 243,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.66"
+      },
+      {
+        "business_date": "2026-01-04",
+        "store_id": "S12",
+        "net_revenue_brl": "2749.15",
+        "units": 237,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "98.18"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S01",
+        "net_revenue_brl": "3084.13",
+        "units": 257,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.15"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S02",
+        "net_revenue_brl": "3251.11",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.11"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S03",
+        "net_revenue_brl": "3270.25",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.79"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S04",
+        "net_revenue_brl": "3130.52",
+        "units": 251,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.80"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S05",
+        "net_revenue_brl": "3263.52",
+        "units": 262,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.55"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S06",
+        "net_revenue_brl": "3280.29",
+        "units": 240,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.15"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S07",
+        "net_revenue_brl": "3110.72",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.10"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S08",
+        "net_revenue_brl": "3332.99",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.04"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S09",
+        "net_revenue_brl": "3189.29",
+        "units": 253,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.90"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S10",
+        "net_revenue_brl": "3171.20",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.26"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S11",
+        "net_revenue_brl": "3060.52",
+        "units": 231,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.30"
+      },
+      {
+        "business_date": "2026-01-05",
+        "store_id": "S12",
+        "net_revenue_brl": "2901.42",
+        "units": 231,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.62"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S01",
+        "net_revenue_brl": "3248.28",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.01"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S02",
+        "net_revenue_brl": "3092.16",
+        "units": 238,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.43"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S03",
+        "net_revenue_brl": "3388.80",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.03"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S04",
+        "net_revenue_brl": "3819.69",
+        "units": 279,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "136.42"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S05",
+        "net_revenue_brl": "3146.98",
+        "units": 264,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "112.39"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S06",
+        "net_revenue_brl": "3206.14",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.51"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S07",
+        "net_revenue_brl": "3407.80",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.71"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S08",
+        "net_revenue_brl": "3143.56",
+        "units": 250,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "112.27"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S09",
+        "net_revenue_brl": "3102.80",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.81"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S10",
+        "net_revenue_brl": "3335.99",
+        "units": 256,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.14"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S11",
+        "net_revenue_brl": "2974.62",
+        "units": 233,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "106.24"
+      },
+      {
+        "business_date": "2026-01-06",
+        "store_id": "S12",
+        "net_revenue_brl": "3170.64",
+        "units": 253,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.24"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S01",
+        "net_revenue_brl": "3330.84",
+        "units": 263,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.96"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S02",
+        "net_revenue_brl": "3101.17",
+        "units": 257,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.76"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S03",
+        "net_revenue_brl": "2721.58",
+        "units": 239,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "97.20"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S04",
+        "net_revenue_brl": "2688.75",
+        "units": 223,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "96.03"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S05",
+        "net_revenue_brl": "2892.31",
+        "units": 237,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.30"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S06",
+        "net_revenue_brl": "3586.62",
+        "units": 282,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "128.09"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S07",
+        "net_revenue_brl": "3029.63",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.20"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S08",
+        "net_revenue_brl": "2895.15",
+        "units": 239,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.40"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S09",
+        "net_revenue_brl": "3303.06",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.97"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S10",
+        "net_revenue_brl": "3244.26",
+        "units": 276,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.87"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S11",
+        "net_revenue_brl": "3307.93",
+        "units": 259,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.14"
+      },
+      {
+        "business_date": "2026-01-07",
+        "store_id": "S12",
+        "net_revenue_brl": "3104.06",
+        "units": 247,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.86"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S01",
+        "net_revenue_brl": "3672.00",
+        "units": 287,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "131.14"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S02",
+        "net_revenue_brl": "3268.77",
+        "units": 241,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.74"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S03",
+        "net_revenue_brl": "3204.62",
+        "units": 246,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.45"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S04",
+        "net_revenue_brl": "3349.84",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.64"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S05",
+        "net_revenue_brl": "3072.85",
+        "units": 247,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.74"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S06",
+        "net_revenue_brl": "2928.60",
+        "units": 234,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "104.59"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S07",
+        "net_revenue_brl": "3281.33",
+        "units": 266,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.19"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S08",
+        "net_revenue_brl": "3225.77",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.21"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S09",
+        "net_revenue_brl": "3771.28",
+        "units": 277,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "134.69"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S10",
+        "net_revenue_brl": "3175.88",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.42"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S11",
+        "net_revenue_brl": "3317.08",
+        "units": 251,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.47"
+      },
+      {
+        "business_date": "2026-01-08",
+        "store_id": "S12",
+        "net_revenue_brl": "3424.90",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.32"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S01",
+        "net_revenue_brl": "3029.52",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.20"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S02",
+        "net_revenue_brl": "2952.56",
+        "units": 233,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "105.45"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S03",
+        "net_revenue_brl": "2825.54",
+        "units": 238,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "100.91"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S04",
+        "net_revenue_brl": "3377.53",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.63"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S05",
+        "net_revenue_brl": "3372.87",
+        "units": 253,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.46"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S06",
+        "net_revenue_brl": "3069.54",
+        "units": 235,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.63"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S07",
+        "net_revenue_brl": "3152.74",
+        "units": 243,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "112.60"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S08",
+        "net_revenue_brl": "3027.61",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.13"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S09",
+        "net_revenue_brl": "3234.62",
+        "units": 250,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.52"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S10",
+        "net_revenue_brl": "2768.03",
+        "units": 228,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "98.86"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S11",
+        "net_revenue_brl": "3295.19",
+        "units": 283,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.69"
+      },
+      {
+        "business_date": "2026-01-09",
+        "store_id": "S12",
+        "net_revenue_brl": "3568.13",
+        "units": 260,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "127.43"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S01",
+        "net_revenue_brl": "3390.11",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.08"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S02",
+        "net_revenue_brl": "3359.42",
+        "units": 251,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.98"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S03",
+        "net_revenue_brl": "2935.17",
+        "units": 242,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "104.83"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S04",
+        "net_revenue_brl": "3482.18",
+        "units": 264,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "124.36"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S05",
+        "net_revenue_brl": "3033.79",
+        "units": 244,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.35"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S06",
+        "net_revenue_brl": "3256.07",
+        "units": 267,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.29"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S07",
+        "net_revenue_brl": "3320.81",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.60"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S08",
+        "net_revenue_brl": "3479.59",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "124.27"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S09",
+        "net_revenue_brl": "3087.41",
+        "units": 246,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.26"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S10",
+        "net_revenue_brl": "3239.33",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.69"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S11",
+        "net_revenue_brl": "2994.11",
+        "units": 245,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "106.93"
+      },
+      {
+        "business_date": "2026-01-10",
+        "store_id": "S12",
+        "net_revenue_brl": "3096.76",
+        "units": 238,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.60"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S01",
+        "net_revenue_brl": "3356.49",
+        "units": 288,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.87"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S02",
+        "net_revenue_brl": "3023.90",
+        "units": 243,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.00"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S03",
+        "net_revenue_brl": "2898.92",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.53"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S04",
+        "net_revenue_brl": "3496.15",
+        "units": 260,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "124.86"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S05",
+        "net_revenue_brl": "3019.75",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "107.85"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S06",
+        "net_revenue_brl": "3335.23",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.12"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S07",
+        "net_revenue_brl": "3100.33",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.73"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S08",
+        "net_revenue_brl": "3225.57",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.20"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S09",
+        "net_revenue_brl": "2897.17",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.47"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S10",
+        "net_revenue_brl": "2888.87",
+        "units": 233,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.17"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S11",
+        "net_revenue_brl": "2910.97",
+        "units": 227,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.96"
+      },
+      {
+        "business_date": "2026-01-11",
+        "store_id": "S12",
+        "net_revenue_brl": "3146.61",
+        "units": 253,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "112.38"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S01",
+        "net_revenue_brl": "3504.27",
+        "units": 277,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "125.15"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S02",
+        "net_revenue_brl": "3455.87",
+        "units": 278,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "123.42"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S03",
+        "net_revenue_brl": "2940.60",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "105.02"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S04",
+        "net_revenue_brl": "3001.72",
+        "units": 238,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "107.20"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S05",
+        "net_revenue_brl": "3491.91",
+        "units": 264,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "124.71"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S06",
+        "net_revenue_brl": "3172.16",
+        "units": 262,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.29"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S07",
+        "net_revenue_brl": "3357.08",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.90"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S08",
+        "net_revenue_brl": "3315.93",
+        "units": 266,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.43"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S09",
+        "net_revenue_brl": "2885.98",
+        "units": 240,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.07"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S10",
+        "net_revenue_brl": "3057.69",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.20"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S11",
+        "net_revenue_brl": "2599.37",
+        "units": 225,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "92.83"
+      },
+      {
+        "business_date": "2026-01-12",
+        "store_id": "S12",
+        "net_revenue_brl": "3214.27",
+        "units": 245,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.80"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S01",
+        "net_revenue_brl": "2909.30",
+        "units": 240,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.90"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S02",
+        "net_revenue_brl": "3427.86",
+        "units": 272,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.42"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S03",
+        "net_revenue_brl": "2431.40",
+        "units": 221,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "86.84"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S04",
+        "net_revenue_brl": "3371.12",
+        "units": 257,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.40"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S05",
+        "net_revenue_brl": "2853.92",
+        "units": 246,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "101.93"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S06",
+        "net_revenue_brl": "3169.17",
+        "units": 269,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.18"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S07",
+        "net_revenue_brl": "3355.97",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.86"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S08",
+        "net_revenue_brl": "3165.19",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.04"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S09",
+        "net_revenue_brl": "3264.89",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.60"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S10",
+        "net_revenue_brl": "3230.74",
+        "units": 262,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.38"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S11",
+        "net_revenue_brl": "2963.05",
+        "units": 232,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "105.82"
+      },
+      {
+        "business_date": "2026-01-13",
+        "store_id": "S12",
+        "net_revenue_brl": "3044.72",
+        "units": 253,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.74"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S01",
+        "net_revenue_brl": "2704.42",
+        "units": 231,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "96.59"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S02",
+        "net_revenue_brl": "3025.65",
+        "units": 246,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.06"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S03",
+        "net_revenue_brl": "3036.20",
+        "units": 234,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.44"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S04",
+        "net_revenue_brl": "3220.40",
+        "units": 239,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.01"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S05",
+        "net_revenue_brl": "3504.37",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "125.16"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S06",
+        "net_revenue_brl": "3134.61",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.95"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S07",
+        "net_revenue_brl": "3236.94",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.61"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S08",
+        "net_revenue_brl": "3345.21",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.47"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S09",
+        "net_revenue_brl": "3185.27",
+        "units": 250,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.76"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S10",
+        "net_revenue_brl": "3126.34",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.66"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S11",
+        "net_revenue_brl": "3246.52",
+        "units": 251,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.95"
+      },
+      {
+        "business_date": "2026-01-14",
+        "store_id": "S12",
+        "net_revenue_brl": "3075.73",
+        "units": 241,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.85"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S01",
+        "net_revenue_brl": "3232.36",
+        "units": 244,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.44"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S02",
+        "net_revenue_brl": "3429.37",
+        "units": 242,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.48"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S03",
+        "net_revenue_brl": "3183.52",
+        "units": 259,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.70"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S04",
+        "net_revenue_brl": "3245.51",
+        "units": 259,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.91"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S05",
+        "net_revenue_brl": "3108.62",
+        "units": 247,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.02"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S06",
+        "net_revenue_brl": "2734.50",
+        "units": 229,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "97.66"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S07",
+        "net_revenue_brl": "3252.72",
+        "units": 268,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.17"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S08",
+        "net_revenue_brl": "3070.28",
+        "units": 247,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.65"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S09",
+        "net_revenue_brl": "3363.16",
+        "units": 245,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.11"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S10",
+        "net_revenue_brl": "3404.26",
+        "units": 269,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.58"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S11",
+        "net_revenue_brl": "2877.26",
+        "units": 229,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "102.76"
+      },
+      {
+        "business_date": "2026-01-15",
+        "store_id": "S12",
+        "net_revenue_brl": "3207.35",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.55"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S01",
+        "net_revenue_brl": "3242.88",
+        "units": 257,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.82"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S02",
+        "net_revenue_brl": "3031.99",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.29"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S03",
+        "net_revenue_brl": "3513.76",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "125.49"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S04",
+        "net_revenue_brl": "3298.78",
+        "units": 241,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.81"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S05",
+        "net_revenue_brl": "3437.21",
+        "units": 265,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.76"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S06",
+        "net_revenue_brl": "3282.27",
+        "units": 257,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.22"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S07",
+        "net_revenue_brl": "3486.13",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "124.50"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S08",
+        "net_revenue_brl": "3067.73",
+        "units": 242,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.56"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S09",
+        "net_revenue_brl": "2913.19",
+        "units": 234,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "104.04"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S10",
+        "net_revenue_brl": "2861.15",
+        "units": 240,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "102.18"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S11",
+        "net_revenue_brl": "3200.16",
+        "units": 243,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.29"
+      },
+      {
+        "business_date": "2026-01-16",
+        "store_id": "S12",
+        "net_revenue_brl": "2993.35",
+        "units": 228,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "106.91"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S01",
+        "net_revenue_brl": "2880.11",
+        "units": 225,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "102.86"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S02",
+        "net_revenue_brl": "3432.58",
+        "units": 250,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.59"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S03",
+        "net_revenue_brl": "3564.82",
+        "units": 266,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "127.32"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S04",
+        "net_revenue_brl": "2850.75",
+        "units": 247,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "101.81"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S05",
+        "net_revenue_brl": "3279.47",
+        "units": 273,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.12"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S06",
+        "net_revenue_brl": "3224.12",
+        "units": 255,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.15"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S07",
+        "net_revenue_brl": "3259.37",
+        "units": 245,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.41"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S08",
+        "net_revenue_brl": "3555.82",
+        "units": 270,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "126.99"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S09",
+        "net_revenue_brl": "3371.63",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.42"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S10",
+        "net_revenue_brl": "3303.27",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.97"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S11",
+        "net_revenue_brl": "3679.20",
+        "units": 288,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "131.40"
+      },
+      {
+        "business_date": "2026-01-17",
+        "store_id": "S12",
+        "net_revenue_brl": "3382.37",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.80"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S01",
+        "net_revenue_brl": "3531.91",
+        "units": 273,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "126.14"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S02",
+        "net_revenue_brl": "3286.65",
+        "units": 256,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.38"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S03",
+        "net_revenue_brl": "3582.42",
+        "units": 270,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "127.94"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S04",
+        "net_revenue_brl": "3440.14",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.86"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S05",
+        "net_revenue_brl": "2989.95",
+        "units": 246,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "106.78"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S06",
+        "net_revenue_brl": "3185.56",
+        "units": 225,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.77"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S07",
+        "net_revenue_brl": "3054.71",
+        "units": 240,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.10"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S08",
+        "net_revenue_brl": "2905.17",
+        "units": 234,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "103.76"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S09",
+        "net_revenue_brl": "3263.41",
+        "units": 247,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.55"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S10",
+        "net_revenue_brl": "2826.51",
+        "units": 229,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "100.95"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S11",
+        "net_revenue_brl": "3525.65",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "125.92"
+      },
+      {
+        "business_date": "2026-01-18",
+        "store_id": "S12",
+        "net_revenue_brl": "2779.90",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "99.28"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S01",
+        "net_revenue_brl": "3112.24",
+        "units": 246,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.15"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S02",
+        "net_revenue_brl": "3325.08",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.75"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S03",
+        "net_revenue_brl": "3145.04",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "112.32"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S04",
+        "net_revenue_brl": "2852.73",
+        "units": 240,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "101.88"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S05",
+        "net_revenue_brl": "3313.52",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.34"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S06",
+        "net_revenue_brl": "2790.47",
+        "units": 238,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "99.66"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S07",
+        "net_revenue_brl": "3086.72",
+        "units": 249,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.24"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S08",
+        "net_revenue_brl": "3501.80",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "125.06"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S09",
+        "net_revenue_brl": "3468.38",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "123.87"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S10",
+        "net_revenue_brl": "2955.44",
+        "units": 239,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "105.55"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S11",
+        "net_revenue_brl": "3375.56",
+        "units": 257,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.56"
+      },
+      {
+        "business_date": "2026-01-19",
+        "store_id": "S12",
+        "net_revenue_brl": "3393.82",
+        "units": 253,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.21"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S01",
+        "net_revenue_brl": "2880.51",
+        "units": 232,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "102.88"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S02",
+        "net_revenue_brl": "3181.32",
+        "units": 256,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.62"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S03",
+        "net_revenue_brl": "2819.23",
+        "units": 234,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "100.69"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S04",
+        "net_revenue_brl": "3319.35",
+        "units": 272,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.55"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S05",
+        "net_revenue_brl": "3121.51",
+        "units": 247,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.48"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S06",
+        "net_revenue_brl": "3430.84",
+        "units": 269,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "122.53"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S07",
+        "net_revenue_brl": "3232.68",
+        "units": 236,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.45"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S08",
+        "net_revenue_brl": "3395.05",
+        "units": 268,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "121.25"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S09",
+        "net_revenue_brl": "3469.11",
+        "units": 268,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "123.90"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S10",
+        "net_revenue_brl": "2998.17",
+        "units": 244,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "107.08"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S11",
+        "net_revenue_brl": "3172.52",
+        "units": 258,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.30"
+      },
+      {
+        "business_date": "2026-01-20",
+        "store_id": "S12",
+        "net_revenue_brl": "3053.60",
+        "units": 250,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.06"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S01",
+        "net_revenue_brl": "3317.49",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.48"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S02",
+        "net_revenue_brl": "3199.55",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.27"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S03",
+        "net_revenue_brl": "3356.14",
+        "units": 267,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "119.86"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S04",
+        "net_revenue_brl": "3207.68",
+        "units": 262,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.56"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S05",
+        "net_revenue_brl": "3036.77",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.46"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S06",
+        "net_revenue_brl": "3066.45",
+        "units": 228,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.52"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S07",
+        "net_revenue_brl": "2942.69",
+        "units": 256,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "105.10"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S08",
+        "net_revenue_brl": "3192.30",
+        "units": 248,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.01"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S09",
+        "net_revenue_brl": "3473.20",
+        "units": 269,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "124.04"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S10",
+        "net_revenue_brl": "2924.36",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "104.44"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S11",
+        "net_revenue_brl": "3198.60",
+        "units": 245,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.24"
+      },
+      {
+        "business_date": "2026-01-21",
+        "store_id": "S12",
+        "net_revenue_brl": "3226.33",
+        "units": 263,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "115.23"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S01",
+        "net_revenue_brl": "3543.06",
+        "units": 282,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "126.54"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S02",
+        "net_revenue_brl": "2936.77",
+        "units": 238,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "104.88"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S03",
+        "net_revenue_brl": "3492.32",
+        "units": 262,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "124.73"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S04",
+        "net_revenue_brl": "3993.13",
+        "units": 276,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "142.61"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S05",
+        "net_revenue_brl": "3249.30",
+        "units": 256,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "116.05"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S06",
+        "net_revenue_brl": "3085.01",
+        "units": 229,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "110.18"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S07",
+        "net_revenue_brl": "2830.92",
+        "units": 237,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "101.10"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S08",
+        "net_revenue_brl": "3134.13",
+        "units": 247,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.93"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S09",
+        "net_revenue_brl": "3368.15",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "120.29"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S10",
+        "net_revenue_brl": "3200.39",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.30"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S11",
+        "net_revenue_brl": "3320.68",
+        "units": 264,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.60"
+      },
+      {
+        "business_date": "2026-01-22",
+        "store_id": "S12",
+        "net_revenue_brl": "3549.68",
+        "units": 279,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "126.77"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S01",
+        "net_revenue_brl": "3117.51",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "111.34"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S02",
+        "net_revenue_brl": "3637.32",
+        "units": 267,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "129.90"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S03",
+        "net_revenue_brl": "3139.73",
+        "units": 252,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "112.13"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S04",
+        "net_revenue_brl": "2769.87",
+        "units": 220,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "98.92"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S05",
+        "net_revenue_brl": "3288.08",
+        "units": 260,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "117.43"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S06",
+        "net_revenue_brl": "3171.36",
+        "units": 241,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "113.26"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S07",
+        "net_revenue_brl": "3075.21",
+        "units": 234,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "109.83"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S08",
+        "net_revenue_brl": "3317.94",
+        "units": 261,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "118.50"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S09",
+        "net_revenue_brl": "3214.22",
+        "units": 254,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "114.79"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S10",
+        "net_revenue_brl": "3148.00",
+        "units": 259,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "112.43"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S11",
+        "net_revenue_brl": "3025.76",
+        "units": 238,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "108.06"
+      },
+      {
+        "business_date": "2026-01-23",
+        "store_id": "S12",
+        "net_revenue_brl": "2980.10",
+        "units": 260,
+        "item_lines": 84,
+        "sales_count": 28,
+        "average_ticket_brl": "106.43"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S01",
+        "net_revenue_brl": "3233.63",
+        "units": 252,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "115.49"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S02",
+        "net_revenue_brl": "3200.89",
+        "units": 241,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "114.32"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S03",
+        "net_revenue_brl": "3123.36",
+        "units": 240,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "111.55"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S04",
+        "net_revenue_brl": "3106.75",
+        "units": 231,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "110.96"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S05",
+        "net_revenue_brl": "3460.32",
+        "units": 273,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "123.58"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S06",
+        "net_revenue_brl": "3692.31",
+        "units": 260,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "131.87"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S07",
+        "net_revenue_brl": "2889.85",
+        "units": 240,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "103.21"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S08",
+        "net_revenue_brl": "3205.45",
+        "units": 259,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "114.48"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S09",
+        "net_revenue_brl": "2937.49",
+        "units": 234,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "104.91"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S10",
+        "net_revenue_brl": "2829.70",
+        "units": 232,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "101.06"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S11",
+        "net_revenue_brl": "2771.64",
+        "units": 229,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "98.99"
+      },
+      {
+        "business_date": "2026-01-24",
+        "store_id": "S12",
+        "net_revenue_brl": "2711.22",
+        "units": 222,
+        "item_lines": 82,
+        "sales_count": 28,
+        "average_ticket_brl": "96.83"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S01",
+        "net_revenue_brl": "3080.36",
+        "units": 240,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "114.09"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S02",
+        "net_revenue_brl": "3012.19",
+        "units": 243,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "111.56"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S03",
+        "net_revenue_brl": "2904.62",
+        "units": 237,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "107.58"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S04",
+        "net_revenue_brl": "2953.54",
+        "units": 237,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "109.39"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S05",
+        "net_revenue_brl": "3157.99",
+        "units": 244,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "116.96"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S06",
+        "net_revenue_brl": "2945.53",
+        "units": 253,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "109.09"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S07",
+        "net_revenue_brl": "3254.08",
+        "units": 258,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "120.52"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S08",
+        "net_revenue_brl": "3205.37",
+        "units": 262,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "118.72"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S09",
+        "net_revenue_brl": "3004.01",
+        "units": 239,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "111.26"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S10",
+        "net_revenue_brl": "3371.34",
+        "units": 256,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "124.86"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S11",
+        "net_revenue_brl": "3209.42",
+        "units": 234,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "118.87"
+      },
+      {
+        "business_date": "2026-01-25",
+        "store_id": "S12",
+        "net_revenue_brl": "3070.94",
+        "units": 246,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "113.74"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S01",
+        "net_revenue_brl": "2948.19",
+        "units": 235,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "109.19"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S02",
+        "net_revenue_brl": "2742.19",
+        "units": 212,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "101.56"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S03",
+        "net_revenue_brl": "2960.28",
+        "units": 239,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "109.64"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S04",
+        "net_revenue_brl": "3424.67",
+        "units": 266,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "126.84"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S05",
+        "net_revenue_brl": "3015.19",
+        "units": 248,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "111.67"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S06",
+        "net_revenue_brl": "2673.26",
+        "units": 231,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "99.01"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S07",
+        "net_revenue_brl": "3241.61",
+        "units": 247,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "120.06"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S08",
+        "net_revenue_brl": "3090.77",
+        "units": 249,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "114.47"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S09",
+        "net_revenue_brl": "3398.59",
+        "units": 244,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "125.87"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S10",
+        "net_revenue_brl": "2966.09",
+        "units": 228,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "109.86"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S11",
+        "net_revenue_brl": "2907.44",
+        "units": 242,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "107.68"
+      },
+      {
+        "business_date": "2026-01-26",
+        "store_id": "S12",
+        "net_revenue_brl": "3016.45",
+        "units": 255,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "111.72"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S01",
+        "net_revenue_brl": "2876.10",
+        "units": 221,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "106.52"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S02",
+        "net_revenue_brl": "3265.36",
+        "units": 261,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "120.94"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S03",
+        "net_revenue_brl": "3174.45",
+        "units": 246,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "117.57"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S04",
+        "net_revenue_brl": "3498.62",
+        "units": 256,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "129.58"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S05",
+        "net_revenue_brl": "3223.33",
+        "units": 244,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "119.38"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S06",
+        "net_revenue_brl": "3481.05",
+        "units": 259,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "128.93"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S07",
+        "net_revenue_brl": "2776.69",
+        "units": 256,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "102.84"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S08",
+        "net_revenue_brl": "2777.16",
+        "units": 238,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "102.86"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S09",
+        "net_revenue_brl": "2979.74",
+        "units": 258,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "110.36"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S10",
+        "net_revenue_brl": "3040.98",
+        "units": 247,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "112.63"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S11",
+        "net_revenue_brl": "3234.51",
+        "units": 261,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "119.80"
+      },
+      {
+        "business_date": "2026-01-27",
+        "store_id": "S12",
+        "net_revenue_brl": "2924.35",
+        "units": 233,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "108.31"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S01",
+        "net_revenue_brl": "3346.82",
+        "units": 243,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "123.96"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S02",
+        "net_revenue_brl": "2777.42",
+        "units": 211,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "102.87"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S03",
+        "net_revenue_brl": "3060.80",
+        "units": 231,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "113.36"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S04",
+        "net_revenue_brl": "2911.19",
+        "units": 245,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "107.82"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S05",
+        "net_revenue_brl": "3100.53",
+        "units": 240,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "114.83"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S06",
+        "net_revenue_brl": "2651.93",
+        "units": 237,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "98.22"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S07",
+        "net_revenue_brl": "2848.25",
+        "units": 226,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "105.49"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S08",
+        "net_revenue_brl": "3200.68",
+        "units": 240,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "118.54"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S09",
+        "net_revenue_brl": "3201.15",
+        "units": 248,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "118.56"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S10",
+        "net_revenue_brl": "3554.74",
+        "units": 259,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "131.66"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S11",
+        "net_revenue_brl": "3041.37",
+        "units": 241,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "112.64"
+      },
+      {
+        "business_date": "2026-01-28",
+        "store_id": "S12",
+        "net_revenue_brl": "3147.24",
+        "units": 244,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "116.56"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S01",
+        "net_revenue_brl": "3146.68",
+        "units": 237,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "116.54"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S02",
+        "net_revenue_brl": "3211.16",
+        "units": 223,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "118.93"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S03",
+        "net_revenue_brl": "3114.68",
+        "units": 232,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "115.36"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S04",
+        "net_revenue_brl": "3018.23",
+        "units": 252,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "111.79"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S05",
+        "net_revenue_brl": "3014.82",
+        "units": 230,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "111.66"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S06",
+        "net_revenue_brl": "3043.48",
+        "units": 248,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "112.72"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S07",
+        "net_revenue_brl": "3147.31",
+        "units": 253,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "116.57"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S08",
+        "net_revenue_brl": "3407.85",
+        "units": 261,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "126.22"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S09",
+        "net_revenue_brl": "3719.65",
+        "units": 271,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "137.76"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S10",
+        "net_revenue_brl": "2952.95",
+        "units": 242,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "109.37"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S11",
+        "net_revenue_brl": "3386.47",
+        "units": 265,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "125.42"
+      },
+      {
+        "business_date": "2026-01-29",
+        "store_id": "S12",
+        "net_revenue_brl": "3392.16",
+        "units": 254,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "125.64"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S01",
+        "net_revenue_brl": "3126.70",
+        "units": 242,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "115.80"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S02",
+        "net_revenue_brl": "2853.70",
+        "units": 236,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "105.69"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S03",
+        "net_revenue_brl": "3429.29",
+        "units": 262,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "127.01"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S04",
+        "net_revenue_brl": "3242.74",
+        "units": 248,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "120.10"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S05",
+        "net_revenue_brl": "3141.96",
+        "units": 259,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "116.37"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S06",
+        "net_revenue_brl": "3307.72",
+        "units": 250,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "122.51"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S07",
+        "net_revenue_brl": "3460.10",
+        "units": 250,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "128.15"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S08",
+        "net_revenue_brl": "2869.28",
+        "units": 237,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "106.27"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S09",
+        "net_revenue_brl": "3223.59",
+        "units": 254,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "119.39"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S10",
+        "net_revenue_brl": "3173.01",
+        "units": 247,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "117.52"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S11",
+        "net_revenue_brl": "3049.41",
+        "units": 241,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "112.94"
+      },
+      {
+        "business_date": "2026-01-30",
+        "store_id": "S12",
+        "net_revenue_brl": "3032.88",
+        "units": 239,
+        "item_lines": 81,
+        "sales_count": 27,
+        "average_ticket_brl": "112.33"
+      }
+    ],
+    "products": [
+      {
+        "product_id": "P11",
+        "units": 7919,
+        "net_revenue_brl": "148577.43"
+      },
+      {
+        "product_id": "P07",
+        "units": 7803,
+        "net_revenue_brl": "103582.85"
+      },
+      {
+        "product_id": "P12",
+        "units": 7791,
+        "net_revenue_brl": "156998.13"
+      },
+      {
+        "product_id": "P09",
+        "units": 7581,
+        "net_revenue_brl": "121437.03"
+      },
+      {
+        "product_id": "P10",
+        "units": 7573,
+        "net_revenue_brl": "131782.56"
+      },
+      {
+        "product_id": "P02",
+        "units": 7541,
+        "net_revenue_brl": "48607.23"
+      },
+      {
+        "product_id": "P05",
+        "units": 7449,
+        "net_revenue_brl": "78514.72"
+      },
+      {
+        "product_id": "P01",
+        "units": 7424,
+        "net_revenue_brl": "37558.36"
+      },
+      {
+        "product_id": "P08",
+        "units": 7314,
+        "net_revenue_brl": "107279.97"
+      },
+      {
+        "product_id": "P03",
+        "units": 7286,
+        "net_revenue_brl": "56954.42"
+      },
+      {
+        "product_id": "P06",
+        "units": 7248,
+        "net_revenue_brl": "86550.26"
+      },
+      {
+        "product_id": "P04",
+        "units": 6974,
+        "net_revenue_brl": "64015.55"
+      }
+    ],
+    "daily_truncated": false,
+    "stores_truncated": false,
+    "products_truncated": false
+  },
+  "selection": "Manifesto e registros presentes no volume histórico no momento da captura.",
+  "read_runtime": {
+    "spark": "4.2.0"
+  }
+}

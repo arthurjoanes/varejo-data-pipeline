@@ -1,9 +1,8 @@
 {
   "schema_version": 1,
-  "status": "INTEGRATED_SCAN_AND_SUITE_PASSED_PRE_UI",
-  "updated_at_utc": "2026-09-22T04:11:12.448370+00:00",
+  "status": "LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
+  "updated_at_utc": "2026-09-22T04:21:18.767602+00:00",
   "base_commit": "60e0ff335efe6b119cac238aef9ffa8df69c035c",
-  "candidate_commit": null,
   "original_triage_image_id": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
   "method": "Mapeamento individual dos 18 achados originais para código e versões presentes nos JARs reconstruídos, hashes, proveniência, provas de componente e scan da imagem integrada. Não é reprodução de todos os CVEs.",
   "scope": "Produto original: batch local Spark/Delta. Remoção Jetty 9 não certifica funcionalidades Hadoop de servidor/Hive/Connect fora desse escopo. A suíte completa aprovada corresponde ao snapshot anterior à integração de UI 899c9f3, identificado na evidência publicada.",
@@ -238,7 +237,7 @@
         "https://github.com/FasterXML/jackson-core/security/advisories/GHSA-r7wm-3cxj-wff9"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -278,7 +277,7 @@
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-j3rv-43j4-c7qm"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -319,7 +318,7 @@
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-rmj7-2vxq-3g9f"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -359,7 +358,7 @@
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-hgj6-7826-r7m5"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -399,7 +398,7 @@
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-5jmj-h7xm-6q6v"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -440,7 +439,7 @@
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-3pjw-73gf-8qr5"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -480,7 +479,7 @@
         "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-5gvw-p9qm-jgwh"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -522,7 +521,7 @@
         "https://github.com/FasterXML/jackson/wiki/Jackson-Release-2.18.9"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -562,7 +561,7 @@
         "https://github.com/apache/commons-lang/commit/904afa78cc58e2897f47eeac0781c3ba6f95b5e6"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "official_patch_commit": "904afa78cc58e2897f47eeac0781c3ba6f95b5e6",
       "changed_class_sha256": "0c86237834fe82ad21d411fdd0a73570a0a4980d2e621b11cc8ef8095f98b159",
       "scanner_disposition": "Manter o MEDIUM visível. Evidência de backport por hash/proveniência/regressão; não alterar versão, metadados, base de CVEs ou allowlist para produzir zero.",
@@ -606,7 +605,7 @@
         "https://raw.githubusercontent.com/apache/commons-configuration/rel/commons-configuration-2.15.1/src/main/java/org/apache/commons/configuration2/AbstractYAMLBasedConfiguration.java"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -638,7 +637,7 @@
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-355h-qmc2-wpwf"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "whole_components_excluded": [
         "org.eclipse.jetty:*",
         "org.eclipse.jetty.websocket:*"
@@ -675,7 +674,7 @@
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-qh8g-58pp-2wxh"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "whole_components_excluded": [
         "org.eclipse.jetty:*",
         "org.eclipse.jetty.websocket:*"
@@ -722,7 +721,7 @@
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-2fvj-hgj9-j2gr"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -763,7 +762,7 @@
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-f4v5-65jj-pcr2"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -805,7 +804,7 @@
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-7p3p-8qv8-m2vh"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -846,7 +845,7 @@
         "https://github.com/jetty/jetty.project/security/advisories/GHSA-w7x5-g22v-xqhr"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -888,7 +887,7 @@
         "https://github.com/jline/jline3/security/advisories/GHSA-47qp-hqvx-6r3f"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     },
     {
@@ -930,7 +929,7 @@
         "https://github.com/jline/jline3/security/advisories/GHSA-2r2c-cx56-8933"
       ],
       "pipeline_integration_status": "PASSED_PRE_UI_SOURCE",
-      "release_closure": "COMPONENT_AND_CURRENT_IMAGE_VALIDATED_POST_UI_CHECKS_PENDING",
+      "release_closure": "COMPONENT_AND_LOCAL_INTEGRATION_VALIDATED_REMOTE_CI_PENDING",
       "container_jar_base_maven_coordinates_preserved": true
     }
   ],
@@ -1023,22 +1022,40 @@
     "Evidências marcadas published=false são artefatos locais não publicados. Referências públicas usam arquivos versionados; este documento não registra hash de si próprio."
   ],
   "remaining_release_gates": [
-    "Integração do commit de UI e revisão das fontes resultantes.",
-    "Unitários sobre a fonte após a integração.",
-    "Demo e migração sobre o estado integrado.",
-    "CI integral do commit final.",
-    "Vincular a documentação ao commit final revisado."
+    "CI integral do commit publicado; acompanhar o workflow sem atribuir antecipadamente aprovação."
   ],
   "reference_base": "Caminhos relativos em evidence_files partem de docs/evidence/. Caminhos META-INF são entradas internas dos JARs.",
   "post_ui_validation": {
-    "status": "PENDING",
-    "ui_commit_to_integrate": "899c9f368aab100f0f41c1327161992149cfd2a3",
-    "gates": [
-      "Integração do commit de UI e revisão das fontes resultantes.",
-      "Unitários sobre a fonte após a integração.",
-      "Demo e migração sobre o estado integrado.",
-      "CI integral do commit final."
-    ],
-    "note": "Essa etapa é posterior à evidência de 188 testes e ainda não tem resultado neste registro."
-  }
+    "status": "LOCAL_VALIDATION_PASSED_REMOTE_CI_PENDING",
+    "interface_commit": "899c9f368aab100f0f41c1327161992149cfd2a3",
+    "source": "jvm-rebuild-source-after-interface.json",
+    "unit_tests": {
+      "passed": 182,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.314,
+      "junit": "jvm-rebuild-post-interface-unit.xml"
+    },
+    "static_checks": {
+      "ruff": "passed",
+      "formatted_python_files": 46,
+      "mypy_source_modules": 16
+    },
+    "demo": {
+      "status": "passed",
+      "steps": 8,
+      "seconds": 151.742,
+      "evidence": "jvm-rebuild-demo.json"
+    },
+    "migration": {
+      "status": "passed",
+      "seed_image": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
+      "resume_image": "sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3",
+      "seed": "jvm-rebuild-migration-seed.json",
+      "resume": "jvm-rebuild-migration-resume.json"
+    },
+    "note": "Mesma imagem de dependências JVM; código/testes da interface incorporada montados somente leitura. Não transfere o resultado de 188 testes para a fonte nova; o CI repete a suíte integral do commit publicado."
+  },
+  "security_implementation_commit": "c7179fdb72e53e6031713cc9ef958095e5a183b9"
 }

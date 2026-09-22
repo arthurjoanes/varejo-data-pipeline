@@ -21,11 +21,18 @@
     "network_mode": "none",
     "read_only_rootfs": true,
     "read_only_application_bind": true,
-    "writable_locations": ["/data", "/app/artifacts"],
+    "writable_locations": [
+      "/data",
+      "/app/artifacts"
+    ],
     "memory_bytes": 3221225472,
     "cpus": 2,
-    "cap_drop": ["ALL"],
-    "cap_add": ["DAC_OVERRIDE"],
+    "cap_drop": [
+      "ALL"
+    ],
+    "cap_add": [
+      "DAC_OVERRIDE"
+    ],
     "no_new_privileges": true,
     "data_volume": "isolated disposable proof volume; no existing operator state used"
   },
@@ -59,7 +66,39 @@
     "A suíte upstream Commons Lang completa mantém 29 problemas no Java 17, também presentes no original além da regressão corrigida. Os 44 testes de ClassUtils passam; não se declara a suíte upstream completa aprovada.",
     "Não certifica funcionalidades Hadoop HTTP, Hive ou Spark Connect fora do batch original, nem tabelas/configurações de terceiros.",
     "Scan é um snapshot das bases públicas e não prova ausência de vulnerabilidades desconhecidas.",
-    "A interface publicada durante a execução ainda precisa ser incorporada e verificada; seus testes serão registrados separadamente."
+    "A suíte completa local precedeu a integração da interface. Unitários, demo e migração foram repetidos depois; o CI integral é uma evidência separada do commit publicado."
   ],
-  "post_interface_validation": {"status": "pending"}
+  "post_interface_validation": {
+    "status": "LOCAL_VALIDATION_PASSED_REMOTE_CI_PENDING",
+    "interface_commit": "899c9f368aab100f0f41c1327161992149cfd2a3",
+    "source": "jvm-rebuild-source-after-interface.json",
+    "unit_tests": {
+      "passed": 182,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.314,
+      "junit": "jvm-rebuild-post-interface-unit.xml"
+    },
+    "static_checks": {
+      "ruff": "passed",
+      "formatted_python_files": 46,
+      "mypy_source_modules": 16
+    },
+    "demo": {
+      "status": "passed",
+      "steps": 8,
+      "seconds": 151.742,
+      "evidence": "jvm-rebuild-demo.json"
+    },
+    "migration": {
+      "status": "passed",
+      "seed_image": "sha256:91f08a83dbb70a119a271e524e187d1b5e688e3565781d42f4fc79b1fd105419",
+      "resume_image": "sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3",
+      "seed": "jvm-rebuild-migration-seed.json",
+      "resume": "jvm-rebuild-migration-resume.json"
+    },
+    "note": "Mesma imagem de dependências JVM; código/testes da interface incorporada montados somente leitura. Não transfere o resultado de 188 testes para a fonte nova; o CI repete a suíte integral do commit publicado."
+  },
+  "security_implementation_commit": "c7179fdb72e53e6031713cc9ef958095e5a183b9"
 }

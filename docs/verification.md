@@ -2,7 +2,40 @@
 
 Arquivos em artifacts são gerados localmente e não são pré-requisitos do clone. O comando `scripts/verify_problem.py` grava os resultados em `artifacts/`; passos em [demo.md](demo.md).
 
-## Revisão de segurança em 22/09/2026 (UTC)
+## Reconstruções JVM em 22/09/2026 (UTC)
+
+Spark core, Hadoop runtime e Commons Lang têm builds identificados, com fontes e ferramentas fixadas, proveniência e hashes. O scan da imagem combinada registra **zero HIGH/CRITICAL e um MEDIUM**, mantido por versão no Commons Lang com backport. [Decisões, receitas e limites](runtime-upgrade.md) · [tratamento individual dos 18 achados anteriores](evidence/security-triage.json).
+
+| Verificação | Resultado |
+| --- | --- |
+| Suíte completa antes de incorporar a interface | 188 aprovados: 173 unitários e 15 integrações; zero falhas/erros/pulados, 1.003,963 s. A fonte permaneceu inalterada. [JUnit](evidence/jvm-rebuild-tests.xml) · [resultado e hashes](evidence/jvm-rebuild-full-suite.json). |
+| Fonte combinada com a interface publicada | Incorporado o commit `899c9f3`. Os 182 unitários passaram; Ruff, formato de 46 arquivos Python e mypy nos 16 módulos passaram. [JUnit](evidence/jvm-rebuild-post-interface-unit.xml). |
+| Demo na fonte combinada | Oito passos e totais 64 → 64 → 64 → 64 → 77 → 57 → 57 → 77 aprovados, incluindo bloqueio, falha intencional e recuperação, em 151,742 s. [Resultado](evidence/jvm-rebuild-demo.json). |
+| Migração da imagem anterior para os rebuilds | A imagem `91f08a83dbb7…` criou R$ 64,00 em volume novo. A imagem `3cc3b95c1985…`, já com a fonte da interface incorporada, leu esse estado, respondeu `NO_CHANGE` ao reenvio e publicou R$ 77,00. A versão anterior continuou em R$ 64,00 e o HTML foi gerado. Ambas usam Spark 4.2.0/Delta 4.4.0; esta prova verifica a troca dos componentes JVM. [Seed](evidence/jvm-rebuild-migration-seed.json) · [retomada](evidence/jvm-rebuild-migration-resume.json). |
+| Scan integral | 52 pacotes Alpine e 28 Python sem achados; 441 pacotes JVM, com CVE-2025-48924/MEDIUM. Sem exclusões de achados ou filtros de severidade; o gate reprova qualquer HIGH/CRITICAL. [Relatório bruto](evidence/security-scan.json). |
+
+O runtime verificado é a imagem `sha256:3cc3b95c1985397f1a3601a1c66531180ba0b8ef8738e5901dd400e805c719f3`; os testes usam a fonte do checkout montada somente leitura, rede desabilitada, 2 CPUs e 3 GiB. A suíte de 188 precedeu a interface incorporada posteriormente: os testes unitários, a demo e a migração da fonte combinada são registrados separadamente, sem somar execuções como casos distintos. O CI repetirá a suíte integral no commit publicado. [Registro consolidado](evidence/jvm-rebuild.json) · [fontes e materiais da suíte inicial](evidence/jvm-rebuild-source-before-interface.json) · [fontes depois da interface](evidence/jvm-rebuild-source-after-interface.json).
+
+Os testes de componentes não equivalem a executar todas as suítes upstream. Em especial, os 44 casos de `ClassUtils` passaram, mas a suíte histórica completa de Commons Lang mantém 29 problemas de compatibilidade/expectativas no Java 17. A matriz distingue regressões com controle negativo, verificações de compatibilidade, atualização de versão e remoção integral. As receitas reproduziram os hashes dos três JARs; não há promessa de imagem inteira idêntica byte a byte.
+
+## Interface do fechamento em 22/09/2026 (UTC)
+
+A interface separa Execução, Indicadores e Arquivos. A publicação vigente continua visível ao consultar uma tentativa bloqueada ou com falha. Etapas mostram somente medições existentes; contadores indisponíveis não viram zero. O código de captura e replay permite repetir esta revisão sem executar novos lotes. [Comportamento e reprodução](interface.md).
+
+| Verificação | Resultado |
+| --- | --- |
+| Unitários na fonte da interface | 160 aprovados, zero falhas/pulados. [JUnit](evidence/interface/unit.xml). |
+| Ruff, formato e mypy | Aprovados; 37 arquivos Python formatados e 16 módulos de aplicação verificados. |
+| Dados das capturas | Cinco payloads relidos com Spark 4.2.0, por versão Delta, de um volume histórico somente leitura. Demo pequena: R$ 64,00 no bloqueio, R$ 57,00 na falha e R$ 77,00 após recuperação. Volume: R$ 1.141.858,51, 10.008 vendas e 89.903 unidades. Nenhum lote ou benchmark reexecutado. [Payloads e proveniência](evidence/interface/payloads). |
+| Edge / Playwright | 14 capturas; três vistas em 1440, 1366, 768, 390 e 320 CSS px sem rolagem horizontal da página. Gráfico com 30 valores diários equivalentes e 360 linhas loja/dia conservadas. [Registro](evidence/interface/visual-review.json). |
+| Navegação e estados | Teclado, foco, histórico, âncoras de IDs, detalhes nativos, cópia exata e fallback, leitura sem JavaScript, bloqueio/falha com publicação anterior, vazio, execução sem resultado final e auditoria incompleta. O link de salto conserva Indicadores/Arquivos, foca o conteúdo e mantém essa vista ao voltar/avançar. Estados artificiais são identificados em [interface.md](interface.md). |
+| Ampliação e conteúdo longo | Três vistas com ampliação CSS de 200% e com viewport equivalente de 683 CSS px / DPR 2; IDs, código de ocorrência e texto longo a 320 px. Não houve teste de zoom nativo do navegador nem auditoria com leitor de tela. |
+
+As capturas usam publicações da demonstração histórica de 21/09, originalmente processadas em Spark 3.5.9/Delta 3.2.1. O runtime atual apenas releu suas versões. Nos estados intermediários de bloqueio/falha, a apresentação foi reconstituída a partir do manifesto imutável e da tentativa registrada, sem modificar o ponteiro no volume. Os payloads registram o hash da evidência de origem e o modo de seleção. Testes de captura não substituem a suíte de integração do runtime descrita abaixo.
+
+Os [hashes da fonte verificada](evidence/interface/source.json) identificam os arquivos desta revisão. As imagens antigas continuam nos diretórios históricos; as novas estão em [images/interface](images/interface).
+
+## Revisão anterior de segurança em 22/09/2026 (UTC)
 
 Spark 4.2.0/Delta 4.4.0, com 45 JARs substituídos integralmente, 22 componentes opcionais removidos e limites de entrada. [Registro consolidado](evidence/remediation.json).
 
@@ -18,7 +51,7 @@ Spark 4.2.0/Delta 4.4.0, com 45 JARs substituídos integralmente, 22 componentes
 
 A suíte completa, a demo e o benchmark usaram a imagem `bfef20f37677…`; o ajuste posterior foi incorporado à imagem final `91f08a83dbb7…`, novamente inventariada e escaneada. As identidades completas e os SHA-256 do código estão nos registros de [fonte da suíte completa](evidence/remediation-full-suite-source.json) e [fonte final](evidence/remediation-source.json). Os 16 módulos da fonte final correspondem byte a byte aos arquivos da imagem final. Os testes usaram o código/testes do bind do checkout; a integração manteve esse bind somente leitura, rede desabilitada e os limites do Compose. [Isolamento observado na suíte](evidence/remediation-full-suite-isolation.json).
 
-Os registros distinguem SHA-256 dos arquivos locais e OIDs dos blobs Git após normalização por `.gitattributes`. Parte do checkout Windows tinha CRLF; o conteúdo publicado usa LF. Portanto, o hash local não é apresentado como hash dos bytes do clone público. As capturas de tela abaixo continuam pertencendo à execução histórica, sem nova validação visual nesta revisão.
+Os registros distinguem SHA-256 dos arquivos locais e OIDs dos blobs Git após normalização por `.gitattributes`. Parte do checkout Windows tinha CRLF; o conteúdo publicado usa LF. Portanto, o hash local não é apresentado como hash dos bytes do clone público. Esta revisão do runtime não refez capturas; a revisão posterior da interface está descrita acima.
 
 ## Evidência histórica de publicação em 21/09/2026
 
@@ -87,10 +120,16 @@ O HTML não depende de Node. Para repetir apenas as capturas, instale Playwright
 npm install --prefix .visual-tools --no-save --package-lock=false playwright@1.63.0
 .\.visual-tools\node_modules\.bin\playwright.cmd install chromium
 $env:NODE_PATH = (Join-Path (Get-Location) '.visual-tools/node_modules')
+~~~
+
+Antes do script de navegador, gere os HTMLs por replay dos payloads versionados:
+
+~~~powershell
+docker compose run --rm --entrypoint python pipeline scripts/render_review.py
 node scripts/visual-review.cjs
 ~~~
 
-Execute primeiro demo e benchmark. O script verifica largura de página em 1440, 1366, 768, 390 e 320 CSS px, foco de âncoras, expansão por teclado, 30 totais diários equivalentes ao gráfico e 360 linhas loja/dia preservadas em detalhe. Também mede corpo de 16 px, navegação de 15 px e células de dados de 14 px; valida ausência de semântica falsa de tabs. A cópia é testada com Clipboard API interceptada e fallback indisponível, sem escrever no clipboard real. Uma sessão sem JavaScript verifica leitura e expansão nativa. As capturas ficam em docs/images/round-2 e as medições em docs/evidence/round-2. O próprio comando demo também produz quality-review.html com uma tentativa real inválida sem publicação anterior.
+Não é necessário repetir a demo nem o benchmark. O script verifica três vistas em 1440, 1366, 768, 390 e 320 CSS px, foco e histórico de âncoras, expansão por teclado, 30 totais diários equivalentes ao gráfico e 360 linhas loja/dia em detalhe. A cópia é testada com Clipboard API interceptada e fallback indisponível, sem escrever no clipboard real. Uma sessão sem JavaScript verifica leitura e expansão nativa. As capturas ficam em `docs/images/interface` e as medições em `docs/evidence/interface`. O registro distingue ampliação CSS, viewport equivalente e as limitações de acessibilidade.
 
 ## Limites
 
