@@ -1,0 +1,81 @@
+{
+  "reviewed_at": "2026-09-22T05:51:01.095238+00:00",
+  "baseline_commit": "7f1b4b1124d6ca69714c60b03ac46f5020a1545a",
+  "scope": "Presentation only. Existing historical JSONs replayed offline; no new Spark batch, operational Docker stack, build, restore, release or benchmark.",
+  "source_sha256": {
+    "src/retail_pipeline/report_view.py": "48bf45c1dc61752d05fa66badde357b3c883f7f3188587fc634aa83107733899",
+    "src/retail_pipeline/report.css": "24a8c185d750012ce809065fbfc6112321fdb11663a494f2325dcd1a141f3373",
+    "src/retail_pipeline/report.js": "b2afab9b51b88725cb1ecdcf713d763a9ecc5b901da52f4a2d6f53e1898246f4",
+    "scripts/render_review.py": "aa8072eb311707f98b2619fa0a36b9a64a18f49e8e36be6aba27ba74a27c75a7",
+    "scripts/visual-review.cjs": "26016cfd94faeedf1d1e8b18a056080b89f688ad4315a6eafa8cdfa53cbc2652",
+    "tests/unit/test_reporting.py": "db5ad5386caca4d816c98a62fc49ab9af0eadb3666a786be00e65a38d8543ea8"
+  },
+  "historical_inputs_sha256": {
+    "docs/evidence/interface/payloads/blocked-report.json": "0d68964b7b94aabd4e40c2bba7af63042bdb55d7b0d6447e846a58dfef1de2d6",
+    "docs/evidence/interface/payloads/demo30k-report.json": "c2338aff91ed498c6e72496e6d3b4c3a8af6034369328ba3733c51d31ed912bb",
+    "docs/evidence/interface/payloads/failure-report.json": "59bfb9a4d8782468871fbb812d1a785fe23ab63716e99d9e34a75d7d1dca927e",
+    "docs/evidence/interface/payloads/quality-review.json": "c3c07e46ca9d1e1f44087e556c7490f57acdcf2f4fda8cb5e18933364f1758ef",
+    "docs/evidence/interface/payloads/report.json": "6c2867579c88fdf76650ecc4ed70feae2cfd295f2ea0c3fc13fbcc789fa32dca"
+  },
+  "tracked_historical_evidence_diff": [],
+  "screenshots_sha256": {
+    "docs/images/interface-v2/audit.png": "2e24993be5da5779608f6d89d260aabc4accb6a21562d0607bfb914333d62551",
+    "docs/images/interface-v2/blocked-expanded-1366.png": "67265f16248e2d4e7cbeaa333c26a4e25cd8c50641996c039d9e4115ef58bd22",
+    "docs/images/interface-v2/blocked-expanded-320.png": "a57e23165c9134c5efba56201338c8c5463aa9f6ad87570b73e31bd94c4cf228",
+    "docs/images/interface-v2/blocked-expanded-390.png": "f2514879ba4e1a25fb11817bdc0821559ae5dfe8d444bdf83b219aeb53961d06",
+    "docs/images/interface-v2/blocked-expanded-768.png": "ba5798e1f929c14feb73c69311cf87dc9a3f70e3885fd37b077589603248c9bc",
+    "docs/images/interface-v2/blocked.png": "2fa9adb1e68c38cf45c2010c17e5866cc095b09de19937ab16e9c0b45889744a",
+    "docs/images/interface-v2/empty.png": "a0bd3bd4f8e9bd719fae5cec4725ffdbc65f7bbac77bbd8f8677b27d9a4f6dd7",
+    "docs/images/interface-v2/failure.png": "28efa55991ab2fa179496ce31e8505a395fd3efe677d14496f42e8c0d243a981",
+    "docs/images/interface-v2/files.png": "3348671d8fc6465534400609955557f7f5b72a420769617304e52684fd18698b",
+    "docs/images/interface-v2/indicators.png": "a1a5c2f46611d4289072e1677547c9c55355ebd437ca94af905e2e7a7bc0908a",
+    "docs/images/interface-v2/long-files-320.png": "0e8d4904d818efb3658df0597fac4d50a7da5877a5abe436fe029b67a1da1955",
+    "docs/images/interface-v2/print-preview.png": "0639984a577e7b7d2d4f5bfdd615da1c35367167b86ec546c09bd0e970dd18eb",
+    "docs/images/interface-v2/quality-mobile.png": "d0338d0e652d83b7819be7200e6dbd8391f3773c710ec4227b715b52f3dba2f2",
+    "docs/images/interface-v2/recovered.png": "edcdff9b211762db341e14a2b2c6764ea41639ae63c81110031c292dfe23bde8",
+    "docs/images/interface-v2/report-1366.png": "d0de4a0535a287e5003ef048c830d3e6e31347a5b31991e04ee03e2e4c967cea",
+    "docs/images/interface-v2/report-320.png": "f57496a9ae7aeea68688d75121cf56ea32e8030627bc6f8652242c078c5317c7",
+    "docs/images/interface-v2/report-390.png": "13b38440bd806f09743cdaf98e3376f216801a9934aafd0c0886aadb9889ac92",
+    "docs/images/interface-v2/report-768.png": "fd8795b9ebceb4b379e987193f57b483200437978c82fc3f6371a97101e768a5",
+    "docs/images/interface-v2/report.png": "ac76a342aaffd11674153aeda3b9060b5d0b5d61a1b409e9c4914a152659c5f9",
+    "docs/images/interface-v2/running.png": "2a7fe68b1a529ab81df15e03e5b73ed16d47f39d054ecbc6c802f80d8819c9ac"
+  },
+  "tests": {
+    "report_cases_passed": 38,
+    "test_record": "reporting-tests.xml",
+    "test_record_sha256": "a21ae11956be36af9a097a078a01f554076a34106a5f27e9446feb2b49a0bd75",
+    "browser_record": "visual-review.json",
+    "browser_record_sha256": "03608937fe8543fa1dea983edda6569abb0a91fe05a364d5f407a6549919fedd",
+    "ruff": "passed",
+    "format": "passed",
+    "javascript_syntax": "passed",
+    "mypy": "passed: src/retail_pipeline/report_view.py"
+  },
+  "limits": [
+    "CSS 200% magnification is not native browser zoom.",
+    "No screen-reader audit or complete accessibility certification.",
+    "Print media exposes all panels and disclosure content; complete PDF pagination was not audited.",
+    "Historical operation/test/build evidence retains its original scope and source revision."
+  ],
+  "hash_method": {
+    "source_sha256": "Exact worktree bytes used for this review. Original hashes preserved.",
+    "historical_inputs_sha256": "Exact local input bytes, preserved unchanged.",
+    "screenshots_sha256": "Exact PNG bytes.",
+    "text_sha256_lf": "CRLF replaced by LF only; supplied for comparison with Git-normalized text in a clone."
+  },
+  "text_sha256_lf": {
+    "src/retail_pipeline/report_view.py": "d56f080a31469d393193bfc2eaaca9857a9b8bec5a2239e9d9a4dea3cf468942",
+    "src/retail_pipeline/report.css": "36c3b65da4ec50b6144ebb619f325b08e5fe7b9f0eaa8ab7c70f4188ae1676fe",
+    "src/retail_pipeline/report.js": "333b42a324bd554b814a1407d664ff13b1c0977f391ac44680ca1231e909dec5",
+    "scripts/render_review.py": "aa8072eb311707f98b2619fa0a36b9a64a18f49e8e36be6aba27ba74a27c75a7",
+    "scripts/visual-review.cjs": "92d5526d4182e368d54d0219ba0549e5d1de3d9a44d6659c16073b69c96fdaed",
+    "tests/unit/test_reporting.py": "331a22a1a84a85bc6bdf16070c0c3e75d45bffba5342e890ca7b375cdf7d3060",
+    "docs/evidence/interface/payloads/blocked-report.json": "e6084c76f8d62d2769b126d9ad7e95fc4d174c1af56955511078fcb2e67ea96b",
+    "docs/evidence/interface/payloads/demo30k-report.json": "d909e35f5be749371e205c823950b83b3221261c76c4583ed782c417d597cad2",
+    "docs/evidence/interface/payloads/failure-report.json": "6fe2816fe9fac8ec6f01c240640c31ef516203e411fc28fc15658416ccb65868",
+    "docs/evidence/interface/payloads/quality-review.json": "374f9cf1b0ba98374cc9b3b882ddde29d1cd42614b3c3c9ca3941b2eca1c3133",
+    "docs/evidence/interface/payloads/report.json": "762a3b0f6da63e3a665d50fab9e451aed200b2b5503f79440268b4ba35d91e24",
+    "docs/evidence/interface-v2/reporting-tests.xml": "a21ae11956be36af9a097a078a01f554076a34106a5f27e9446feb2b49a0bd75",
+    "docs/evidence/interface-v2/visual-review.json": "03608937fe8543fa1dea983edda6569abb0a91fe05a364d5f407a6549919fedd"
+  }
+}

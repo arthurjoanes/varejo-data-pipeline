@@ -2,7 +2,7 @@
 
 Valide a entrega das lojas e as revisões de vendas antes de publicar o fechamento. O relatório mostra a tentativa mais recente, a publicação vigente e as ocorrências que explicam o resultado. A demonstração usa dados sintéticos.
 
-![Fechamento bloqueado por loja ausente, com a publicação anterior preservada](docs/images/interface/blocked.png)
+![Fechamento bloqueado por loja ausente, com a publicação anterior preservada](docs/images/interface-v2/blocked.png)
 
 Uma soma correta pode esconder uma loja faltando ou contar a mesma venda em dois dias. O operador aprova o calendário de lojas esperadas; o pipeline confere a entrega e as revisões antes de fechar. Um bloqueio ou uma falha antes da publicação mantém os indicadores anteriores. [Problema e solução](docs/problem-solution.md).
 
@@ -35,7 +35,7 @@ Abra [o relatório local](http://localhost:3103/report.html). No Linux, substitu
 
 O HTML é uma leitura dos dados capturados na geração, sem atualização automática. Abre também como arquivo local e mantém o conteúdo acessível sem JavaScript.
 
-- **Execução:** resultado da última tentativa, etapas medidas, cobertura e ocorrências com contexto.
+- **Execução:** decisão da última tentativa, arquivo ou regra que exige atenção e caminho para conferir a pendência. Cobertura, contadores e registro técnico ficam nos detalhes. Etapas mostram somente tempos medidos.
 - **Indicadores:** receita, vendas, unidades, ticket e recortes por dia, produto e loja. Os números pertencem à publicação identificada no topo.
 - **Arquivos:** IDs completos, versões Delta, fontes bronze e hashes das referências aprovadas.
 

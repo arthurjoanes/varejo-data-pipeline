@@ -1,0 +1,392 @@
+[
+  {
+    "file": "README.md",
+    "target": "docs/images/interface-v2/blocked.png",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/problem-solution.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/problem-solution.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/demo.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/interface.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/decisoes-tecnicas.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/data-contract.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/architecture.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/verification.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "src/retail_pipeline/pipeline.py",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/decisoes-tecnicas.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/fabric-mapping.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/security.md",
+    "exists": true
+  },
+  {
+    "file": "README.md",
+    "target": "docs/runtime-upgrade.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "demo.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "runtime-upgrade.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/security-triage.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/jvm-rebuild-tests.xml",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/jvm-rebuild-full-suite.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/jvm-rebuild-post-interface-unit.xml",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/jvm-rebuild-demo.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/jvm-rebuild-migration-seed.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/jvm-rebuild-migration-resume.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/security-scan.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/jvm-rebuild.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/jvm-rebuild-source-before-interface.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/jvm-rebuild-source-after-interface.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/interface-journeys/review.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "interface.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "interface.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/interface/unit.xml",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/interface/payloads",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/interface/visual-review.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "interface.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/interface/source.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "images/interface",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/remediation.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/remediation-tests.xml",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/remediation-final-unit.xml",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/remediation-final-focused.xml",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/remediation-demo.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/runtime-migration.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/remediation-benchmark.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "security.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/remediation-full-suite-source.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/remediation-source.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/remediation-full-suite-isolation.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/publication.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/publication-tests.xml",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/benchmark.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "security.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "../runtime-jars.lock.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "runtime-upgrade.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/dependencies.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "security.md",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/interface-v2/reporting-tests.xml",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/interface-v2/visual-review.json",
+    "exists": true
+  },
+  {
+    "file": "docs/verification.md",
+    "target": "evidence/interface-v2/review-manifest.json",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "evidence/round-2/demo.json",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "evidence/benchmark.json",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "evidence/interface/payloads",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "verification.md",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface-v2/report.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface-v2/blocked.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface-v2/indicators.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface-v2/files.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface-v2/report-390.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "evidence/interface-journeys/review.json",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface/journey-blocked-390.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface/journey-recovered-indicators.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface/journey-published-files.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "evidence/interface-v2/visual-review.json",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface-v2/blocked-expanded-1366.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface-v2/blocked-expanded-390.png",
+    "exists": true
+  },
+  {
+    "file": "docs/interface.md",
+    "target": "images/interface-v2/quality-mobile.png",
+    "exists": true
+  },
+  {
+    "file": "docs/evidence/interface-v2/README.md",
+    "target": "review-manifest.json",
+    "exists": true
+  },
+  {
+    "file": "docs/evidence/interface-v2/README.md",
+    "target": "visual-review.json",
+    "exists": true
+  },
+  {
+    "file": "docs/evidence/interface-v2/README.md",
+    "target": "reporting-tests.xml",
+    "exists": true
+  }
+]

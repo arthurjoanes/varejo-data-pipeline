@@ -278,14 +278,14 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
     labels = "".join(
         f'<text x="{points[index].split(",")[0]}" '
         f'y="240" text-anchor="{"end" if index == len(rows) - 1 else "middle"}" class="chart-label">'
-        f'{_text(_date(rows[index].get("business_date")))}</text>'
+        f"{_text(_date(rows[index].get('business_date')))}</text>"
         for index in ticks
     )
     area = f"{left},{bottom} " + " ".join(points) + f" {points[-1].split(',')[0]},{bottom}"
     dots = "".join(
         f'<circle cx="{point.split(",")[0]}" cy="{point.split(",")[1]}" '
         f'r="4" fill="#185c91"><title>{_text(_date(row.get("business_date")))}: '
-        f'{_text(_money(row.get("net_revenue_brl")))}</title></circle>'
+        f"{_text(_money(row.get('net_revenue_brl')))}</title></circle>"
         for point, row in zip(points, rows, strict=True)
     )
     return (
@@ -366,59 +366,48 @@ def _coverage_panel(coverage: Mapping[str, object]) -> str:
 def _duration_panel(attempt: Mapping[str, object]) -> str:
     stages = _mapping(attempt.get("stages"))
     measured = {name: value for name, value in stages.items() if name != "complete"}
-    dominant = max(measured, key=lambda name: _decimal(measured[name])) if measured else None
-    headline = (
-        f"{_text(STAGE_LABELS.get(dominant, dominant))} · {_text(_duration(measured[dominant]))}"
-        if dominant
-        else "Nenhuma etapa medida"
-    )
     duration = (
         None
         if attempt.get("state") == "RUNNING" or attempt.get("audit_incomplete")
         else attempt.get("duration_seconds")
     )
     order = {name: index for index, name in enumerate(STAGE_LABELS)}
-    rows = "".join(
-        f'<tr><td>{_text(STAGE_LABELS.get(name, name))}</td><td class="numeric">{_text(_duration(stages[name]))}</td>'
-        f'<td class="numeric">{_text(_duration(stages[name], exact=True))}</td></tr>'
-        for name in sorted(stages, key=lambda name: (order.get(name, len(order)), name))
-    )
-    rows = rows or '<tr><td colspan="3">Nenhuma etapa registrada.</td></tr>'
     notes = {
         "ingestion": "Leitura e conferência dos arquivos recebidos.",
-        "quality": "Validação das regras de dados e das revisões. O diagnóstico ao lado explica o resultado da tentativa.",
+        "quality": "Validação das regras de dados e das revisões. O diagnóstico explica o resultado da tentativa.",
         "silver": "Cálculo do estado dos itens a partir das revisões aceitas.",
         "gold": "Cálculo dos indicadores de loja, produto e dia comercial.",
         "reconciliation": "Conferência dos resultados antes da decisão de publicação.",
         "publication": "Etapa de publicação medida. O manifesto identifica a versão efetivamente publicada.",
     }
-    maximum = max((_decimal(value) for value in measured.values()), default=Decimal(1))
     steps = []
     for index, name in enumerate(
         sorted(measured, key=lambda key: (order.get(key, len(order)), key))
     ):
-        width = int(_decimal(measured[name]) * 100 / maximum) if maximum else 0
         steps.append(
-            f'<details class="stage"{" open" if name == dominant else ""}>'
+            '<details class="stage" name="measured-stage">'
             f'<summary><span class="stage-number">{index + 1:02d}</span>'
             f'<span class="stage-name">{_text(STAGE_LABELS.get(name, name))}</span>'
-            f'<span class="stage-time">{_text(_duration(measured[name]))}</span>'
-            f'<span class="stage-bar" style="--stage-width:{width}%" aria-hidden="true"></span></summary>'
+            f'<span class="stage-time">{_text(_duration(measured[name]))}</span></summary>'
             f'<div class="stage-note"><p>{_text(notes.get(name, "Tempo informado pelo registro da tentativa."))}</p>'
-            f'<p>Tempo exato: <b>{_text(_duration(measured[name], exact=True))}</b></p></div></details>'
+            f"<p>Tempo exato: <b>{_text(_duration(measured[name], exact=True))}</b></p></div></details>"
         )
+    rows = (
+        "".join(
+            f'<tr><td>{_text(STAGE_LABELS.get(name, name))}</td><td class="numeric">{_text(_duration(stages[name], exact=True))}</td></tr>'
+            for name in sorted(stages, key=lambda name: (order.get(name, len(order)), name))
+        )
+        or '<tr><td colspan="2">Nenhuma etapa registrada.</td></tr>'
+    )
     return (
-        '<aside class="stage-rail" aria-label="Etapas medidas da última tentativa">'
+        '<section class="stage-rail" aria-label="Etapas medidas da última tentativa">'
         '<div class="rail-heading"><h3>Etapas medidas</h3><span>Tempo registrado</span></div>'
-        f'{"".join(steps) if steps else "<p class=empty>Nenhuma etapa medida.</p>"}'
+        f"{''.join(steps) if steps else '<p class=empty>Nenhuma etapa medida.</p>'}"
         '<p class="footnote">Uma medição não confirma, por si só, o sucesso da etapa.</p>'
-        f'<div class="duration-summary"><span class="eyebrow">Maior tempo medido</span><p class="dominant-stage">{headline}</p>'
-        f'<p class="meta">Tentativa completa: {_text(_duration(duration))}</p></div>'
-        '<details class="exact-durations"><summary>Todos os tempos exatos</summary>'
+        '<details class="exact-durations"><summary>Registro completo de tempos</summary>'
         '<div class="table-scroll" tabindex="0" role="region" aria-label="Duração por etapa">'
-        '<table><thead><tr><th scope="col">Etapa</th><th scope="col">Arredondado</th><th scope="col">Valor exato</th></tr></thead>'
-        f"<tbody>{rows}</tbody></table></div>"
-        f'<p class="footnote">Duração total registrada: {_text(_duration(duration, exact=True))}.</p></details></aside>'
+        '<table><thead><tr><th scope="col">Etapa</th><th scope="col">Valor exato</th></tr></thead>'
+        f'<tbody>{rows}</tbody></table></div><p class="footnote">Duração total registrada: {_text(_duration(duration, exact=True))}.</p></details></section>'
     )
 
 
@@ -447,7 +436,7 @@ def _quality_diagnostics(attempt: Mapping[str, object]) -> str:
     ratio = (
         "indisponível"
         if "received" not in stats or "rejected" not in stats
-        else f'{_decimal(stats.get("rejected")) * 100 / received:.2f}%'.replace(".", ",")
+        else f"{_decimal(stats.get('rejected')) * 100 / received:.2f}%".replace(".", ",")
         if received
         else "não aplicável"
     )
@@ -460,8 +449,8 @@ def _quality_diagnostics(attempt: Mapping[str, object]) -> str:
     return (
         '<section class="quality-diagnostics"><h3>Contadores da tentativa</h3>'
         f'<dl class="counters">{"".join(rows)}</dl><p class="footnote">Rejeição: {ratio}. '
-        'Cada linha rejeitada conta uma vez; uma linha pode gerar várias violações. '
-        f'Duplicatas e revisões antigas são diagnósticos e podem se sobrepor.</p>{note}</section>'
+        "Cada linha rejeitada conta uma vez; uma linha pode gerar várias violações. "
+        f"Duplicatas e revisões antigas são diagnósticos e podem se sobrepor.</p>{note}</section>"
     )
 
 
@@ -471,8 +460,15 @@ def _issue_table(attempt: Mapping[str, object]) -> str:
         issue_list,
         key=lambda value: -SEVERITY_PRIORITY.get(str(_mapping(value).get("severity")), 0),
     )
-    rows = []
-    for index, value in enumerate(ordered[:50]):
+    rows: list[str] = []
+    related: list[str] = []
+    missing_file_stores = {
+        str(_mapping(value).get("store_id"))
+        for value in ordered[:50]
+        if _mapping(value).get("code") == "MISSING_FILE"
+        and _mapping(value).get("store_id") is not None
+    }
+    for value in ordered[:50]:
         issue = _mapping(value)
         severity = str(issue.get("severity", "ERROR"))
         css = (
@@ -488,16 +484,47 @@ def _issue_table(attempt: Mapping[str, object]) -> str:
             if issue.get(key) is not None
         )
         count = (
-            f'<span class="issue-count">{_text(issue["count"])} ocorrências</span>'
+            f'<span class="issue-count">{_text(issue["count"])} {"ocorrência" if issue["count"] == 1 else "ocorrências"}</span>'
             if issue.get("count") is not None
             else ""
         )
-        rows.append(
-            f'<details class="issue {css}"{" open" if index == 0 else ""}>'
-            f'<summary><span class="severity">{_text(SEVERITY_LABELS.get(severity, severity))}</span>'
-            f'<code>{_text(issue.get("code"))}</code>{count}</summary>'
-            f'<div class="issue-body"><p>{_text(_issue_message(issue))}</p>'
-            f'{f"<dl class=issue-context>{context}</dl>" if context else ""}</div></details>'
+        titles = {
+            "MISSING_FILE": "Arquivo não recebido",
+            "MISSING_STORE": "Loja sem entrega confirmada",
+            "HASH_MISMATCH": "Arquivo diferente do contratado",
+            "SALE_DATE_CONFLICT": "Venda dividida entre dias",
+            "REVISION_CONFLICT": "Revisões com conteúdo conflitante",
+            "EXACT_DUPLICATE": "Reenvio sem efeito adicional",
+            "STALE_REVISION": "Revisão anterior preservada",
+            "TECHNICAL_FAILURE": "Falha durante o processamento",
+        }
+        code = str(issue.get("code", ""))
+        title = titles.get(code, ISSUE_MESSAGES.get(code, "Ocorrência na entrega").rstrip("."))
+        key_data = " · ".join(
+            str(issue[key]) for key in ("store_id", "file") if issue.get(key) is not None
+        )
+        target_rows = (
+            related
+            if code == "MISSING_STORE" and str(issue.get("store_id")) in missing_file_stores
+            else rows
+        )
+        body = (
+            "O manifesto prevê este arquivo. Reponha os bytes originais para reexecutar o mesmo lote. Se o conteúdo mudar, use novo batch_id e correction_of."
+            if code == "MISSING_FILE"
+            else _issue_message(issue)
+        )
+        technical = (
+            f'<details class="issue-record"><summary>Registro técnico</summary><p>{_text(_issue_message(issue))}</p>'
+            if code == "MISSING_FILE"
+            else '<details class="issue-record"><summary>Contexto técnico</summary>'
+        )
+        target_rows.append(
+            f'<details class="issue {css}"{" open" if target_rows is rows and not rows else ""}>'
+            f'<summary><span class="issue-title">{_text(title)}'
+            f"{f'<span class=issue-key>{_text(key_data)}</span>' if key_data else ''}{count}</span></summary>"
+            f'<div class="issue-body"><p>{_text(body)}</p>{technical}'
+            f"{f'<dl class=issue-context>{context}</dl>' if context else ''}"
+            f'<p class="issue-code"><span class="severity">{_text(SEVERITY_LABELS.get(severity, severity))}</span> · <code>{_text(code)}</code></p></details></div></details>'
         )
     if not rows:
         return '<p class="clean"><span aria-hidden="true">✓</span> Nenhuma ocorrência registrada nesta tentativa.</p>'
@@ -508,7 +535,7 @@ def _issue_table(attempt: Mapping[str, object]) -> str:
     )
     return (
         '<div class="issues" aria-label="Motivos da decisão, severidade e ocorrências">'
-        f'{"".join(rows)}</div>{note}'
+        f"{''.join(rows)}{f'<details class=related-issues><summary>Ocorrências relacionadas ({len(related)})</summary>{chr(10).join(related)}</details>' if related else ''}</div>{note}"
     )
 
 
@@ -531,17 +558,16 @@ def _attempt_details(attempt: Mapping[str, object] | None) -> str:
             + issue_html
         )
     return f"""
-    <div class="section-head"><div><p class="eyebrow">Última tentativa</p><h2>Execução do fechamento</h2>
-    <p class="meta">Lote {_short_id_link(attempt.get('batch_id'), 'do lote da tentativa', 'attempt-batch-id')} <span aria-hidden="true">·</span> {_text(_timestamp(attempt.get('started_at')))}</p></div>{_state_badge(attempt.get('state'))}</div>
-    <div class="execution-workspace">{_duration_panel(attempt)}<div class="attempt-diagnostics">
-    <div class="diagnostic-heading"><h3>Entrega e qualidade</h3><a href="#attempt-identity">Ver registro da tentativa ↗</a></div>
-    <div class="quality-outcome {'has-rejections' if problem else ''}">
+    <div class="section-head run-heading"><div><p class="eyebrow">Última tentativa</p><h2>Conferência da entrega</h2>
+    <p class="meta">Lote {_short_id_link(attempt.get("batch_id"), "do lote da tentativa", "attempt-batch-id")} <span aria-hidden="true">·</span> {_text(_timestamp(attempt.get("started_at")))}</p></div><a class="run-record" href="#attempt-identity">Ver registro da tentativa ↗</a></div>
+    <div class="execution-workspace"><div class="attempt-diagnostics">
+    <div class="diagnostic-section" id="pendencias" tabindex="-1"><h3>Ocorrências da entrega</h3>{issue_html}</div>
+    <details class="delivery-coverage"><summary>Cobertura e lojas da entrega</summary>{_coverage_panel(_mapping(attempt.get("coverage")))}</details>
+    <details class="quality-measurements"><summary>Contadores e validações técnicas</summary>
+    <div class="quality-outcome {"has-rejections" if problem else ""}">
       <p><strong>{rejected} {"rejeitado" if stats.get("rejected") == 1 else "rejeitados"}</strong> de {received} {"registro recebido" if stats.get("received") == 1 else "registros recebidos"}</p><p>{violations} violações de registros</p>
-    </div>
-    <div class="diagnostic-section"><h3>Ocorrências</h3>{issue_html}</div>
-    <div class="diagnostic-section">{_coverage_panel(_mapping(attempt.get('coverage')))}</div>
-    {_quality_diagnostics(attempt)}
-    </div></div>
+    </div>{_quality_diagnostics(attempt)}</details>
+    </div><aside class="delivery-context" aria-label="Medições da tentativa">{_duration_panel(attempt)}</aside></div>
     """
 
 
@@ -607,18 +633,97 @@ def _failure_notice(payload: ReportPayload) -> str:
     reason = _issue_message(primary_issue) if primary_issue else "Consulte os detalhes da execução."
     notice = (
         '<aside class="failure-notice"><div>'
-        f'<strong>{heading}</strong><p>{_text(reason)}</p>'
+        f"<strong>{heading}</strong><p>{_text(reason)}</p>"
         f'<p class="meta">Lote {_short_id_link(failed.get("batch_id"), "do lote com falha", "failed-batch-id")} · '
-        f'{_text(_timestamp(failed.get("started_at")))} · '
-        f'execução {_short_id_link(failed.get("run_id"), "da execução com falha", "failed-run-id")}</p>'
-        '</div>' + _state_badge(failed.get("state")) + "</aside>"
+        f"{_text(_timestamp(failed.get('started_at')))} · "
+        f"execução {_short_id_link(failed.get('run_id'), 'da execução com falha', 'failed-run-id')}</p>"
+        "</div>" + _state_badge(failed.get("state")) + "</aside>"
+    )
+    heading = (
+        "Registro do bloqueio ou falha desta tentativa"
+        if latest
+        else "Ver última falha ou bloqueio"
     )
     return (
-        notice
-        if latest
-        else '<details class="previous-failure"><summary>Ver última falha ou bloqueio</summary>'
+        '<details class="previous-failure"><summary>'
+        + heading
+        + "</summary>"
         + notice
         + "</details>"
+    )
+
+
+def _decision(payload: ReportPayload) -> tuple[str, str, str]:
+    """A decisão atual é o assunto; a publicação anterior é contexto de leitura."""
+    attempt = payload.latest_attempt or {}
+    state = attempt.get("state")
+    same_run = bool(attempt.get("run_id")) and attempt.get("run_id") == (
+        payload.snapshot or {}
+    ).get("run_id")
+    if attempt.get("audit_incomplete") or (same_run and state == "TECHNICAL_FAILURE"):
+        return (
+            "Publicado, com auditoria incompleta",
+            "Os indicadores estão disponíveis. Confira o registro final da tentativa.",
+            '<a class="decision-action" href="#attempt-identity">Conferir registro</a>',
+        )
+    if state == "BLOCKED":
+        issues = [_mapping(item) for item in _sequence(attempt.get("issues"))]
+        missing = next((item for item in issues if item.get("code") == "MISSING_FILE"), None)
+        reason = (
+            f"Falta receber {missing.get('file', 'o arquivo previsto')} da loja {missing.get('store_id', 'indicada no manifesto')}."
+            if missing
+            else "A entrega tem pendências que impedem publicar o fechamento."
+        )
+        guide = (
+            "Confira o arquivo e a loja no manifesto da entrega. Reponha os bytes originais que faltam e reexecute o mesmo lote."
+            if missing
+            else "Confira a ocorrência e corrija os campos ou as revisões indicadas. Não reutilize o manifesto original para conteúdo diferente."
+        )
+        return (
+            "Publicação bloqueada",
+            reason,
+            f'<a class="decision-action" href="#pendencias">Conferir pendência</a><details class="resume-guide"><summary>Como retomar</summary><p>{guide} Se o conteúdo contratado mudar, use novo batch_id e correction_of. O relatório não executa essa operação.</p></details>',
+        )
+    if state == "TECHNICAL_FAILURE":
+        return (
+            "Falha antes da publicação",
+            "A tentativa foi interrompida. Confira o registro antes de reexecutar a entrada.",
+            '<a class="decision-action" href="#attempt-identity">Conferir registro</a>',
+        )
+    if state == "RUNNING":
+        return (
+            "Execução sem resultado final",
+            "O snapshot não informa a conclusão desta tentativa.",
+            '<a class="decision-action" href="#attempt-identity">Conferir registro</a>',
+        )
+    if state == "NO_CHANGE":
+        return (
+            "Publicação mantida",
+            "A entrada já foi aceita; os indicadores não mudaram.",
+            '<a class="decision-action" href="#indicadores">Consultar indicadores</a>',
+        )
+    if state == "VALIDATED":
+        return (
+            "Entrega validada, sem publicação",
+            "O registro informa validação, sem confirmar uma nova publicação.",
+            '<a class="decision-action" href="#attempt-identity">Conferir registro</a>',
+        )
+    if state and state != "PUBLISHED":
+        return (
+            "Resultado da tentativa não reconhecido",
+            "Consulte o estado original no registro da tentativa.",
+            '<a class="decision-action" href="#attempt-identity">Conferir registro</a>',
+        )
+    if payload.snapshot is not None:
+        return (
+            "Fechamento publicado",
+            "Os indicadores pertencem à publicação identificada abaixo.",
+            '<a class="decision-action" href="#indicadores">Consultar indicadores</a>',
+        )
+    return (
+        "Sem fechamento publicado",
+        "Consulte a tentativa para entender o resultado da entrega.",
+        '<a class="decision-action" href="#qualidade">Consultar tentativa</a>',
     )
 
 
@@ -626,6 +731,20 @@ def build_report_html(payload: ReportPayload) -> str:
     """Renderiza dados já capturados; nunca consulta armazenamento ou relógio."""
     snapshot = payload.snapshot or {}
     published = payload.snapshot is not None
+    decision_title, decision_reason, decision_actions = _decision(payload)
+    attempt = payload.latest_attempt or {}
+    previous = (
+        attempt.get("state") in {"BLOCKED", "TECHNICAL_FAILURE"}
+        and attempt.get("run_id") != snapshot.get("run_id")
+        and not attempt.get("audit_incomplete")
+    )
+    publication_label = (
+        "Publicação anterior preservada"
+        if previous and published
+        else "Publicação disponível"
+        if published
+        else "Nenhuma publicação disponível"
+    )
     summary = payload.summary
     window = (
         f"{_date(summary.get('first_date'))} a {_date(summary.get('last_date'))}"
@@ -637,8 +756,8 @@ def build_report_html(payload: ReportPayload) -> str:
     tables = _mapping(snapshot.get("tables"))
     versions = "".join(
         f'<tr><td><code>{_text(name)}</code><small>{_text(TABLE_GRAINS.get(name, ""))}</small></td><td class="numeric">'
-        f'{_text(_mapping(ref).get("version"))}</td><td><code>'
-        f'{_text(_mapping(ref).get("path"))}</code></td></tr>'
+        f"{_text(_mapping(ref).get('version'))}</td><td><code>"
+        f"{_text(_mapping(ref).get('path'))}</code></td></tr>"
         for name, ref in tables.items()
     )
     cards = "".join(
@@ -703,10 +822,9 @@ def build_report_html(payload: ReportPayload) -> str:
     )
     source_count = len(_sequence(snapshot.get("sources")))
     source_label = "fonte bronze" if source_count == 1 else "fontes bronze"
-    chart_badge = "Publicado" if published else "Aguardando publicação"
     publication_note = (
-        f'Publicação {_short_id_link(snapshot.get("publication_id"), "da publicação", "publication-id")} · '
-        f'{_text(_timestamp(snapshot.get("published_at")))}'
+        f"Publicação {_short_id_link(snapshot.get('publication_id'), 'da publicação', 'publication-id')} · "
+        f"{_text(_timestamp(snapshot.get('published_at')))}"
         if published
         else "Sem publicação."
     )
@@ -747,39 +865,38 @@ def build_report_html(payload: ReportPayload) -> str:
 <meta name="description" content="Entrega das lojas, diagnóstico da tentativa e indicadores do fechamento publicado.">
 <title>Fechamento de vendas · Varejo Data Pipeline</title><style>{CSS}</style></head><body>
 <a class="skip-link" href="#content">Ir para o fechamento</a>
-<div class="app-shell"><aside class="app-sidebar" aria-label="Varejo Data Pipeline">
-<a class="brand" href="#qualidade"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 5h8v8H5zM19 19h8v8h-8zM19 5h8v8h-8z"/><path d="M13 9h6M23 13v6" fill="none"/></svg><span>Varejo<span>Data Pipeline</span></span></a>
-<p class="nav-label">FECHAMENTO</p>
-<nav class="report-nav" aria-label="Seções do relatório"><a href="#qualidade" data-view-link="qualidade"><span aria-hidden="true">01</span>Execução</a><a href="#indicadores" data-view-link="indicadores"><span aria-hidden="true">02</span>Indicadores</a><a href="#proveniencia" data-view-link="proveniencia"><span aria-hidden="true">03</span>Arquivos</a></nav>
-<div class="sidebar-note"><span class="snapshot-mark" aria-hidden="true"></span><p>Leitura de snapshot</p><p>Dados capturados na geração do relatório.</p></div></aside>
-<main id="content" tabindex="-1"><header class="page-heading"><div><p class="eyebrow">OPERAÇÃO DE DADOS / VENDAS</p><h1>Fechamento de vendas</h1></div>
-{'<p class="demo-label">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else ''}</header>
-<section class="publication-overview" aria-label="Publicação atual"><div><p class="eyebrow">Publicação vigente</p><p class="publication-id">{publication_note}</p></div>
+<div class="app-shell"><header class="app-bar">
+<a class="brand" href="#qualidade"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 5h8v8H5zM19 19h8v8h-8zM19 5h8v8h-8z"/><path d="M13 9h6M23 13v6" fill="none"/></svg><span>Varejo <span>Data Pipeline</span></span></a>
+<span class="app-location">Operação de dados / Vendas</span><span class="snapshot-label">Snapshot · somente leitura</span></header>
+<main id="content" tabindex="-1"><header class="page-heading"><div><p class="eyebrow">FECHAMENTO DE VENDAS / ÚLTIMA TENTATIVA</p><h1>{_text(decision_title)}</h1><p class="decision-reason">{_text(decision_reason)}</p><div class="decision-actions">{decision_actions}</div></div>
+{'<p class="demo-label">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else ""}</header>
+<section class="publication-overview" aria-label="Publicação atual"><div><p class="eyebrow">{publication_label}</p><p class="publication-id">{publication_note}</p></div>
 <div class="publication-window"><p class="eyebrow">Janela comercial</p><p class="window">{_text(window)}</p></div>
-<span class="badge {'success' if published else 'neutral'}">{chart_badge}</span></section>
+</section>
 <p class="publication-context">{_text(_publication_context(payload))}</p>
-<section class="panel" id="qualidade" data-report-view tabindex="-1">{_failure_notice(payload)}{_attempt_details(payload.latest_attempt)}</section>
+<nav class="report-nav" aria-label="Seções do relatório"><a href="#qualidade" data-view-link="qualidade"><span aria-hidden="true">01</span>Execução</a><a href="#indicadores" data-view-link="indicadores"><span aria-hidden="true">02</span>Indicadores</a><a href="#proveniencia" data-view-link="proveniencia"><span aria-hidden="true">03</span>Arquivos</a></nav>
+<section class="panel" id="qualidade" data-report-view tabindex="-1">{_attempt_details(payload.latest_attempt)}{_failure_notice(payload)}</section>
 <section class="panel" id="indicadores" data-report-view tabindex="-1"><div class="section-head"><div><p class="eyebrow">Publicação vigente</p><h2>Indicadores de vendas</h2></div>
 <span class="window">{_text(window)}</span></div><nav class="subnav" aria-label="Recortes dos indicadores"><a href="#receita">Receita por dia</a><a href="#produtos">Produtos</a><a href="#lojas">Loja / dia</a></nav>
-<section class="metrics" aria-label="Indicadores da publicação">{cards}</section><section id="receita" class="data-section" tabindex="-1"><div class="diagnostic-heading"><h3>Receita por dia</h3><span class="meta">BRL · dia comercial</span></div><div class="chart" tabindex="0" role="region" aria-label="Gráfico de receita por dia; rolagem horizontal disponível em telas estreitas">{_revenue_chart(payload.daily)}</div><p class="footnote">{daily_note}</p>
-<details class="data-detail"><summary>Valores por dia ({len(payload.daily)} {'dia exibido' if len(payload.daily) == 1 else 'dias exibidos'})</summary>{daily_values}</details></section>
+<section class="metrics" aria-label="Indicadores da publicação">{cards}</section><div class="analytics-grid"><section id="receita" class="data-section" tabindex="-1"><div class="diagnostic-heading"><h3>Receita por dia</h3><span class="meta">BRL · dia comercial</span></div><div class="chart" tabindex="0" role="region" aria-label="Gráfico de receita por dia; rolagem horizontal disponível em telas estreitas">{_revenue_chart(payload.daily)}</div><p class="footnote">{daily_note}</p>
+<details class="data-detail"><summary>Valores por dia ({len(payload.daily)} {"dia exibido" if len(payload.daily) == 1 else "dias exibidos"})</summary>{daily_values}</details></section>
 <section class="data-section" id="produtos" tabindex="-1"><h3>Produtos mais vendidos</h3>
-<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p>{products}{f'<p class="footnote">{product_note}</p>' if product_note else ''}</section>
-<section class="data-section" id="lojas" tabindex="-1"><h3>Receita por loja e dia</h3>{f'<p class="footnote">{store_note}</p>' if store_note else ''}
-<details class="data-detail"><summary>Valores por loja e dia ({len(payload.stores)} {'linha exibida' if len(payload.stores) == 1 else 'linhas exibidas'})</summary>{stores}</details></section></section>
+<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p>{products}{f'<p class="footnote">{product_note}</p>' if product_note else ""}</section></div>
+<section class="data-section" id="lojas" tabindex="-1"><h3>Receita por loja e dia</h3>{f'<p class="footnote">{store_note}</p>' if store_note else ""}
+<details class="data-detail"><summary>Valores por loja e dia ({len(payload.stores)} {"linha exibida" if len(payload.stores) == 1 else "linhas exibidas"})</summary>{stores}</details></section></section>
 <section class="panel" id="proveniencia" data-report-view tabindex="-1"><div class="section-head"><div><p class="eyebrow">Rastreabilidade</p><h2>Arquivos e versões</h2><p class="meta">{source_count} {source_label}. Referências capturadas no manifesto da publicação.</p></div></div>
-<div class="two-columns">{_copy_field(snapshot.get('publication_id'), 'ID da publicação', 'publication-id')}{_copy_field(snapshot.get('run_id'), 'Execução que publicou', 'publication-run-id')}</div>
+<div class="provenance-workspace"><aside class="identity-register"><h3>Identificação</h3>{_copy_field(snapshot.get("publication_id"), "ID da publicação", "publication-id")}{_copy_field(snapshot.get("run_id"), "Execução que publicou", "publication-run-id")}
 <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
 <details class="identity-detail" id="attempt-identity" tabindex="-1"><summary>IDs da última tentativa</summary>
-{_copy_field((payload.latest_attempt or {}).get('run_id'), 'Execução da tentativa', 'attempt-run-id')}
-{_copy_field((payload.latest_attempt or {}).get('batch_id'), 'Lote da tentativa', 'attempt-batch-id')}</details>
+<p class=meta>Estado registrado: {_text((payload.latest_attempt or {}).get("state"))}</p>{_copy_field((payload.latest_attempt or {}).get("run_id"), "Execução da tentativa", "attempt-run-id")}
+{_copy_field((payload.latest_attempt or {}).get("batch_id"), "Lote da tentativa", "attempt-batch-id")}</details>
 <details class="identity-detail"><summary>IDs da última falha ou bloqueio</summary>
-{_copy_field((payload.last_failed_attempt or {}).get('run_id'), 'Execução com falha', 'failed-run-id')}
-{_copy_field((payload.last_failed_attempt or {}).get('batch_id'), 'Lote com falha', 'failed-batch-id')}</details>
-<h3 class="data-heading">Tabelas da publicação</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabelas, versões e caminhos Delta"><table class="provenance"><thead><tr><th scope="col">Tabela e grão</th><th scope="col">Versão</th><th scope="col">Caminho Delta</th></tr></thead><tbody>{versions or '<tr><td colspan="3">Nenhuma versão publicada.</td></tr>'}</tbody></table></div>
-<h3>Lotes publicados ({len(_sequence(snapshot.get('accepted_batches')))})</h3>
-<div class="chips">{_chips(snapshot.get('accepted_batches'), len(_sequence(snapshot.get('accepted_batches'))))}</div>
+{_copy_field((payload.last_failed_attempt or {}).get("run_id"), "Execução com falha", "failed-run-id")}
+{_copy_field((payload.last_failed_attempt or {}).get("batch_id"), "Lote com falha", "failed-batch-id")}</details>
+</aside><div class="source-register"><h3 class="data-heading">Tabelas da publicação</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabelas, versões e caminhos Delta"><table class="provenance"><thead><tr><th scope="col">Tabela e grão</th><th scope="col">Versão</th><th scope="col">Caminho Delta</th></tr></thead><tbody>{versions or '<tr><td colspan="3">Nenhuma versão publicada.</td></tr>'}</tbody></table></div>
+<h3>Lotes publicados ({len(_sequence(snapshot.get("accepted_batches")))})</h3>
+<div class="chips">{_chips(snapshot.get("accepted_batches"), len(_sequence(snapshot.get("accepted_batches"))))}</div>
 <h3>Fontes e referências aprovadas</h3>{sources or '<p class="empty">Nenhuma fonte publicada.</p>'}
-<p class="footnote">Use <code>explain</code> para consultar chaves, revisões e arquivos de uma amostra.</p></section>
+<p class="footnote">Use <code>explain</code> para consultar chaves, revisões e arquivos de uma amostra.</p></div></div></section>
 <footer class="report-footer"><span>Varejo Data Pipeline</span><span>Relatório local · sem atualização automática</span></footer>
 </main></div><script>{SCRIPT}</script></body></html>"""

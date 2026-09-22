@@ -7,8 +7,8 @@ const playwrightModule = process.env.PLAYWRIGHT_MODULE || 'playwright';
 const { chromium } = require(playwrightModule);
 
 const root = path.resolve(__dirname, '..');
-const images = path.join(root, 'docs', 'images', 'interface');
-const evidence = path.join(root, 'docs', 'evidence', 'interface');
+const images = path.resolve(root, process.env.REVIEW_IMAGES || 'docs/images/interface-v2');
+const evidence = path.resolve(root, process.env.REVIEW_EVIDENCE || 'docs/evidence/interface-v2');
 const reportURL = name => pathToFileURL(path.join(root, 'artifacts', 'interface', `${name}.html`)).href;
 
 async function main() {
@@ -19,7 +19,8 @@ async function main() {
   const errors = [];
   let screenshots = 0;
   const capture = async (page, name) => {
-    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.mouse.move(0, 0);
+    await page.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0, 0); });
     await page.screenshot({ path: path.join(images, name), fullPage: true });
     screenshots++;
   };
@@ -49,12 +50,12 @@ async function main() {
     await page.setViewportSize({ width: 1366, height: 900 });
     await page.getByRole('link', { name: 'Indicadores', exact: true }).focus();
     await page.keyboard.press('Enter');
-    assert.equal(await page.locator('#indicadores').evaluate(el => document.activeElement === el), true);
+    await page.waitForFunction(() => document.activeElement.id === 'indicadores');
     await page.locator('#receita summary').focus();
     await page.keyboard.press('Enter');
     assert.equal(await page.locator('#receita details').getAttribute('open'), '');
     await page.getByRole('link', { name: 'Arquivos', exact: true }).click();
-    assert.equal(await page.locator('#proveniencia').evaluate(el => document.activeElement === el), true);
+    await page.waitForFunction(() => document.activeElement.id === 'proveniencia');
     const publicationId = await page.locator('#publication-id').inputValue();
     assert.ok(publicationId.length > 16);
     await page.evaluate(() => {
@@ -89,9 +90,14 @@ async function main() {
     await stage.locator('summary').focus();
     await page.keyboard.press('Enter');
     assert.notEqual(await stage.getAttribute('open'), openBefore);
+    const qualityStage = page.locator('.stage').nth(1);
+    await qualityStage.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.locator('.stage[open]').count(), 1);
+    assert.equal(await qualityStage.locator('.stage-note').isVisible(), true);
     await page.getByRole('link', { name: 'Ver registro da tentativa ↗', exact: true }).click();
     assert.equal(await page.locator('#attempt-identity').getAttribute('open'), '');
-    assert.equal(await page.locator('#attempt-identity').evaluate(el => document.activeElement === el), true);
+    await page.waitForFunction(() => document.activeElement.id === 'attempt-identity');
     await page.goto(`${reportURL('demo30k-report')}#attempt-batch-id`);
     assert.equal(await page.locator('#attempt-batch-id').isVisible(), true);
 
@@ -103,14 +109,14 @@ async function main() {
       assert.equal(new URL(page.url()).hash, '#content');
       assert.equal(await page.locator(`#${view}`).isVisible(), true);
       assert.equal(await page.locator('[data-report-view]:visible').count(), 1);
-      assert.equal(await page.locator('#content').evaluate(el => document.activeElement === el), true);
+      await page.waitForFunction(() => document.activeElement.id === 'content');
       await page.goBack();
       assert.equal(new URL(page.url()).hash, `#${view}`);
       assert.equal(await page.locator(`#${view}`).isVisible(), true);
       await page.goForward();
       assert.equal(new URL(page.url()).hash, '#content');
       assert.equal(await page.locator(`#${view}`).isVisible(), true);
-      assert.equal(await page.locator('#content').evaluate(el => document.activeElement === el), true);
+      await page.waitForFunction(() => document.activeElement.id === 'content');
     }
 
     // CSS magnification and an equivalent layout viewport; neither is native browser zoom.
@@ -158,7 +164,43 @@ async function main() {
       await capture(page, name);
     }
     assert.ok((await page.locator('.audit-note').innerText()).includes('Métricas ausentes'));
+    await page.locator('.quality-measurements > summary').click();
     assert.ok((await page.locator('.quality-outcome').innerText()).includes('— rejeitados'));
+    // A delivery blocker is not a count of bad sales rows. Keep its cause and destination together.
+    for (const width of [1366, 768, 390, 320]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(reportURL('blocked-report'));
+      assert.equal(await page.locator('.page-heading .badge, .publication-overview .badge').count(), 0);
+      assert.equal(await page.locator('.issues > .issue').count(), 1);
+      assert.equal(await page.locator('.quality-measurements').getAttribute('open'), null);
+      assert.ok((await page.locator('h1').innerText()).includes('Publicação bloqueada'));
+      await page.locator('.decision-action').focus(); await page.keyboard.press('Enter');
+      await page.waitForFunction(() => document.activeElement.id === 'pendencias');
+      const issue = page.locator('.issues > .issue').first();
+      assert.equal(await issue.evaluate(e => getComputedStyle(e).borderLeftWidth), '3px');
+      await issue.locator('.issue-record > summary').click();
+      assert.ok((await issue.innerText()).includes('MISSING_FILE'));
+      assert.equal(await issue.evaluate(e => getComputedStyle(e).borderLeftWidth), '3px');
+      await page.locator('.quality-measurements > summary').click();
+      const baselines = await page.locator('.quality-outcome p').evaluateAll(es => es.map(e => e.getBoundingClientRect().top));
+      if (width >= 768) assert.equal(new Set(baselines).size, 1);
+      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      await capture(page, `blocked-expanded-${width}.png`);
+    }
+    for (const file of ['demo30k-report', 'quality-review']) {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(reportURL(file));
+      const edges = await page.locator('.attempt-diagnostics, .delivery-context').evaluateAll(es => es.map(e => e.getBoundingClientRect().right));
+      assert.ok(Math.max(...edges) - Math.min(...edges) <= 1, `${file}: consistent right edge`);
+      for (const summary of await page.locator('.issue > summary').all()) {
+        assert.equal(await summary.evaluate(e => getComputedStyle(e).display), 'grid');
+        assert.ok(await summary.evaluate(e => e.firstElementChild.getBoundingClientRect().right < e.getBoundingClientRect().right - 20));
+      }
+    }
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    assert.ok((await page.locator('.report-nav a').first().evaluate(e => getComputedStyle(e).transitionDuration)).includes('0.18s'));
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    assert.equal(await page.locator('.report-nav a').first().evaluate(e => getComputedStyle(e).transitionDuration), '0s');
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto(reportURL('long-fixture'));
     for (const view of ['qualidade', 'indicadores', 'proveniencia']) {
@@ -167,8 +209,14 @@ async function main() {
     }
     await page.locator('#attempt-identity summary').click();
     assert.equal((await page.locator('#attempt-batch-id').inputValue()).length, 251);
+    await capture(page, 'long-files-320.png');
+    await page.goto(reportURL('blocked-report'));
     await page.emulateMedia({ media: 'print' });
     assert.equal(await page.locator('[data-report-view]:visible').count(), 3);
+    assert.equal(await page.locator('.issue-record p').first().isVisible(), true);
+    assert.equal(await page.locator('.quality-measurements .quality-outcome').isVisible(), true);
+    await page.setViewportSize({ width: 1200, height: 900 });
+    await page.screenshot({ path: path.join(images, 'print-preview.png'), fullPage: false }); screenshots++;
     assert.deepEqual(errors, []);
 
     const luminance = hex => {
@@ -176,9 +224,9 @@ async function main() {
         .map(v => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
       return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
     };
-    const contrast = [['primary', '1c303b', 'ffffff'], ['muted', '52636e', 'f4f7f8'],
-      ['link', '17634f', 'ffffff'], ['success', '205b44', 'dcece3'], ['failure', '8d3b23', 'fbe7db'],
-      ['sidebar', 'c7d5da', '142830']]
+    const contrast = [['primary', '263248', 'ffffff'], ['muted', '647085', 'f5f6fa'],
+      ['link', '4055bb', 'ffffff'], ['success', '226348', 'edf7f1'], ['failure', '963d37', 'fcf0ed'],
+      ['selected navigation', '3348a8', 'f5f6fa']]
       .map(([name, fg, bg]) => ({ name, ratio: Number(((Math.max(luminance(bg), luminance(fg)) + 0.05) / (Math.min(luminance(bg), luminance(fg)) + 0.05)).toFixed(3)) }));
     assert.ok(contrast.every(pair => pair.ratio >= 4.5));
     fs.writeFileSync(path.join(evidence, 'visual-review.json'), JSON.stringify({
@@ -191,7 +239,8 @@ async function main() {
       states: 'Published, blocked with previous publication, failed before publication, invalid first delivery, empty, running snapshot and incomplete audit.',
       magnification: 'All three views at CSS zoom 200% in 1366px; equivalent 683 CSS px layout viewport with DPR2 also checked. Neither is native browser zoom.',
       long_content: '320px: long batch/run identifiers, issue code and unbroken diagnostic text; no page overflow and full ID retained.',
-      limits: 'Contrast samples, not a full accessibility audit. No screen-reader audit or native browser-zoom check. Print reveals panels; closed disclosures still require expansion.',
+      refinements: 'Blocker cause/CTA/focus; one primary incident, related record preserved; full-height parent border; desktop counter baseline; consistent mobile panel edges; fixed toggle column for long summaries; 180ms transitions disabled with reduced motion.',
+      limits: 'Contrast samples, not a full accessibility audit. No screen-reader audit or native browser-zoom check. Print reveals panels and disclosure content; full PDF pagination was not audited.',
     }, null, 2) + '\n');
     console.log(JSON.stringify({ screenshots, viewChecks: results.length, contrast }));
   } finally {
