@@ -1,4 +1,4 @@
-:root { color-scheme:light; --ink:#263248; --muted:#647085; --line:#e3e7ee; --blue:#4055bb; --surface:#fff; --canvas:#f5f6fa; --danger:#a03b37; }
+:root { color-scheme:light; --ink:#263248; --muted:#647085; --line:#e3e7ee; --blue:#4055bb; --canvas:#f5f6fa; --danger:#a03b37; }
 * { box-sizing:border-box; }
 [hidden] { display:none!important; }
 html { scroll-padding-top:24px; }
@@ -70,7 +70,6 @@ main { min-width:0; max-width:1440px; margin:auto; padding:30px 24px 18px; }
 .attempt-diagnostics { min-width:0; padding:22px; }
 .diagnostic-heading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:17px; }
 .diagnostic-heading h3 { margin:0; font-size:14px; }
-.diagnostic-heading a { font-size:11px; }
 .quality-outcome { display:flex; gap:8px 20px; flex-wrap:wrap; align-items:center; padding-bottom:18px; margin-bottom:20px; border-bottom:1px solid var(--line); font-size:11px; color:var(--muted); }
 .quality-outcome strong { display:inline-block; color:var(--ink); font-size:17px; margin-right:4px; }
 .quality-outcome.has-rejections strong { color:var(--danger); }
@@ -195,7 +194,6 @@ tbody tr:hover { background:#f8f9fc; }
  .publication-overview { flex-wrap:wrap; gap:12px; padding:14px; }
  .publication-overview > div:first-child { flex-basis:100%; }
  .publication-window { margin:0; }
- .publication-overview .badge { margin-left:auto; }
  .report-nav { gap:14px; justify-content:space-between; margin-bottom:18px; }
  .report-nav a { font-size:12px; gap:6px; }
  .report-nav a span { display:none; }

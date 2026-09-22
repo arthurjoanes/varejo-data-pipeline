@@ -1,0 +1,40 @@
+{
+  "recorded_at": "2026-09-22T06:20:57.075387+00:00",
+  "baseline_commit": "41d9fdca0b400ddf9a5352e6c13505472b157367",
+  "scope": "Remove only CSS declarations with no generated markup or property consumers. No renderer logic, state selection, runtime, data or screenshots changed.",
+  "removed": [
+    ".diagnostic-heading a { font-size:11px; }",
+    ".publication-overview .badge { margin-left:auto; }",
+    "--surface:#fff"
+  ],
+  "why_layout_is_unchanged": "The two Varejo descendant selectors have no corresponding generated elements. The removed custom property has no var() or JavaScript property consumers. No matching CSS declaration was changed.",
+  "hash_method": "source_sha256_lf normalizes CRLF to LF. worktree_sha256 hashes the exact local bytes. before_source_sha256_lf hashes the published Git blob with the same normalization.",
+  "file_delta": {
+    "docs/interface.md": {
+      "before_source_sha256_lf": "8ca9fe9d93ced28983b34062a5052e06c41672d76435b0535df04d4d78ca4cfa",
+      "after_source_sha256_lf": "e1c7e05b2c8a14dd1994602623b98e68195a9dbae878de4f135695a1192ff59f",
+      "after_worktree_sha256": "94ee96f14b971c7a6bd4feedd43fd8a9e60f94f701314822a9bb636b02d5031e"
+    },
+    "src/retail_pipeline/report.css": {
+      "before_source_sha256_lf": "36c3b65da4ec50b6144ebb619f325b08e5fe7b9f0eaa8ab7c70f4188ae1676fe",
+      "after_source_sha256_lf": "aad53fdb955f3c19ac6c1fcd8db752b2a476628bc81fb72f97b20a6e6e089b6b",
+      "after_worktree_sha256": "b98023315e24de3b8c6ca0b3b15eaada791a9941f5e828fad9e8cf51bfed5cc2"
+    }
+  },
+  "checks": {
+    "surface_css_var_consumers_before": 0,
+    "surface_js_property_consumers_before": 0,
+    "diagnostic_heading_generated_markup_has_anchor": false,
+    "publication_overview_generated_markup_has_badge": false,
+    "git_diff_check_exit_code": 0,
+    "tracked_changed_files_match_allowlist": true,
+    "historical_manifest_unchanged_lf": true,
+    "historical_manifest_sha256_lf": "ad1a2dbc7d41ca5954c94358f5ecbb031e5bfdecd92d36f7a0664d501523e343",
+    "markdown_local_links": {
+      "documents": 12,
+      "local_file_links": 140,
+      "broken": []
+    }
+  },
+  "validation_limits": "Static source/consumer inspection and exact artifact comparison only. Renderer/browser tests and screenshots were not rerun because removed declarations cannot match/affect the produced HTML. No Docker, Spark, service or operation executed."
+}
