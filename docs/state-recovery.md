@@ -72,7 +72,7 @@ O ensaio `pf-varejo-proof-ae96381a19bf` concluiu as seis amostras planejadas, se
 
 A chamada `create_spark` levou 34,466–34,569 s, separadamente do processamento. As amostras completas observadas pelo host levaram 76,360–78,750 s; a janela inteira, com baselines, cópias e limpeza, durou 609,421 s. A memória máxima dos containers variou de 964.927.488 a 1.176.412.160 bytes. O estado passou de 5.577.949 para cerca de 6,98 milhões de bytes no tamanho menor e de 16.254.970 para cerca de 19,26 milhões no maior. Não são heap da JVM nem uso físico total de disco.
 
-`generation_seconds` inclui configuração das referências, geração dos dois CSVs e construção/gravação do oráculo. As verificações e a geração do HTML têm tempos próprios no JSON. As 282 fontes ficaram estáveis; containers próprios removidos e oito volumes preservados.
+`generation_seconds` inclui configuração das referências, geração dos dois lotes CSV (12 arquivos por lote) e construção/gravação do oráculo. As verificações e a geração do HTML têm tempos próprios no JSON. As 282 fontes ficaram estáveis; containers próprios removidos e oito volumes preservados.
 
 **Limite da comparação:** o snapshot inicial não tinha container externo ativo; o final mostrou `ui-api-art-review`, de outra tarefa, sem limites de CPU/memória configurados. Ele foi preservado, e não sabemos em quais amostras competiu por recursos. Caches também não foram controlados. A diferença entre medianas é descritiva; não prova efeito causal do tamanho nem permite projetar capacidade comercial.
 
