@@ -1,12 +1,12 @@
 # Problema e solução
 
-Desenvolvi este laboratório para a pessoa que precisa fechar vendas sem transformar uma entrega incompleta ou uma correção rejeitada em indicador oficial. O erro difícil não é somar CSV: é preservar a última publicação coerente quando chegam revisões, faltam lojas ou o processo falha entre tabelas.
+Desenvolvi este laboratório para a pessoa que precisa fechar vendas sem transformar uma entrega incompleta ou uma correção rejeitada em indicador oficial. Além de somar os CSVs, o processamento precisa preservar a última publicação coerente quando chegam revisões, faltam lojas ou o processo falha entre tabelas.
 
-Separei a expectativa da entrega: o operador aprova cadastro/calendário separadamente da entrega; o pipeline aceita apenas revisões de lotes publicados mais o candidato integralmente aprovado, mantém os itens ativos da mesma venda no mesmo dia comercial e publica um manifesto com versões Delta fixas. O consumidor captura esse manifesto uma vez. A decisão observável é publicar o fechamento ou bloquear e continuar servindo o anterior, com motivo e origem de cada indicador.
+O operador aprova cadastro/calendário fora da entrega. O pipeline aceita apenas revisões de lotes publicados mais o candidato integralmente aprovado e mantém os itens ativos da mesma venda no mesmo dia comercial. Depois publica um manifesto com versões Delta fixas, capturado uma vez pelo consumidor. A decisão é publicar o fechamento ou bloquear e continuar servindo o anterior, com motivo e origem de cada indicador.
 
 ## Da entrega ao indicador
 
-As quatro linhas de [`fixture_rows`](../src/retail_pipeline/generation.py) permitem conferir o fechamento sem Spark: S01/A1 tem `2 × 10 − 1 = 19` e `1 × 5 = 5`; S01/A2 tem `3 × 7,50 − 2,50 = 20`; S02/B1 tem `1 × 20 = 20`. São **R$ 64,00, sete unidades e três vendas**, embora existam quatro itens. S03 confirma zero movimento; ela não é uma loja esquecida no cálculo.
+As quatro linhas de [`fixture_rows`](../src/retail_pipeline/generation.py) permitem conferir o fechamento sem Spark: S01/A1 tem `2 × 10 − 1 = 19` e `1 × 5 = 5`; S01/A2 tem `3 × 7,50 − 2,50 = 20`; S02/B1 tem `1 × 20 = 20`. São R$ 64,00, sete unidades e três vendas, embora existam quatro itens. S03 confirma zero movimento e continua incluída na cobertura.
 
 A ingestão preserva os arquivos e confere o contrato em [`prepare_batch`](../src/retail_pipeline/ingestion.py). A execução valida o estado candidato em [`_process`](../src/retail_pipeline/pipeline.py); [`current_state` e `gold_tables`](../src/retail_pipeline/transformations.py) escolhem a revisão de cada item e calculam os recortes. Só depois da reconciliação, [`publish`](../src/retail_pipeline/publication.py) torna as versões visíveis. O [teste da fixture](../tests/unit/test_generation.py) confere a aritmética; a [jornada integrada](../tests/integration/test_pipeline.py) verifica publicação, replay, correção, cancelamento e reativação.
 

@@ -28,7 +28,7 @@ _Página principal do relatório. Os registros abaixo identificam os cenários e
 
 O recorte de **22/09/2026** usa o renderer atual sobre dados históricos: duas de três lojas confirmadas e S02 pendente. É uma reprodução visual, sem novo processamento Spark. [Origem e limites da captura](docs/evidence/image-review-20260922.json) · [capturas](docs/image-review.md).
 
-Na execução de **22/09/2026, 12:06–12:09 UTC**, o lote inicial publicou **R$ 64,00 e três vendas**. A ausência de S02 bloqueou a nova entrega. Mover só um item de A1 para outro dia também foi bloqueado, embora a soma continuasse correta. A correção integral foi aceita; uma revisão posterior levou a **R$ 74,00**. São valores da fixture, não preços ou faturamento real. [Entradas e resultados](docs/evidence/editorial-20260922/business-thesis.json) · [comandos, imagem e datas](docs/evidence/editorial-20260922/execution.json).
+Na execução de 22/09/2026, das 12:06 às 12:09 UTC, o lote inicial publicou R$ 64,00 e três vendas. A ausência de S02 bloqueou a nova entrega. Mover só um item de A1 para outro dia também foi bloqueado, embora a soma continuasse correta. A correção integral foi aceita; uma revisão posterior levou a R$ 74,00. São valores da fixture, sem relação com preços ou faturamento real. [Entradas e resultados](docs/evidence/editorial-20260922/business-thesis.json) · [comandos, imagem e datas](docs/evidence/editorial-20260922/execution.json).
 
 | Caso da mesma execução                      | Resultado observado                                        |
 | ------------------------------------------- | ---------------------------------------------------------- |
@@ -44,7 +44,7 @@ A demonstração histórica que termina em R$ 77,00 tem outra sequência e perma
 
 ## Arquitetura
 
-O fechamento passa por três fronteiras: **entrega recebida**, **candidato calculado** e **publicação autorizada para leitura**. O batch é um processo Spark local; as tabelas Delta compartilham o volume de estado, mas cada uma tem sua própria versão. Por isso, o ponto de publicação é um manifesto que fixa o conjunto de versões.
+O fechamento passa pela entrega recebida, pelo cálculo do candidato e pela publicação autorizada para leitura. O batch é um processo Spark local; as tabelas Delta compartilham o volume de estado, mas cada uma tem sua própria versão. Por isso, o ponto de publicação é um manifesto que fixa o conjunto de versões.
 
 ```mermaid
 flowchart TB
@@ -77,7 +77,7 @@ flowchart TB
 
 No caminho principal, `run` adquire o lock, copia a entrega e compara suas revisões com o **histórico da publicação anterior**. Sem conflitos, grava candidatos, relê e reconcilia as duas gold, então troca `publication.json`. Se houver falha entre gravações, o ponteiro anterior continua válido; a retomada recompõe o candidato a partir dele. Repetir um lote já publicado retorna `NO_CHANGE` após as validações. [Fluxo e falhas exercitados](tests/integration/test_pipeline.py).
 
-O [Compose](compose.yaml) monta o estado em `/data`, o código somente para leitura em `/app` e as exportações em `artifacts/`. O servidor opcional acessa apenas as exportações; abrir o relatório não executa Spark nem atualiza os dados. Veja os [grãos das tabelas, a sequência de publicação e os limites de recuperação](docs/architecture.md).
+O [Compose](compose.yaml) monta o estado em `/data`, o código somente para leitura em `/app` e as exportações em `artifacts/`. O servidor opcional entrega relatórios HTML diretamente nessa pasta, recusa links simbólicos e deixa os JSONs para consulta local no disco. Abrir o relatório não executa Spark nem atualiza os dados. Veja os [grãos das tabelas, a sequência de publicação e os limites de recuperação](docs/architecture.md).
 
 <a id="o-que-eu-implementei"></a>
 <a id="stack"></a>
@@ -146,7 +146,7 @@ Resultados antigos não certificam commits posteriores. [Inventário das verific
 
 O escopo é local: sem autenticação multiusuário, streaming ou implantação Fabric executada. A [publicação](src/retail_pipeline/publication.py) depende do filesystem Linux e de um único escritor. Não há limpeza automática de versões Delta nem prova de recuperação fora do computador; o [ensaio de restauração](docs/evidence/state-proof/restore.json) usa um novo destino local.
 
-Os limites de entrada são parâmetros configuráveis, não capacidade medida: por padrão, **1 MiB por JSON, 64 MiB por arquivo, 256 MiB por entrega e 1.000 arquivos**. [Implementação dos limites](src/retail_pipeline/input_limits.py) e [configuração](compose.yaml). O scan preserva achados e suas datas; “zero HIGH/CRITICAL” em uma imagem não significa ausência de vulnerabilidades. [Registro do scan](docs/evidence/editorial-20260922/security.json), de **22/09/2026**.
+Os limites de entrada são configuráveis: por padrão, 1 MiB por JSON, 64 MiB por arquivo, 256 MiB por entrega e 1.000 arquivos. Esses valores definem o orçamento de entrada; a capacidade de processamento exige medição. [Implementação dos limites](src/retail_pipeline/input_limits.py) e [configuração](compose.yaml). O [scan de 22/09/2026](docs/evidence/editorial-20260922/security.json) mantém os achados da imagem examinada, mesmo quando nenhum atinge HIGH/CRITICAL. A [revisão dos 18 pontos de segurança](docs/SECURITY-REVIEW-2026-10-03.md) corrigiu a exposição de arquivos pelo servidor e quatro HIGH no Jackson sombreado do Parquet. O scan de 03/10 mantém somente o MEDIUM documentado de Commons Lang; a revisão registra os testes e seus limites.
 
 ## Documentação
 

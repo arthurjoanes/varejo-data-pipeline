@@ -1,0 +1,26 @@
+{
+  "component": "org.apache.parquet:parquet-jackson:1.18.1",
+  "local_artifact": "parquet-jackson-1.18.1-retail-jackson-2.22.3.jar",
+  "official_apache_release": false,
+  "source": {
+    "url": "https://codeload.github.com/apache/parquet-java/tar.gz/refs/tags/apache-parquet-1.18.1",
+    "sha256": "8c93ac92bd76f2167154ededcdb79b32d4725d9d940f9fedc84bef5103912546",
+    "tag": "apache-parquet-1.18.1",
+    "commit": "7c22cdba6792fa29c5bda74bf1f866a08d7572a9"
+  },
+  "builder": {
+    "image": "maven:3.9.15-eclipse-temurin-17@sha256:527989ca6d3279cc9494d665f617374c428eccd7248dbadf0d03bceaa70b9c5d",
+    "maven": "3.9.15",
+    "java": "Temurin 17.0.19+10",
+    "project_build_output_timestamp": "2026-10-03T00:00:00Z"
+  },
+  "changes": {
+    "jackson-core": {"from": "2.22.2", "to": "2.22.3"},
+    "jackson-databind": {"from": "2.22.2", "to": "2.22.3"},
+    "jackson-annotations": {"from": "2.22", "to": "2.22"},
+    "relocation": "shaded.parquet.com.fasterxml.jackson",
+    "method": "Build the complete upstream parquet-jackson module using its official shade configuration and public dependency properties. Preserve Maven component identities and licenses; add this provenance resource."
+  },
+  "advisories": ["CVE-2026-89407", "CVE-2026-89425", "CVE-2026-91776", "CVE-2026-91777"],
+  "upstream_fix": "https://github.com/FasterXML/jackson/wiki/Jackson-Release-2.22.3"
+}

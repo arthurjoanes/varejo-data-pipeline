@@ -45,7 +45,7 @@ A jornada aprova as referências sintéticas separadamente antes de criar entreg
 4. Abra `artifacts/explain.json`: amostra rotulada liga o indicador à origem. O documento se refere à primeira publicação; não se confunde com a versão final da demo.
 5. Veja `tests/integration/test_pipeline.py`: correção de data, revisão antiga, conflito, lote rejeitado, concorrência real e leitura por versão também são exercitados.
 
-Servidor opcional: `scripts/pipeline.ps1 serve` → http://localhost:3103/report.html. Os três HTML também abrem diretamente como arquivo. `scripts/pipeline.ps1 stop` encerra o servidor sem remover dados.
+O servidor opcional abre com `scripts/pipeline.ps1 serve`; consulte http://localhost:3103/report.html. Ele entrega os HTMLs diretamente em `artifacts`, sem listar a pasta ou expor os JSONs. Os três HTML também abrem diretamente como arquivo. `scripts/pipeline.ps1 stop` encerra o servidor sem remover dados.
 
 ## Inspecionar uma demo específica
 
@@ -95,4 +95,4 @@ Todas as chaves da tabela estão em [business-thesis.json](evidence/editorial-20
 
 As cinco imagens vêm dos HTMLs exportados imediatamente após cada operação, abertos no Edge a 1120 × 960 CSS px, zoom normal, fonte carregada. Usei somente navegação e expansão nativas; não substituí texto, números ou estados no DOM. Os recortes de indicadores mantêm a identificação da publicação e a tabela exata. [Registro das capturas](evidence/editorial-20260922/captures.json). As imagens da interface anteriores continuam documentando suas próprias versões e não foram sobrescritas.
 
-Para repetir, use o comando `verify_problem.py --thesis-only` do início deste guia. A variável `RETAIL_THESIS_EVIDENCE_DIR` ativa os exports no teste; o script já a configura. Estado temporário novo não significa diretório de saída novo: escolha outro `--output` para conservar uma rodada anterior. Os HTMLs são snapshots, sem atualização automática; não são um painel de execução ao vivo.
+Para repetir, use o comando `verify_problem.py --thesis-only` do início deste guia. A variável `RETAIL_THESIS_EVIDENCE_DIR` ativa os exports no teste; o script já a configura. Cada execução cria estado temporário, mas reutiliza o diretório de saída escolhido: use outro `--output` para conservar uma rodada anterior. Os HTMLs mostram o estado capturado na geração, sem atualização automática ou acompanhamento ao vivo.

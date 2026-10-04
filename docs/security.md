@@ -1,6 +1,8 @@
 # Segurança do runtime local
 
-O [commit oficial Apache 904afa78](https://github.com/apache/commons-lang/commit/904afa78cc58e2897f47eeac0781c3ba6f95b5e6) documenta a substituição da recursão. A aplicação local do patch e seus limites são sustentados pelo [registro de triagem](evidence/security-triage.json), não pela mera existência do commit upstream.
+O batch roda sem rede, e o servidor opcional entrega somente relatórios HTML locais. A [revisão de 03/10/2026](SECURITY-REVIEW-2026-10-03.md) descreve os 18 pontos do checklist, a correção da exposição de arquivos e as verificações executadas.
+
+O [commit oficial Apache 904afa78](https://github.com/apache/commons-lang/commit/904afa78cc58e2897f47eeac0781c3ba6f95b5e6) documenta a substituição da recursão. O [registro de triagem](evidence/security-triage.json) sustenta a aplicação local do patch e seus limites; o commit upstream, por si só, documenta apenas a correção oficial.
 
 O escopo suportado é o batch Docker local com o Compose deste repositório. A entrega contém CSV e três documentos JSON; a leitura oficial usa somente tabelas Delta geradas pelo próprio pipeline. O volume de estado, a configuração do operador e o código precisam permanecer sob controle do operador. Este projeto não é uma sandbox para executar código, abrir tabelas arbitrárias ou receber tráfego de clientes remotos.
 
@@ -8,13 +10,16 @@ O escopo suportado é o batch Docker local com o Compose deste repositório. A e
 
 - O batch usa `network_mode: none`, Spark `local[2]`, driver em `127.0.0.1` e UI desabilitada. Não inicia serviços Mesos, ZooKeeper, Hive, Thrift ou Telnet.
 - A raiz do container e o código são somente leitura, e novos privilégios são proibidos. O batch mantém somente `DAC_OVERRIDE`, necessária para exportar no bind `artifacts` pertencente ao usuário Linux sem mudar os donos ou permissões no host. As áreas graváveis são o volume `/data` e a pasta `artifacts`; o diretório temporário da JVM é `/data/tmp`. O servidor de relatório remove todas as capabilities.
-- O servidor opcional entrega somente `artifacts`, como usuário sem privilégios, na interface `127.0.0.1`. Ele não monta o volume Delta. Não é um servidor público de produção.
+- O [servidor opcional](../src/retail_pipeline/report_server.py) entrega arquivos HTML regulares diretamente em `artifacts`, como usuário sem privilégios, na interface `127.0.0.1`. Recusa JSON, arquivos ocultos, subpastas, links simbólicos e nomes que escapem da raiz. `/` abre `report.html`, sem listar diretórios. O volume Delta permanece fora do servidor. Seu uso é local, sob controle do operador.
+- O servidor aceita somente hosts `localhost` e `127.0.0.1`, bloqueando leitura por nomes usados em DNS rebinding. Respostas têm CSP com hash do JavaScript do relatório, bloqueio de conexões externas, proteção contra framing, `nosniff` e `no-store`. Relatórios acima de 64 MiB são recusados, e cada conexão tem timeout de cinco segundos. Os [testes HTTP](../tests/unit/test_report_server.py) cobrem essas regras; não existe autenticação multiusuário.
 - A ingestão recusa links simbólicos, FIFOs, caminhos que escapam da entrada e arquivos inesperados. Os bytes são copiados antes da validação. Arquivos Avro e Parquet enviados como entrega bloqueiam o lote; não são interpretados por esses leitores.
 - JSON externo é processado por Python. Spark recebe NDJSON produzido por `json.dumps`, com schema explícito; campos do CSV são dados escapados. As configurações não habilitam desserialização polimórfica Java. Parquet e logs Delta lidos pelo pipeline foram escritos pelo próprio runtime.
 
 Os testes de contrato verificam arquivos externos, symlinks, FIFO, caminhos e JSON profundamente aninhado. O smoke real verifica master local, driver loopback, ausência de UI, catálogo em memória, MERGE e leitura por versão. A suíte também cobre escape do conteúdo no HTML. Esses controles reduzem a superfície de entrada; não corrigem bibliotecas de terceiros.
 
 ## Dependências e builds identificados
+
+Em 03/10/2026, o scan encontrou quatro HIGH no Jackson 2.22.2 incorporado ao Parquet 1.18.1. A [receita Parquet](../vendor/parquet-jackson/README.md) reconstrói o módulo oficial de shading com core/databind 2.22.3, conservando metadados, licenças e proveniência própria. A repetição offline produziu o mesmo JAR. O [scan da imagem corrigida](evidence/security-review-20261003/image-scan.json), com base de 03/10/2026, tem zero HIGH/CRITICAL e um MEDIUM em Commons Lang 2.6. [Matriz, testes e limites desta revisão](SECURITY-REVIEW-2026-10-03.md).
 
 Na demonstração editorial posterior, executei a imagem `95abfa120b95…`. O [scan próprio dessa imagem](evidence/editorial-20260922/security.json) manteve zero HIGH/CRITICAL e um MEDIUM em Commons Lang 2.6, com base de 22/09/2026 às 07:24 UTC. Os parágrafos seguintes explicam a reconstrução anterior e seu artefato `3cc3b95c…`; não representam uma nova execução ou scan dessa imagem antiga.
 
@@ -28,7 +33,7 @@ O [scan histórico integral da imagem](evidence/security-scan.json) `sha256:3cc3
 
 ## Orçamento de entrada
 
-Por padrão: 1 MiB por JSON, 64 MiB por arquivo, 256 MiB por tentativa e 1.000 arquivos. Os bytes são contados enquanto são copiados, e JSON é limitado antes de parsing. `snapshot.json` marca a evidência parcial e a tentativa é bloqueada sem mudar a publicação anterior. [Configuração, códigos e retenção](data-contract.md). O orçamento por tentativa não é quota acumulada do disco.
+Por padrão: 1 MiB por JSON, 64 MiB por arquivo, 256 MiB por tentativa e 1.000 arquivos. O pipeline conta os bytes durante a cópia e limita o JSON antes do parsing. `snapshot.json` marca a evidência parcial; o bloqueio conserva a publicação anterior. [Configuração, códigos e retenção](data-contract.md). O disco ainda precisa de retenção própria, pois esse orçamento se aplica a cada tentativa.
 
 ## Reprodução e CI
 

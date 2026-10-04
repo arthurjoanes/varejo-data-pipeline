@@ -21,6 +21,12 @@ RUN --mount=type=cache,id=varejo-spark-m2,target=/build/m2,sharing=locked \
         -cp /output/component-classes:/output/spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar:/build/m2/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar \
         JettyComponentCheck true
 
+FROM maven:3.9.15-eclipse-temurin-17@sha256:527989ca6d3279cc9494d665f617374c428eccd7248dbadf0d03bceaa70b9c5d AS parquet-jackson-build
+COPY vendor/parquet-jackson /recipe
+RUN --mount=type=cache,id=varejo-parquet-source,target=/input,sharing=locked \
+    --mount=type=cache,id=varejo-spark-m2,target=/build/m2,sharing=locked \
+    sh /recipe/build.sh
+
 FROM maven:3.9.11-eclipse-temurin-17@sha256:e4a7ace3dc0d645ed97f8d9ad0b0d3f0b14fa8d150138f27f116d7105a639b82 AS hadoop-runtime-build
 COPY vendor/hadoop-runtime /build/hadoop-runtime
 RUN --mount=type=cache,id=varejo-hadoop-m2,target=/root/.m2/repository,sharing=locked \
@@ -68,6 +74,7 @@ COPY scripts/download_jars.py scripts/patch_runtime_jars.py scripts/install_rebu
 COPY --from=spark-core-build /output/spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar /tmp/rebuilt/spark-core/spark-core_2.13-4.2.0-retail-jetty-12.1.13.jar
 COPY --from=hadoop-runtime-build /out/hadoop-runtime/hadoop-client-runtime-3.5.0-retail-security.1.jar /tmp/rebuilt/hadoop-runtime/hadoop-client-runtime-3.5.0-retail-security.1.jar
 COPY --from=commons-lang-build /output/commons-lang/commons-lang-2.6-retail-classutils-v1.jar /tmp/rebuilt/commons-lang/commons-lang-2.6-retail-classutils-v1.jar
+COPY --from=parquet-jackson-build /output/parquet-jackson-1.18.1-retail-jackson-2.22.3.jar /tmp/rebuilt/parquet-jackson/parquet-jackson-1.18.1-retail-jackson-2.22.3.jar
 RUN --mount=type=cache,id=varejo-runtime-jars,target=/var/cache/varejo-jars,sharing=locked \
     export VAREJO_JAR_CACHE=/var/cache/varejo-jars \
     && python /tmp/download_jars.py \
