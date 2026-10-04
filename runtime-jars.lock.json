@@ -458,6 +458,15 @@
       "sha256": "62b25057c3b2e7f0f0cf03ff7681e1a6299e476dbaf9ecd22d61eb606530ca13",
       "provenance_path": "META-INF/varejo-hadoop-runtime.json",
       "provenance_sha256": "b2cbf6cf5d6b96e72c443ebf2fbb07a01d71c915f9bd344002be38c27347437d"
+    },
+    {
+      "component": "parquet-jackson",
+      "source": "parquet-jackson-1.18.1.jar",
+      "source_sha256": "1914fed4ed18999ce98ad844aa5d0b09f31027be329ffd82d861d6f7c6f097c7",
+      "target": "parquet-jackson-1.18.1-retail-jackson-2.22.3.jar",
+      "sha256": "d1d4c1ea556f3cbd0a6207050fe19f43f629598ededca2e0f30828e23b513a9d",
+      "provenance_path": "META-INF/varejo-parquet-jackson.json",
+      "provenance_sha256": "79782f8f5bf30d4b195779a21d950ad8623ff54ae9972e2802a080597244dee5"
     }
   ]
 }

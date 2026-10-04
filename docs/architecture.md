@@ -4,7 +4,7 @@
 
 Rede fictícia entrega revisões completas de itens de venda. O operador precisa distinguir entrega incompleta, bloqueio financeiro, falha técnica e reexecução sem mudança. O analista lê somente uma publicação consistente e rastreável. Dados exclusivamente sintéticos; BRL; dia comercial America/Sao_Paulo. Fora do MVP: reembolso parcial, streaming, APIs e cloud.
 
-O [README](../README.md#arquitetura) mostra o caminho da entrega até o relatório. Abaixo, a implantação separa quem escreve o estado de quem apenas entrega o HTML. Bronze, silver e gold são camadas de dados do mesmo batch local; não são serviços de rede.
+O [README](../README.md#arquitetura) mostra o caminho da entrega até o relatório. A implantação separa a escrita do estado da entrega do HTML. Bronze, silver e gold são camadas de dados do mesmo batch local, sem serviços de rede próprios.
 
 ```mermaid
 flowchart TB
@@ -18,7 +18,7 @@ flowchart TB
   end
   State[("Volume nomeado em /data<br/>referências, tentativas, Delta e publicações")]
   Export["Bind artifacts/<br/>report.html com CSS e JS embutidos"]
-  Server["Compose: report-server<br/>python -m http.server · bind somente leitura"]
+  Server["Compose: report-server<br/>retail_pipeline.report_server · HTML restrito"]
   Browser["Navegador<br/>127.0.0.1:3103/report.html"]
 
   Operator -->|"execução sob demanda"| CLI
@@ -50,7 +50,7 @@ Python 3.11.16, OpenJDK 17.0.20+8 (Alpine 17.0.20_p8-r0), PySpark 4.2.0 e Delta 
 
 Docker Compose `pf-varejo-data`; volume nomeado exclusivo para entrada gerada, Delta, temporários e logs. Exportação pequena em `artifacts/`. Spark local[2], shuffle 2, UI desabilitada, JVM inicialmente 1 GiB e container limitado a 3 GiB/2 CPUs. Execução sob demanda. HTML local, servidor opcional 127.0.0.1:3103.
 
-Os valores vêm de [compose.yaml](../compose.yaml) e [spark.py](../src/retail_pipeline/spark.py). O batch monta `/app` somente para leitura, `/data` para estado e `/app/artifacts` para exportar. O `report-server` usa o perfil opcional `report`, usuário `65534:65534`, 128 MiB/0,25 CPU e recebe somente o bind de exportações, somente para leitura. Não há scheduler nem fila: o operador inicia cada comando. O limite de recursos é configuração local, não capacidade medida.
+Os valores vêm de [compose.yaml](../compose.yaml) e [spark.py](../src/retail_pipeline/spark.py). O batch monta `/app` somente para leitura, `/data` para estado e `/app/artifacts` para exportar. O `report-server` usa o perfil opcional `report`, usuário `65534:65534`, 128 MiB/0,25 CPU e recebe o bind de exportações somente para leitura. O [leitor HTTP](../src/retail_pipeline/report_server.py) aceita HTML regular na raiz e recusa os demais artefatos, links e listagens. O operador inicia cada comando; não há scheduler nem fila. Os limites de recursos são configurações locais e exigem medição para avaliar capacidade.
 
 ## Contratos
 
@@ -197,7 +197,7 @@ Gerador e validação física usam streaming Python; transformações tipadas e 
 
 O relatório tem três fronteiras: `reporting.py` adquire dados de um snapshot e rastreia contribuições; `report_model.py` define `ReportPayload`; `report_view.py` produz HTML de dados capturados. `report.css` e `report.js` são recursos declarados no pacote e embutidos no HTML final. Não existem requisições externas ou backend da interface. JavaScript aprimora a navegação entre vistas, o foco e a cópia de identificadores; campos somente leitura, âncoras e detalhes nativos preservam a leitura sem script.
 
-O motor grava datas Parquet com calendário gregoriano (`datetimeRebaseModeInWrite` e `int96RebaseModeInWrite` em `CORRECTED`). O padrão do Spark recusa datas anteriores ao calendário híbrido; o contrato aceita anos 0001–9999, por isso a escrita usa CORRECTED. A integração grava e relê datas dos anos 0001, 1800 e 9999; não há importação de arquivos Parquet arbitrários de leitores legados. [Semântica oficial Spark 4.2.0](https://spark.apache.org/docs/4.2.0/sql-data-sources-parquet.html#configuration). Configuração local: [spark.py](../src/retail_pipeline/spark.py); cobertura: [test_boundaries.py](../tests/integration/test_boundaries.py).
+O motor grava datas Parquet com calendário gregoriano (`datetimeRebaseModeInWrite` e `int96RebaseModeInWrite` em `CORRECTED`). O padrão do Spark recusa datas anteriores ao calendário híbrido; o contrato aceita anos de 0001 a 9999, por isso a escrita usa CORRECTED. A integração grava e relê datas dos anos 0001, 1800 e 9999; não há importação de arquivos Parquet arbitrários de leitores legados. [Semântica oficial Spark 4.2.0](https://spark.apache.org/docs/4.2.0/sql-data-sources-parquet.html#configuration). Configuração local: [spark.py](../src/retail_pipeline/spark.py); cobertura: [test_boundaries.py](../tests/integration/test_boundaries.py).
 
 ## Público e motivo do recorte
 

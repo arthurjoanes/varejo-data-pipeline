@@ -1,0 +1,414 @@
+{
+  "review_date": "2026-10-03",
+  "image": "sha256:f242274fc4697baab03eaca1575e15e5ffc6baa7094289ac2f00052e09d4e09a",
+  "scan_created_at": "2026-10-03T22:58:16.355683355Z",
+  "scanner": {
+    "Version": "0.74.0"
+  },
+  "vulnerability_database": {
+    "Version": 2,
+    "NextUpdate": "2026-10-04T19:02:38.737369504Z",
+    "UpdatedAt": "2026-10-03T19:02:38.737369755Z",
+    "DownloadedAt": "2026-10-03T22:33:41.370315008Z"
+  },
+  "unfiltered": true,
+  "ignorefile": "/dev/null",
+  "severity_filter": null,
+  "ignore_unfixed": false,
+  "gate": "PASS: no HIGH or CRITICAL findings",
+  "raw_scan_sha256": "23f9d46c562cebb18aacad085a44ba92aba1276e2cbe7e2726c3e5ec1230efe4",
+  "inventory": [
+    {
+      "type": "alpine",
+      "packages": 52,
+      "vulnerabilities": 0
+    },
+    {
+      "type": "jar",
+      "packages": 441,
+      "vulnerabilities": 1
+    },
+    {
+      "type": "python-pkg",
+      "packages": 28,
+      "vulnerabilities": 0
+    }
+  ],
+  "findings": [
+    {
+      "VulnerabilityID": "CVE-2025-48924",
+      "Severity": "MEDIUM",
+      "PkgName": "commons-lang:commons-lang",
+      "InstalledVersion": "2.6",
+      "FixedVersion": null,
+      "PkgPath": "usr/local/lib/python3.11/site-packages/pyspark/jars/commons-lang-2.6-retail-classutils-v1.jar",
+      "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-48924"
+    }
+  ],
+  "parquet_rebuild": {
+    "component": "parquet-jackson",
+    "source": "parquet-jackson-1.18.1.jar",
+    "source_sha256": "1914fed4ed18999ce98ad844aa5d0b09f31027be329ffd82d861d6f7c6f097c7",
+    "target": "parquet-jackson-1.18.1-retail-jackson-2.22.3.jar",
+    "sha256": "d1d4c1ea556f3cbd0a6207050fe19f43f629598ededca2e0f30828e23b513a9d",
+    "provenance_path": "META-INF/varejo-parquet-jackson.json",
+    "provenance_sha256": "79782f8f5bf30d4b195779a21d950ad8623ff54ae9972e2802a080597244dee5"
+  },
+  "parquet_maven_materials": 607,
+  "offline_reproduction": "PASS: same complete shaded JAR hash on two fresh source extractions, network none",
+  "component_checks": [
+    "relocated Jackson versions",
+    "JSON roundtrip",
+    "number length bound",
+    "nesting depth bound"
+  ],
+  "component_check_limits": "Does not reproduce every listed Jackson advisory",
+  "source_snapshot": {
+    "compose.yaml": "4db38d357d229f8915cf383fe34d75945db4db3483bd68589cf1c0c43df6e9b5",
+    "data/operator/fixture/catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+    "data/operator/fixture/schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd",
+    "data/samples/fixture-valid/catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+    "data/samples/fixture-valid/manifest.json": "57e24be3f6a9412983fc1a98ea918899dd30be559b220e9a9597615fcd3851aa",
+    "data/samples/fixture-valid/S01.csv": "6371be2e6771802c645a2e2ba32ae37d5b7718f052d6ab81a76be28746da984d",
+    "data/samples/fixture-valid/S02.csv": "2af3a3a3956ee424d207f470678ca0bbf784eaa992a9f66902562133962fd52c",
+    "data/samples/fixture-valid/schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd",
+    "Dockerfile": "9d01990ec082fbdf45ec2cd7786bdd72d6da91f584102d0ee0d26fa0f6b3e4f9",
+    "pyproject.toml": "0025b8204e919a9bbb1b607f41cddd302e693178d79d2c21c86794a3e36c2a3b",
+    "requirements-build.lock": "e5f3af7250a2ecc1cc9cd10bc183a96ce94bd1ea2e54949292e093b7269fdf56",
+    "requirements.lock": "9b07da96ef631ff5db0cb3500159b3187176eacb6cd9564c7b07c5392b83af19",
+    "runtime-jars.lock.json": "2b1fd52b9ebba1c5330af4be5e7e281167908cf2a6742a9474deed01d2f97535",
+    "scripts/a11y-review.cjs": "ad3ce07459dd6f3d97f1d731ed3dad2fe6a3eaa73e500a28cc467c39c977a750",
+    "scripts/benchmark.py": "420149dc52879b62e9e1f6576e6b0134754204299166ff99b77e8bd9e2d4e611",
+    "scripts/build_commons_lang.py": "eba101ba14a8a35bf7d446f58e1b12d5c47312a8126b0f2da7ff771fbe8538fa",
+    "scripts/build_spark_core.py": "feec7412fe2aba5261262e42316233ec13c95e3b67aa64a2690dcb8596bd08ea",
+    "scripts/capture-doc-focus.cjs": "05262242b4f6c70e36dc388a4207fa46f09bc7f32066b3d9b0b1eda78f534ac9",
+    "scripts/check_image_scan.py": "06513a4f162afc3eff2ba3ee990619593c39eab5e75fbb42bf07add08c2ae615",
+    "scripts/download_jars.py": "8db8eb2e258ea8874763a0fc10e9839a93657d0c9d6dfed85bbf1ffb4491a2b3",
+    "scripts/fetch_artifact.py": "d1c6f55e555f9b7758832b592da17a482f8a36e3df15c39b2d229d46177d91c5",
+    "scripts/hadoop_build_runtime.py": "361ed3d7f7bba34e5b410210fd351c98197f839a03a64df8ad3511a8c846a0b6",
+    "scripts/hadoop_verify_runtime.py": "8d77500acfa9e9ff65b3088797e0164857d4d4d2ed55bed84b3d5e9a721340bb",
+    "scripts/install_rebuilt_jars.py": "71a295c50be09d8960c6fda21a20bb4afcdf637dc041624b414ec9a4e149c970",
+    "scripts/patch_runtime_jars.py": "629573b2b67d4f6c0e95b7e7a053daab0bdb649bb14670d67ffaef4620b1b275",
+    "scripts/pipeline.ps1": "34d8b7b97727c52965915e951e037407d2734976524d8382cbb32af8de09dde7",
+    "scripts/pipeline.sh": "310faef1ac80d9f163f7bd9a66560f75de7558c810dd38eada4d0218abdcc773",
+    "scripts/proof_contracts.py": "7674dd052c40b86cf71e1b4562979eb9ed087f53fd07ebe39a6650811cc29c23",
+    "scripts/prove_state.py": "917aed288e2a9fd914aa8db86f3b57f65e2f692789083d2f7389103fa75cb816",
+    "scripts/recovery_probe.py": "d8d5c2d75fe2408bc4d57318f7b478ccf1f233a3fb83ee5241e32aa714fdde4a",
+    "scripts/render_review.py": "937027dc5a28589652295ea213ecd745437c0c6eb7302d7052a62dd6611fc917",
+    "scripts/show_logs.py": "80cd25cd296f98cf89bd694555a45cac162a8257f804e093700464c806194657",
+    "scripts/verify_problem.py": "a61e1a608c9da8e47bb7b666292abaaa49f5ddb43d62bc088ecddd79cf39a3b2",
+    "scripts/verify_runtime_migration.py": "d5ccd8dfc9080f5bc54f30a72e366ce0ac335d11b42438fa49d13c8b974f2299",
+    "scripts/verify_spark_core.py": "9b784592c3c365d8e61d5c86922381935b0fbff25e10f66488fda27c2f244819",
+    "scripts/visual-review.cjs": "f585a5f4572dbf22516e9e0c65ccad09090ef1c4bc7ea6bce7824716234662ad",
+    "src/retail_pipeline/__init__.py": "91447944015cec709e8aa7655f7e9d64e1e4508e7023a57fe3746911c0fc6fed",
+    "src/retail_pipeline/assets/brand-mark.svg": "d331b6e5c94a4cc048a7914df66aedf21fc50c24a819cb06efdd3f30737a4344",
+    "src/retail_pipeline/assets/brand-mono.svg": "e276c0c098e119ef029b80c59799de86dd335fc4d6c9b289dacbb894a327296d",
+    "src/retail_pipeline/assets/favicon.svg": "23918481346a31640d0f2f6d59d52696ccbadc4bc4372f0ef696e6fd723574dc",
+    "src/retail_pipeline/assets/source-sans-3.woff2": "5f16566f7a40d39b339ad26be151fa5a1ab1f0c2574c7a2e619765584a1acbd8",
+    "src/retail_pipeline/assets/source-sans-LICENSE.md": "5d8778c6a43dc2fee25e81ee6ff07e52c6f238473b491cda47f7117a2ce9d467",
+    "src/retail_pipeline/batch_contracts.py": "68294589d3d312fbbc39636bbe86a1a77e38ce8be4e98b44ea34df7c0327d5a7",
+    "src/retail_pipeline/cli.py": "10af4d8948c08c408ecde3a22ddf93b06b75482a82f93f2c6640f26d27cafdc1",
+    "src/retail_pipeline/contracts.py": "6c14edad3bd768b4e04ad68447874f629211d3e2661e0042202198018a79f3c8",
+    "src/retail_pipeline/demo.py": "eae08eaadc6257680a950e615abe3cfe3540256c0c8e6456d32a268ff262c910",
+    "src/retail_pipeline/generation.py": "6a850ed30de5f66b4cbe5a0e4453fa5774719119af0c1d8e066bc06a83d3a784",
+    "src/retail_pipeline/ingestion.py": "130edfa7b4dcc21f1d33068b8b773598880488826d6051afb32a041ecb86a6fe",
+    "src/retail_pipeline/input_limits.py": "f804defbc521f7b743567aad028758581e656f54defa18c0f5f63c4facd4f395",
+    "src/retail_pipeline/pipeline.py": "862684dcac7e180911def37ebb899e3bbf2468f195dc7dd9c778f80faadc78e0",
+    "src/retail_pipeline/publication.py": "0693970f02ba137251e9f7ac71f8efdc232fa914ce27075c261222b89e39296b",
+    "src/retail_pipeline/references.py": "e6eed8c0a7fb783456c2a950394a94d13147257dbb9c82bfdd9672365fa76247",
+    "src/retail_pipeline/report.css": "ec8fb5d6252ec8f2d52e2c981de538e8ae34ab6cbbd376d10a951d6daa94333a",
+    "src/retail_pipeline/report.js": "db60425d6a2b1d2bc72aa31016019eb5e4d2eae53fa3f40e0d4392e41e4d81fe",
+    "src/retail_pipeline/report_assets.py": "f78dc99068cc054ce1005771d2495fb4c5b291a2e9a626af259858c12aa7fa05",
+    "src/retail_pipeline/report_model.py": "cbeae3a60a1a32c2cdcec2fea1bb0e94fd65ff4d81131b0cadec1aebf1f39f00",
+    "src/retail_pipeline/report_server.py": "ba5613e583946e0e934739f5de9bc2224bb82575a47fe1883c6bcb6678103869",
+    "src/retail_pipeline/report_view.py": "d717175cae40ef504938cb823f2d47225d4627550a4ec63782acde27d9738b52",
+    "src/retail_pipeline/reporting.py": "e74cfe9af3204a69d659e63dd851fb94714826d205e4d51c0e7bf475b03454cb",
+    "src/retail_pipeline/spark.py": "bc792b74100724650eff904b24971677b41a387979d1fd4a8c98098461cf28eb",
+    "src/retail_pipeline/transformations.py": "5bd4417f752105b92206fc8a128fa6b94abd3db73ba8cd91b0fb3e3c7babd4ee",
+    "tests/integration/conftest.py": "2b4e5549cf8dfeb0f0f2df1644a75c4ce74a70e5b7375d841b235b3ded8654c7",
+    "tests/integration/test_boundaries.py": "e642ae5236e71ed3517749938f202a647e1d94b457101b98c494f5ab9b8797da",
+    "tests/integration/test_business_thesis.py": "9299040460d291168c217963194a68d01ebcab352421db4ae115d9fa62e5aee8",
+    "tests/integration/test_commit_boundary.py": "753cb2bd73af3d9e2fcda86bd9d1613ce91d7f2b31eaec987b78fdb49b0d26e7",
+    "tests/integration/test_pipeline.py": "a4d47794de2cdd61163620bf55812acc5b72fd3c06847156e4c10585658c33c4",
+    "tests/integration/test_smoke.py": "104187b5f384f02fe7536b7f94db72c5bfad56d5f49bceefb48694cd92deceef",
+    "tests/unit/test_cli.py": "4b5052da69b50cd2571a6f9dc5e989cfcda77b129b63ce9dffcab792a1da3ddd",
+    "tests/unit/test_contracts.py": "3875bfbcf2642aac8a949017df3547a9077f286b615fb857573a9ed3bed1c6d0",
+    "tests/unit/test_generation.py": "5bea8c50040f020edc900c1aa87de24560ea2ad9b8867752a698e0e303dc9295",
+    "tests/unit/test_input_limits.py": "1a3dc43cf307c15699a98fea52ef30716a02d6b91a49c5fdb9f137761cef10e9",
+    "tests/unit/test_jar_download_cache.py": "d95fb5be065e42886837096810bcd188ba7c9f9f322a2d01523e73c7b1569683",
+    "tests/unit/test_operator_references.py": "cf348065a855ce3f31e729f84ecf12e51fed85860de58d2384489120b9ec76ff",
+    "tests/unit/test_rebuilt_jars.py": "6d6bff50f08b71be94bbf5023bd47a050569ca5c2953d9dc6a8e335254e0ac62",
+    "tests/unit/test_report_server.py": "5a0921201c1576a9fb0b345495d70d7414bfb1b580f0d002a01debc5824cc756",
+    "tests/unit/test_reporting.py": "1e9c2acfb6da92d7ea58311697af43609978b13f411d66dafbc10e059d7a2472",
+    "tests/unit/test_security_gate.py": "f5d2809171ff9528e0c3530c37ae907426312c676064b6ab123219d83256e8c4",
+    "tests/unit/test_state_proof.py": "bb3d09d55b942ce7d8b63c3ef28a39e19081a5231c7e89d9876e947a4ecb90bf"
+  },
+  "full_tests_before_parquet": {
+    "tests": 269,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 961.247
+  },
+  "full_tests_final": {
+    "tests": "270",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "767.754",
+    "timestamp": "2026-10-03T22:58:11.451648+00:00",
+    "image": "sha256:f242274fc4697baab03eaca1575e15e5ffc6baa7094289ac2f00052e09d4e09a",
+    "junit_sha256": "1a580469994178d7e66a6854ae7889d693fc60a23bbda60ed585adcb509d9f68",
+    "integration_cases": 15,
+    "unit_cases": 255
+  },
+  "quality": {
+    "ruff_lint": "PASS",
+    "ruff_format": "PASS: 53 files",
+    "mypy": "PASS: 18 source files"
+  },
+  "server_linux_restricted": {
+    "tests": 21,
+    "failures": 0,
+    "conditions": "uid 65534, network none, read-only root, no capabilities, no new privileges, 128 MiB, 0.25 CPU"
+  },
+  "historical_evidence": "2026-09-22 records were not overwritten",
+  "secrets": {
+    "history": {
+      "commits": 30,
+      "bytes_approx": 12260000,
+      "leaks": 0
+    },
+    "current_files": {
+      "files": 608,
+      "bytes_approx": 15437948,
+      "leaks": 0,
+      "ignored_files": "excluded",
+      "includes": "final JUnit and review receipts"
+    },
+    "rules": ".gitleaks.toml default rules plus existing exact public Python fingerprint exception"
+  },
+  "cross_review": "PASS: read-only independent review of report server and Parquet recipe/hashes; no blocking findings",
+  "source_snapshot_unchanged_at_completion": true,
+  "cleanup": {
+    "containers": "all owned audit containers used --rm and finished",
+    "temporary_git_export": {
+      "source": "artifacts/security-review-worktree",
+      "archived_at": "C:\\Users\\arthu\\AppData\\Local\\CodexSecurityReview\\pipeline-20261003\\publicable-snapshot",
+      "files": 608,
+      "source_removed_from_project": true,
+      "files_deleted": false,
+      "validation": "Exact source and destination verified; no reparse points; originals preserved."
+    },
+    "removal_attempt": "Recursive deletion was rejected by tool policy (blocked by policy); reversible native PowerShell move completed instead."
+  },
+  "ci_parquet_followup": {
+    "enforcer": "enabled; Java/Maven versions, banned dependencies and JUnit imports passed",
+    "offline_build": "PASS, fresh source extraction with network none",
+    "jar_sha256": "d1d4c1ea556f3cbd0a6207050fe19f43f629598ededca2e0f30828e23b513a9d",
+    "runtime_changed": false,
+    "runtime_install_check": {
+      "jar_sha256": true,
+      "upstream_original_removed": true,
+      "provenance_sha256": true,
+      "stored_provenance_equals_embedded": true,
+      "licenses_present": true,
+      "maven_metadata_versions": "Parquet1.18.1, Jackson core/databind2.22.3, annotations2.22"
+    },
+    "definition_sha256": "a9fca15f8c489b244f3bf373b5da6c29b1880b6d12084dbe37097693160bcde4",
+    "full_tests_repeated": false,
+    "reason": "Build checks strengthened; output JAR bytes and functional sources unchanged."
+  },
+  "publication_preparation": {
+    "image_metadata_minimization": {
+      "image-before-parquet.json": {
+        "original_report_sha256": "5492a7f2411b51ad4d1add07071959b137e4d4e7a3b437012aef517ffb0b282e",
+        "public_report_sha256": "a355a7a0d7db53a392d66e0b5a99c1c9b25438c69b69b7cb037cd8ab59061722",
+        "results_canonical_sha256": "1c00532c1877fe25ce3aa2558fa562706e6aef6822035f4deab8db9de2649f56",
+        "results_unchanged": true,
+        "public_metadata": [
+          "ImageID",
+          "OS"
+        ],
+        "original_kept_private": true
+      },
+      "image-scan.json": {
+        "original_report_sha256": "0db9a25afe54b61c414bfb9124ec2bf8f1c3102f9fed81005dbe77f55de2a02b",
+        "public_report_sha256": "e1dfe837ad2200d0287472df88b6ddcc12db9e86fea48877a6d60803e57890e9",
+        "results_canonical_sha256": "d5240ac14a73bfb16b19bcb679a5a8ea0a98e4a1c37d3e33049a41fed525ad05",
+        "results_unchanged": true,
+        "public_metadata": [
+          "ImageID",
+          "OS"
+        ],
+        "original_kept_private": true
+      }
+    },
+    "raw_scan_sha256_scope": "Original scan before public metadata minimization; public report hashes are recorded separately.",
+    "curated_logs": {
+      "parquet-enforcer-build.log": {
+        "original_sha256": "3b35c1df04fb3510b75b0a8d530372636d0f784a6debdbffc8c649d74ada394f",
+        "public_sha256": "e05938e971ea0ac9ede0901ff3c2134bca13f016a4af0505c51335927ce945dc",
+        "normalization": "Line endings and trailing whitespace only; all messages and statuses preserved.",
+        "original_kept_private": true
+      },
+      "parquet-offline-build.log": {
+        "original_sha256": "2ecf7851ab5a6d740f482032686cf151e16d693e230e5606d8946807f5463ff9",
+        "public_sha256": "e684c2192d35df7b0b81f886e80bf2e4c293dd92ecdd7e2e54105035ba194888",
+        "normalization": "Line endings and trailing whitespace only; all messages and statuses preserved.",
+        "original_kept_private": true
+      },
+      "quality-linux.log": {
+        "original_sha256": "a0d27b79ec600c51d5d93e10102e9aff0efb6091408a1a01790eeba6c63c0a45",
+        "public_sha256": "72c2afaa75401fb44c0256ea06aca695aa92f56c579e31b2ae6ee2c74d0fed0c",
+        "normalization": "Line endings and trailing whitespace only; all messages and statuses preserved.",
+        "original_kept_private": true
+      },
+      "report-tests-linux.log": {
+        "original_sha256": "c941d685d6d38ae55cc012472caaf91d123eff02523f319a03fa85da0bfb16e5",
+        "public_sha256": "c941d685d6d38ae55cc012472caaf91d123eff02523f319a03fa85da0bfb16e5",
+        "normalization": "Line endings and trailing whitespace only; all messages and statuses preserved.",
+        "original_kept_private": true
+      }
+    }
+  },
+  "source_hash_representation": "Original reviewed worktree bytes; published Git may normalize line endings according to .gitattributes.",
+  "publication_source_git_blob_sha256": {
+    "compose.yaml": "4db38d357d229f8915cf383fe34d75945db4db3483bd68589cf1c0c43df6e9b5",
+    "data/operator/fixture/catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+    "data/operator/fixture/schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd",
+    "data/samples/fixture-valid/catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+    "data/samples/fixture-valid/manifest.json": "57e24be3f6a9412983fc1a98ea918899dd30be559b220e9a9597615fcd3851aa",
+    "data/samples/fixture-valid/S01.csv": "6371be2e6771802c645a2e2ba32ae37d5b7718f052d6ab81a76be28746da984d",
+    "data/samples/fixture-valid/S02.csv": "2af3a3a3956ee424d207f470678ca0bbf784eaa992a9f66902562133962fd52c",
+    "data/samples/fixture-valid/schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd",
+    "Dockerfile": "9d01990ec082fbdf45ec2cd7786bdd72d6da91f584102d0ee0d26fa0f6b3e4f9",
+    "pyproject.toml": "db3cebf54d6ef440de6d65df2ec5bf04077395510c788e30e9fa893e46d225e9",
+    "requirements-build.lock": "472958544c65a61a0677fe54c25c8887fc06b5f28025de824489fe4c890bff17",
+    "requirements.lock": "0f3971179a018cc6b2fadb340df755282f4337e29b43d277e2fcb05f971f6142",
+    "runtime-jars.lock.json": "e73ccd39ddfaacc6100b98e062c5a64f10d842317b79a3b9f6284e81b9f2d8c9",
+    "scripts/a11y-review.cjs": "ad4d11788a2f522dfbb2092fbece9f8bf8bcb287fd4282ea4ac711f560d9ca5d",
+    "scripts/benchmark.py": "420149dc52879b62e9e1f6576e6b0134754204299166ff99b77e8bd9e2d4e611",
+    "scripts/build_commons_lang.py": "eba101ba14a8a35bf7d446f58e1b12d5c47312a8126b0f2da7ff771fbe8538fa",
+    "scripts/build_spark_core.py": "feec7412fe2aba5261262e42316233ec13c95e3b67aa64a2690dcb8596bd08ea",
+    "scripts/capture-doc-focus.cjs": "05262242b4f6c70e36dc388a4207fa46f09bc7f32066b3d9b0b1eda78f534ac9",
+    "scripts/check_image_scan.py": "06513a4f162afc3eff2ba3ee990619593c39eab5e75fbb42bf07add08c2ae615",
+    "scripts/download_jars.py": "8db8eb2e258ea8874763a0fc10e9839a93657d0c9d6dfed85bbf1ffb4491a2b3",
+    "scripts/fetch_artifact.py": "d1c6f55e555f9b7758832b592da17a482f8a36e3df15c39b2d229d46177d91c5",
+    "scripts/hadoop_build_runtime.py": "361ed3d7f7bba34e5b410210fd351c98197f839a03a64df8ad3511a8c846a0b6",
+    "scripts/hadoop_verify_runtime.py": "8d77500acfa9e9ff65b3088797e0164857d4d4d2ed55bed84b3d5e9a721340bb",
+    "scripts/install_rebuilt_jars.py": "71a295c50be09d8960c6fda21a20bb4afcdf637dc041624b414ec9a4e149c970",
+    "scripts/patch_runtime_jars.py": "629573b2b67d4f6c0e95b7e7a053daab0bdb649bb14670d67ffaef4620b1b275",
+    "scripts/pipeline.ps1": "34d8b7b97727c52965915e951e037407d2734976524d8382cbb32af8de09dde7",
+    "scripts/pipeline.sh": "310faef1ac80d9f163f7bd9a66560f75de7558c810dd38eada4d0218abdcc773",
+    "scripts/proof_contracts.py": "7674dd052c40b86cf71e1b4562979eb9ed087f53fd07ebe39a6650811cc29c23",
+    "scripts/prove_state.py": "917aed288e2a9fd914aa8db86f3b57f65e2f692789083d2f7389103fa75cb816",
+    "scripts/recovery_probe.py": "d8d5c2d75fe2408bc4d57318f7b478ccf1f233a3fb83ee5241e32aa714fdde4a",
+    "scripts/render_review.py": "937027dc5a28589652295ea213ecd745437c0c6eb7302d7052a62dd6611fc917",
+    "scripts/show_logs.py": "80cd25cd296f98cf89bd694555a45cac162a8257f804e093700464c806194657",
+    "scripts/verify_problem.py": "a61e1a608c9da8e47bb7b666292abaaa49f5ddb43d62bc088ecddd79cf39a3b2",
+    "scripts/verify_runtime_migration.py": "d5ccd8dfc9080f5bc54f30a72e366ce0ac335d11b42438fa49d13c8b974f2299",
+    "scripts/verify_spark_core.py": "9b784592c3c365d8e61d5c86922381935b0fbff25e10f66488fda27c2f244819",
+    "scripts/visual-review.cjs": "f269c4f38666fd7a1a11b7749261ca0d740794a75235389e3afe69cdd0014334",
+    "src/retail_pipeline/__init__.py": "91447944015cec709e8aa7655f7e9d64e1e4508e7023a57fe3746911c0fc6fed",
+    "src/retail_pipeline/assets/brand-mark.svg": "bcb76f9d844e239226f928b3278b7e808f38fc0772ad77194f5d9ec6ff5e2182",
+    "src/retail_pipeline/assets/brand-mono.svg": "5dd43e682d20e1e5f1d30af36535c8dc7f04f49e32be407e6d63446b3177ebe9",
+    "src/retail_pipeline/assets/favicon.svg": "6897a686d6c9a64559c93843df5e3e07816b23b1f5d204f8e565976cc528a678",
+    "src/retail_pipeline/assets/source-sans-3.woff2": "5f16566f7a40d39b339ad26be151fa5a1ab1f0c2574c7a2e619765584a1acbd8",
+    "src/retail_pipeline/assets/source-sans-LICENSE.md": "56af9b9c6715597e458284a474dc118a50a4150e9d547c70f7b4a33c3e6a9328",
+    "src/retail_pipeline/batch_contracts.py": "3791cb00e767667f4c15796443c6e68e9908914f4053aace601b97f54f8d20cc",
+    "src/retail_pipeline/cli.py": "10af4d8948c08c408ecde3a22ddf93b06b75482a82f93f2c6640f26d27cafdc1",
+    "src/retail_pipeline/contracts.py": "6c14edad3bd768b4e04ad68447874f629211d3e2661e0042202198018a79f3c8",
+    "src/retail_pipeline/demo.py": "eae08eaadc6257680a950e615abe3cfe3540256c0c8e6456d32a268ff262c910",
+    "src/retail_pipeline/generation.py": "6a850ed30de5f66b4cbe5a0e4453fa5774719119af0c1d8e066bc06a83d3a784",
+    "src/retail_pipeline/ingestion.py": "f3abd119802f4a70545ba5d4145ec6dc5e1bb0c1cdbbacb6c3fa91cec8bc5de9",
+    "src/retail_pipeline/input_limits.py": "f804defbc521f7b743567aad028758581e656f54defa18c0f5f63c4facd4f395",
+    "src/retail_pipeline/pipeline.py": "862684dcac7e180911def37ebb899e3bbf2468f195dc7dd9c778f80faadc78e0",
+    "src/retail_pipeline/publication.py": "0693970f02ba137251e9f7ac71f8efdc232fa914ce27075c261222b89e39296b",
+    "src/retail_pipeline/references.py": "e6eed8c0a7fb783456c2a950394a94d13147257dbb9c82bfdd9672365fa76247",
+    "src/retail_pipeline/report.css": "3e692dfa08eeab798a149a463be40de04ee8fa2b96e9dd0b6ca17cff3a0a48b6",
+    "src/retail_pipeline/report.js": "c2b18b33611430efb1312384759e34864c6a7325549f78e0c06441d53ef93085",
+    "src/retail_pipeline/report_assets.py": "f78dc99068cc054ce1005771d2495fb4c5b291a2e9a626af259858c12aa7fa05",
+    "src/retail_pipeline/report_model.py": "887f599f5b6281fc06d8a146975939c1111a0ddc13b2d754f4807ecaef43dc4d",
+    "src/retail_pipeline/report_server.py": "ba5613e583946e0e934739f5de9bc2224bb82575a47fe1883c6bcb6678103869",
+    "src/retail_pipeline/report_view.py": "d717175cae40ef504938cb823f2d47225d4627550a4ec63782acde27d9738b52",
+    "src/retail_pipeline/reporting.py": "e74cfe9af3204a69d659e63dd851fb94714826d205e4d51c0e7bf475b03454cb",
+    "src/retail_pipeline/spark.py": "972914da63f08e7df2e145b00b4013192d39ebd05a955074549d1c29d4914e3a",
+    "src/retail_pipeline/transformations.py": "5bd4417f752105b92206fc8a128fa6b94abd3db73ba8cd91b0fb3e3c7babd4ee",
+    "tests/integration/conftest.py": "2b4e5549cf8dfeb0f0f2df1644a75c4ce74a70e5b7375d841b235b3ded8654c7",
+    "tests/integration/test_boundaries.py": "e642ae5236e71ed3517749938f202a647e1d94b457101b98c494f5ab9b8797da",
+    "tests/integration/test_business_thesis.py": "9299040460d291168c217963194a68d01ebcab352421db4ae115d9fa62e5aee8",
+    "tests/integration/test_commit_boundary.py": "753cb2bd73af3d9e2fcda86bd9d1613ce91d7f2b31eaec987b78fdb49b0d26e7",
+    "tests/integration/test_pipeline.py": "a4d47794de2cdd61163620bf55812acc5b72fd3c06847156e4c10585658c33c4",
+    "tests/integration/test_smoke.py": "ebaa883c603302f8ada43519e50191850727be3d2e7e6ea09b7b1d425c598d5f",
+    "tests/unit/test_cli.py": "4b5052da69b50cd2571a6f9dc5e989cfcda77b129b63ce9dffcab792a1da3ddd",
+    "tests/unit/test_contracts.py": "3875bfbcf2642aac8a949017df3547a9077f286b615fb857573a9ed3bed1c6d0",
+    "tests/unit/test_generation.py": "5bea8c50040f020edc900c1aa87de24560ea2ad9b8867752a698e0e303dc9295",
+    "tests/unit/test_input_limits.py": "1a3dc43cf307c15699a98fea52ef30716a02d6b91a49c5fdb9f137761cef10e9",
+    "tests/unit/test_jar_download_cache.py": "d95fb5be065e42886837096810bcd188ba7c9f9f322a2d01523e73c7b1569683",
+    "tests/unit/test_operator_references.py": "cf348065a855ce3f31e729f84ecf12e51fed85860de58d2384489120b9ec76ff",
+    "tests/unit/test_rebuilt_jars.py": "6d6bff50f08b71be94bbf5023bd47a050569ca5c2953d9dc6a8e335254e0ac62",
+    "tests/unit/test_report_server.py": "5a0921201c1576a9fb0b345495d70d7414bfb1b580f0d002a01debc5824cc756",
+    "tests/unit/test_reporting.py": "1e9c2acfb6da92d7ea58311697af43609978b13f411d66dafbc10e059d7a2472",
+    "tests/unit/test_security_gate.py": "f5d2809171ff9528e0c3530c37ae907426312c676064b6ab123219d83256e8c4",
+    "tests/unit/test_state_proof.py": "bb3d09d55b942ce7d8b63c3ef28a39e19081a5231c7e89d9876e947a4ecb90bf"
+  },
+  "publication_artifacts": [
+    {
+      "file": "docs/evidence/security-review-20261003/build-tests-windows.xml",
+      "git_blob_sha256": "acc260987b5322201962a317e7b08e60c73b1246fe72c5f8b4408db638d12507"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/full-tests-before-parquet.xml",
+      "git_blob_sha256": "4623c5553c0e5e7693af0b1bf0bcec595e5f199a6e2f16df4f1b6830a2c3bf28"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/full-tests-final.xml",
+      "git_blob_sha256": "1a580469994178d7e66a6854ae7889d693fc60a23bbda60ed585adcb509d9f68"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/image-before-parquet.json",
+      "git_blob_sha256": "75501aa91e9d34aa75e1611d6e875b50e73b2ed3b9cf61418ea846bd58b3d9fe"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/image-scan.json",
+      "git_blob_sha256": "275f37d9eedb70cf47ec2fbe1ba2904893676bc69848eba93dfe12b742ccd312"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/parquet-enforcer-build.log",
+      "git_blob_sha256": "699a0e92736482440604a7ff90b1a1d6acc06cb5ad78b68db573f8cc8496243b"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/parquet-offline-build.log",
+      "git_blob_sha256": "0f2d2120a872bdbb375ea03f15a46472aee185cc4f39e99f3692dfb3d54b27f6"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/python-build-audit.json",
+      "git_blob_sha256": "2dfa179d799e3937b700a559be202100909e8a7d6f1066985002f50ef996900f"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/python-runtime-audit.json",
+      "git_blob_sha256": "f9c0d0915b82da55300eb24c65a38ceaa57ab81cea552f97014a5b0537f6c97f"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/quality-linux.log",
+      "git_blob_sha256": "cda8a6565f315133cb04f6845048b001d3ecb894f2f02cd6f67c2f132a0b66df"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/report-tests-linux.log",
+      "git_blob_sha256": "400aec7f0abaf7f29dc85c3cfb9ae5ded72bcd3d0e6caf5ff6a1844a2b300c6d"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/report-tests-windows.xml",
+      "git_blob_sha256": "c166c1697bfb497d25d5a044f7214551a6c5d8401fae2c81a32228bdc11ecdb6"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/secrets.json",
+      "git_blob_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "file": "docs/evidence/security-review-20261003/worktree-secrets.json",
+      "git_blob_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    }
+  ]
+}

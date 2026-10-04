@@ -1,0 +1,95 @@
+build.sh: OK
+provenance.json: OK
+JacksonComponentCheck.java: OK
+inputs.sha256: OK
+output.sha256: OK
+/input/parquet-1.18.1.tar.gz: OK
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< org.apache.parquet:parquet-jackson >-----------------
+[INFO] Building Apache Parquet Jackson 1.18.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- enforcer:3.6.3:enforce (enforce-banned-dependencies) @ parquet-jackson ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.dependency.BannedDependencies passed
+[INFO]
+[INFO] --- enforcer:3.6.3:enforce (enforce-maven-version) @ parquet-jackson ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO]
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-version) @ parquet-jackson ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO]
+[INFO] --- buildnumber:3.2.0:create (default) @ parquet-jackson ---
+[INFO] maven is executed in offline mode, Updating project files from SCM: skipped.
+[INFO] Executing: /bin/sh -c cd '/build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson' && 'git' 'rev-parse' '--verify' 'HEAD'
+[INFO] Working directory: /build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson
+[INFO] Storing buildNumber: null at timestamp: 1791070245907
+[INFO] Executing: /bin/sh -c cd '/build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson' && 'git' 'symbolic-ref' 'HEAD'
+[INFO] Working directory: /build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson
+[WARNING] Cannot get the branch information from the git repository:
+Detecting the current branch failed: fatal: not a git repository (or any of the parent directories): .git
+
+[INFO] Executing: /bin/sh -c cd '/build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson' && 'git' 'rev-parse' '--verify' 'HEAD'
+[INFO] Working directory: /build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson
+[INFO] Storing scmBranch: UNKNOWN_BRANCH
+[INFO]
+[INFO] --- remote-resources:3.3.0:process (process-resource-bundles) @ parquet-jackson ---
+[INFO] Preparing remote bundle org.apache.apache.resources:apache-jar-resource-bundle:1.8
+[INFO] Copying 3 resources from 1 bundle.
+[INFO]
+[INFO] --- resources:3.5.0:resources (default-resources) @ parquet-jackson ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 3 resources from target/maven-shared-archive-resources to target/classes
+[INFO]
+[INFO] --- compiler:3.15.0:compile (default-compile) @ parquet-jackson ---
+[INFO] No sources to compile
+[INFO]
+[INFO] --- enforcer:3.6.3:enforce (enforce-banned-junit4-imports) @ parquet-jackson ---
+[INFO] Rule 0: org.apache.maven.plugins.enforcer.RestrictImports passed
+[INFO]
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ parquet-jackson ---
+[INFO] skip non existing resourceDirectory /build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson/src/test/resources
+[INFO] Copying 3 resources from target/maven-shared-archive-resources to target/test-classes
+[INFO]
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ parquet-jackson ---
+[INFO] No sources to compile
+[INFO]
+[INFO] --- surefire:3.5.6:test (default-test) @ parquet-jackson ---
+[INFO] Tests are skipped.
+[INFO]
+[INFO] --- apache-rat:0.16.1:check (default) @ parquet-jackson ---
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 2 licenses.
+[INFO]
+[INFO] --- jar:3.5.0:jar (default-jar) @ parquet-jackson ---
+[INFO] Building jar: /build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson/target/parquet-jackson-1.18.1.jar
+[INFO]
+[INFO] --- jar:3.5.0:test-jar (default) @ parquet-jackson ---
+[INFO] Building jar: /build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson/target/parquet-jackson-1.18.1-tests.jar
+[INFO]
+[INFO] --- shade:3.6.2:shade (default) @ parquet-jackson ---
+[INFO] Dependency-reduced POM written at: /build/parquet.dokzDO/parquet-java-apache-parquet-1.18.1/parquet-jackson/dependency-reduced-pom.xml
+[WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
+[WARNING] jackson-core-2.22.3.jar, jackson-databind-2.22.3.jar define 1 overlapping classes:
+[WARNING]   - META-INF.versions.9.module-info
+[WARNING] jackson-annotations-2.22.jar, jackson-core-2.22.3.jar, jackson-databind-2.22.3.jar, parquet-jackson-1.18.1.jar define 3 overlapping resources:
+[WARNING]   - META-INF/LICENSE
+[WARNING]   - META-INF/MANIFEST.MF
+[WARNING]   - META-INF/NOTICE
+[WARNING] maven-shade-plugin has detected that some files are
+[WARNING] present in two or more JARs. When this happens, only one
+[WARNING] single version of the file is copied to the uber jar.
+[WARNING] Usually this is not harmful and you can skip these warnings,
+[WARNING] otherwise try to manually exclude artifacts based on
+[WARNING] mvn dependency:tree -Ddetail=true and the above output.
+[WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+[INFO] Replacing original artifact with shaded artifact.
+[WARNING] Goal makeBom requires online mode for execution but Maven is currently offline, skipping
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  16.095 s
+[INFO] Finished at: 2026-10-03T23:30:55Z
+[INFO] ------------------------------------------------------------------------
+Relocated Jackson 2.22.3: versions, JSON roundtrip, number/depth bounds passed
+parquet-jackson-1.18.1-retail-jackson-2.22.3.jar: OK
