@@ -1028,6 +1028,10 @@ def _profile_comparison(comparison: Mapping[str, object]) -> str:
     context = _mapping(comparison.get("context"))
     scope = _mapping(comparison.get("scope"))
     baseline = comparison.get("baseline_publication_id")
+    catalog_label = {
+        "approved_operator_catalog": "Catálogo aprovado",
+        "received_catalog_bytes": "Catálogo recebido",
+    }.get(str(context.get("catalog_reference_origin")), "Catálogo de referência")
     parts = [
         '<div class="profile-comparison" id="profile-comparison" tabindex="-1">',
         f"<h4>{_text(COMPARISON_STATES.get(status, status))}</h4>",
@@ -1046,11 +1050,13 @@ def _profile_comparison(comparison: Mapping[str, object]) -> str:
             + _text(_profile_date_range(context.get("previous_date_range")))
             + "</dd></div><div><dt>Período atual</dt><dd>"
             + _text(_profile_date_range(context.get("current_date_range")))
-            + "</dd></div><div><dt>Datas de movimento</dt><dd>"
+            + "</dd></div><div><dt>Datas registradas</dt><dd>"
             + _profile_context_change(
                 context.get("dates_changed"), unchanged="Mesmas datas", changed="Mudaram"
             )
-            + "</dd></div><div><dt>Catálogo aprovado</dt><dd>"
+            + "</dd></div><div><dt>"
+            + _text(catalog_label)
+            + "</dt><dd>"
             + _profile_context_change(
                 context.get("catalog_changed"), unchanged="Mesmo catálogo", changed="Mudou"
             )
@@ -1289,7 +1295,7 @@ def _profile_details(profile: Mapping[str, object]) -> str:
     changes = _mapping(profile.get("state_changes"))
     if changes:
         parts.append(
-            '<h4>Alterações do estado ativo</h4><p class="meta">Origem: '
+            '<h4>Alterações do estado</h4><p class="meta">Origem: '
             + _text(
                 {
                     "initial_silver_state": "Estado Silver da primeira publicação",
