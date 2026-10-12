@@ -224,6 +224,40 @@ def retention_contract(root: Path) -> dict:
         if not refs:
             raise ValueError("Publicação não identifica tabelas/fontes a preservar.")
         preserved = []
+        profile = publication.get("profile")
+        if profile is not None:
+            if not isinstance(profile, dict) or profile.get("contract_version") != 1:
+                raise ValueError("Contrato do perfil referenciado inválido.")
+            try:
+                profile_path = normalized_member(root, profile["path"])
+            except FileNotFoundError as exc:
+                raise ValueError("Perfil referenciado ausente.") from exc
+            if (
+                not profile_path.is_file()
+                or profile_path.stat().st_size > 1048576
+                or digest(profile_path) != profile.get("sha256")
+            ):
+                raise ValueError("Perfil referenciado ausente, adulterado ou acima do limite.")
+            document = json.loads(profile_path.read_text(encoding="utf-8"))
+            if (
+                document.get("publication_id") != publication["publication_id"]
+                or document.get("run_id") != publication.get("run_id")
+                or document.get("contract_version") != profile["contract_version"]
+                or document.get("delta_versions") != publication.get("tables")
+            ):
+                raise ValueError("Identidade do perfil difere da publicação.")
+            declared_limit = document.get("parameters", {}).get("max_json_bytes", 262144)
+            if (
+                type(declared_limit) is not int
+                or not 1024 <= declared_limit <= 1048576
+                or profile_path.stat().st_size > declared_limit
+            ):
+                raise ValueError("Perfil excede o limite de bytes declarado.")
+            relative_profile = profile_path.relative_to(root.resolve()).as_posix()
+            protected.add(relative_profile)
+            preserved.append(
+                {"kind": "profile", "path": relative_profile, "sha256": profile["sha256"]}
+            )
         for kind, value, version in refs:
             if type(version) is not int or version < 0:
                 raise ValueError("Versão Delta inválida.")
@@ -242,7 +276,7 @@ def retention_contract(root: Path) -> dict:
         "current_publication_id": current["publication_id"],
         "publications": publications,
         "protected_paths": sorted(protected),
-        "scope": "Contrato conservador: preservar diretórios Delta completos, incluindo logs e arquivos de versões anteriores; não autoriza remoção individual ou VACUUM.",
+        "scope": "Contrato conservador: preservar perfis referenciados e diretórios Delta completos, incluindo logs e arquivos de versões anteriores; não autoriza remoção individual ou VACUUM.",
     }
 
 

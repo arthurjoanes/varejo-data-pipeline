@@ -38,14 +38,26 @@ def parser() -> argparse.ArgumentParser:
         command = commands.add_parser(name, help=description)
         command.add_argument("input", type=Path)
         if name == "run":
+            command.add_argument("--profile-min-lines", type=int, default=3)
+            command.add_argument("--profile-quantity-threshold", default="0.25")
+            command.add_argument("--profile-price-threshold", default="0.25")
             command.add_argument(
                 "--demo-mode",
                 action="store_true",
                 help="Permitir a falha de teste nesta execução",
             )
             command.add_argument(
-                "--fail-at", choices=("after_ingestion", "after_gold", "before_publish")
+                "--fail-at",
+                choices=(
+                    "after_ingestion",
+                    "after_gold",
+                    "before_publish",
+                    "profile_write",
+                    "lineage_export",
+                ),
             )
+    commands.add_parser("profile", help="Ler perfil e comparação da publicação em JSON, sem Spark")
+    commands.add_parser("lineage", help="Exportar/reconciliar eventos OpenLineage locais sob lock")
     report = commands.add_parser("report", help="Gerar relatório HTML")
     report.add_argument(
         "--output",
@@ -85,6 +97,17 @@ def validate_arguments(
             command_parser.error("--output exige uma pasta nova ou vazia.")
     if arguments.command == "run" and arguments.fail_at and not arguments.demo_mode:
         command_parser.error("--fail-at exige --demo-mode.")
+    if arguments.command == "run":
+        from retail_pipeline.profiling import ProfileParameters
+
+        try:
+            ProfileParameters(
+                min_active_lines=arguments.profile_min_lines,
+                quantity_mean_relative_threshold=arguments.profile_quantity_threshold,
+                unit_price_mean_relative_threshold=arguments.profile_price_threshold,
+            )
+        except ValueError as exc:
+            command_parser.error(str(exc))
     if arguments.command == "explain":
         if not 1 <= arguments.limit <= 100:
             command_parser.error("--limit deve ficar entre 1 e 100.")
@@ -107,6 +130,32 @@ def main() -> int:
     validate_arguments(arguments, command_parser)
     spark = None
     try:
+        if arguments.command == "profile":
+            from retail_pipeline.profiling import load_profile
+            from retail_pipeline.publication import load_snapshot
+
+            print(
+                json.dumps(
+                    load_profile(load_snapshot(arguments.data_dir)),
+                    ensure_ascii=False,
+                    indent=2,
+                    default=json_scalar,
+                )
+            )
+            return 0
+        if arguments.command == "lineage":
+            from retail_pipeline.lineage import export_lineage
+
+            exported = export_lineage(arguments.data_dir)
+            print(
+                json.dumps(
+                    exported,
+                    ensure_ascii=False,
+                    indent=2,
+                    default=json_scalar,
+                )
+            )
+            return 3 if exported["errors"] else 0
         if arguments.command == "configure":
             from retail_pipeline.ingestion import _read_json
             from retail_pipeline.references import configure_references
@@ -135,6 +184,7 @@ def main() -> int:
         spark = create_spark()
         if arguments.command in ("validate", "run"):
             from retail_pipeline.pipeline import process_batch
+            from retail_pipeline.profiling import ProfileParameters
 
             outcome = process_batch(
                 spark,
@@ -143,6 +193,15 @@ def main() -> int:
                 validate_only=arguments.command == "validate",
                 fail_at=getattr(arguments, "fail_at", None),
                 allow_failures=getattr(arguments, "demo_mode", False),
+                profile_parameters=ProfileParameters(
+                    min_active_lines=getattr(arguments, "profile_min_lines", 3),
+                    quantity_mean_relative_threshold=getattr(
+                        arguments, "profile_quantity_threshold", "0.25"
+                    ),
+                    unit_price_mean_relative_threshold=getattr(
+                        arguments, "profile_price_threshold", "0.25"
+                    ),
+                ),
             )
             print(json.dumps(asdict(outcome), ensure_ascii=False, indent=2))
             return outcome.exit_code

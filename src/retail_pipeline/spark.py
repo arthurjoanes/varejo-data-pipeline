@@ -1,11 +1,17 @@
+from __future__ import annotations
+
 import os
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from pyspark.sql import SparkSession
+if TYPE_CHECKING:
+    from pyspark.sql import SparkSession
 
 
 def create_spark() -> SparkSession:
     """Usa apenas os jars instalados no build."""
+    from pyspark.sql import SparkSession
+
     jar_dir = Path(os.environ.get("DELTA_JARS_DIR", "/opt/delta-jars"))
     jars = [jar_dir / f"{name}-4.4.0.jar" for name in ("delta-spark_4.2_2.13", "delta-storage")]
     missing = [str(path) for path in jars if not path.is_file()]

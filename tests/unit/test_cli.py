@@ -25,6 +25,9 @@ from retail_pipeline import cli, spark
         (["generate", "--rows", "-10"], "--rows"),
         (["generate", "--size", "demo", "--scenario", "corrected"], "fixture"),
         (["run", "input", "--fail-at", "after_gold"], "--demo-mode"),
+        (["run", "input", "--profile-min-lines", "0"], "min_active_lines"),
+        (["run", "input", "--profile-quantity-threshold", "NaN"], "Limiar"),
+        (["run", "input", "--profile-price-threshold", "-1"], "Limiar"),
     ],
 )
 def test_cli_rejects_invalid_fields_without_starting_spark(
@@ -87,3 +90,27 @@ def test_generate_accepts_empty_directory_without_engine(
         "S01.csv",
         "S02.csv",
     }
+
+
+def test_profile_reads_explicit_absence_without_engine(tmp_path, monkeypatch, capsys):
+    import json
+
+    monkeypatch.setattr(spark, "create_spark", lambda: pytest.fail("Perfil iniciou Spark."))
+    monkeypatch.setattr(sys, "argv", ["varejo", "--data-dir", str(tmp_path), "profile"])
+    assert cli.main() == 0
+    assert json.loads(capsys.readouterr().out)["status"] == "NO_PUBLICATION"
+
+
+@pytest.mark.parametrize("errors,exit_code", [([], 0), ([{"code": "OSError"}], 3)])
+def test_lineage_cli_runs_without_engine_and_reports_export_errors(
+    tmp_path, monkeypatch, capsys, errors, exit_code
+):
+    import json
+
+    from retail_pipeline import lineage
+
+    monkeypatch.setattr(spark, "create_spark", lambda: pytest.fail("Lineage iniciou Spark."))
+    monkeypatch.setattr(lineage, "export_lineage", lambda root: {"events": 0, "errors": errors})
+    monkeypatch.setattr(sys, "argv", ["varejo", "--data-dir", str(tmp_path), "lineage"])
+    assert cli.main() == exit_code
+    assert json.loads(capsys.readouterr().out)["errors"] == errors

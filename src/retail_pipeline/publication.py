@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import fcntl
 import json
 import os
 import tempfile
@@ -9,10 +8,10 @@ from contextlib import contextmanager
 from datetime import date, datetime
 from decimal import Decimal
 from pathlib import Path
-from typing import NotRequired, TypedDict, cast
+from typing import TYPE_CHECKING, NotRequired, TypedDict, cast
 
-from delta.tables import DeltaTable
-from pyspark.sql import DataFrame, SparkSession
+if TYPE_CHECKING:
+    from pyspark.sql import DataFrame, SparkSession
 
 
 class TableReference(TypedDict):
@@ -27,6 +26,13 @@ class SourceReference(TypedDict):
     bronze_version: int
     reference_hashes: NotRequired[dict[str, str | None]]
     operator_reference_hash: NotRequired[str]
+    manifest_hash: NotRequired[str]
+
+
+class ProfileReference(TypedDict):
+    path: str
+    sha256: str
+    contract_version: int
 
 
 class Publication(TypedDict):
@@ -36,6 +42,8 @@ class Publication(TypedDict):
     accepted_batches: list[str]
     tables: dict[str, TableReference]
     sources: list[SourceReference]
+    profile: NotRequired[ProfileReference]
+    previous_publication_id: NotRequired[str | None]
 
 
 class WriterBusy(RuntimeError):
@@ -52,6 +60,8 @@ def json_scalar(value: object) -> str:
 
 @contextmanager
 def writer_lock(root: Path) -> Iterator[None]:
+    import fcntl
+
     root.mkdir(parents=True, exist_ok=True)
     with (root / "writer.lock").open("a+") as handle:
         try:
@@ -103,6 +113,8 @@ def read_table(spark: SparkSession, snapshot: Publication, name: str) -> DataFra
 
 
 def table_reference(spark: SparkSession, path: Path) -> TableReference:
+    from delta.tables import DeltaTable
+
     record = DeltaTable.forPath(spark, str(path)).history(1).first()
     if record is None:
         raise ValueError("Tabela Delta sem histórico de versão.")

@@ -1,6 +1,6 @@
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('setup', 'start', 'configure', 'generate', 'validate', 'run', 'report', 'explain', 'demo', 'test', 'check', 'serve', 'logs', 'stop')]
+    [ValidateSet('setup', 'start', 'configure', 'generate', 'validate', 'run', 'report', 'explain', 'profile', 'lineage', 'demo', 'test', 'check', 'serve', 'logs', 'stop')]
     [string]$Action = 'start',
     [Parameter(ValueFromRemainingArguments = $true)]
     [string[]]$PipelineArguments = @()
