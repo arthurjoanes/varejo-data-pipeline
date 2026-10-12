@@ -11,6 +11,7 @@ Cada fase identifica seus arquivos e imagem. As execuções dirigidas complement
 | Restauração | `bc66968`, imagem `8165ad96`: três publicações e perfis preservados, tar adulterado e destino ocupado recusados. | [Recibo público](restore/result.public.json), [inventário](restore/backup-manifest.json). |
 | Loja nova e runtime | `6c96833`, imagem `e5403499`: três integrações aprovadas; o recorte comum conserva R$ 64 apesar da nova receita de S04. | [Resumo](delivery-directed-summary.json), [JUnit](delivery-directed.xml), [fontes](source-delivery-before.json). |
 | Segurança da imagem de entrega | OS/JVM/Python: zero HIGH/CRITICAL, dois MEDIUM, sem exclusões adicionais. | [Scan integral](security-delivery-scan.json), [identidade e inventário](security-delivery-summary.json). |
+| Segredos do histórico Git | Gitleaks 8.30.1: zero achados após incluir a mesma fingerprint pública em três caminhos exatos; dois controles continuam detectados. | [Resumo](secrets-summary.json), [histórico aprovado](secrets-history-final.json), [controles](secrets-controls.json). |
 
 O [scan inicial e a correção do LZ4](security-index.json) conservam também a primeira falha do gate e os controles de API/interoperabilidade. A falha inicial de coleta por nomes de testes duplicados e a execução interrompida para corrigir o HIGH têm logs e fontes separados. Um probe nativo chegou ao resultado funcional, mas seu primeiro cleanup excedeu o prazo; esse registro também permanece no índice de segurança.
 
