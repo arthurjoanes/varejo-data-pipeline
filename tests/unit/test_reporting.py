@@ -747,3 +747,232 @@ def test_font_and_brand_are_embedded_with_license_without_network() -> None:
     assert "SIL OPEN FONT LICENSE Version 1.1" in html
     assert "Copyright 2010-2024 Adobe" in html
     assert "<script src=" not in html and 'href="https://' not in html
+
+
+def _profile_fixture() -> dict[str, object]:
+    return {
+        "contract_version": 1,
+        "calculation_version": "silver-profile-v1",
+        "publication_id": "pub-current",
+        "run_id": "run-published",
+        "date_range": {"start": "2026-10-01", "end": "2026-10-03", "date_count": 3},
+        "parameters": {
+            "quantile_algorithm": "pyspark.sql.functions.percentile_approx",
+            "quantile_accuracy": 10000,
+            "mean_decimal_places": 6,
+        },
+        "active_state": {
+            "totals": {
+                "active_lines": 10,
+                "sales": 8,
+                "units": 12,
+                "net_revenue_brl": "90071992547409.91",
+                "gross_revenue_brl": "90071992547410.01",
+                "discount_brl": "0.10",
+            },
+            "distributions": {
+                "quantity": {
+                    "min": 1,
+                    "max": 4,
+                    "mean": "1.200000",
+                    "quantiles": [{"probability": "0.5", "value": 1}],
+                },
+                "unit_price_brl": {"min": "0.01", "max": "10.01", "mean": "1.005000"},
+            },
+            "groups": {},
+        },
+        "comparison": {
+            "status": "COMPARABLE",
+            "baseline_publication_id": "pub-previous",
+            "context": {
+                "dates_changed": True,
+                "catalog_changed": True,
+                "previous_date_range": {
+                    "start": "2026-10-01",
+                    "end": "2026-10-02",
+                    "date_count": 2,
+                },
+                "current_date_range": {"start": "2026-10-01", "end": "2026-10-03", "date_count": 3},
+                "stores_added": ["S02"],
+                "stores_removed": [],
+            },
+            "scope": {
+                "dates": {"start": "2026-10-01", "end": "2026-10-02", "date_count": 2},
+                "stores": ["S01"],
+            },
+            "original_totals": {
+                "previous": {"units": 10, "net_revenue_brl": "20.00"},
+                "current": {"units": 12, "net_revenue_brl": "90071992547409.91"},
+            },
+            "equivalent_totals": {
+                "previous": {"units": 10, "net_revenue_brl": "20.00"},
+                "current": {"units": 11, "net_revenue_brl": "22.01"},
+            },
+            "rules": [
+                {
+                    "metric": "unit_price_mean_brl",
+                    "status": "WARNING",
+                    "severity": "WARNING",
+                    "previous": "1.005000",
+                    "current": "1.205001",
+                    "difference": "0.200001",
+                    "relative_change": "0.199005970149",
+                    "threshold": "0.10",
+                    "reason": "Variação acima do limiar demonstrativo.",
+                }
+            ],
+        },
+    }
+
+
+def _profile_html(profile: dict[str, object], **kwargs: object) -> str:
+    return build_report_html(
+        ReportPayload(
+            snapshot={"publication_id": "pub-current", "run_id": "run-published"},
+            profile_result={"status": "AVAILABLE", "profile": profile},
+            **kwargs,
+        )
+    )
+
+
+def test_profile_reports_baseline_context_before_equivalent_decimal_variations() -> None:
+    page = _profile_html(
+        _profile_fixture(), latest_attempt={"state": "BLOCKED", "run_id": "candidate"}
+    )
+    section = page.split('id="perfil"', 1)[1].split('<section class="panel" id="proveniencia"', 1)[
+        0
+    ]
+    assert 'id="profile-baseline-id" value="pub-previous" readonly' in section
+    assert "pub-current" in section and "candidate" not in section
+    assert "Publicação anterior preservada" in page
+    assert "01/10/2026 a 02/10/2026" in section
+    assert section.index("Lojas acrescentadas") < section.index("Variação relativa (razão)")
+    assert section.index("Catálogo aprovado") < section.index("Totais no recorte equivalente")
+    assert "Interseção explícita das datas e lojas" in section
+    assert "R$ 90.071.992.547.409,91" in section and "R$ 22,01" in section
+    assert "1,005000" in section and "1,205001" in section and "0,200001" in section
+    assert "0,199005970149" in section and "Aviso (WARNING)" in section
+    assert "Métricas do lote" not in section
+
+
+@pytest.mark.parametrize(
+    "state,label",
+    [
+        ("NO_PUBLICATION", "Sem publicação para perfilar"),
+        ("LEGACY", "Publicação legada sem perfil"),
+        ("MISSING", "Perfil referenciado ausente"),
+        ("INVALID", "Perfil inválido ou adulterado"),
+    ],
+)
+def test_profile_unavailable_states_do_not_invent_metrics(state: str, label: str) -> None:
+    page = build_report_html(
+        ReportPayload(
+            snapshot=None if state == "NO_PUBLICATION" else {"publication_id": "p"},
+            profile_result={"status": state, "reason": "Motivo registrado."},
+        )
+    )
+    section = page.split('id="perfil"', 1)[1].split('<section class="panel" id="proveniencia"', 1)[
+        0
+    ]
+    assert label in section and "Motivo registrado." in section
+    assert "R$ 0,00" not in section and "Distribuição" not in section
+
+
+@pytest.mark.parametrize(
+    "state,label",
+    [
+        ("NO_BASELINE", "Sem publicação anterior para comparação"),
+        ("NOT_COMPARABLE", "Publicações sem recorte comparável"),
+        ("EMPTY", "Recorte equivalente vazio"),
+        ("INSUFFICIENT_SAMPLE", "Sem amostra suficiente"),
+        ("BASELINE_PROFILE_UNAVAILABLE", "Perfil da publicação anterior indisponível"),
+    ],
+)
+def test_profile_comparison_states_remain_explicit(state: str, label: str) -> None:
+    profile = _profile_fixture()
+    profile["comparison"] = {"status": state, "reason": "Não há denominador definido.", "rules": []}
+    page = _profile_html(profile)
+    assert label in page and "Não há denominador definido." in page
+    assert "Regras explicáveis de comparação" not in page
+
+
+def test_profile_hostile_fields_are_escaped_and_groups_are_bounded() -> None:
+    hostile = '<script>alert("profile")</script>'
+    profile = _profile_fixture()
+    profile["comparison"] = {
+        "status": "NOT_COMPARABLE",
+        "reason": hostile,
+        "baseline_publication_id": hostile,
+        "warnings": [hostile],
+        "context": {"stores_added": [hostile], "stores_removed": []},
+    }
+    profile["active_state"] = {
+        "totals": {},
+        "groups": {
+            "stores": {
+                "group_count": 21,
+                "truncated": True,
+                "values": [
+                    {"store_id": hostile, "net_revenue_brl": "0.01"},
+                    *[{"store_id": f"S{index:03d}"} for index in range(1, 21)],
+                ],
+            }
+        },
+    }
+    page = _profile_html(profile)
+    assert hostile not in page and "&lt;script&gt;alert(&quot;profile&quot;)&lt;/script&gt;" in page
+    assert "Exibindo 20 de 21 grupos" in page and ">S019<" in page and ">S020<" not in page
+    assert "a comparação usam o conjunto completo" in page
+    assert "Período anterior</dt><dd>Período não informado" in page
+    assert "Datas de movimento</dt><dd>Não informado" in page
+    assert "Catálogo aprovado</dt><dd>Não informado" in page
+
+
+def test_profile_navigation_uses_native_focusable_targets_and_equivalent_tables() -> None:
+    page = _profile_html(_profile_fixture())
+    assert 'href="#perfil">Perfil e comparação</a>' in page
+    assert 'id="perfil" tabindex="-1" aria-labelledby="profile-title"' in page
+    assert 'id="profile-comparison" tabindex="-1"' in page
+    assert "<summary>Perfil do estado ativo publicado</summary>" in page
+    assert (
+        'tabindex="0" role="region" aria-label="Valores e motivos das regras no recorte equivalente"'
+        in page
+    )
+    assert "Quantis aproximados persistidos no perfil" in page
+    assert (
+        "pyspark.sql.functions.percentile_approx" in page and "precisão configurada: 10000" in page
+    )
+    assert "target.focus({ preventScroll: true })" in page
+    assert "disclosure.open = true" in page
+    assert 'data-copy-status="profile-copy-status"' in page
+    assert 'id="profile-copy-status" class="copy-status" role="status"' in page
+
+
+def test_profile_for_another_publication_is_never_rendered_as_official() -> None:
+    profile = _profile_fixture()
+    profile["publication_id"] = "unpublished-candidate"
+    page = _profile_html(profile)
+    assert "Perfil inválido ou adulterado" in page
+    assert "unpublished-candidate" not in page and "R$ 90.071.992.547.409,91" not in page
+
+
+def test_profile_partial_coverage_precedes_rules_and_batch_coverage_is_separate() -> None:
+    profile = _profile_fixture()
+    profile["coverage"] = {"scope_complete": False, "received": ["S01", "S02"]}
+    profile["batch"] = {
+        "stats": {"received": 2, "valid": 2, "rejected": 0},
+        "coverage": {"expected": ["S02"], "received": ["S02"], "missing": [], "zero_movement": []},
+        "received_operations": {"valid_cancel_events": 1, "valid_revision_gt1_events": 2},
+        "received_operations_include_duplicates_and_stale": True,
+    }
+    page = _profile_html(profile)
+    assert page.index("Cobertura histórica parcialmente conhecida") < page.index(
+        "Regras explicáveis de comparação"
+    )
+    assert 'Lojas confirmadas na entrega</dt><dd><span class="chip">S02</span>' in page
+    assert (
+        "Contagem de operações sobre eventos recebidos, incluindo duplicatas e revisões antigas"
+        in page
+    )
+    assert "Eventos CANCEL válidos recebidos" in page
+    assert "Linhas ativas" in page and "Registros recebidos" in page
