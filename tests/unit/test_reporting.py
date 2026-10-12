@@ -787,6 +787,7 @@ def _profile_fixture() -> dict[str, object]:
             "context": {
                 "dates_changed": True,
                 "catalog_changed": True,
+                "catalog_reference_origin": "approved_operator_catalog",
                 "previous_date_range": {
                     "start": "2026-10-01",
                     "end": "2026-10-02",
@@ -924,8 +925,8 @@ def test_profile_hostile_fields_are_escaped_and_groups_are_bounded() -> None:
     assert "Exibindo 20 de 21 grupos" in page and ">S019<" in page and ">S020<" not in page
     assert "a comparação usam o conjunto completo" in page
     assert "Período anterior</dt><dd>Período não informado" in page
-    assert "Datas de movimento</dt><dd>Não informado" in page
-    assert "Catálogo aprovado</dt><dd>Não informado" in page
+    assert "Datas registradas</dt><dd>Não informado" in page
+    assert "Catálogo de referência</dt><dd>Não informado" in page
 
 
 def test_profile_navigation_uses_native_focusable_targets_and_equivalent_tables() -> None:
@@ -976,3 +977,46 @@ def test_profile_partial_coverage_precedes_rules_and_batch_coverage_is_separate(
     )
     assert "Eventos CANCEL válidos recebidos" in page
     assert "Linhas ativas" in page and "Registros recebidos" in page
+
+
+@pytest.mark.parametrize(
+    "origin,label",
+    [
+        ("approved_operator_catalog", "Catálogo aprovado"),
+        ("received_catalog_bytes", "Catálogo recebido"),
+        (None, "Catálogo de referência"),
+        ("unknown_origin", "Catálogo de referência"),
+    ],
+)
+def test_profile_catalog_label_identifies_the_reference_origin(
+    origin: str | None, label: str
+) -> None:
+    profile = _profile_fixture()
+    comparison = profile["comparison"]
+    assert isinstance(comparison, dict)
+    context = comparison["context"]
+    if origin is None:
+        context.pop("catalog_reference_origin")
+    else:
+        context["catalog_reference_origin"] = origin
+    page = _profile_html(profile)
+    assert f"<dt>{label}</dt><dd>Mudou" in page
+    assert "<dt>Datas registradas</dt><dd>Mudaram" in page
+    for other in {"Catálogo aprovado", "Catálogo recebido", "Catálogo de referência"} - {label}:
+        assert f"<dt>{other}</dt>" not in page
+
+
+def test_profile_state_changes_include_cancelled_items_without_active_label() -> None:
+    profile = _profile_fixture()
+    profile["state_changes"] = {
+        "origin": "compared_silver_versions",
+        "new_keys": 0,
+        "revised_keys": 1,
+        "cancelled_keys": 1,
+        "reactivated_keys": 0,
+        "effective_changes": 2,
+    }
+    page = _profile_html(profile)
+    assert "<h4>Alterações do estado</h4>" in page
+    assert '<td>Itens cancelados</td><td class="numeric">1</td>' in page
+    assert "Alterações do estado ativo" not in page
