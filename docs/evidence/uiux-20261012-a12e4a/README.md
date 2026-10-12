@@ -47,3 +47,5 @@ Playwright1.63 e axe4.13 são ferramentas de desenvolvimento, fora das dependên
 Para renderizar o antes, selecione `PYTHONPATH=docs/evidence/uiux-20261012-a12e4a/renderer-before`, uma saída nova e `--phase before`. No navegador, indique `UIUX_RENDERER_DIR` para a subpasta `renderer-before/retail_pipeline`, `UIUX_INPUTS` para os mesmos JSONs e a fase `before`. Esse pacote congelado inclui módulos, CSS, JavaScript, fonte e licenças. Não use `--capture` nem processe novas entregas para reproduzir a apresentação.
 
 [Pesquisa primária](research.json), [duas composições](design-plan.md) e recipes originais estão preservadas. [Proveniência inicial](provenance-public.json) e [derivações posteriores](provenance-final.json) registram hashes originais/públicos e substituições de caminhos privados. Arquivos públicos não publicam credenciais ou prefixos privados do host.
+
+O [scan do histórico](security-final-summary.json) terminou com zero achados, mantendo regras padrão e exceções por valor e caminho exatos. [Controles negativos](security-control-summary.json) e [checksums verificados](public-checksum-verification.json) explicam o escopo.
