@@ -7,8 +7,8 @@
       "sha256": "bc72005174b9ef286ddb9c0640586b0c4ce2635dc21a884905f9450b67c4aea0"
     },
     "README.md": {
-      "bytes": 5814,
-      "sha256": "aa03fc54c4d45314b470a13057bef0d2a8b67333bc133ab64686a137fb019b6f"
+      "bytes": 6092,
+      "sha256": "54bd766201fc150c0e5f84a2911021c67fec753ed69b4db0fdbc71aa589b0316"
     },
     "after/actual-comparable.html": {
       "bytes": 303997,
@@ -1326,6 +1326,18 @@
       "bytes": 426,
       "sha256": "3fd1eab4562a849b7f51b56961ca7552584e9fea7db8b6f17f28df23ab75b403"
     },
+    "security-final-report.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "security-final-summary.json": {
+      "bytes": 314,
+      "sha256": "05b4d27d587acd79f60bc735b082e673fc2d130f899f841088942e6ce3fb7cb8"
+    },
+    "security-final.log": {
+      "bytes": 190,
+      "sha256": "bd7fa3d0787d26b271eafbecd7db525204d8f7516c6a9f85930e8b5207509e1a"
+    },
     "security-first-report.json": {
       "bytes": 6360,
       "sha256": "3e37be6bb60f985a9b167c23f6fd32cabf9add91ad126155a7a2c0dd4283a1df"
@@ -1357,6 +1369,10 @@
     "source-commit-association.json": {
       "bytes": 267,
       "sha256": "33783b36eaf74f5f85ad6308393155661a3017cda481273660dfe0a7b543d297"
+    },
+    "staged-evidence-proof.json": {
+      "bytes": 170,
+      "sha256": "3c39244240591dcef49b5c598c2074971496ab69951dfdba4310526ecc7a7e8f"
     },
     "tooling-manifest.public.json": {
       "bytes": 52198,
@@ -1396,6 +1412,7 @@
   "recorded_at": "2026-10-12T14:10:29.590237+00:00",
   "runtime": "baseline-runtime.json",
   "same_inputs": 22,
+  "security": "security-final-summary.json",
   "source_candidate": "source-candidate-v5.json",
   "source_files": 94
 }

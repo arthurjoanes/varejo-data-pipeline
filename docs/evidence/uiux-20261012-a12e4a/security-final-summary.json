@@ -1,0 +1,7 @@
+{
+  "checked_at": "2026-10-12T14:22:59.960294+00:00",
+  "head": "2b379386f6f4622458f88f764709d8894a1a528e",
+  "exit_code": 0,
+  "scope": "Full git history --all; default rules; exact public signing fingerprint and six verified browser SHA256 exceptions AND exact paths; no file/rule exclusions",
+  "findings": 0
+}
