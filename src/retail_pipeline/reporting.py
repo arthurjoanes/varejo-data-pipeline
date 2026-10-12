@@ -68,11 +68,17 @@ def generate_report(
 ) -> Path:
     from pyspark.sql import functions as F
 
+    from retail_pipeline.profiling import load_profile
+
     snapshot, frames = _read_published_tables(spark, root, ("gold_store_day", "gold_product_day"))
+    profile_result = load_profile(snapshot)
     latest, failed = _read_attempts(root, snapshot)
     if snapshot is None:
         payload = ReportPayload(
-            synthetic_data=synthetic_data, latest_attempt=latest, last_failed_attempt=failed
+            synthetic_data=synthetic_data,
+            latest_attempt=latest,
+            last_failed_attempt=failed,
+            profile_result=profile_result,
         )
     else:
         store_frame = frames["gold_store_day"]
@@ -127,6 +133,7 @@ def generate_report(
             daily_truncated=daily_truncated,
             stores_truncated=stores_truncated,
             products_truncated=products_truncated,
+            profile_result=profile_result,
         )
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(build_report_html(payload), encoding="utf-8")

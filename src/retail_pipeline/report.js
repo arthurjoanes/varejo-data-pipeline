@@ -41,7 +41,7 @@ document.querySelectorAll('[data-copy-target]').forEach(button => {
   button.hidden = false;
   button.addEventListener('click', async () => {
     const input = document.getElementById(button.dataset.copyTarget);
-    const status = document.getElementById('copy-status');
+    const status = document.getElementById(button.dataset.copyStatus || 'copy-status');
     try {
       if (!navigator.clipboard) throw new Error('Clipboard indisponível');
       await navigator.clipboard.writeText(input.value);

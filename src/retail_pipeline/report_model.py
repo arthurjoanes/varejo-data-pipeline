@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 TABLE_LIMIT = 500
 CHART_LIMIT = 366
 PRODUCT_LIMIT = 20
+PROFILE_GROUP_LIMIT = 20
+PROFILE_QUANTILE_LIMIT = 9
 
 
 @dataclass(frozen=True)
@@ -19,3 +21,4 @@ class ReportPayload:
     daily_truncated: bool = False
     stores_truncated: bool = False
     products_truncated: bool = False
+    profile_result: Mapping[str, object] | None = None
