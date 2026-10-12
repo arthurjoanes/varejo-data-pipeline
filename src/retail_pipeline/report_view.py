@@ -247,12 +247,18 @@ def _copy_field(value: object, label: str, field_id: str, *, status_id: str = "c
     )
 
 
-def _short_id_link(value: object, label: str, field_id: str = "proveniencia") -> str:
+def _short_id_link(
+    value: object,
+    label: str,
+    field_id: str = "proveniencia",
+    *,
+    section_label: str = "Arquivos e versões",
+) -> str:
     if value is None:
         return "—"
     full = str(value)
     short = full if len(full) <= 16 else full[:8] + "…" + full[-4:]
-    return f'<a class="id-link" href="#{_text(field_id)}" aria-label="Ver ID completo {_text(label)} em Arquivos e versões">{_text(short)}</a>'
+    return f'<a class="id-link" href="#{_text(field_id)}" aria-label="Ver ID completo {_text(label)} em {_text(section_label)}">{_text(short)}</a>'
 
 
 def _axis_scale(maximum: Decimal) -> tuple[Decimal, int]:
@@ -342,11 +348,11 @@ def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
         paths.append(
             f'<polygon points="{area}" fill="#e4eef8"/>'
             f'<polyline points="{" ".join(segment)}" fill="none" '
-            'stroke="#185c91" stroke-width="3" stroke-linejoin="round"/>'
+            'stroke="#245b64" stroke-width="3" stroke-linejoin="round"/>'
         )
     dots = "".join(
         f'<circle cx="{point.split(",")[0]}" cy="{point.split(",")[1]}" '
-        f'r="4" fill="#185c91"><title>{_text(_date(row.get("business_date")))}: '
+        f'r="4" fill="#245b64"><title>{_text(_date(row.get("business_date")))}: '
         f"{_text(_money(row.get('net_revenue_brl')))}</title></circle>"
         for point, row in zip(points, rows, strict=True)
     )
@@ -379,6 +385,7 @@ def _table(
     *,
     label: str = "Tabela de indicadores publicados",
     row_prefix: str = "",
+    row_header: bool = False,
 ) -> str:
     if not rows:
         return '<p class="empty">Sem registros neste recorte.</p>'
@@ -386,7 +393,7 @@ def _table(
     body: list[str] = []
     for row_index, row in enumerate(rows):
         cells = []
-        for key, _, kind in columns:
+        for column_index, (key, _, kind) in enumerate(columns):
             value = row.get(key)
             if kind == "money":
                 display = _money(value)
@@ -398,12 +405,18 @@ def _table(
                 display = _exact_decimal(value)
             else:
                 display = str(value) if value is not None else "—"
-            css = ' class="numeric"' if kind in {"money", "integer", "decimal"} else ""
-            cells.append(f"<td{css}>{_text(display)}</td>")
+            css = (
+                ' class="numeric"'
+                if kind in {"money", "integer", "decimal", "formatted_numeric"}
+                else ""
+            )
+            tag = "th" if row_header and column_index == 0 else "td"
+            scope = ' scope="row"' if tag == "th" else ""
+            cells.append(f"<{tag}{scope}{css}>{_text(display)}</{tag}>")
         row_id = f' id="{row_prefix}-{row_index}" tabindex="-1"' if row_prefix else ""
         body.append(f"<tr{row_id}>" + "".join(cells) + "</tr>")
     return (
-        f'<div class="table-scroll" tabindex="0" role="region" aria-label="{_text(label)}"><table><thead><tr>'
+        f'<div class="table-scroll" tabindex="0" role="region" aria-label="{_text(label)}"><table><caption class="sr-only">{_text(label)}</caption><thead><tr>'
         + head
         + "</tr></thead><tbody>"
         + "".join(body)
@@ -463,7 +476,7 @@ def _store_matrix(rows: Sequence[Mapping[str, object]]) -> str:
     maximum = max(values, default=Decimal(0))
     minimum = min(Decimal(0), min(values, default=Decimal(0)))
     scale = maximum - minimum
-    colors = ("#e7edf8", "#c5d5f0", "#9bb5e2", "#7396d1", "#4b74b5", "#284d8e")
+    colors = ("#e6f1f2", "#c3dce0", "#96bdc4", "#6695a0", "#3d7380", "#245b64")
     header = "".join(
         f'<th scope="col" aria-label="{_text(_date(day.isoformat()))}">{day.day:02d}</th>'
         for day in dates
@@ -487,10 +500,16 @@ def _store_matrix(rows: Sequence[Mapping[str, object]]) -> str:
             entry = indexed.get(key)
             value = entry[1].get("net_revenue_brl") if entry else None
             if key in duplicates:
-                content = '<span class="heat-unavailable" aria-label="Mais de um registro; consulte a tabela">!</span>'
+                content = (
+                    '<span class="heat-unavailable"><span aria-hidden="true">!</span>'
+                    '<span class="sr-only">Mais de um registro; consulte a tabela</span></span>'
+                )
             elif entry is None or value is None:
                 reason = "Sem observação" if entry is None else "Receita não informada"
-                content = f'<span class="heat-missing" aria-label="{reason}">—</span>'
+                content = (
+                    '<span class="heat-missing"><span aria-hidden="true">—</span>'
+                    f'<span class="sr-only">{reason}</span></span>'
+                )
             else:
                 amount = _decimal(value)
                 level = min(5, max(0, int((amount - minimum) / scale * 5))) if scale else 0
@@ -929,7 +948,7 @@ def _decision(payload: ReportPayload) -> tuple[str, str, str]:
     if payload.snapshot is not None:
         return (
             "Fechamento publicado",
-            "Os indicadores pertencem à publicação identificada abaixo.",
+            "Confira os valores e a identidade da publicação em Indicadores.",
             '<a class="decision-action" href="#indicadores">Consultar indicadores</a>',
         )
     return (
@@ -1000,10 +1019,11 @@ def _profile_totals(
         rows,
         (
             ("metric", "Métrica", "text"),
-            ("previous", "Anterior", "text"),
-            ("current", "Atual", "text"),
+            ("previous", "Anterior", "formatted_numeric"),
+            ("current", "Atual", "formatted_numeric"),
         ),
         label=label,
+        row_header=True,
     )
 
 
@@ -1012,10 +1032,10 @@ def _profile_date_range(value: object) -> str:
     if not dates or (dates.get("start") is None and dates.get("date_count") != 0):
         return "Período não informado"
     if dates.get("start") is None:
-        return "Sem datas de movimento"
+        return "Sem datas registradas"
     return (
         f"{_date(dates.get('start'))} a {_date(dates.get('end'))}"
-        f" · {_integer(dates.get('date_count'))} dias registrados"
+        f" · {_integer(dates.get('date_count'))} {'dia registrado' if dates.get('date_count') == 1 else 'dias registrados'}"
     )
 
 
@@ -1023,64 +1043,192 @@ def _profile_context_change(value: object, *, unchanged: str, changed: str) -> s
     return changed if value is True else unchanged if value is False else "Não informado"
 
 
-def _profile_comparison(comparison: Mapping[str, object]) -> str:
+def _profile_percentage(value: object) -> str:
+    if value is None:
+        return "—"
+    amount = _decimal(value)
+    if not amount.is_finite():
+        return "—"
+    with localcontext() as context:
+        context.prec = max(60, len(amount.as_tuple().digits) + 4)
+        percentage = amount * Decimal(100)
+    return _exact_decimal(percentage) + "%"
+
+
+def _profile_rule_cards(rules: Sequence[object]) -> str:
+    ordered = sorted(
+        (_mapping(item) for item in rules), key=lambda rule: rule.get("severity") != "WARNING"
+    )
+    parts = ['<ol class="profile-rule-list">']
+    for index, rule in enumerate(ordered):
+        metric = str(rule.get("metric"))
+        state = (
+            "Aviso de perfil (WARNING)"
+            if rule.get("severity") == "WARNING"
+            else PROFILE_RULE_STATES.get(str(rule.get("status")), str(rule.get("status")))
+        )
+        parts.append(
+            f'<li class="profile-rule" data-profile-rule data-profile-metric="{_text(metric)}" data-severity="{_text(rule.get("severity"))}" aria-labelledby="profile-rule-{index}"><div class="profile-rule-heading"><h5 id="profile-rule-{index}">{_text(PROFILE_RULES.get(metric, metric))}</h5><p class="profile-rule-state">{_text(state)}</p></div><p class="profile-rule-reason">{_text(rule.get("reason"))}</p><dl class="profile-rule-values">'
+        )
+        for key, label in (
+            ("previous", "Anterior"),
+            ("current", "Atual"),
+            ("difference", "Diferença"),
+            ("relative_change", "Variação relativa"),
+            ("threshold", "Limiar demonstrativo"),
+        ):
+            raw = rule.get(key)
+            display = (
+                _profile_percentage(raw)
+                if key in {"relative_change", "threshold"}
+                else _exact_decimal(raw)
+            )
+            raw_attribute = f' data-value-raw="{_text(raw)}"' if raw is not None else ""
+            focus = (
+                f' tabindex="0" role="region" aria-label="{_text(label)} completo"'
+                if len(display) > 18
+                else ""
+            )
+            parts.append(
+                f'<div><dt>{label}</dt><dd class="numeric" data-profile-value="{key}"{raw_attribute}{focus}>{_text(display)}</dd></div>'
+            )
+        parts.append("</dl></li>")
+    return "".join(parts) + "</ol>"
+
+
+def _profile_comparison(
+    comparison: Mapping[str, object], *, publication_id: object = None, date_range: object = None
+) -> str:
     status = str(comparison.get("status", "NOT_COMPARABLE"))
     context = _mapping(comparison.get("context"))
     scope = _mapping(comparison.get("scope"))
     baseline = comparison.get("baseline_publication_id")
+    count = comparison.get("warnings")
+    count_known = type(count) is int and count >= 0
+    count_attribute = f' data-profile-warning-count="{count}"' if count_known else ""
+    state = COMPARISON_STATES.get(status, status)
+    verdict = state
+    if status == "COMPARABLE":
+        verdict = (
+            f"{count} {'aviso de perfil' if count == 1 else 'avisos de perfil'}"
+            if count_known and count
+            else "Sem avisos de perfil"
+            if count_known
+            else "Avisos de perfil não informados"
+        )
+    warning = status == "COMPARABLE" and count_known and bool(count)
     catalog_label = {
         "approved_operator_catalog": "Catálogo aprovado",
         "received_catalog_bytes": "Catálogo recebido",
     }.get(str(context.get("catalog_reference_origin")), "Catálogo de referência")
     parts = [
         '<div class="profile-comparison" id="profile-comparison" tabindex="-1">',
-        f"<h4>{_text(COMPARISON_STATES.get(status, status))}</h4>",
+        f'<header class="profile-decision {"warning" if warning else "neutral"}" data-profile-comparison-state="{_text(status)}"{count_attribute}><h4 class="profile-verdict">{_text(verdict)}</h4>',
+        f'<p class="profile-comparison-state">{_text(state)}</p>' if verdict != state else "",
         f'<p>{_text(comparison.get("reason"))}</p>' if comparison.get("reason") else "",
-        _copy_field(
-            baseline,
-            "Publicação anterior comparada",
-            "profile-baseline-id",
-            status_id="profile-copy-status",
-        ),
-        '<p id="profile-copy-status" class="copy-status" role="status" aria-live="polite"></p>',
     ]
+    if warning:
+        parts.append(
+            '<p class="profile-warning-note">Aviso para conferência. O fechamento continua publicado.</p>'
+        )
+    parts.append("</header>")
+    if publication_id is not None:
+        parts.append(
+            '<p class="profile-publication">Publicação do perfil: '
+            + _short_id_link(publication_id, "da publicação do perfil", "publication-id")
+            + ".</p>"
+        )
     if baseline is not None:
         parts.append(
-            '<dl class="profile-context"><div><dt>Período anterior</dt><dd>'
-            + _text(_profile_date_range(context.get("previous_date_range")))
-            + "</dd></div><div><dt>Período atual</dt><dd>"
-            + _text(_profile_date_range(context.get("current_date_range")))
-            + "</dd></div><div><dt>Datas registradas</dt><dd>"
-            + _profile_context_change(
-                context.get("dates_changed"), unchanged="Mesmas datas", changed="Mudaram"
+            '<p class="profile-baseline">Comparada com a publicação '
+            + _short_id_link(
+                baseline,
+                "da publicação comparada",
+                "profile-baseline-id",
+                section_label="Perfil e comparação",
             )
-            + "</dd></div><div><dt>"
-            + _text(catalog_label)
-            + "</dt><dd>"
-            + _profile_context_change(
-                context.get("catalog_changed"), unchanged="Mesmo catálogo", changed="Mudou"
-            )
-            + "</dd></div><div><dt>Cobertura histórica anterior</dt><dd>"
-            + _profile_context_change(
-                context.get("previous_scope_complete"),
-                unchanged="Parcialmente conhecida",
-                changed="Conhecida",
-            )
-            + "</dd></div><div><dt>Cobertura histórica atual</dt><dd>"
-            + _profile_context_change(
-                context.get("current_scope_complete"),
-                unchanged="Parcialmente conhecida",
-                changed="Conhecida",
-            )
-            + "</dd></div><div><dt>Lojas acrescentadas</dt><dd>"
-            + _chips(context.get("stores_added"), PROFILE_GROUP_LIMIT)
-            + "</dd></div><div><dt>Lojas removidas</dt><dd>"
-            + _chips(context.get("stores_removed"), PROFILE_GROUP_LIMIT)
-            + "</dd></div></dl>"
+            + ".</p>"
+        )
+    previous_dates = context.get("previous_date_range")
+    current_dates = context.get("current_date_range", date_range)
+    fields = (
+        [("Período anterior", _text(_profile_date_range(previous_dates)))]
+        if baseline is not None
+        else []
+    )
+    fields.append(("Período atual", _text(_profile_date_range(current_dates))))
+    if baseline is not None:
+        fields.extend(
+            [
+                (
+                    "Datas registradas",
+                    _text(
+                        _profile_context_change(
+                            context.get("dates_changed"),
+                            unchanged="Mesmas datas",
+                            changed="Mudaram",
+                        )
+                    ),
+                ),
+                (
+                    catalog_label,
+                    _text(
+                        _profile_context_change(
+                            context.get("catalog_changed"),
+                            unchanged="Mesmo catálogo",
+                            changed="Mudou",
+                        )
+                    ),
+                ),
+                (
+                    "Cobertura histórica",
+                    "Anterior: "
+                    + _text(
+                        _profile_context_change(
+                            context.get("previous_scope_complete"),
+                            unchanged="Parcialmente conhecida",
+                            changed="Conhecida",
+                        )
+                    )
+                    + "; atual: "
+                    + _text(
+                        _profile_context_change(
+                            context.get("current_scope_complete"),
+                            unchanged="Parcialmente conhecida",
+                            changed="Conhecida",
+                        )
+                    ),
+                ),
+                (
+                    "Lojas acrescentadas",
+                    _chips(context.get("stores_added"), PROFILE_GROUP_LIMIT)
+                    if isinstance(context.get("stores_added"), list | tuple)
+                    else "Não informado",
+                ),
+                (
+                    "Lojas removidas",
+                    _chips(context.get("stores_removed"), PROFILE_GROUP_LIMIT)
+                    if isinstance(context.get("stores_removed"), list | tuple)
+                    else "Não informado",
+                ),
+            ]
+        )
+    parts.append(
+        '<dl class="profile-context">'
+        + "".join(f"<div><dt>{_text(label)}</dt><dd>{value}</dd></div>" for label, value in fields)
+        + "</dl>"
+    )
+    if scope:
+        parts.append(
+            '<div class="profile-scope"><h4>Recorte equivalente</h4><p>'
+            + _text(_profile_date_range(scope.get("dates")))
+            + '</p><p class="meta">Interseção explícita das datas e lojas das duas publicações.</p><div class="chips" role="group" aria-label="Lojas do recorte equivalente">'
+            + _chips(scope.get("stores"), PROFILE_GROUP_LIMIT)
+            + "</div></div>"
         )
         dates = _mapping(scope.get("dates"))
+        visible_dates = _sequence(dates.get("dates"))
         if isinstance(dates.get("dates"), list | tuple):
-            visible_dates = _sequence(dates.get("dates"))
             parts.append(
                 '<details class="data-detail"><summary>Datas do recorte equivalente</summary><div class="chips">'
                 + _chips([_date(day) for day in visible_dates], PROFILE_GROUP_LIMIT)
@@ -1092,24 +1240,50 @@ def _profile_comparison(comparison: Mapping[str, object]) -> str:
                 )
                 + "</p></details>"
             )
-    if scope:
+    rules = _sequence(comparison.get("rules"))[:PROFILE_QUANTILE_LIMIT]
+    if rules:
         parts.append(
-            '<div class="profile-scope"><h4>Recorte equivalente</h4><p>'
-            + _text(_profile_date_range(scope.get("dates")))
-            + '</p><p class="meta">Interseção explícita das datas e lojas das duas publicações.</p>'
-            + '<div class="chips" aria-label="Lojas do recorte equivalente">'
-            + _chips(scope.get("stores"), PROFILE_GROUP_LIMIT)
-            + "</div></div>"
+            '<h4>Regras explicáveis de comparação</h4><p class="meta">Limiares demonstrativos, configurados nesta publicação. A tabela completa conserva as razões decimais.</p>'
+            + _profile_rule_cards(rules)
         )
-    original = _mapping(comparison.get("original_totals"))
-    if original:
+        rule_rows = []
+        for item in rules:
+            rule = _mapping(item)
+            rule_rows.append(
+                {
+                    "metric": PROFILE_RULES.get(str(rule.get("metric")), str(rule.get("metric"))),
+                    "state": "Aviso (WARNING)"
+                    if rule.get("severity") == "WARNING"
+                    else PROFILE_RULE_STATES.get(str(rule.get("status")), str(rule.get("status"))),
+                    **{
+                        key: rule.get(key)
+                        for key in (
+                            "previous",
+                            "current",
+                            "difference",
+                            "relative_change",
+                            "threshold",
+                            "reason",
+                        )
+                    },
+                }
+            )
         parts.append(
-            '<details class="data-detail"><summary>Totais originais dos dois históricos</summary>'
-            '<p class="meta">Cada histórico conserva seu período e composição. Estes totais não definem os avisos de variação.</p>'
-            + _profile_totals(
-                _mapping(original.get("previous")),
-                _mapping(original.get("current")),
-                label="Totais originais das publicações anterior e atual",
+            '<details class="data-detail profile-rules-table"><summary>Tabela completa das regras</summary><p class="meta">Variação e limiar são razões: 0,20 corresponde a 20%.</p>'
+            + _table(
+                rule_rows,
+                (
+                    ("metric", "Métrica e unidade", "text"),
+                    ("state", "Resultado", "text"),
+                    ("previous", "Anterior", "decimal"),
+                    ("current", "Atual", "decimal"),
+                    ("difference", "Diferença", "decimal"),
+                    ("relative_change", "Variação relativa (razão)", "decimal"),
+                    ("threshold", "Limiar (razão)", "decimal"),
+                    ("reason", "Motivo", "text"),
+                ),
+                label="Valores e motivos das regras no recorte equivalente",
+                row_header=True,
             )
             + "</details>"
         )
@@ -1124,53 +1298,28 @@ def _profile_comparison(comparison: Mapping[str, object]) -> str:
             )
             + "</details>"
         )
-    rule_rows = []
-    for item in _sequence(comparison.get("rules"))[:PROFILE_QUANTILE_LIMIT]:
-        rule = _mapping(item)
-        rule_rows.append(
-            {
-                "metric": PROFILE_RULES.get(str(rule.get("metric")), str(rule.get("metric"))),
-                "state": "Aviso (WARNING)"
-                if rule.get("severity") == "WARNING"
-                else PROFILE_RULE_STATES.get(str(rule.get("status")), str(rule.get("status"))),
-                "previous": rule.get("previous"),
-                "current": rule.get("current"),
-                "difference": rule.get("difference"),
-                "relative_change": rule.get("relative_change"),
-                "threshold": rule.get("threshold"),
-                "reason": rule.get("reason"),
-            }
-        )
-    if rule_rows:
+    original = _mapping(comparison.get("original_totals"))
+    if original:
         parts.append(
-            '<h4>Regras explicáveis de comparação</h4><p class="meta">Variação e limiar são razões: 0,20 corresponde a 20%. Limiares demonstrativos, configurados nesta publicação. Avisos de perfil têm severidade WARNING.</p>'
-            + _table(
-                rule_rows,
-                (
-                    ("metric", "Métrica e unidade", "text"),
-                    ("state", "Resultado", "text"),
-                    ("previous", "Anterior", "decimal"),
-                    ("current", "Atual", "decimal"),
-                    ("difference", "Diferença", "decimal"),
-                    ("relative_change", "Variação relativa (razão)", "decimal"),
-                    ("threshold", "Limiar (razão)", "decimal"),
-                    ("reason", "Motivo", "text"),
-                ),
-                label="Valores e motivos das regras no recorte equivalente",
+            '<details class="data-detail"><summary>Totais originais dos dois históricos</summary><p class="meta">Cada histórico conserva seu período e composição. Estes totais não definem os avisos de variação.</p>'
+            + _profile_totals(
+                _mapping(original.get("previous")),
+                _mapping(original.get("current")),
+                label="Totais originais das publicações anterior e atual",
             )
+            + "</details>"
         )
-    warnings = _sequence(comparison.get("warnings"))
-    if warnings:
+    if baseline is not None:
         parts.append(
-            '<ul class="profile-warnings">'
-            + "".join(f"<li>{_text(value)}</li>" for value in warnings[:PROFILE_QUANTILE_LIMIT])
-            + "</ul>"
-        )
-    baseline_versions = _mapping(comparison.get("baseline_delta_versions"))
-    if baseline_versions:
-        parts.append(
-            '<details class="data-detail"><summary>Versões da publicação anterior comparada</summary>'
-            + _profile_versions(baseline_versions)
+            '<details class="data-detail profile-baseline-data"><summary>ID e versões da publicação comparada</summary>'
+            + _copy_field(
+                baseline,
+                "Publicação anterior comparada",
+                "profile-baseline-id",
+                status_id="profile-copy-status",
+            )
+            + '<p id="profile-copy-status" class="copy-status" role="status" aria-live="polite"></p>'
+            + _profile_versions(_mapping(comparison.get("baseline_delta_versions")))
             + "</details>"
         )
     return "".join(parts) + "</div>"
@@ -1192,6 +1341,7 @@ def _profile_versions(versions: Mapping[str, object]) -> str:
             ("path", "Caminho registrado", "text"),
         ),
         label="Versões Delta fixadas no perfil",
+        row_header=True,
     )
 
 
@@ -1207,8 +1357,9 @@ def _profile_details(profile: Mapping[str, object]) -> str:
         '<p class="meta">Silver ativa: maior revisão válida por item, operação UPSERT.</p>',
         _table(
             rows,
-            (("metric", "Métrica", "text"), ("value", "Valor", "text")),
+            (("metric", "Métrica", "text"), ("value", "Valor", "formatted_numeric")),
             label="Totais exatos do perfil ativo publicado",
+            row_header=True,
         ),
     ]
     if active.get("cancelled_keys") is not None:
@@ -1235,7 +1386,7 @@ def _profile_details(profile: Mapping[str, object]) -> str:
                 }
             )
     parts.append(
-        "<h4>Distribuição das linhas ativas</h4>"
+        '<details class="data-detail profile-distributions"><summary>Distribuição das linhas ativas</summary>'
         + _table(
             distribution_rows,
             (
@@ -1245,12 +1396,14 @@ def _profile_details(profile: Mapping[str, object]) -> str:
                 ("mean", "Média", "decimal"),
             ),
             label="Mínimos, máximos e médias das linhas ativas",
+            row_header=True,
         )
+        + "</details>"
     )
     parameters = _mapping(profile.get("parameters"))
     if quantile_rows:
         parts.append(
-            '<p class="meta">Quantis aproximados. Algoritmo: '
+            '<details class="data-detail profile-quantiles"><summary>Quantis aproximados e precisão</summary><p class="meta">Quantis aproximados. Algoritmo: '
             + _text(parameters.get("quantile_algorithm"))
             + "; precisão configurada: "
             + _text(parameters.get("quantile_accuracy"))
@@ -1263,7 +1416,9 @@ def _profile_details(profile: Mapping[str, object]) -> str:
                     ("value", "Quantil aproximado", "decimal"),
                 ),
                 label="Quantis aproximados persistidos no perfil",
+                row_header=True,
             )
+            + "</details>"
         )
     groups = _mapping(active.get("groups"))
     for key, id_key, label in (
@@ -1290,6 +1445,7 @@ def _profile_details(profile: Mapping[str, object]) -> str:
                     ("net_revenue_brl", "Receita líquida", "money"),
                 ),
                 label=f"Contribuição publicada por {label}; grupos limitados",
+                row_header=True,
             )
         )
     changes = _mapping(profile.get("state_changes"))
@@ -1316,6 +1472,7 @@ def _profile_details(profile: Mapping[str, object]) -> str:
                 ],
                 (("metric", "Alteração", "text"), ("value", "Quantidade", "integer")),
                 label="Alterações definidas pelo perfil",
+                row_header=True,
             )
         )
     batch = _mapping(profile.get("batch"))
@@ -1341,6 +1498,7 @@ def _profile_details(profile: Mapping[str, object]) -> str:
                 ],
                 (("metric", "Métrica do lote", "text"), ("value", "Quantidade", "integer")),
                 label="Contagens do lote recebido; separadas do estado ativo",
+                row_header=True,
             )
         )
         if batch.get("received_operations_include_duplicates_and_stale"):
@@ -1410,18 +1568,28 @@ def _profile_section(payload: ReportPayload) -> str:
         )
         if result.get("reason"):
             parts.append("<p>" + _text(result.get("reason")) + "</p>")
+        guidance = {
+            "LEGACY": "Este fechamento foi publicado antes do contrato de perfil. Seus valores e versões continuam disponíveis.",
+            "MISSING": "Confira a referência do perfil e a cópia do estado com o responsável pelo fechamento. Os indicadores da publicação continuam disponíveis.",
+            "INVALID": "O perfil não passou na conferência de contrato, hash ou vínculo. Confira a referência com o responsável pelo fechamento. Os indicadores da publicação continuam disponíveis.",
+        }.get(status)
+        if guidance:
+            parts.append(
+                '<p class="profile-guidance">'
+                + _text(guidance)
+                + ' <a href="#proveniencia">Conferir publicação e versões</a>.</p>'
+            )
         return "".join(parts) + "</section>"
-    parts.append(
-        '<p class="meta">Perfil da publicação '
-        + _short_id_link(profile.get("publication_id"), "do perfil", "publication-id")
-        + ". Período do perfil: "
-        + _text(_profile_date_range(profile.get("date_range")))
-        + ".</p>"
-    )
     coverage = _mapping(profile.get("coverage"))
     if coverage.get("scope_complete") is False:
         parts.append('<p class="audit-note">Cobertura histórica parcialmente conhecida.</p>')
-    parts.append(_profile_comparison(_mapping(profile.get("comparison"))))
+    parts.append(
+        _profile_comparison(
+            _mapping(profile.get("comparison")),
+            publication_id=profile.get("publication_id"),
+            date_range=profile.get("date_range"),
+        )
+    )
     parts.append(_profile_details(profile))
     return "".join(parts) + "</section>"
 
@@ -1506,6 +1674,7 @@ def build_report_html(payload: ReportPayload) -> str:
             ("net_revenue_brl", "Receita líquida", "money"),
         ),
         label="Produtos mais vendidos, unidades e receita líquida",
+        row_header=True,
     )
     stores = _table(
         payload.stores,
@@ -1527,6 +1696,7 @@ def build_report_html(payload: ReportPayload) -> str:
             ("net_revenue_brl", "Receita líquida", "money"),
         ),
         label="Valores equivalentes ao gráfico de receita diária",
+        row_header=True,
     )
     source_count = len(_sequence(snapshot.get("sources")))
     source_label = "fonte bronze" if source_count == 1 else "fontes bronze"
@@ -1591,13 +1761,14 @@ def build_report_html(payload: ReportPayload) -> str:
 <div class="publication-band"><header class="publication-heading"><h2 id="indicators-title">Indicadores de vendas</h2><p class="publication-window">{_text(window)}</p><p class="publication-note">{publication_note}</p></header>
 <section class="metrics" aria-label="Indicadores da publicação">{cards}</section></div>
 <p class="publication-context"><strong>{publication_label}.</strong> {_text(_publication_context(payload))}</p>
-<nav class="subnav" aria-label="Recortes dos indicadores"><a href="#lojas">Loja / dia</a><a href="#receita">Receita por dia</a><a href="#produtos">Produtos</a><a href="#perfil">Perfil e comparação</a></nav>
+<nav class="subnav" aria-label="Recortes dos indicadores"><a href="#perfil">Perfil e comparação</a><a href="#lojas">Loja / dia</a><a href="#receita">Receita por dia</a><a href="#produtos">Produtos</a></nav>
+{_profile_section(payload)}
 <section class="data-section matrix-section" id="lojas" tabindex="-1"><h3>Receita por loja e dia</h3>{f'<p class="footnote">{store_note}</p>' if store_note else ""}{_store_matrix(payload.stores)}
 <details class="data-detail" id="store-values" tabindex="-1"><summary>Valores por loja e dia ({len(payload.stores)} {"linha exibida" if len(payload.stores) == 1 else "linhas exibidas"})</summary>{stores}</details></section>
 <div class="analytics-grid"><section id="receita" class="data-section" tabindex="-1"><div class="diagnostic-heading"><h3>Receita por dia</h3><span class="meta">BRL · dia comercial</span></div><div class="chart" tabindex="0" role="region" aria-label="Gráfico de receita por dia; rolagem horizontal disponível em telas estreitas">{_revenue_chart(payload.daily)}</div><p class="footnote">{daily_note}</p>
 <details class="data-detail"><summary>Valores por dia ({len(payload.daily)} {"dia exibido" if len(payload.daily) == 1 else "dias exibidos"})</summary>{daily_values}</details></section>
 <section class="data-section" id="produtos" tabindex="-1"><h3>Produtos mais vendidos</h3>
-<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p>{_product_ranking(payload.products)}{f'<p class="footnote">{product_note}</p>' if product_note else ""}<details class="data-detail"><summary>Valores por produto ({len(payload.products)})</summary>{products}</details></section></div>{_profile_section(payload)}</section>
+<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p>{_product_ranking(payload.products)}{f'<p class="footnote">{product_note}</p>' if product_note else ""}<details class="data-detail"><summary>Valores por produto ({len(payload.products)})</summary>{products}</details></section></div></section>
 <section class="panel" id="proveniencia" data-report-view tabindex="-1" aria-labelledby="files-title"><div class="section-head"><div><h2 id="files-title">Arquivos e versões</h2><p class="meta">{source_count} {source_label}. Referências capturadas no manifesto da publicação.</p><p class="meta">Publicada em {_text(_timestamp(snapshot.get("published_at")))}.</p></div></div>
 <div class="provenance-workspace"><aside class="identity-register"><h3>Publicação identificada</h3>{_copy_field(snapshot.get("publication_id"), "ID da publicação", "publication-id")}{_copy_field(snapshot.get("run_id"), "Execução que publicou", "publication-run-id")}
 <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
