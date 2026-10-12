@@ -1,3 +1,0 @@
- Container pf-varejo-evolucao-a12e4a-pipeline-run-83bdf405b7ee Creating 
- Container pf-varejo-evolucao-a12e4a-pipeline-run-83bdf405b7ee Created 
-{"python": "3.11.16", "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with", "packages": {"pytest": "9.0.3", "ruff": "0.6.9", "mypy": "1.11.2", "setuptools": "84.0.0", "wheel": "0.48.0", "pyspark": "4.2.0", "delta-spark": "4.4.0"}}

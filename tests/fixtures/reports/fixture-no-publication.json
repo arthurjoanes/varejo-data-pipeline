@@ -1,0 +1,13 @@
+{
+  "payload": {
+    "latest_attempt": null,
+    "profile_result": {
+      "profile": null,
+      "reason": null,
+      "status": "NO_PUBLICATION"
+    },
+    "snapshot": null,
+    "synthetic_data": true
+  },
+  "presentation_only": true
+}

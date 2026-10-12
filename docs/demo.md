@@ -6,18 +6,17 @@ O [roteiro de evolução](evolution.md) usa estado, imagem, volume e exportaçõ
 
 O mesmo executor injeta falha na exportação terminal depois da publicação, verifica `PUBLISHED`, reexporta um COMPLETE e confere preservação de bytes e idempotência. `profile` consulta o JSON do snapshot, e `lineage` permite repetir explicitamente a reconciliação. [Mapeamento OpenLineage](openlineage.md).
 
-## Conferir a revisão da interface
+## Consultar o fechamento no dashboard
 
-A revisão de 12/10/2026 usa os HTMLs capturados das três publicações da evolução e os mesmos dados antes e depois. Os totais são R$ 64,00, R$ 104,00 e R$ 64,00. A captura releu as versões já publicadas em uma única sessão Spark, sem executar novos lotes. O replay da apresentação usa somente os JSONs capturados; abrir o HTML não atualiza o pipeline.
+A demo de evolução de 12/10/2026 contém publicações de R$ 64,00, R$ 104,00 e R$ 64,00, com dados sintéticos. O HTML captura o estado da publicação e permanece estático ao ser aberto.
 
-1. Em Indicadores, confira identidade, horário e totais da publicação inicial. O perfil informa que ainda não existe baseline para comparação.
-2. No relatório histórico bloqueado, abra Execução, ocorrência e cobertura. S02 está ausente; Indicadores conserva os R$ 64,00 da publicação anterior.
-3. Na publicação comparável, confira datas e lojas do recorte antes do aviso de preço. Na publicação de 10/01, confira a falta de datas em comum com 01/01; o estado não comparável não apresenta uma variação relativa válida.
-4. Em Arquivos e nos detalhes do perfil, consulte e copie os IDs completos, confira a publicação anterior e as versões Delta. Nenhuma ação da página publica, corrige ou reprocessa a entrega.
+1. Em Visão geral, confira período, identidade e totais. Leia a receita diária, o ranking de até seis lojas e o mix de até cinco produtos, com os demais agrupados quando houver excedentes. Os percentuais das lojas usam todas as lojas com receita completa do recorte.
+2. Em Lojas, percorra a matriz por dia e abra a tabela para conferir valores exatos. Zero registrado e ausência de observação têm representações próprias.
+3. Em O que mudou, veja anterior e atual nas mesmas datas e lojas. A publicação inicial não tem baseline. A publicação de 10/01 não tem datas em comum com 01/01 e informa que o recorte não é comparável. Períodos, IDs e razões ficam nos detalhes.
+4. O relatório bloqueado abre em Qualidade. S02 está ausente; Visão geral conserva os R$ 64,00 da publicação anterior. Abra a ocorrência e a cobertura para investigar a entrega.
+5. Em Arquivos, selecione ou copie IDs completos e confira fontes e versões Delta. As ações da página consultam o snapshot; não publicam ou reprocessam a entrega.
 
-O corpus inclui os cinco payloads históricos e 14 fixtures de apresentação, além das três publicações da evolução. Fixtures de baseline zero, falta de amostra, perfil ausente ou inválido, publicação vazia e campos não informados ajudam a conferir os textos e valores; não registram novas execuções de domínio. Os horários de setembro permanecem nos payloads históricos.
-
-Os [recibos atuais](evidence/uiux-20261012-a12e4a/) e as [capturas antes/depois](images/uiux-20261012-a12e4a/) registram a fonte final, 18 pares de imagens e os gates aprovados; [reprodução offline](evidence/uiux-20261012-a12e4a/README.md). O [guia da interface](interface.md) explica as jornadas e [Qualidade da interface](frontend-quality.md#revisão-de-uiux-em-12102026) registra o diagnóstico, as duas composições e o protocolo. Zoom nativo e leitor de tela permanecem não verificados. Os roteiros de processamento abaixo continuam separados da reprodução visual.
+O [guia da interface](interface.md) descreve os gráficos e a reprodução offline das fixtures em `tests/fixtures/reports/`. Os relatórios de domínio históricos mantêm seus horários originais.
 
 ## Testar o problema e a correção
 
@@ -58,9 +57,9 @@ A jornada aprova as referências sintéticas separadamente antes de criar entreg
 
 ## Ver resultados
 
-1. Abra `artifacts/report.html`: em **Execução**, confira a última tentativa; em **Indicadores**, confira a receita final de R$ 77,00. **Arquivos** identifica a publicação e suas versões.
-2. Abra `artifacts/blocked-report.html`: a publicação válida aparece junto do bloqueio por loja ausente. Abra a ocorrência para ver seu contexto e **Indicadores** para conferir R$ 64,00.
-3. Abra `artifacts/failure-report.html`: o candidato da reativação não aparece no total oficial. **Indicadores** mantém R$ 57,00 da publicação anterior.
+1. Abra `artifacts/report.html`: em Qualidade, confira a última tentativa; em Visão geral, confira a receita final de R$ 77,00. Arquivos identifica a publicação e suas versões.
+2. Abra `artifacts/blocked-report.html`: a publicação válida aparece junto do bloqueio por loja ausente. Abra a ocorrência em Qualidade e consulte Visão geral para conferir os R$ 64,00 preservados.
+3. Abra `artifacts/failure-report.html`: o candidato da reativação não aparece no total oficial. Visão geral mantém R$ 57,00 da publicação anterior.
 4. Abra `artifacts/explain.json`: amostra rotulada liga o indicador à origem. O documento se refere à primeira publicação; não se confunde com a versão final da demo.
 5. Veja `tests/integration/test_pipeline.py`: correção de data, revisão antiga, conflito, lote rejeitado, concorrência real e leitura por versão também são exercitados.
 
@@ -96,22 +95,20 @@ Para acompanhar uma cópia e restauração já executadas, leia a [sequência de
 - Injeção manual: `run <entrada> --demo-mode --fail-at before_publish` (alternativas: `after_ingestion` e `after_gold`). Sem `--demo-mode`, a CLI recusa a simulação.
 - Não há reset destrutivo automático. Não execute VACUUM em tabelas que tenham versões referenciadas pelos manifestos.
 
-## Demonstração editorial executada
+## Execução de domínio em 22/09/2026
 
-Em 22/09/2026, executei a instalação pelo Dockerfile atual e a tese pequena em estado novo, com Spark 4.2.0 e Delta 4.4.0 reais. A base foi `93d80c0`, acrescida somente da exportação opcional de HTML em `test_business_thesis.py`; não atribuo essa execução ao commit puro. Interface e regras de domínio permaneceram iguais. O [registro da execução](evidence/editorial-20260922/execution.json) contém comandos, limites e hashes; [verification.json](evidence/editorial-20260922/verification.json) registra as fontes que de fato estavam na imagem.
+Em 22/09/2026, a tese pequena rodou em estado novo, com Spark 4.2.0 e Delta 4.4.0 reais. A fonte usou a base `93d80c0` com a exportação opcional de HTML em `test_business_thesis.py`; as regras de domínio permaneceram iguais. O [registro da execução](evidence/editorial-20260922/execution.json) contém comandos, limites e hashes; [verification.json](evidence/editorial-20260922/verification.json) identifica as fontes presentes na imagem.
 
-O build normal passou usando cache local. Uma tentativa anterior de build com rede desativada falhou ao consultar o índice Alpine: o primeiro setup não é prometido como offline. O batch posterior rodou com `--network none`, raiz somente leitura, 3 GiB e duas CPUs, em um volume próprio. Smoke e teste de negócio passaram: [smoke.xml](evidence/editorial-20260922/smoke.xml) e [tests.xml](evidence/editorial-20260922/tests.xml). Não repeti o benchmark de 30 mil linhas nem a recuperação de volume desta rodada histórica.
+O build normal passou usando cache local. Uma tentativa anterior de build com rede desativada falhou ao consultar o índice Alpine: o primeiro setup não é prometido como offline. O batch posterior rodou com `--network none`, raiz somente leitura, 3 GiB e duas CPUs, em um volume próprio. Smoke e teste de negócio passaram: [smoke.xml](evidence/editorial-20260922/smoke.xml) e [tests.xml](evidence/editorial-20260922/tests.xml). Essa rodada histórica não incluiu benchmark de 30 mil linhas ou recuperação de volume.
 
-| Caso real, com fixture sintética                     | Saída observada                                                       | Captura e prova                                                                                      |
-| ---------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| S02 retirada da entrada e do calendário do remetente | `BLOCKED`; expectativa independente ainda exige S02                   | [Cobertura](images/editorial-20260922/coverage-blocked.png), `steps` no JSON                         |
-| Só um item de A1 muda de dia                         | `SALE_DATE_CONFLICT`; soma ingênua 64, contagem ingênua 4 em vez de 3 | [Ocorrência](images/editorial-20260922/partial-date-blocked.png), `baseline_partial_date`            |
-| Ambos os itens mudam de dia                          | Publica 64; recortes 20, 20 e 24                                      | [Correção](images/editorial-20260922/whole-sale-corrected.png), teste das linhas literais            |
-| Falha controlada após o primeiro Gold                | Latest por loja/produto = 74/64; oficial = 64/64                      | [Publicação preservada](images/editorial-20260922/failure-before-publication.png), `after_failure_*` |
-| Retry e replay                                       | Publica 74; replay `NO_CHANGE`, mesma publicação                      | [Resultado](images/editorial-20260922/recovered.png), `final_publication` e `steps`                  |
+| Caso real, com fixture sintética | Saída observada | Chave na prova de domínio |
+| -------------------------------- | --------------- | ------------------------- |
+| S02 retirada da entrada e do calendário do remetente | `BLOCKED`; expectativa independente ainda exige S02 | `steps` |
+| Só um item de A1 muda de dia | `SALE_DATE_CONFLICT`; soma ingênua 64, contagem ingênua 4 em vez de 3 | `baseline_partial_date` |
+| Ambos os itens mudam de dia | Publica 64; recortes 20, 20 e 24 | Teste das linhas literais |
+| Falha controlada após o primeiro Gold | Latest por loja/produto = 74/64; oficial = 64/64 | `after_failure_*` |
+| Retry e replay | Publica 74; replay `NO_CHANGE`, mesma publicação | `final_publication` e `steps` |
 
 Todas as chaves da tabela estão em [business-thesis.json](evidence/editorial-20260922/business-thesis.json). O esperado foi escrito como valores literais no teste, além do contraexemplo calculado em Python independente das transformações Spark. O tempo de execução é contexto local, não medição de capacidade.
-
-As cinco imagens vêm dos HTMLs exportados imediatamente após cada operação, abertos no Edge a 1120 × 960 CSS px, zoom normal, fonte carregada. Usei somente navegação e expansão nativas; não substituí texto, números ou estados no DOM. Os recortes de indicadores mantêm a identificação da publicação e a tabela exata. [Registro das capturas](evidence/editorial-20260922/captures.json). As imagens da interface anteriores continuam documentando suas próprias versões e não foram sobrescritas.
 
 Para repetir, use o comando `verify_problem.py --thesis-only` do início deste guia. A variável `RETAIL_THESIS_EVIDENCE_DIR` ativa os exports no teste; o script já a configura. Cada execução cria estado temporário, mas reutiliza o diretório de saída escolhido: use outro `--output` para conservar uma rodada anterior. Os HTMLs mostram o estado capturado na geração, sem atualização automática ou acompanhamento ao vivo.

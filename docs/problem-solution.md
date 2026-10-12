@@ -50,7 +50,7 @@ _O aviso associa R$ 64,00 à publicação anterior. A imagem prova o que o leito
 
 _Após retomar, 20 + 20 + 34 = R$ 74,00. A tentativa seguinte não altera a publicação. Idempotência significa repetir a entrada sem repetir seu efeito; o JSON registra o mesmo ID oficial no retry publicado e no replay._
 
-Para conferir a decisão na interface, comece em **Execução**, leia a ocorrência e a cobertura, depois abra **Indicadores** e **Arquivos**. A tentativa explica o que aconteceu; o ID e as versões da publicação dizem a quais dados os números pertencem. [Guia da interface](interface.md).
+Para conferir a decisão na interface, comece em **Qualidade**, leia a ocorrência e a cobertura, depois abra **Visão geral** e **Arquivos**. A tentativa explica o que aconteceu; o ID e as versões da publicação dizem a quais dados os números pertencem. [Guia da interface](interface.md).
 
 ## Regras adotadas
 

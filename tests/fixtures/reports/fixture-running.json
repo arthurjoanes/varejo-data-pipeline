@@ -1,0 +1,18 @@
+{
+  "payload": {
+    "latest_attempt": {
+      "batch_id": "fixture-batch",
+      "run_id": "fixture-running",
+      "state": "RUNNING",
+      "stats": {}
+    },
+    "profile_result": {
+      "profile": null,
+      "reason": null,
+      "status": "NO_PUBLICATION"
+    },
+    "snapshot": null,
+    "synthetic_data": true
+  },
+  "presentation_only": true
+}

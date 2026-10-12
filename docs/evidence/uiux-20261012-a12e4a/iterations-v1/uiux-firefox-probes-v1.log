@@ -1,4 +1,0 @@
-{"engine":"firefox","phase":"after","name":"actual-comparable","step":"goto"}
-{"engine":"firefox","phase":"after","name":"actual-comparable","step":"loaded"}
-{"engine":"firefox","phase":"after","name":"actual-comparable","step":"fonts","status":"loaded"}
-{"engine":"firefox","phase":"after","name":"actual-comparable","step":"complete","document":320}

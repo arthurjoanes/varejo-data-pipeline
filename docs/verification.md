@@ -1,8 +1,12 @@
 # Verificação e reprodução
 
+## Validação atual
+
+Em 12/10/2026, a fonte de `a5b2a3b` passou em **402 testes unitários** no Linux. Ruff, verificação de formato e mypy também passaram. Os comandos para reprodução estão abaixo; os testes de navegador e seus limites estão no [guia de qualidade do relatório](frontend-quality.md). Esta execução unitária não substitui as integrações Spark/Delta identificadas nas seções históricas.
+
 ## Evolução de perfis e lineage em 12/10/2026
 
-Base desta entrega: `53f998d820d3b5e7a0f2231b370907f7dc77a7bb`, checkout limpo e remoto conferido antes da edição. A branch é `feat/evolucao-varejo-data-pipeline-20261012`. [Isolamento, comandos e saídas](evolution.md). Os registros históricos seguintes permanecem associados às suas próprias execuções.
+Base da execução: `53f998d820d3b5e7a0f2231b370907f7dc77a7bb`. [Isolamento, comandos e saídas](evolution.md). Cada resultado abaixo identifica a fonte e a imagem utilizadas.
 
 Em 12/10/2026, a suíte completa passou no container Linux: **369 testes, zero falhas e zero skips**, em 1.536,62 s. A fonte ficou congelada no commit `0ddab5e15f34bd28101a3124a42cc6a5e04ac60f`, com a imagem `sha256:d510a4c939b714b5e3c1bd7199f7d19ad9b0575fe631ce34590c2912675eef87`. O batch usou rede desabilitada, 3 GiB, 2 CPUs e limite de 1.024 processos/threads. Os [inventários antes](evidence/evolucao-20261012-a12e4a/source-before.json) e [depois](evidence/evolucao-20261012-a12e4a/source-after.json) mantiveram os mesmos hashes dos 316 arquivos operacionais; o [diff capturado](evidence/evolucao-20261012-a12e4a/candidate.diff) registra o delta contra a baseline `53f998d`. Os hashes identificam os bytes montados, incluindo eventuais alterações locais fora de HEAD.
 
@@ -35,8 +39,6 @@ O lote `comparable` também injetou falha de exportação depois do commit. Ele 
 
 As etapas de perfil duraram 3,6761 s, 9,8586 s e 6,2000 s nas três fixtures. São observações desta execução, sem medição pareada de overhead. O intervalo de `publication` contém o de `profile`; somá-los contaria esse tempo duas vezes. [Comandos e saídas reproduzíveis](evolution.md).
 
-Os três HTMLs gerados passaram no probe funcional com Edge 155.0.4283.45: 12 combinações de estado/largura, de 1440 a 320 px, com teclado, foco, tabelas, fallback de cópia e leitura sem JavaScript. Não houve erro JavaScript, requisição HTTP externa ou overflow global. O [índice de navegador](evidence/evolucao-20261012-a12e4a/browser-index.json) identifica os recibos de cada estado, e a [qualidade da interface](frontend-quality.md#relatórios-gerados-pela-demonstração) registra as capturas inspecionadas. O escopo é funcional; uma auditoria integral de UX/acessibilidade não foi executada.
-
 ### Restauração com perfis referenciados
 
 A prova `pf-varejo-proof-3503857bb22f` passou em 12/10/2026, com a fonte `bc66968` e a imagem `8165ad96042f…`, em 293,535 s no cenário completo. Origem, destino novo e releitura da origem conservaram três publicações com 6.400, 6.400 e 7.700 centavos, as mesmas versões e linhas Delta e perfis `AVAILABLE`. O inventário próprio do runner registrou 322 arquivos: os 316 operacionais e seis metadados ignorados de `src/varejo_data_pipeline.egg-info`, gerados pelo build do pacote. Todos permaneceram iguais durante a prova. A cópia preservou 198 arquivos em um tar de 788.480 bytes. [Resultado público](evidence/evolucao-20261012-a12e4a/restore/result.public.json), [observações no destino](evidence/evolucao-20261012-a12e4a/restore/target-after.json), [manifesto da cópia](evidence/evolucao-20261012-a12e4a/restore/backup-manifest.json) e [índice com hashes](evidence/evolucao-20261012-a12e4a/restore/index.json).
@@ -59,39 +61,21 @@ O workflow de segredos da primeira publicação da branch falhou em seis ocorrê
 
 Gitleaks 8.30.1, com o checksum fixado no workflow, aprovou o histórico completo `--all` com zero achados após essa correção. Dois controles sintéticos continuaram detectados: outro valor no caminho permitido e a mesma fingerprint em outro arquivo. O binário foi executado sem rede numa imagem de ferramentas com Git; a tentativa inicial na imagem do pipeline, que não inclui Git, não conseguiu iniciar o scan. Os containers próprios foram removidos. [Resumo e hashes](evidence/evolucao-20261012-a12e4a/secrets-summary.json) · [falha inicial do histórico](evidence/evolucao-20261012-a12e4a/secrets-history-initial.log) · [resultado aprovado](evidence/evolucao-20261012-a12e4a/secrets-history-final.json) · [controles com valores ocultados](evidence/evolucao-20261012-a12e4a/secrets-controls.json). Os bytes dos scans e o gate HIGH/CRITICAL permanecem iguais.
 
-## Auditoria do candidato local em 22/09/2026
+## Regressão de contribuições vazias em 22/09/2026
 
-Base fixada antes das alterações: `main`, `b4d4d7c80d637bf2b67e06ce95b389f6324de4da`, remoto `https://github.com/arthurjoanes/varejo-data-pipeline.git`, consulta às 13h de Brasília. O checkout estava limpo: 589 arquivos rastreados, nenhum novo e 943 ignorados. O SHA permaneceu igual durante a revisão; as correções abaixo foram validadas localmente antes da autorização posterior de commit e push. Não houve deploy. O [CI dessa base](https://github.com/arthurjoanes/varejo-data-pipeline/actions/runs/35744800146) foi conferido por job e passo; a execução da revisão publicada deve ser consultada pelo seu próprio SHA no [workflow](https://github.com/arthurjoanes/varejo-data-pipeline/actions/workflows/ci.yml).
+A base `b4d4d7c80d637bf2b67e06ce95b389f6324de4da` passou no [CI](https://github.com/arthurjoanes/varejo-data-pipeline/actions/runs/35744800146). Os resultados locais seguintes descrevem essa fonte e a correção dirigida. Para consultar o estado de outro commit, use o [workflow](https://github.com/arthurjoanes/varejo-data-pipeline/actions/workflows/ci.yml).
 
 A implementação separa gravação física e publicação, usa contas com `Decimal`, preserva versões e inclui testes que injetam falhas entre tabelas. O requisito justifica Delta e o manifesto; os rebuilds JVM e a recomputação ampliam bastante o custo de manutenção. A alternativa de atualizar componentes oficiais continua preferível quando compatível.
 
 **P2 corrigido — contribuições vazias.** Em `src/retail_pipeline/reporting.py`, `explain_indicator` ainda retornava receita/unidades `null` para uma publicação válida sem itens, embora o relatório já tivesse sido corrigido. A reprodução em `tests/integration/test_boundaries.py` falhou com `None != Decimal("0.00")`. Agora somente a seleção com zero linhas recebe totais aditivos zero. Publicação inexistente continua sendo erro; vendas gratuitas conservam unidades e linhas, e um filtro vazio não comprova cobertura. A regressão cobre vazio, cancelamento total, reativação gratuita e loja sem contribuições, mantendo a identidade da publicação.
 
-| Requisito                                                  | Evidência examinada e situação                                                                                                                                                                                                                                                                                                                       |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Público, tarefa, problema → exemplo → decisão → limite     | **Conforme.** Leitura simulada somente do README: fechamento de varejo, entradas por origem/loja, cobertura, R$ 64 → R$ 74, falha parcial e retomada são compreensíveis sem reconstruir a narrativa em outros arquivos. A demo R$ 77 é identificada como outro cenário. Não houve estudo com participantes.                                          |
-| Referências e autoria concreta                             | **Conforme no escopo documental.** A fonte primária Delta foi lida e ligada ao limite de transação por tabela em [problema e solução](problem-solution.md). Cenário sintético e benefício comercial não são confundidos. O código demonstra o mecanismo, não a motivação histórica do autor.                                                         |
-| Dados, contratos, falhas, estados e publicação             | **Conforme após a correção acima.** Suíte real Spark/Delta e regressão dirigida; publicação anterior, zero, ausência, cancelamento e transação parcial permanecem distintos.                                                                                                                                                                         |
-| Identidade, hierarquia, gráficos, teclado e responsividade | **Conforme nos percursos executados; parcial para acessibilidade integral.** Replay atual: 15 combinações de vista/largura, 30 capturas, teclado/foco, matriz, leitura sem JS e offline; 14 vistas Axe sem violação automática. Contraste integral, zoom nativo e leitor de tela não verificados. A revisão do README renderizado é descrita abaixo. |
-| Código e complexidade proporcionais                        | **Parcial, mantido com justificativa.** Leitura aprofundada de publicação, manifesto, escrita atômica, processamento e relatório; amostra de geradores, operação, testes e build. O custo dos componentes JVM permanece explícito em [runtime](runtime-upgrade.md); não foi feita leitura integral de todos os arquivos ou testes upstream.          |
-| Instalação, testes, CI e segurança                         | **Conforme no laboratório descrito abaixo.** Nenhuma chamada paga, ambiente de produção ou credencial pessoal foi usado. Desempenho de produção: **não verificado**. Este registro descreve a validação local anterior à publicação; o CI remoto pertence ao SHA publicado.                                                                          |
-| Manutenção, navegação, imagens e resíduos                  | **Conforme no escopo inspecionado.** README encaminha regra/contrato, reprodução, diagnóstico e limites. Foram inventariados 167 PNG, três SVG e uma fonte WOFF; famílias históricas e assets têm consumidores, portanto foram preservados. Não foram encontrados resíduos cuja exclusão estivesse comprovada.                                       |
-
 Validação executada em cópia pública isolada, sem `.env` ou estado anterior: build da imagem com dependências fixadas, **249 testes aprovados, zero skips**, em 919,23 s. Essa suíte completa precede a correção restrita de `explain`. Depois dela, a imagem candidata foi reconstruída; **234 unitários e a integração de fronteiras alterada passaram**, esta em 117,92 s. Ruff, formato de 51 arquivos e mypy em 17 módulos passaram. O teste dirigido usa fonte somente leitura, rede desabilitada e volume novo. Layers JVM de build foram reaproveitados: não é um build frio nem uma nova execução de todas as suítes upstream. Restore e medição históricos abaixo não foram repetidos ou reatribuídos a esta revisão.
-
-**P2 corrigido — sincronização da prova visual.** O replay atual de `scripts/render_review.py`, sem `--capture`, usou cinco payloads históricos e fixtures de apresentação numa cópia publicável isolada. As primeiras tentativas de `visual-review.cjs` falharam ao observar `aria-current` e um disclosure antes de `hashchange` atualizar o DOM. Um probe registrou hash novo, painel anterior e posterior atualização natural, sem erro JavaScript. O script agora aguarda link/painel ou foco antes das asserções e exige cardinalidade nas coleções geométricas e de ocorrências; nenhum timeout foi aumentado nem código da interface alterado. Um controle negativo removeu o listener apenas de um HTML descartável: a prova continuou falhando, código 1, no limite padrão de 30 s.
-
-A execução final passou em Chromium **153.0.8010.12 / Playwright 1.63.0**: **15 combinações** de três vistas em 1440/1366/768/390/320 px e **30 capturas**, sem erro JS ou overflow global. Conferiu R$ 64/57/77 nos estados correspondentes, 360 linhas loja/dia, 30 dias, zero/ausência, matriz e teclado, foco, cópia/fallback, leitura sem JS e fontes offline sem requisições HTTP. Foram inspecionadas quatro capturas: Execução/Indicadores desktop, bloqueio expandido em 320 px e matriz com ausência/zero/negativo em 390 px. `a11y-review.cjs` passou **14 vistas, zero violações automáticas**; itens incompletos `color-contrast` e `aria-prohibited-attr` permanecem sem aprovação manual integral. O menor dos oito pares textuais amostrados foi 5,524:1. `node --check` e diff passaram. Não houve novo lote, benchmark, comparação pareada histórica, zoom nativo ou teste com leitor de tela; as novas saídas ficaram fora do Git em `.audit-runtime/varejo-visual-final-20260922`, preservando payloads, imagens e relatórios históricos do repositório.
 
 Gitleaks 8.30.1 aprovou o histórico e a cópia publicável final. Trivy 0.74.0 sobre a imagem candidata, com a base consultada em 22/09, registrou **zero HIGH/CRITICAL e um MEDIUM**, `CVE-2025-48924` em Commons Lang 2.6, cujo backport e limites permanecem em [runtime](runtime-upgrade.md). O scanner também avisou que Alpine 3.24 não constava em sua lista de EOL. Esses resultados não significam ausência de vulnerabilidades futuras. Uma primeira tentativa de scan por caminho absoluto não aplicou duas exceções exatas já existentes; o scan corrigido usou caminhos relativos, sem ampliar exceções.
 
-O README efetivamente exibido no GitHub foi inspecionado: títulos, parágrafos, tabelas, código, imagens/legendas, links, âncoras e navegação. A 320 px não houve overflow global; tabelas largas rolam localmente. O candidato também participou de 24 prévias locais dos seis READMEs em 1440/320 px e temas claro/escuro, com CSS obtido do GitHub e navegador offline. Prévia não equivale à publicação. O parser GFM verificou destinos locais e âncoras; URLs externas foram consultadas separadamente. O 404 do endereço antigo do jQuery Barcode está em avisos de terceiros, preservados como crédito histórico; bloqueios e indisponibilidade não foram classificados automaticamente como links mortos.
-
-Links relativos e geração de âncoras seguem as orientações oficiais de [README](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) e [sintaxe do GitHub](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax). Um título principal, densidade de imagens e extensão das seções são escolhas editoriais desta revisão, não limites impostos pelo GitHub. A leitura do tema seguiu a orientação de [adequação ao público](https://developers.google.com/tech-writing/one/audience).
-
 Os logs, JUnit e scans desta rodada foram conservados fora do repositório na pasta temporária `portfolio-final-audit-20260922`; a reprodução usa os comandos deste guia e o teste citado. Os registros anteriores abaixo continuam históricos, com seus resultados desfavoráveis e limites.
 
-A demonstração editorial posterior usou a imagem `95abfa120b95…`, construída do código da base `93d80c0` com a exportação de HTML do teste. Seu [scan próprio](evidence/editorial-20260922/security.json), com base de 22/09 às 07:24 UTC, registrou zero HIGH/CRITICAL e um MEDIUM. A imagem `3cc3b95c…` e os resultados JVM abaixo permanecem históricos; não identificam o artefato dessa demonstração.
+A demonstração do contrato de negócio usou a imagem `95abfa120b95…`, construída do código da base `93d80c0` com a exportação de HTML do teste. Seu [scan próprio](evidence/editorial-20260922/security.json), com base de 22/09 às 07:24 UTC, registrou zero HIGH/CRITICAL e um MEDIUM. A imagem `3cc3b95c…` e os resultados JVM abaixo permanecem históricos; não identificam o artefato dessa demonstração.
 
 ## Correção posterior da publicação vazia — 22/09/2026
 
@@ -103,12 +87,12 @@ Esse teste dirigido usa o renderer anterior. A fonte integrada em `44cd017` incl
 
 ## Recuperação e medição local — 22/09/2026
 
-O [índice desta entrega](evidence/state-proof/index.json) separa a restauração, a medição e as tentativas de regressão. A [história operacional](state-recovery.md) explica o problema, as escolhas, as capturas e os limites.
+O [índice desta entrega](evidence/state-proof/index.json) separa a restauração, a medição e as tentativas de regressão. O [procedimento de recuperação](state-recovery.md) descreve os comandos e limites.
 
 - Restauração: 187 arquivos, três publicações com versões/linhas/totais iguais, origem preservada e duas recusas reais. Cenário completo de 251,851 s, não RTO comercial.
 - Medição: seis amostras aprovadas pelo oráculo CSV/Decimal, sem censura. Medianas de processamento de 37,045 e 38,180 s para históricos de 3.600 e 10.800 linhas, ambos com 360 novas. Startup medido separadamente; carga externa apareceu durante a janela e impede atribuir causalidade ao tamanho.
 - Regressão dirigida: 183 testes em seis arquivos, incluindo o limite de publicação Spark/Delta; não é toda a suíte. A primeira imagem histórica e a tentativa atual com 512 PIDs falharam; o limite de 1.024 foi fixado antes dos ensaios seguintes.
-- Ruff 0.6.9, versão do lock, aprovou lint e formato de 50 arquivos. Seis capturas dos relatórios reais foram conferidas em desktop/celular. Fonte e imagem são identificadas por execução; o scan existente da imagem 3cc permanece separado de um novo scan.
+- Ruff 0.6.9, versão do lock, aprovou lint e formato de 50 arquivos. Fonte e imagem são identificadas por execução; o scan existente da imagem 3cc permanece separado de um novo scan.
 
 Containers próprios removidos, volumes preservados. Recuperação externa, retenção destrutiva, desempenho de produção e estudo com usuários não foram executados.
 
@@ -130,29 +114,6 @@ O runtime verificado **nessa rodada histórica** foi a imagem `sha256:3cc3b95c19
 
 Os testes de componentes não equivalem a executar todas as suítes upstream. Em especial, os 44 casos de `ClassUtils` passaram, mas a suíte histórica completa de Commons Lang mantém 29 problemas de compatibilidade/expectativas no Java 17. A matriz distingue regressões com controle negativo, verificações de compatibilidade, atualização de versão e remoção integral. As receitas reproduziram os hashes dos três JARs; não há promessa de imagem inteira idêntica byte a byte.
 
-## Revisão de explicações e jornadas — 22/09/2026
-
-README, problema/solução e decisões técnicas foram conferidos contra as funções e testes citados. Os exemplos distinguem a demo que termina em R$ 77,00 do teste de negócio que termina em R$ 74,00. As contas, entradas e limites são os desses cenários existentes; nenhuma nova execução Spark é atribuída a esta revisão.
-
-O Edge percorreu bloqueio, falha e retomada em três larguras, comparando receita, linhas por loja, IDs, versões e caminhos com os payloads. Foram 13 registros de verificação de jornada/estado, com três novas capturas, teclado/foco/histórico, rolagem interna, sem JavaScript e visibilidade dos painéis na impressão. [Registro e hashes dos inputs/capturas](evidence/interface-journeys/review.json), [roteiro e imagens](interface.md#revisão-anterior-de-jornadas-em-2209). Não foi encontrada regressão funcional nesse escopo; fontes da aplicação e interface não precisaram mudar. A ampliação foi CSS de 200% e reflow a 640 CSS px, sem zoom nativo nem leitor de tela. As provas de runtime abaixo permanecem históricas.
-
-## Interface do fechamento em 22/09/2026 (UTC)
-
-A interface separa Execução, Indicadores e Arquivos. A publicação vigente continua visível ao consultar uma tentativa bloqueada ou com falha. Etapas mostram somente medições existentes; contadores indisponíveis não viram zero. O código de captura e replay permite repetir esta revisão sem executar novos lotes. [Comportamento e reprodução](interface.md).
-
-| Verificação                     | Resultado                                                                                                                                                                                                                                                                                                                                                                                    |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Unitários na fonte da interface | 160 aprovados, zero falhas/pulados. [JUnit](evidence/interface/unit.xml).                                                                                                                                                                                                                                                                                                                    |
-| Ruff, formato e mypy            | Aprovados; 37 arquivos Python formatados e 16 módulos de aplicação verificados.                                                                                                                                                                                                                                                                                                              |
-| Dados das capturas              | Cinco payloads relidos com Spark 4.2.0, por versão Delta, de um volume histórico somente leitura. Demo pequena: R$ 64,00 no bloqueio, R$ 57,00 na falha e R$ 77,00 após recuperação. Volume: R$ 1.141.858,51, 10.008 vendas e 89.903 unidades. Nenhum lote ou benchmark reexecutado. [Payloads e proveniência](evidence/interface/payloads).                                                 |
-| Edge / Playwright               | 14 capturas; três vistas em 1440, 1366, 768, 390 e 320 CSS px sem rolagem horizontal da página. Gráfico com 30 valores diários equivalentes e 360 linhas loja/dia conservadas. [Registro](evidence/interface/visual-review.json).                                                                                                                                                            |
-| Navegação e estados             | Teclado, foco, histórico, âncoras de IDs, detalhes nativos, cópia exata e fallback, leitura sem JavaScript, bloqueio/falha com publicação anterior, vazio, execução sem resultado final e auditoria incompleta. O link de salto conserva Indicadores/Arquivos, foca o conteúdo e mantém essa vista ao voltar/avançar. Estados artificiais são identificados em [interface.md](interface.md). |
-| Ampliação e conteúdo longo      | Três vistas com ampliação CSS de 200% e com viewport equivalente de 683 CSS px / DPR 2; IDs, código de ocorrência e texto longo a 320 px. Não houve teste de zoom nativo do navegador nem auditoria com leitor de tela.                                                                                                                                                                      |
-
-As capturas usam publicações da demonstração histórica de 21/09, originalmente processadas em Spark 3.5.9/Delta 3.2.1. O runtime atual apenas releu suas versões. Nos estados intermediários de bloqueio/falha, a apresentação foi reconstituída a partir do manifesto imutável e da tentativa registrada, sem modificar o ponteiro no volume. Os payloads registram o hash da evidência de origem e o modo de seleção. Testes de captura não substituem a suíte de integração do runtime descrita abaixo.
-
-Os [hashes da fonte verificada](evidence/interface/source.json) identificam os arquivos desta revisão histórica. A pasta [images/interface](images/interface) conserva as três capturas de jornadas vinculadas por hash. Os exports antigos sem referências foram arquivados fora do repositório; a [conferência posterior](image-review.md) registra a classificação e a apresentação atual.
-
 ## Revisão anterior de segurança em 22/09/2026 (UTC)
 
 Spark 4.2.0/Delta 4.4.0, com 45 JARs substituídos integralmente, 22 componentes opcionais removidos e limites de entrada. [Registro consolidado](evidence/remediation.json).
@@ -169,7 +130,7 @@ Spark 4.2.0/Delta 4.4.0, com 45 JARs substituídos integralmente, 22 componentes
 
 A suíte completa, a demo e o benchmark usaram a imagem `bfef20f37677…`; o ajuste posterior foi incorporado à imagem final `91f08a83dbb7…`, novamente inventariada e escaneada. As identidades completas e os SHA-256 do código estão nos registros de [fonte da suíte completa](evidence/remediation-full-suite-source.json) e [fonte final](evidence/remediation-source.json). Os 16 módulos da fonte final correspondem byte a byte aos arquivos da imagem final. Os testes usaram o código/testes do bind do checkout; a integração manteve esse bind somente leitura, rede desabilitada e os limites do Compose. [Isolamento observado na suíte](evidence/remediation-full-suite-isolation.json).
 
-Os registros distinguem SHA-256 dos arquivos locais e OIDs dos blobs Git após normalização por `.gitattributes`. Parte do checkout Windows tinha CRLF; o conteúdo publicado usa LF. Portanto, o hash local não é apresentado como hash dos bytes do clone público. Esta revisão do runtime não refez capturas; a revisão posterior da interface está descrita acima.
+Os registros distinguem SHA-256 dos arquivos locais e OIDs dos blobs Git após normalização por `.gitattributes`. Parte do checkout Windows tinha CRLF; o conteúdo publicado usa LF. Portanto, o hash local não é apresentado como hash dos bytes do clone público.
 
 ## Evidência histórica de publicação em 21/09/2026
 
@@ -181,7 +142,6 @@ Esta execução usou Spark 3.5.9/Delta 3.2.1. Uma cópia contendo somente arquiv
 | Ruff, formato e mypy      | Aprovados; 32 arquivos Python formatados e 15 módulos verificados por tipos.                                                                                          |
 | Demo CLI                  | Oito passos e totais manuais conferidos; publicação final R$ 77,00, preservação durante bloqueio/falha e retomada sem duplicação.                                     |
 | Volume demonstrativo      | 30 mil registros, 12 lojas e 30 dias; pipeline em 69,45 s, 76,96 s incluindo geração e relatório, pico do container de 984,2 MiB. [Medição](evidence/benchmark.json). |
-| Relatório                 | Dez capturas em cinco larguras; teclado, cópia, fallback sem JavaScript e servidor HTTP local aprovados. Dados sintéticos identificados no HTML.                      |
 | Publicação e dependências | Actionlint e Gitleaks aprovados; scan integral e triagem JVM em [segurança](security.md).                                                                             |
 
 As medições são desta execução, com limite de 3 GiB/2 CPUs; não são uma previsão de desempenho para outros computadores ou produção. O CI repete a suíte, o scanner e os verificadores no commit publicado.
@@ -230,47 +190,18 @@ O Compose limita o batch a 3 GiB e 2 CPUs, Spark local[2], driver 1 GiB, duas pa
 - HTML sem execução de conteúdo de origem; ausência de publicação distinta de zero; indicadores associados a versões fixadas; gráfico com tabela equivalente.
 - Aliases de caminho com .. não permitem copiar a entrada recursivamente para dentro dela mesma.
 
-## Verificação visual opcional
-
-O HTML não depende de Node. Para repetir apenas as capturas, instale Playwright em um diretório de ferramentas ignorado:
-
-```powershell
-npm install --prefix .visual-tools --no-save --package-lock=false playwright@1.63.0
-.\.visual-tools\node_modules\.bin\playwright.cmd install chromium
-$env:NODE_PATH = (Join-Path (Get-Location) '.visual-tools/node_modules')
-```
-
-Antes do script de navegador, gere os HTMLs por replay dos payloads versionados:
-
-```powershell
-docker compose run --rm --entrypoint python pipeline scripts/render_review.py
-node scripts/visual-review.cjs
-```
-
-Não é necessário repetir a demo nem o benchmark. O script verifica três vistas em 1440, 1366, 768, 390 e 320 CSS px, foco e histórico de âncoras, expansão por teclado, 30 totais diários equivalentes ao gráfico e 360 linhas loja/dia em detalhe. A cópia é testada com Clipboard API interceptada e fallback indisponível, sem escrever no clipboard real. Uma sessão sem JavaScript verifica leitura e expansão nativa. Novas capturas ficam em `artifacts/interface-review/images` e as medições em `artifacts/interface-review/evidence`; as pastas `docs/evidence/interface*` conservam registros históricos e payloads de origem. [Saídas externas e conferência atual](image-review.md). O registro distingue ampliação CSS, viewport equivalente e as limitações de acessibilidade.
-
 ## Limites
 
 Não há VACUUM automático nem backup agendado ou externo. A [prova posterior de recuperação](state-recovery.md) acrescentou cópia local, restauração e contrato conservador de retenção, sem remover dados antigos. Fabric ainda não foi executado. Duração e memória estão registradas por execução.
 
-## Refinamento da interface — 22/09/2026
+## Demonstração do contrato de negócio — 22/09/2026
 
-Esta rodada altera apresentação e seleção de texto do relatório, sem alterar processamento, publicação ou contratos. Os payloads da demonstração histórica foram renderizados offline; não houve nova execução Spark, benchmark ou build.
-
-- **38 testes do relatório aprovados**, incluindo escape, valores, estados sem conclusão, auditoria incompleta e agrupamento de arquivo/loja sem perder ocorrências por ordem ou limite. [JUnit](evidence/interface-v2/reporting-tests.xml). Ruff e mypy da fonte de apresentação aprovados.
-- **20 capturas** com Edge: três vistas em cinco larguras (1440, 1366, 768, 390 e 320 px), bloqueio expandido em quatro larguras e estados de publicação, falha, qualidade, ausência, execução sem conclusão e auditoria incompleta. [Registro](evidence/interface-v2/visual-review.json).
-- Teclado, foco, histórico, link de salto, IDs/copiar/fallback, equivalência gráfico/tabela, conteúdo longo, alinhamento dos painéis, coluna de expansão, borda da ocorrência aberta, contadores e redução de movimento verificados. Impressão expõe painéis e detalhes; sem JavaScript, os detalhes nativos continuam acessíveis.
-
-A ampliação foi feita por CSS a 200% e viewport equivalente de 683 CSS px/DPR 2; não é uma prova de zoom nativo. As amostras de contraste atendem 4,5:1, sem equivaler a auditoria completa de acessibilidade. Não houve leitor de tela nem revisão de paginação integral de PDF. [Escopo e hashes da fonte](evidence/interface-v2/review-manifest.json). As contagens e provas de runtime anteriores descrevem suas próprias revisões.
-
-## Demonstração editorial — 22/09/2026
-
-A [rodada editorial](demo.md#demonstração-editorial-executada) acrescenta evidência nova sem substituir os testes ou medições históricos: build do Dockerfile atual, smoke (**1 teste**) e tese de negócio (**1 teste**, com oito tentativas e leituras reais Delta). Ambos passaram. O aviso de cache do pytest ocorreu porque `/app` estava somente leitura; não houve teste ignorado por isso.
+A [demonstração](demo.md) executou build da fonte identificada, smoke (**1 teste**) e tese de negócio (**1 teste**, com oito tentativas e leituras reais Delta). Ambos passaram. O aviso de cache do pytest ocorreu porque `/app` estava somente leitura; não houve teste ignorado por isso.
 
 A exportação opcional de seis HTMLs no teste é a única alteração de código desta rodada. Não muda asserções, publicação nem cálculos. A base é `93d80c0` mais essa alteração; o [manifesto](evidence/editorial-20260922/verification.json) registra os hashes da fonte executada. Build com cache não equivale a build frio nem reprodução binária. O primeiro build sem rede falhou por falta de índice apk, e o build documentado com rede passou.
 
-Cinco capturas explicam cobertura, revisão parcial/integral, falha e replay. São imagens de uma execução funcional com dados sintéticos, não provas isoladas da consistência interna. O [JSON de negócio](evidence/editorial-20260922/business-thesis.json) e os dois JUnit sustentam os valores. Não repeti a suíte de 249 testes nem o scan de imagem do [CI da base](https://github.com/arthurjoanes/varejo-data-pipeline/actions/runs/35722366378), aprovado antes desta edição documental. A revisão editorial e seus limites estão no [registro próprio](evidence/editorial-20260922/execution.json).
+O [JSON de negócio](evidence/editorial-20260922/business-thesis.json) e os dois JUnit sustentam os valores. A suíte de 249 testes e o scan de imagem do [CI da base](https://github.com/arthurjoanes/varejo-data-pipeline/actions/runs/35722366378) são anteriores a essa execução e não foram repetidos. Os comandos e limites estão no [registro próprio](evidence/editorial-20260922/execution.json).
 
-### Scan da imagem da demonstração editorial
+### Scan da imagem da demonstração
 
-O [scan novo](evidence/editorial-20260922/security.json) examinou o ID da imagem usada nesta demonstração, com Trivy 0.74.0 e base de 22/09/2026 às 07:24 UTC. Incluiu pacotes do sistema, Python e Java, todas as severidades e achados sem correção, sem nova exceção: HIGH/CRITICAL ficaram em zero. Há um MEDIUM em `commons-lang:commons-lang` 2.6 (CVE-2025-48924), sem versão corrigida informada nesse relatório; ele permanece visível. Não substituí JARs nesta revisão editorial nem tratei esse resultado como ausência de qualquer vulnerabilidade. O relatório identifica o artefato atual, separado do scan histórico do CI.
+O [scan dessa imagem](evidence/editorial-20260922/security.json) examinou o ID da imagem usada nesta demonstração, com Trivy 0.74.0 e base de 22/09/2026 às 07:24 UTC. Incluiu pacotes do sistema, Python e Java, todas as severidades e achados sem correção, sem nova exceção: HIGH/CRITICAL ficaram em zero. Há um MEDIUM em `commons-lang:commons-lang` 2.6 (CVE-2025-48924), sem versão corrigida informada nesse relatório; ele permanece visível. Os JARs não foram substituídos nessa execução. O resultado não equivale a ausência de vulnerabilidades. O relatório identifica a imagem dessa demonstração, separada da imagem do CI anterior.
