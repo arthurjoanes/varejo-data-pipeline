@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "VarejoOutcomeRunFacet": {
+      "type": "object",
+      "required": ["_producer", "_schemaURL", "state", "jobMode", "newPublication", "reasonCodes"],
+      "properties": {
+        "_producer": {"type": "string", "format": "uri"},
+        "_schemaURL": {"type": "string", "format": "uri"},
+        "state": {"enum": ["RUNNING", "PUBLISHED", "NO_CHANGE", "VALIDATED", "BLOCKED", "TECHNICAL_FAILURE"]},
+        "jobMode": {"enum": ["publish", "validate"]},
+        "newPublication": {"type": "boolean"},
+        "publicationId": {"type": ["string", "null"]},
+        "acceptedBatches": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "reasonCodes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "VarejoTimingRunFacet": {
+      "type": "object",
+      "required": ["_producer", "_schemaURL", "originalTimeAvailable", "eventTimeSource", "identityMapping"],
+      "properties": {
+        "_producer": {"type": "string", "format": "uri"},
+        "_schemaURL": {"type": "string", "format": "uri"},
+        "originalTimeAvailable": {"type": "boolean"},
+        "originalEventTime": {"type": "string", "format": "date-time"},
+        "reconstructedAt": {"type": "string", "format": "date-time"},
+        "eventTimeSource": {"enum": ["attempt.started_at", "attempt.finished_at", "publication.published_at", "reconstruction"]},
+        "identityMapping": {"enum": ["uuid", "uuid5"]}
+      },
+      "additionalProperties": false
+    },
+    "VarejoProvenanceDatasetFacet": {
+      "type": "object",
+      "required": ["_producer", "_schemaURL"],
+      "properties": {
+        "_producer": {"type": "string", "format": "uri"},
+        "_schemaURL": {"type": "string", "format": "uri"},
+        "batchId": {"type": "string"},
+        "sourceRunId": {"type": "string", "format": "uuid"},
+        "manifestHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "operatorReferenceHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "referenceHashes": {"type": "object", "additionalProperties": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}},
+        "publicationId": {"type": "string"},
+        "accepted": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

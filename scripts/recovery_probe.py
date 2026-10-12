@@ -85,6 +85,7 @@ def dependency_identity():
 def publication_observations(spark, state):
     from pyspark.sql import functions as F
 
+    from retail_pipeline.profiling import load_profile
     from retail_pipeline.publication import load_snapshot, read_table
 
     current = load_snapshot(state)
@@ -106,7 +107,10 @@ def publication_observations(spark, state):
             if name.startswith("gold_"):
                 value = frame.agg(F.sum("net_revenue_brl")).first()[0]
                 tables[name]["net_revenue_cents"] = int(value * 100) if value else 0
-        publications.append({"snapshot": snapshot, "tables": tables})
+        profile = load_profile(snapshot)
+        if profile["status"] not in {"AVAILABLE", "LEGACY"}:
+            raise ValueError("Perfil referenciado da publicação não pode ser recuperado.")
+        publications.append({"snapshot": snapshot, "tables": tables, "profile": profile})
     return {"current_publication_id": current["publication_id"], "publications": publications}
 
 

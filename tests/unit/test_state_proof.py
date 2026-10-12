@@ -244,6 +244,66 @@ def test_retention_rejects_missing_previous_reference_or_pointer_mismatch(tmp_pa
         contracts.retention_contract(root)
 
 
+def add_profile(root, publications, contracts):
+    publication = publications[-1]
+    publication["run_id"] = "r2"
+    profile_path = root / "profiles/p2.json"
+    contracts.write_json(
+        profile_path,
+        {
+            "publication_id": "p2",
+            "run_id": "r2",
+            "contract_version": 1,
+            "delta_versions": publication["tables"],
+        },
+    )
+    publication["profile"] = {
+        "path": str(profile_path),
+        "sha256": contracts.digest(profile_path),
+        "contract_version": 1,
+    }
+    for path in (root / "publication.json", root / "publications/p2.json"):
+        path.write_text(json.dumps(publication), encoding="utf-8")
+    return profile_path
+
+
+def test_retention_protects_profile_and_copies_legacy_and_new_snapshots(tmp_path, contracts):
+    root, publications = publication_fixture(tmp_path, contracts)
+    profile = add_profile(root, publications, contracts)
+    contract = contracts.retention_contract(root)
+    assert "profiles/p2.json" in contract["protected_paths"]
+    with pytest.raises(ValueError, match="referenciada"):
+        contracts.reject_referenced_removal(root, contract, ["profiles/p2.json"])
+    before = contracts.inventory(root)
+    archive = tmp_path / "profile-state.tar"
+    manifest = contracts.make_archive(root, archive, internal_root="/data")
+    target = tmp_path / "restored"
+    contracts.restore_archive(archive, target, manifest, internal_root="/data")
+    assert contracts.inventory(root) == contracts.inventory(target) == before
+    assert (target / "profiles/p2.json").read_bytes() == profile.read_bytes()
+    assert "profile" not in json.loads((target / "publications/p1.json").read_text())
+
+
+@pytest.mark.parametrize("problem", ["tampered", "missing", "identity", "contract"])
+def test_retention_refuses_invalid_referenced_profile(tmp_path, contracts, problem):
+    root, publications = publication_fixture(tmp_path, contracts)
+    profile = add_profile(root, publications, contracts)
+    if problem == "missing":
+        profile.unlink()
+    elif problem == "contract":
+        publications[-1]["profile"]["contract_version"] = 2
+        for path in (root / "publication.json", root / "publications/p2.json"):
+            path.write_text(json.dumps(publications[-1]), encoding="utf-8")
+    else:
+        profile.write_text('{"publication_id":"another","contract_version":1}', encoding="utf-8")
+        if problem == "identity":
+            publications[-1]["profile"]["sha256"] = contracts.digest(profile)
+            for path in (root / "publication.json", root / "publications/p2.json"):
+                path.write_text(json.dumps(publications[-1]), encoding="utf-8")
+    with pytest.raises(ValueError, match="[Pp]erfil"):
+        contracts.retention_contract(root)
+
+
 def test_oracle_uses_exact_cents_and_refuses_duplicate_keys(tmp_path, contracts):
     row = {
         "source_system": "source",

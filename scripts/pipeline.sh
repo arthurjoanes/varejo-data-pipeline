@@ -17,6 +17,6 @@ case "$action" in
   serve) compose --profile report up -d report-server ;;
   logs) compose run --rm --entrypoint python pipeline scripts/show_logs.py ;;
   stop) compose --profile report down ;;
-  configure|generate|validate|run|report|explain|demo) compose run --rm pipeline "$action" "$@" ;;
+  configure|generate|validate|run|report|explain|profile|lineage|demo) compose run --rm pipeline "$action" "$@" ;;
   *) printf 'Ação desconhecida: %s\n' "$action" >&2; exit 2 ;;
 esac

@@ -13,8 +13,15 @@ from pathlib import Path
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
-from retail_pipeline.contracts import KEY_FIELDS
+from retail_pipeline.contracts import KEY_FIELDS, stable_json
 from retail_pipeline.ingestion import prepare_batch
+from retail_pipeline.lineage import emit_start, emit_terminal
+from retail_pipeline.profiling import (
+    DEFAULT_PARAMETERS,
+    ProfileParameters,
+    build_profile,
+    persist_profile,
+)
 from retail_pipeline.publication import (
     Publication,
     atomic_json,
@@ -54,6 +61,8 @@ class RunResult:
     coverage: dict[str, list[str]] = field(default_factory=dict)
     issues: list[dict[str, object]] = field(default_factory=list)
     publication_id: str | None = None
+    job_mode: str = "publish"
+    finished_at: str | None = None
 
     @property
     def exit_code(self) -> int:
@@ -114,6 +123,17 @@ def record_failure(root: Path, result: RunResult, error: Exception) -> None:
     )
 
 
+def record_lineage_error(result: RunResult, error: Exception) -> None:
+    result.issues.append(
+        {
+            "code": "LINEAGE_EXPORT_FAILURE",
+            "severity": "WARNING",
+            "message": str(error),
+            "type": type(error).__name__,
+        }
+    )
+
+
 def process_batch(
     spark: SparkSession,
     root: Path,
@@ -122,22 +142,40 @@ def process_batch(
     validate_only: bool = False,
     fail_at: str | None = None,
     allow_failures: bool = False,
+    profile_parameters: ProfileParameters = DEFAULT_PARAMETERS,
 ) -> RunResult:
     if fail_at and (
-        not allow_failures or fail_at not in {"after_ingestion", "after_gold", "before_publish"}
+        not allow_failures
+        or fail_at
+        not in {
+            "after_ingestion",
+            "after_gold",
+            "before_publish",
+            "profile_write",
+            "lineage_export",
+        }
     ):
         raise ValueError("Injeção de falha exige modo demo/teste e ponto conhecido.")
     with writer_lock(root):
-        result = RunResult(run_id=uuid.uuid4().hex)
+        result = RunResult(
+            run_id=uuid.uuid4().hex, job_mode="validate" if validate_only else "publish"
+        )
         run_dir = root / "runs" / result.run_id
         run_dir.mkdir(parents=True)
         atomic_json(run_dir / "attempt.json", asdict(result))
         start = time.perf_counter()
         try:
-            _process(spark, root, input_dir, run_dir, result, validate_only, fail_at)
+            try:
+                emit_start(root, asdict(result), job_mode=result.job_mode)
+            except Exception as exc:
+                record_lineage_error(result, exc)
+            _process(
+                spark, root, input_dir, run_dir, result, validate_only, fail_at, profile_parameters
+            )
         except Exception as exc:
             record_failure(root, result, exc)
         finally:
+            result.finished_at = datetime.now(UTC).isoformat()
             result.duration_seconds = round(time.perf_counter() - start, 4)
             try:
                 atomic_json(run_dir / "attempt.json", asdict(result))
@@ -147,6 +185,18 @@ def process_batch(
                 # Saída estruturada continua disponível ao operador quando
                 # o volume não aceita o registro final de auditoria.
                 print(json.dumps(asdict(result), ensure_ascii=False), flush=True)
+            try:
+                inject_failure(fail_at, "lineage_export")
+                emit_terminal(
+                    root, asdict(result), snapshot=load_snapshot(root), job_mode=result.job_mode
+                )
+            except Exception as exc:
+                # Lineage is an export of durable state, never a publication gate.
+                record_lineage_error(result, exc)
+                try:
+                    atomic_json(run_dir / "attempt.json", asdict(result))
+                except Exception:
+                    print(json.dumps(asdict(result), ensure_ascii=False), flush=True)
         return result
 
 
@@ -158,6 +208,7 @@ def _process(
     result: RunResult,
     validate_only: bool,
     fail_at: str | None,
+    profile_parameters: ProfileParameters,
 ) -> None:
     snapshot = load_snapshot(root)
     references = load_references(root)
@@ -179,7 +230,7 @@ def _process(
         result.stats = dict(prepared.stats)
         result.stats.update(duplicates=0, conflicts=0, stale=0, revision_checks_executed=0)
         result.coverage = dict(prepared.coverage)
-        result.issues = list(prepared.issues)
+        result.issues.extend(prepared.issues)
         identity = hashlib.sha256(prepared.batch_id.encode()).hexdigest()
         registry = root / "batches" / f"{identity}.json"
         if registry.exists():
@@ -337,10 +388,21 @@ def _process(
         )
     with stage(root, result, "publication"):
         publication_id = uuid.uuid4().hex
+        profile_reference_hashes = {
+            **prepared.reference_hashes,
+            "operator_reference_hash": references.digest,
+            "operator_catalog_hash": hashlib.sha256(
+                stable_json(references.catalog).encode()
+            ).hexdigest(),
+            "operator_schedule_hash": hashlib.sha256(
+                stable_json(references.schedule).encode()
+            ).hexdigest(),
+        }
         candidate: Publication = {
             "publication_id": publication_id,
             "run_id": result.run_id,
             "published_at": datetime.now(UTC).isoformat(),
+            "previous_publication_id": snapshot["publication_id"] if snapshot else None,
             "accepted_batches": [
                 *(snapshot["accepted_batches"] if snapshot else []),
                 prepared.batch_id,
@@ -362,11 +424,24 @@ def _process(
                     "run_id": result.run_id,
                     "bronze_path": str(bronze_path),
                     "bronze_version": 0,
-                    "reference_hashes": prepared.reference_hashes,
+                    "reference_hashes": profile_reference_hashes,
                     "operator_reference_hash": references.digest,
+                    "manifest_hash": prepared.manifest_hash,
                 },
             ],
         }
+        with stage(root, result, "profile"):
+            profile = build_profile(
+                spark,
+                candidate,
+                snapshot,
+                batch_stats=result.stats,
+                coverage=result.coverage,
+                reference_hashes=profile_reference_hashes,
+                parameters=profile_parameters,
+            )
+            inject_failure(fail_at, "profile_write")
+            candidate["profile"] = persist_profile(root, profile)
         atomic_json(run_dir / "candidate.json", candidate)
         inject_failure(fail_at, "before_publish")
         publish(root, candidate)
