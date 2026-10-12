@@ -1,8 +1,0 @@
-{"engine":"chromium","phase":"before","name":"fixture-unknown-metric","step":"goto"}
-{"engine":"chromium","phase":"before","name":"fixture-unknown-metric","step":"loaded"}
-{"engine":"chromium","phase":"before","name":"fixture-unknown-metric","step":"fonts","status":"loaded"}
-{"engine":"chromium","phase":"before","name":"fixture-unknown-metric","step":"complete","document":320}
-{"engine":"chromium","phase":"after","name":"fixture-unknown-metric","step":"goto"}
-{"engine":"chromium","phase":"after","name":"fixture-unknown-metric","step":"loaded"}
-{"engine":"chromium","phase":"after","name":"fixture-unknown-metric","step":"fonts","status":"loaded"}
-{"engine":"chromium","phase":"after","name":"fixture-unknown-metric","step":"complete","document":339}

@@ -22,47 +22,52 @@ O fechamento também conserva um perfil da Silver ativa. A comparação identifi
 
 ## Demonstração
 
-![Indicadores e comparação da publicação de R$ 104,00](docs/images/uiux-20261012-a12e4a/after/comparable-indicadores-1440.png)
+![Painel de vendas com receita diária, ranking de lojas e composição de produtos](docs/readme/dashboard.png)
 
-_Renderer da revisão atual, reproduzido em 12/10/2026 sobre o payload real capturado da publicação sintética de R$ 104,00. O relatório é um snapshot somente leitura; abrir a página não atualiza o pipeline._
+_Dados sintéticos de 30 mil linhas de vendas entre 01 e 30/01/2026, publicados em 21/09/2026. A imagem mostra o painel atual sobre essa publicação histórica; sua geração não executou novos lotes Spark._
 
-A [imagem de abertura anterior](docs/readme/home.png) permanece preservada com seus bytes. O recorte de cobertura abaixo e seus recibos registram a apresentação histórica de setembro.
+[Ver no celular](docs/readme/dashboard-mobile.png) · [Guia do relatório](docs/interface.md)
 
-![Recorte da cobertura: S01 confirmada, S02 pendente e S03 com zero movimento confirmado](docs/images/current-20260922/coverage-focus.png)
+| Área | O que consultar |
+| --- | --- |
+| Visão geral | Receita, vendas, unidades, ticket médio e evolução diária |
+| Lojas | Receita por loja e dia, com zero distinto de ausência |
+| O que mudou | Comparação de métricas nas mesmas datas e lojas |
+| Qualidade | Pendências, bloqueios e resultado da última tentativa |
+| Arquivos | Origem, versões e identificadores da publicação |
 
-O recorte de **22/09/2026** usa o renderer v4 daquela revisão sobre dados históricos: duas de três lojas confirmadas e S02 pendente. É uma reprodução visual, sem novo processamento Spark. [Origem e limites da captura](docs/evidence/image-review-20260922.json) · [capturas](docs/image-review.md).
+O ranking destaca até seis lojas; a participação considera todas as lojas com receita conhecida no recorte. O mix mostra os cinco produtos com mais unidades e agrupa os demais. Gráficos têm valores e tabelas para consulta. O HTML funciona offline e permite leitura sem JavaScript.
 
-Na execução de 22/09/2026, das 12:06 às 12:09 UTC, o lote inicial publicou R$ 64,00 e três vendas. A ausência de S02 bloqueou a nova entrega. Mover só um item de A1 para outro dia também foi bloqueado, embora a soma continuasse correta. A correção integral foi aceita; uma revisão posterior levou a R$ 74,00. São valores da fixture, sem relação com preços ou faturamento real. [Entradas e resultados](docs/evidence/editorial-20260922/business-thesis.json) · [comandos, imagem e datas](docs/evidence/editorial-20260922/execution.json).
+A [prova de negócio](docs/evidence/editorial-20260922/business-thesis.json) exercita uma sequência menor, separada do painel acima:
 
-| Caso da mesma execução                      | Resultado observado                                        |
-| ------------------------------------------- | ---------------------------------------------------------- |
-| Entrega de S02 ausente                      | Bloqueio; R$ 64,00 anteriores permanecem publicados        |
-| Apenas um item de A1 muda de dia            | `SALE_DATE_CONFLICT`; receita sozinha não aprova a revisão |
-| Processo falha entre as duas tabelas finais | Leitores oficiais continuam em R$ 64,00/R$ 64,00           |
-| Retomada e repetição                        | R$ 74,00; repetição `NO_CHANGE`, mesma publicação          |
+| Caso | Resultado observado |
+| --- | --- |
+| Entrega de S02 ausente | Bloqueio; R$ 64,00 anteriores permanecem publicados |
+| Apenas um item de A1 muda de dia | `SALE_DATE_CONFLICT`; receita sozinha não aprova a revisão |
+| Processo falha entre as duas tabelas finais | Leitores oficiais continuam em R$ 64,00/R$ 64,00 |
+| Retomada e repetição | R$ 74,00; repetição `NO_CHANGE`, mesma publicação |
 
-A demonstração histórica que termina em R$ 77,00 tem outra sequência e permanece separada no [roteiro](docs/demo.md).
-
-A revisão de UI/UX de 12/10/2026 aproxima o perfil dos totais publicados: contexto e recorte precedem os avisos de comparação. O [percurso de quatro jornadas](docs/interface.md#quatro-jornadas-de-consulta) permite conferir o fechamento, investigar uma entrega, explicar uma variação e consultar a origem dos valores. Abrir o HTML continua sendo uma consulta ao snapshot capturado. Os [recibos](docs/evidence/uiux-20261012-a12e4a/) e as [imagens antes/depois](docs/images/uiux-20261012-a12e4a/) desta revisão ainda aguardam o QA final; as capturas históricas acima mantêm suas datas.
+[Comandos e resultados da execução de 22/09/2026](docs/evidence/editorial-20260922/execution.json) · [Demonstrações disponíveis](docs/demo.md)
 
 <a id="implementação"></a>
 <a id="como-protejo-a-publicação"></a>
 
 ### Paleta da marca
 
-![Paleta: azul petróleo, azul escuro, branco, cinza claro, verde, ocre e vermelho](docs/readme/palette.svg)
+![Paleta: azul petróleo, petróleo escuro, azul escuro, branco, cinza claro, verde, ocre e vermelho](docs/readme/palette.svg)
 
 | Cor | Código | Uso |
 | --- | --- | --- |
 | Azul petróleo | `#245B64` | Marca, links, ações e gráficos |
-| Azul escuro | `#263248` | Texto e faixa de indicadores |
+| Petróleo escuro | `#163F46` | Navegação lateral |
+| Azul escuro | `#263248` | Texto e valores |
 | Branco | `#FFFFFF` | Papel e foco sobre fundo escuro |
 | Cinza claro | `#F2F3F5` | Fundo da página |
 | Verde | `#226348` | Entrega confirmada e sucesso |
 | Ocre | `#76550E` | Aviso para conferência |
 | Vermelho | `#923B35` | Pendência e bloqueio |
 
-A paleta acompanha uma folha de conferência: números e identidade têm mais peso que decoração. A matriz usa seis tons de azul petróleo; estados também têm texto, e zero continua distinto de ausência. [Composição e acessibilidade](docs/interface.md).
+Os estados combinam cor e texto. A matriz mantém zero, ausência e valores negativos distintos. [Convenções da interface](docs/interface.md).
 
 ## Arquitetura
 
@@ -98,7 +103,7 @@ flowchart TB
 | Preservar e validar a entrada | [`ingestion.py`](src/retail_pipeline/ingestion.py) copia bytes antes do parsing; [`batch_contracts.py`](src/retail_pipeline/batch_contracts.py) e [`contracts.py`](src/retail_pipeline/contracts.py) conferem documentos e linhas. Um erro bloqueia o lote inteiro. |
 | Resolver revisões e calcular indicadores | [`pipeline.py`](src/retail_pipeline/pipeline.py) coordena as etapas; [`transformations.py`](src/retail_pipeline/transformations.py) deduplica histórico, escolhe a maior revisão e agrega apenas `UPSERT` nas duas gold. |
 | Tornar várias tabelas visíveis juntas | [`publication.py`](src/retail_pipeline/publication.py) mantém `flock` de escritor único e substitui o ponteiro JSON com `fsync` + `os.replace`; leitores usam os caminhos e versões registrados. |
-| Consultar e apresentar o fechamento | [`reporting.py`](src/retail_pipeline/reporting.py) lê um snapshot; [`report_model.py`](src/retail_pipeline/report_model.py) define o payload e [`report_view.py`](src/retail_pipeline/report_view.py) renderiza o HTML. |
+| Consultar e apresentar o fechamento | [`reporting.py`](src/retail_pipeline/reporting.py) lê um snapshot; [`report_model.py`](src/retail_pipeline/report_model.py) define o payload e [`report_view.py`](src/retail_pipeline/report_view.py) renderiza o HTML com gráficos de [`report_charts.py`](src/retail_pipeline/report_charts.py). |
 | Comparar a composição e exportar proveniência | [`profiling.py`](src/retail_pipeline/profiling.py) conserva o perfil no snapshot e recalcula o recorte equivalente; [`lineage.py`](src/retail_pipeline/lineage.py) exporta estados duráveis em OpenLineage. |
 
 No caminho principal, `run` adquire o lock, copia a entrega e compara suas revisões com o **histórico da publicação anterior**. Sem conflitos, grava candidatos, relê e reconcilia as duas gold, então troca `publication.json`. Se houver falha entre gravações, o ponteiro anterior continua válido; a retomada recompõe o candidato a partir dele. Repetir um lote já publicado retorna `NO_CHANGE` após as validações. [Fluxo e falhas exercitados](tests/integration/test_pipeline.py).
@@ -163,13 +168,13 @@ O [runner](scripts/verify_problem.py) chama o [teste de negócio](tests/integrat
 | [Caso de negócio](docs/evidence/editorial-20260922/business-thesis.json)    | 22/09/2026; cobertura, revisão integral e falha entre tabelas                  |
 | [Identidade da execução](docs/evidence/editorial-20260922/execution.json)   | 22/09/2026; imagem, comandos e preparação; build com cache                     |
 | [Recuperação](docs/evidence/state-proof/restore.json)                       | Execução histórica identificada no registro; restauração em destino local novo |
-| [Scan da revisão editorial](docs/evidence/editorial-20260922/security.json) | 22/09/2026; resultado vinculado à imagem examinada                             |
+| [Scan da imagem da demonstração](docs/evidence/editorial-20260922/security.json) | 22/09/2026; resultado vinculado à imagem examinada                             |
 
 Resultados antigos não certificam commits posteriores. [Inventário das verificações](docs/verification.md) · [fontes e afirmações](docs/fontes-e-afirmacoes.md).
 
-A evolução de 12/10/2026 tem [recibos próprios](docs/evidence/evolucao-20261012-a12e4a/): suíte completa de 369 testes na fonte identificada, 352 unitários após os ajustes de rótulos, três integrações dirigidas na fonte de entrega, comparação e reexportação reais, restauração com perfis e controles funcionais dos três HTMLs. O [scan da imagem de entrega](docs/evidence/evolucao-20261012-a12e4a/security-delivery-summary.json) inventariou OS, JVM e Python e passou com zero HIGH/CRITICAL; dois MEDIUM permanecem registrados. [Roteiros reproduzíveis e saídas](docs/evolution.md).
+Perfis e OpenLineage têm [registros próprios](docs/evidence/evolucao-20261012-a12e4a/): 369 testes na suíte completa identificada, integrações dirigidas, comparação e reexportação reais e restauração com perfis. O [scan da imagem de entrega](docs/evidence/evolucao-20261012-a12e4a/security-delivery-summary.json) passou com zero HIGH/CRITICAL; dois MEDIUM permanecem registrados. [Roteiros e limites](docs/evolution.md).
 
-A conferência atual da interface usa os mesmos 22 inputs antes e depois, incluindo três payloads reais relidos por versão e fixtures rotuladas. Passaram 374 unitários, lint, tipos e build; Edge conferiu os 22 inputs nas cinco larguras e Firefox conferiu três casos. Axe não encontrou violações automáticas; resultados inconclusivos e alcance estão em [Qualidade da interface](docs/frontend-quality.md#revisão-de-uiux-em-12102026). Zoom nativo e leitor de tela continuam não verificados.
+Na fonte `a5b2a3b`, passaram **402 testes unitários**, Ruff, formato, mypy e build do wheel. O relatório foi verificado em Edge e Firefox, com navegação por teclado, leitura sem JavaScript e larguras de 320 a 1440 px. Axe não encontrou violações automáticas na amostra, mas teve resultados inconclusivos. Zoom nativo e leitor de tela não foram verificados. [Procedimento e alcance](docs/frontend-quality.md).
 
 <a id="limites-e-manutenção"></a>
 <a id="limites-que-mantive-explícitos"></a>
@@ -182,14 +187,14 @@ Os limites de entrada são configuráveis: por padrão, 1 MiB por JSON, 64 MiB p
 
 ## Documentação
 
-[Padrão compartilhado da documentação](docs/padrao-documentacao.md) · [Fontes e afirmações](docs/fontes-e-afirmacoes.md).
+[Convenções da documentação](docs/padrao-documentacao.md) · [Fontes e afirmações](docs/fontes-e-afirmacoes.md).
 
 | Para consultar                 | Documento                                                                                                           |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
 | Fluxo, cenários e demonstração | [Demo](docs/demo.md) · [problema e solução](docs/problem-solution.md)                                               |
 | Contratos e implementação      | [Arquitetura](docs/architecture.md) · [dados](docs/data-contract.md) · [decisões](docs/decisoes-tecnicas.md)        |
 | Operação e riscos              | [Recuperação](docs/state-recovery.md) · [runtime](docs/runtime-upgrade.md) · [segurança](docs/security.md)          |
-| Interface e capturas           | [Interface](docs/interface.md) · [qualidade](docs/frontend-quality.md) · [origem das imagens](docs/image-review.md) |
+| Relatório e gráficos | [Interface](docs/interface.md) · [qualidade e testes](docs/frontend-quality.md) |
 | Rastrear afirmações            | [Fontes, datas e limites](docs/fontes-e-afirmacoes.md)                                                              |
 | Evolução proposta              | [Adaptação Fabric, não executada](docs/fabric-mapping.md)                                                           |
 
@@ -200,3 +205,5 @@ Os limites de entrada são configuráveis: por padrão, 1 MiB por JSON, 64 MiB p
 [Licença MIT](LICENSE). Ícones da stack e LinkedIn: [Devicon, licença MIT](docs/stack/LICENSE.devicon).
 
 Schemas OpenLineage: [Apache-2.0 e atribuição upstream](src/retail_pipeline/schemas/README.md).
+
+Source Sans 3: [SIL Open Font License](src/retail_pipeline/assets/source-sans-LICENSE.md).

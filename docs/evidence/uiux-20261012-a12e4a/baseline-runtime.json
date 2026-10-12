@@ -1,8 +1,0 @@
-{
-  "project": "pf-varejo-evolucao-a12e4a",
-  "image": "sha256:e54034991f90d5fc612bb0ae3b4c9369e439d2fbcc06c0cf96185e370615ccb8",
-  "port": "127.0.0.1:3117",
-  "existing_exports": "artifacts/evolucao-20261012-a12e4a",
-  "new_evidence": "artifacts/uiux-20261012-a12e4a",
-  "data_volume": "pf-varejo-evolucao-a12e4a_data"
-}

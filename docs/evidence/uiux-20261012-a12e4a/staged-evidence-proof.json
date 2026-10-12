@@ -1,5 +1,0 @@
-{
-  "checked_staged_files": 336,
-  "byte_mismatches": [],
-  "method": "git cat-file --batch staged blob SHA256 compared with local bytes; all evidence bytes identical"
-}

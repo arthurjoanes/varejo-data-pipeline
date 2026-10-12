@@ -1,11 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 72" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 72" role="img" aria-labelledby="title desc">
   <title id="title">Paleta do Varejo Data Pipeline</title>
-  <desc id="desc">Azul petróleo, azul escuro, branco, cinza claro, verde, ocre e vermelho. Os códigos e as funções estão na tabela do README.</desc>
+  <desc id="desc">Marca em azul petróleo #245B64, navegação em petróleo escuro #163F46, texto em #263248, superfícies branca e cinza claro, sucesso verde, aviso ocre e bloqueio vermelho.</desc>
   <rect width="80" height="72" fill="#245B64"/>
-  <rect x="80" width="80" height="72" fill="#263248"/>
-  <rect x="160" y="0.5" width="80" height="71" fill="#FFFFFF" stroke="#D5D9E2"/>
-  <rect x="240" width="80" height="72" fill="#F2F3F5"/>
-  <rect x="320" width="80" height="72" fill="#226348"/>
-  <rect x="400" width="80" height="72" fill="#76550E"/>
-  <rect x="480" width="80" height="72" fill="#923B35"/>
+  <rect x="80" width="80" height="72" fill="#163F46"/>
+  <rect x="160" width="80" height="72" fill="#263248"/>
+  <rect x="240" y="0.5" width="80" height="71" fill="#FFFFFF" stroke="#DCE3E6"/>
+  <rect x="320" width="80" height="72" fill="#F2F3F5"/>
+  <rect x="400" width="80" height="72" fill="#226348"/>
+  <rect x="480" width="80" height="72" fill="#76550E"/>
+  <rect x="560" width="80" height="72" fill="#923B35"/>
 </svg>

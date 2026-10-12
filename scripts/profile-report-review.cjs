@@ -27,7 +27,7 @@ async function main() {
       await indicators.focus();
       await page.keyboard.press('Enter');
       await page.locator('[data-view-link="indicadores"][aria-current="page"]').waitFor({ state: 'visible' });
-      const link = page.locator('a[href="#perfil"]');
+      const link = page.locator('[data-view-link="perfil"]');
       await link.focus();
       await page.keyboard.press('Enter');
       await page.waitForFunction(() => document.activeElement?.id === 'perfil');
@@ -50,6 +50,10 @@ async function main() {
         if (await baseline.count()) {
           const baselineLink = page.locator('a[href="#profile-baseline-id"]');
           if (await baselineLink.count()) {
+            const comparisonContext = page.locator('.comparison-context');
+            if (await comparisonContext.count() && !await comparisonContext.getAttribute('open')) {
+              await comparisonContext.locator(':scope > summary').click();
+            }
             await baselineLink.focus();
             await page.keyboard.press('Enter');
             await page.waitForFunction(() => document.activeElement?.id === 'profile-baseline-id');
@@ -75,7 +79,7 @@ async function main() {
     const noScript = await browser.newContext({ javaScriptEnabled: false, offline: true, reducedMotion: 'reduce', viewport: { width: 320, height: 900 } });
     const nativePage = await noScript.newPage();
     await nativePage.goto(pathToFileURL(input).href + '#perfil');
-    assert.equal(await nativePage.locator('[data-report-view]:visible').count(), 3, 'Native HTML exposes all report views');
+    assert.equal(await nativePage.locator('[data-report-view]:visible').count(), 5, 'Native HTML exposes all report views');
     const nativeSummary = nativePage.locator('#perfil summary').filter({ hasText: 'Perfil do estado ativo publicado' });
     if (await nativeSummary.count()) {
       await nativeSummary.focus();

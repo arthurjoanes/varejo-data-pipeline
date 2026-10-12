@@ -55,7 +55,7 @@ Esses intervalos são do ambiente e da fixture descritos. A instalação sozinha
 
 ### Capturas do ensaio
 
-**Layout histórico da prova de restauração.** Estes PNGs e seus HTMLs conservam os bytes vinculados ao ensaio. A composição atual, conferida separadamente, está em [revisão das imagens](image-review.md).
+**Relatórios da prova de restauração.** Estes PNGs e HTMLs conservam o estado observado no ensaio. O [guia do relatório](interface.md) descreve a navegação atual.
 
 [Captura histórica completa: S02 pendente e publicação anterior preservada](images/state-proof/blocked-1440.png).
 

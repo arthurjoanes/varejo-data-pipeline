@@ -1,7 +1,0 @@
-{
-  "checked_at": "2026-10-12T14:15:29.261010+00:00",
-  "head": "9d3e4ed7e635f50c1c4fef2b9b51a5a8378a9b37",
-  "exit_code": 1,
-  "scope": "Full git history --all, default rules plus existing exact public fingerprint allowlist; redacted, no network; no exclusions added",
-  "findings": 6
-}

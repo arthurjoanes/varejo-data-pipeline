@@ -1,0 +1,190 @@
+{
+  "payload": {
+    "daily": [
+      {
+        "business_date": "2026-01-01",
+        "net_revenue_brl": "104.00"
+      }
+    ],
+    "daily_truncated": false,
+    "last_failed_attempt": null,
+    "latest_attempt": {
+      "batch_id": "comparable",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 30.6932,
+      "finished_at": "2026-10-12T05:36:07.682665+00:00",
+      "issues": [
+        {
+          "code": "EXACT_DUPLICATE",
+          "count": 3,
+          "message": "Revisão antiga guardada; o estado atual não mudou.",
+          "severity": "INFO"
+        },
+        {
+          "code": "LINEAGE_EXPORT_FAILURE",
+          "message": "Falha de teste: lineage_export",
+          "severity": "WARNING",
+          "type": "InjectedFailure"
+        }
+      ],
+      "job_mode": "publish",
+      "publication_id": "cb44bc5a82b4459dbccb75d405d9601c",
+      "run_id": "09eaa16867e24271ac9d990935c577dc",
+      "stages": {
+        "gold": 3.5097,
+        "ingestion": 3.2335,
+        "profile": 9.8586,
+        "publication": 11.9472,
+        "quality": 4.2561,
+        "reconciliation": 1.1629,
+        "silver": 6.574
+      },
+      "started_at": "2026-10-12T05:35:36.985183+00:00",
+      "state": "PUBLISHED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 3,
+        "received": 4,
+        "rejected": 0,
+        "revision_checks_executed": 1,
+        "stale": 0,
+        "valid": 4,
+        "violations": 0
+      }
+    },
+    "products": [
+      {
+        "net_revenue_brl": "79.00",
+        "product_id": "P01",
+        "units": 3
+      },
+      {
+        "net_revenue_brl": "20.00",
+        "product_id": "P03",
+        "units": 3
+      },
+      {
+        "net_revenue_brl": "5.00",
+        "product_id": "P02",
+        "units": 1
+      }
+    ],
+    "products_truncated": false,
+    "profile_result": {
+      "profile": null,
+      "reason": null,
+      "status": "LEGACY"
+    },
+    "snapshot": {
+      "accepted_batches": [
+        "initial",
+        "comparable"
+      ],
+      "previous_publication_id": "3ba460ae8949421fb6a2c4d7eaad6d04",
+      "publication_id": "cb44bc5a82b4459dbccb75d405d9601c",
+      "published_at": "2026-10-12T05:35:55.735389+00:00",
+      "run_id": "09eaa16867e24271ac9d990935c577dc",
+      "sources": [
+        {
+          "batch_id": "initial",
+          "bronze_path": "/data/evolution-demo/runs/fe482201333f409a9fcc08fd3562b3bf/bronze",
+          "bronze_version": 0,
+          "manifest_hash": "9b1b914f424a0d15a433dba5e22728478828c79cc31f696430a11b6fc4ef91f6",
+          "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+          "reference_hashes": {
+            "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+            "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+            "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+            "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+            "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+          },
+          "run_id": "fe482201333f409a9fcc08fd3562b3bf"
+        },
+        {
+          "batch_id": "comparable",
+          "bronze_path": "/data/evolution-demo/runs/09eaa16867e24271ac9d990935c577dc/bronze",
+          "bronze_version": 0,
+          "manifest_hash": "6f83333212d0432534f3858a616b0077d36648d4246a79cf08573e736aca287a",
+          "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+          "reference_hashes": {
+            "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+            "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+            "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+            "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+            "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+          },
+          "run_id": "09eaa16867e24271ac9d990935c577dc"
+        }
+      ],
+      "tables": {
+        "bronze": {
+          "path": "/data/evolution-demo/runs/09eaa16867e24271ac9d990935c577dc/bronze",
+          "version": 0
+        },
+        "gold_product_day": {
+          "path": "/data/evolution-demo/tables/gold_product_day",
+          "version": 1
+        },
+        "gold_store_day": {
+          "path": "/data/evolution-demo/tables/gold_store_day",
+          "version": 1
+        },
+        "history": {
+          "path": "/data/evolution-demo/tables/history",
+          "version": 1
+        },
+        "silver": {
+          "path": "/data/evolution-demo/tables/silver",
+          "version": 1
+        }
+      }
+    },
+    "stores": [
+      {
+        "average_ticket_brl": "42.00",
+        "business_date": "2026-01-01",
+        "item_lines": 3,
+        "net_revenue_brl": "84.00",
+        "sales_count": 2,
+        "store_id": "S01",
+        "units": 6
+      },
+      {
+        "average_ticket_brl": "20.00",
+        "business_date": "2026-01-01",
+        "item_lines": 1,
+        "net_revenue_brl": "20.00",
+        "sales_count": 1,
+        "store_id": "S02",
+        "units": 1
+      }
+    ],
+    "stores_truncated": false,
+    "summary": {
+      "average_ticket_brl": "34.66666666666666666666666667",
+      "first_date": "2026-01-01",
+      "item_lines": 4,
+      "last_date": "2026-01-01",
+      "net_revenue_brl": "104.00",
+      "sales_count": 3,
+      "units": 7
+    },
+    "synthetic_data": true
+  },
+  "presentation_only": true
+}
