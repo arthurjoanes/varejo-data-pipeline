@@ -1,0 +1,7 @@
+{
+  "source_manifest": "source-labels-before.json",
+  "source_unchanged": true,
+  "exit_code": 0,
+  "head": "bc6696856f61d66366748becdca2c57c6ac8f9de",
+  "image": "sha256:8165ad96042fa91bdd62d8477c38ec17984fd136c6d536092aba0ab72335a6e8"
+}

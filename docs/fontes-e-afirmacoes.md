@@ -1,6 +1,29 @@
 # Fontes e afirmações
 
-Revisão documental e consulta das fontes: **22/09/2026**. Código e configuração sustentam o comportamento implementado; recibos sustentam somente a execução, imagem e entrada que identificam. Esta revisão não executou novamente pipeline, benchmark, restore ou scanner. Datas de execução abaixo não são substituídas pela data de consulta.
+A revisão editorial histórica de **22/09/2026** não executou novamente pipeline, benchmark, restore ou scanner. A evolução de **12/10/2026**, registrada abaixo, tem execuções e recibos próprios. Código e configuração sustentam o comportamento implementado; recibos sustentam somente a fonte, imagem e entrada que identificam. As datas dos resultados históricos permanecem iguais.
+
+## Fontes da evolução consultadas em 12/10/2026
+
+| Fonte primária | Mecanismo aproveitado e limite |
+| --- | --- |
+| [whylogs profiles](https://github.com/whylabs/whylogs#whylogs-profiles) | Resumo estatístico persistido por snapshot. Implementação local com PySpark; sem SDK ou WhyLabs. |
+| [Deequ](https://github.com/awslabs/deequ) | Separação entre métricas e regras. A matriz consultada não comprova compatibilidade com Spark 4.2.0; Deequ/PyDeequ não são dependências. |
+| [Spark 4.2.0: percentile_approx](https://spark.apache.org/docs/4.2.0/api/python/reference/pyspark.sql/api/pyspark.sql.functions.percentile_approx.html) | Quantis aproximados com probabilidades e precisão registradas. Totais financeiros continuam em Decimal. |
+| [Delta: leitura por versão](https://docs.delta.io/delta-batch/) | `versionAsOf` fixa ambas as Silver da comparação; latest físico pode ser candidato não publicado. |
+| [OpenLineage fixado](https://github.com/OpenLineage/OpenLineage/blob/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/OpenLineage.md) | Contrato de eventos e facetas com schemas locais e checagem de formatos. [Licença, hashes e adaptações](openlineage.md). Nenhum collector foi testado. |
+
+Os testes e capturas dessa evolução possuem diretório próprio em `evidence/evolucao-20261012-a12e4a/`. Consultar uma fonte ou uma evidência anterior não altera a data do resultado histórico. Não há medição de desempenho controlada nem compatibilidade afirmada com plataformas externas de lineage.
+
+| Resultado de 12/10/2026 | Recibo e alcance |
+| --- | --- |
+| 369 testes aprovados, sem falhas, erros ou skips | [Resumo integral](evidence/evolucao-20261012-a12e4a/tests-final-summary.json), fonte `0ddab5e`, imagem `d510a4c9`; não inclui ajustes posteriores de rótulos. |
+| 352 unitários após rótulos; loja nova e runtime em três integrações dirigidas | [JUnit unitário](evidence/evolucao-20261012-a12e4a/unit-labels.xml) e [resumo dirigido](evidence/evolucao-20261012-a12e4a/delivery-directed-summary.json), com fonte e imagem próprias. |
+| R$ 64 → 104 → 64 e reexportação idempotente | [Execução](evidence/evolucao-20261012-a12e4a/evolution-demo/execution.json) e [recibo](evidence/evolucao-20261012-a12e4a/evolution-demo/reexport.json); fixture sintética e falha injetada do exportador. |
+| Três publicações e perfis recuperados | [Restauração](evidence/evolucao-20261012-a12e4a/restore/result.public.json); mesmo host, volumes novos, tar privado e controles negativos. |
+| Três HTMLs em quatro larguras no Edge 155 | [Navegador e hashes](evidence/evolucao-20261012-a12e4a/browser-index.json); função da nova seção, sem auditoria completa de UX ou leitor de tela. |
+| Imagem de entrega: zero HIGH/CRITICAL e dois MEDIUM | [Scan integral e identidade](evidence/evolucao-20261012-a12e4a/security-delivery-summary.json); 52 pacotes OS, 441 JVM e 37 Python, sem exclusões de achados. |
+
+A correção do LZ4 usa a [release 1.11.4](https://github.com/yawkat/lz4-java/releases/tag/v1.11.4) e o [advisory upstream](https://github.com/yawkat/lz4-java/security/advisories/GHSA-mcr4-qmvw-px4g), com hash no lock, comparação de API, interoperabilidade Java/nativa e integração Spark. [Procedência e limites](runtime-upgrade.md#correção-de-lz4-em-12102026).
 
 ## Afirmações principais
 

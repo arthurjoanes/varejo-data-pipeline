@@ -1,0 +1,42 @@
+{
+  "browser": "155.0.4283.45",
+  "checked_at": "2026-10-12T05:36:35.656Z",
+  "input": "evolution-demo/initial.html",
+  "checks": [
+    {
+      "width": 1440,
+      "available": true,
+      "keyboard_anchor_focus": true,
+      "table_focus": true,
+      "viewport": 1440,
+      "document": 1440
+    },
+    {
+      "width": 768,
+      "available": true,
+      "keyboard_anchor_focus": true,
+      "table_focus": true,
+      "viewport": 768,
+      "document": 768
+    },
+    {
+      "width": 390,
+      "available": true,
+      "keyboard_anchor_focus": true,
+      "table_focus": true,
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "width": 320,
+      "available": true,
+      "keyboard_anchor_focus": true,
+      "table_focus": true,
+      "viewport": 320,
+      "document": 320
+    }
+  ],
+  "no_script": true,
+  "errors": [],
+  "remoteRequests": []
+}

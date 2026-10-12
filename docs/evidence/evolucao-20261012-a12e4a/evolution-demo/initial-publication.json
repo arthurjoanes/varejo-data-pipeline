@@ -1,0 +1,53 @@
+{
+  "accepted_batches": [
+    "initial"
+  ],
+  "previous_publication_id": null,
+  "profile": {
+    "contract_version": 1,
+    "path": "/data/evolution-demo/profiles/3ba460ae8949421fb6a2c4d7eaad6d04.json",
+    "sha256": "341fc13e654198ba8cdfc98fe833c37531acb3937171f53b23d28991dd21187b"
+  },
+  "publication_id": "3ba460ae8949421fb6a2c4d7eaad6d04",
+  "published_at": "2026-10-12T05:35:29.617684+00:00",
+  "run_id": "fe482201333f409a9fcc08fd3562b3bf",
+  "sources": [
+    {
+      "batch_id": "initial",
+      "bronze_path": "/data/evolution-demo/runs/fe482201333f409a9fcc08fd3562b3bf/bronze",
+      "bronze_version": 0,
+      "manifest_hash": "9b1b914f424a0d15a433dba5e22728478828c79cc31f696430a11b6fc4ef91f6",
+      "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+      "reference_hashes": {
+        "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+        "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+        "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+        "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+        "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+      },
+      "run_id": "fe482201333f409a9fcc08fd3562b3bf"
+    }
+  ],
+  "tables": {
+    "bronze": {
+      "path": "/data/evolution-demo/runs/fe482201333f409a9fcc08fd3562b3bf/bronze",
+      "version": 0
+    },
+    "gold_product_day": {
+      "path": "/data/evolution-demo/tables/gold_product_day",
+      "version": 0
+    },
+    "gold_store_day": {
+      "path": "/data/evolution-demo/tables/gold_store_day",
+      "version": 0
+    },
+    "history": {
+      "path": "/data/evolution-demo/tables/history",
+      "version": 0
+    },
+    "silver": {
+      "path": "/data/evolution-demo/tables/silver",
+      "version": 0
+    }
+  }
+}

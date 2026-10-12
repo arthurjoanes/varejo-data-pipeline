@@ -1,0 +1,41 @@
+{
+  "files": {
+    "backup-manifest.json": {
+      "bytes": 38615,
+      "sha256": "d435e48fa4aa2f09fdb3a5ba64d325900f423e96b42895164b3ef25266cf7f5c"
+    },
+    "occupied-refused.json": {
+      "bytes": 683,
+      "sha256": "b2eeaae2cbd03e19c90a14ee26955a216bf404c4b5b4a3ce82c5d0421e70a4bb"
+    },
+    "result.public.json": {
+      "bytes": 96162,
+      "sha256": "1d64735571c6c36d2afdc9d0b359550015d94b8142a57bad1be452ef017cdf8e"
+    },
+    "source-after.json": {
+      "bytes": 61150,
+      "sha256": "f1af7ecb1580b72893d31b1cbdc0216d8bb970af7ee010508fd02f4a6de799d9"
+    },
+    "source-before.json": {
+      "bytes": 63158,
+      "sha256": "f9053195ded06ee6df330fc7ec9fde207a002b69229c26173d061ef135fb656c"
+    },
+    "source-inventory-after.json": {
+      "bytes": 39097,
+      "sha256": "12200112501cd217780e9f391eacf1bcb0db57dd524d15bc5417c6f7243ef1f1"
+    },
+    "tampered-refused.json": {
+      "bytes": 682,
+      "sha256": "a9de1531fb220db04e5476284909833e07812b0c8561fe7f205114d03f905582"
+    },
+    "target-after.json": {
+      "bytes": 61150,
+      "sha256": "6bb672ab7e4b6c6335c6e9ae212e27579a7b6944bade693afee898d5f43a0e58"
+    },
+    "target-inventory-after-refusal.json": {
+      "bytes": 39097,
+      "sha256": "2744d2dcd7760cfe0e243d15f1a65b9024c6fc2e65d302fc68c77c6a460b99a6"
+    }
+  },
+  "scope": "Same host, full Delta directories and referenced profiles; no external disaster recovery claim."
+}

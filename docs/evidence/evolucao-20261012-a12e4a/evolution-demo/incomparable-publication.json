@@ -1,0 +1,85 @@
+{
+  "accepted_batches": [
+    "initial",
+    "comparable",
+    "incomparable"
+  ],
+  "previous_publication_id": "cb44bc5a82b4459dbccb75d405d9601c",
+  "profile": {
+    "contract_version": 1,
+    "path": "/data/evolution-demo/profiles/306b52c7f4c745079e35ec1bcf951d1c.json",
+    "sha256": "21ac228676baf11e3b09a382bcba65433493c31276564130123361a7db5f537c"
+  },
+  "publication_id": "306b52c7f4c745079e35ec1bcf951d1c",
+  "published_at": "2026-10-12T05:36:26.043550+00:00",
+  "run_id": "03dfb4bc7900482ab7676b66457ffeb7",
+  "sources": [
+    {
+      "batch_id": "initial",
+      "bronze_path": "/data/evolution-demo/runs/fe482201333f409a9fcc08fd3562b3bf/bronze",
+      "bronze_version": 0,
+      "manifest_hash": "9b1b914f424a0d15a433dba5e22728478828c79cc31f696430a11b6fc4ef91f6",
+      "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+      "reference_hashes": {
+        "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+        "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+        "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+        "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+        "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+      },
+      "run_id": "fe482201333f409a9fcc08fd3562b3bf"
+    },
+    {
+      "batch_id": "comparable",
+      "bronze_path": "/data/evolution-demo/runs/09eaa16867e24271ac9d990935c577dc/bronze",
+      "bronze_version": 0,
+      "manifest_hash": "6f83333212d0432534f3858a616b0077d36648d4246a79cf08573e736aca287a",
+      "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+      "reference_hashes": {
+        "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+        "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+        "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+        "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+        "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+      },
+      "run_id": "09eaa16867e24271ac9d990935c577dc"
+    },
+    {
+      "batch_id": "incomparable",
+      "bronze_path": "/data/evolution-demo/runs/03dfb4bc7900482ab7676b66457ffeb7/bronze",
+      "bronze_version": 0,
+      "manifest_hash": "7bbade312949064fe8f8c087be71967592587a7311ac4b710c33ee2082e17663",
+      "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+      "reference_hashes": {
+        "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+        "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+        "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+        "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+        "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+      },
+      "run_id": "03dfb4bc7900482ab7676b66457ffeb7"
+    }
+  ],
+  "tables": {
+    "bronze": {
+      "path": "/data/evolution-demo/runs/03dfb4bc7900482ab7676b66457ffeb7/bronze",
+      "version": 0
+    },
+    "gold_product_day": {
+      "path": "/data/evolution-demo/tables/gold_product_day",
+      "version": 2
+    },
+    "gold_store_day": {
+      "path": "/data/evolution-demo/tables/gold_store_day",
+      "version": 2
+    },
+    "history": {
+      "path": "/data/evolution-demo/tables/history",
+      "version": 2
+    },
+    "silver": {
+      "path": "/data/evolution-demo/tables/silver",
+      "version": 2
+    }
+  }
+}

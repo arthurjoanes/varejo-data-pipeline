@@ -1,0 +1,51 @@
+{
+  "scope": "Class-file public/protected member descriptor comparison; behavioral compatibility requires runtime tests.",
+  "previous_sha256": "ffdfceacabf20fef15547ab2113374cb2c2b42634f5ac14be72c296a77fd49f8",
+  "patched_sha256": "58c8e0b813960d2a248e050c353baea73139b48a2ffc55382d42c69707e17325",
+  "previous_maven_metadata": "artifactId=lz4-java\ngroupId=at.yawk.lz4\nversion=1.11.3\n",
+  "patched_maven_metadata": "artifactId=lz4-java\ngroupId=at.yawk.lz4\nversion=1.11.4\n",
+  "previous_class_count": 85,
+  "patched_class_count": 85,
+  "removed_classes": [],
+  "removed_public_protected_members": [],
+  "previous_native_libraries": [
+    "net/jpountz/util/darwin/aarch64/liblz4-java.dylib",
+    "net/jpountz/util/darwin/x86_64/liblz4-java.dylib",
+    "net/jpountz/util/linux/aarch64/liblz4-java.so",
+    "net/jpountz/util/linux/amd64/liblz4-java.so",
+    "net/jpountz/util/linux/i386/liblz4-java.so",
+    "net/jpountz/util/linux/ppc64le/liblz4-java.so",
+    "net/jpountz/util/linux/riscv64/liblz4-java.so",
+    "net/jpountz/util/linux/s390x/liblz4-java.so",
+    "net/jpountz/util/windows/amd64/liblz4-java.dll"
+  ],
+  "patched_native_libraries": [
+    "net/jpountz/util/darwin/aarch64/liblz4-java.dylib",
+    "net/jpountz/util/darwin/x86_64/liblz4-java.dylib",
+    "net/jpountz/util/linux/aarch64/liblz4-java.so",
+    "net/jpountz/util/linux/amd64/liblz4-java.so",
+    "net/jpountz/util/linux/i386/liblz4-java.so",
+    "net/jpountz/util/linux/ppc64le/liblz4-java.so",
+    "net/jpountz/util/linux/riscv64/liblz4-java.so",
+    "net/jpountz/util/linux/s390x/liblz4-java.so",
+    "net/jpountz/util/windows/amd64/liblz4-java.dll"
+  ],
+  "native_paths_unchanged": true,
+  "license_paths": [],
+  "maximum_classfile_major": 51,
+  "maven_licenses": {
+    "1.11.3": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "1.11.4": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  "license_unchanged": true
+}

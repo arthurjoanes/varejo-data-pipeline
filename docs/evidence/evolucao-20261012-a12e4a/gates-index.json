@@ -1,0 +1,73 @@
+{
+  "files": {
+    "candidate-collection-failure.diff": {
+      "bytes": 231500,
+      "sha256": "5f61788054cd81ab03dad1dac5b3a0d994867b42eba6d53f384120d300223405"
+    },
+    "candidate-security-interrupted.diff": {
+      "bytes": 231524,
+      "sha256": "e4878ec2713b398a9ffc5d39a02dd3fb434be84481399de0aa16973f95981a15"
+    },
+    "candidate.diff": {
+      "bytes": 234013,
+      "sha256": "9e701507844f7dadbfb573895ed22e2b1aa15f4715da458f42fdf0f6c89aba2f"
+    },
+    "check-final.log": {
+      "bytes": 212,
+      "sha256": "4f763b833b972360cbd9183a01adb1470ec33221b333d166546057c1d4ce84ed"
+    },
+    "smoke-final.log": {
+      "bytes": 220,
+      "sha256": "fd621191b9dd54461ec8d08139d9dfef4959e36e5994065339b51bca32a70b81"
+    },
+    "smoke-final.xml": {
+      "bytes": 492,
+      "sha256": "a3281ee2221248c2b71af68fda7b72aea1ed1c8889ec6796f87cdbf08354c70b"
+    },
+    "source-after.json": {
+      "bytes": 80569,
+      "sha256": "e682df842dca19553c6a2a0bd4d11130b760dadbba10ad0c33896798eb3a574c"
+    },
+    "source-before.json": {
+      "bytes": 80722,
+      "sha256": "4c790f4b0621d282959ca7e5c46dc15226d99fe6569e3209698a66405c5b7c6a"
+    },
+    "source-collection-failure.json": {
+      "bytes": 80495,
+      "sha256": "a1c84649279d0c8cf660a8dd121c670bea3f547dbe36a2fa9800c9f54044a053"
+    },
+    "source-security-interrupted.json": {
+      "bytes": 80503,
+      "sha256": "5cce2341e00b8308ca75eb0d7313c92b299ad1e566aaaf6ca7643851f39e8487"
+    },
+    "tests-collection-failure.log": {
+      "bytes": 815,
+      "sha256": "37dda637680be4e30f89f0214afc33c714c04374f7f5904766eb367ddd77c154"
+    },
+    "tests-collection-failure.xml": {
+      "bytes": 687,
+      "sha256": "d4bb29c0a251d59a691b2fa50397d1deb55d4a1981a3e3b7eaa25dc721c7c648"
+    },
+    "tests-final-summary.json": {
+      "bytes": 993,
+      "sha256": "43acd6d37201a7df9e99468e9a262775a725cb210ced37c38a50d86766963c40"
+    },
+    "tests-final.log": {
+      "bytes": 128837,
+      "sha256": "0c414ebeeb0aa069882031cf192ec31a8acccdcb37499f19b4ab7afe5196b9fd"
+    },
+    "tests-final.xml": {
+      "bytes": 1108646,
+      "sha256": "c6b9ce70838158af0e3e93de5a2316bf7814d0b9f970771eb80ed4cf3e730d34"
+    },
+    "tests-security-interrupted.log": {
+      "bytes": 114,
+      "sha256": "55c5fe387eb3734ee5a8cd9a8ee159f031b3e6d751b56d787ec96ec53a3fd8fa"
+    },
+    "wheel-check.json": {
+      "bytes": 1083,
+      "sha256": "dd8eec1246e5d20e341965028367627822d7049d13cf68b47267e8489e9ec818"
+    }
+  },
+  "scope": "Gates Linux/amd64; full suite before subsequent UI labels; original source receipts retain bytes."
+}

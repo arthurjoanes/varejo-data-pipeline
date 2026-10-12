@@ -1,0 +1,25 @@
+{
+  "cgroup_after": {
+    "memory.current": "16060416",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "memory.peak": "20926464",
+    "pids.current": "2",
+    "pids.events": "max 0",
+    "pids.max": "1024",
+    "pids.peak": "6"
+  },
+  "cgroup_before": {
+    "memory.current": "16146432",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "memory.peak": "20926464",
+    "pids.current": "2",
+    "pids.events": "max 0",
+    "pids.max": "1024",
+    "pids.peak": "6"
+  },
+  "error_type": "ValueError",
+  "phase": "install",
+  "root_exists": false,
+  "status": "failed",
+  "total_seconds": 0.01670298399949388
+}

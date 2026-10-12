@@ -1,0 +1,16 @@
+ Container pf-varejo-evolucao-a12e4a-tests Creating 
+ Container pf-varejo-evolucao-a12e4a-tests Created 
+
+==================================== ERRORS ====================================
+________________ ERROR collecting tests/unit/test_profiling.py _________________
+import file mismatch:
+imported module 'test_profiling' has this __file__ attribute:
+  /app/tests/integration/test_profiling.py
+which is not the same as the test file we want to collect:
+  /app/tests/unit/test_profiling.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+=========================== short test summary info ============================
+ERROR tests/unit/test_profiling.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 3.48s
+

@@ -4,6 +4,22 @@ Um HTML de fechamento ou a última tabela gold não bastam para recuperar o pipe
 
 **A restauração local e as seis amostras de recomputação passaram em 22/09/2026.** Três publicações foram recuperadas em volume novo, com IDs, versões, linhas e totais iguais à origem. A medição tem execução e limites próprios. [Índice de evidências](evidence/state-proof/index.json).
 
+## Perfis e eventos de lineage
+
+A cópia integral inclui `profiles/` e `lineage/` com seus bytes originais. O [contrato de retenção](../scripts/proof_contracts.py) protege cada perfil referenciado, valida hash, identidade, versões e orçamento de bytes, e conserva os diretórios Delta completos. Um perfil ausente ou adulterado impede aprovar a recuperação. Manifestos sem `profile` continuam aceitos como legados; não são preenchidos com métricas atuais.
+
+O [probe de recuperação](../scripts/recovery_probe.py) lê os perfis junto das observações de cada snapshot. A comparação também depende da Silver da baseline, portanto preservar apenas perfil global ou top-K não basta. A retenção permanece conservadora, sem eliminação de versões nem VACUUM.
+
+`lineage` reconcilia eventos ausentes a partir do ponteiro, sua cadeia de publicações e as tentativas duráveis, sob o mesmo lock de escrita. Ele conserva a publicação e as evidências de entrada. Timestamps ausentes em registros antigos recebem indicação de reconstrução; não são apresentados como horários originais. [Roteiro de falha depois da publicação](evolution.md#falha-de-exportação-e-reexportação).
+
+### Restauração com perfis em 12/10/2026
+
+O ensaio `pf-varejo-proof-3503857bb22f` passou com a fonte `bc66968` e a imagem `sha256:8165ad96042fa91bdd62d8477c38ec17984fd136c6d536092aba0ab72335a6e8`. Recuperou três publicações de 6.400, 6.400 e 7.700 centavos, com IDs, versões, linhas, totais e perfis `AVAILABLE` iguais entre origem antes, destino e origem depois. O runner manteve iguais os 322 arquivos do seu inventário: os 316 operacionais e seis metadados locais de empacotamento. A cópia tem 198 arquivos e tar de 788.480 bytes. [Recibo e fases](evidence/evolucao-20261012-a12e4a/restore/result.public.json) · [observação do destino](evidence/evolucao-20261012-a12e4a/restore/target-after.json) · [inventário da cópia](evidence/evolucao-20261012-a12e4a/restore/backup-manifest.json).
+
+Destino ocupado e tar adulterado foram recusados; os inventários aprovados conservaram os bytes, e a cópia adulterada não criou a raiz de estado. O cenário completo levou 293,535 s; preparar a origem levou 149,906 s e ler o destino, 62,578 s. Havia 23 containers externos em execução; os snapshots inicial e final permaneceram iguais, uma observação que não controla tráfego ou outras cargas do host. Não houve benchmark pareado.
+
+Os três volumes próprios foram preservados e os containers da prova removidos. O tar e a cópia adulterada permanecem no diretório privado fora do repositório e do OneDrive. [Índice público e hashes](evidence/evolucao-20261012-a12e4a/restore/index.json). A restauração real usa snapshots novos com perfil; a compatibilidade de manifestos sem o campo é coberta separadamente por testes de contrato e leitura legada. Esta rodada não demonstra recuperação em outro computador.
+
 ## O conjunto que precisa sobreviver
 
 A prova copia a árvore de estado e entradas de seu ambiente sintético sem escritores ativos. O inventário registra caminhos, tamanhos e SHA-256; o arquivo tar é local, sem compressão. O restore confere a cópia antes de criar o estado, recusa destino ocupado e mantém o mesmo caminho interno: os manifestos existentes contêm caminhos absolutos.

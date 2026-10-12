@@ -1,0 +1,15 @@
+{
+  "contract_version": 1,
+  "runs": 3,
+  "events": 6,
+  "paths": [
+    "/data/evolution-demo/lineage/events/03dfb4bc-7900-482a-b767-6b66457ffeb7/start.json",
+    "/data/evolution-demo/lineage/events/03dfb4bc-7900-482a-b767-6b66457ffeb7/terminal.json",
+    "/data/evolution-demo/lineage/events/09eaa168-67e2-4271-ac9d-990935c577dc/start.json",
+    "/data/evolution-demo/lineage/events/09eaa168-67e2-4271-ac9d-990935c577dc/terminal.json",
+    "/data/evolution-demo/lineage/events/fe482201-333f-409a-9fcc-08fd3562b3bf/start.json",
+    "/data/evolution-demo/lineage/events/fe482201-333f-409a-9fcc-08fd3562b3bf/terminal.json"
+  ],
+  "errors": [],
+  "schema_url": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/OpenLineage.json#/$defs/RunEvent"
+}

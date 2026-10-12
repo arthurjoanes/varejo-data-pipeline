@@ -1,0 +1,14 @@
+{
+  "wheel_sha256": "f751a0f255d2acd6b7c22e1f00877cc0eec6a2731b9398a6d1951b54b7d607aa",
+  "bytes": 265996,
+  "schemas_preserved": {
+    "retail_pipeline/schemas/DatasetVersionDatasetFacet.json": "91f57b67bc6d639bb6d600e26b827dac551e3520a233d1785d65870da263dc34",
+    "retail_pipeline/schemas/ErrorMessageRunFacet.json": "b11b4ee8b0f99f6846264f87cad48390255c7ef142ce623216660c7097be0ea6",
+    "retail_pipeline/schemas/OpenLineage-LICENSE.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "retail_pipeline/schemas/OpenLineage.json": "69f68bee00b9beac88a87059c0102410e7bb05f3f43c46d02a0409831eceb0d2",
+    "retail_pipeline/schemas/README.md": "85db9d70e5e2635fd3c1cf1827b60e5b62955cd4487f9ca1df6d952ee9ef2f08",
+    "retail_pipeline/schemas/SchemaDatasetFacet.json": "b1ed03c11391ebb89ffc5212f303702a46cc0f528dbf1ddeb591616288c8c10f",
+    "retail_pipeline/schemas/VarejoFacets.json": "807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a"
+  },
+  "scope": "Native package build and byte verification; not a Spark integration test."
+}

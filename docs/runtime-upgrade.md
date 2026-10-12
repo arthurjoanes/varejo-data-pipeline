@@ -1,5 +1,13 @@
 # Atualização do runtime — 22/09/2026
 
+## Correção de LZ4 em 12/10/2026
+
+O scan desta evolução bloqueou `lz4-java` 1.11.3 por `CVE-2026-106451/HIGH`. A [release upstream 1.11.4](https://github.com/yawkat/lz4-java/releases/tag/v1.11.4) corrige esse CVE e dois outros advisories. O [advisory de extração nativa](https://github.com/yawkat/lz4-java/security/advisories/GHSA-mcr4-qmvw-px4g) identifica 1.11.4 como versão corrigida; sua classificação editorial difere da severidade usada pelo scanner. O gate do projeto conserva HIGH como bloqueio.
+
+O [lock](../runtime-jars.lock.json) fixa o JAR oficial de Maven Central em SHA-256 `58c8e0b813960d2a248e050c353baea73139b48a2ffc55382d42c69707e17325`, conferido contra o checksum publicado. A substituição conserva a biblioteca completa e seus metadados. O [teste de compatibilidade](../tests/integration/test_lz4_runtime.py) confere o hash carregado e o roundtrip de streams LZ4 na JVM do Spark. Esse teste não reproduz uma exploração de privilégio local. [Gates, scan inicial e imagem corrigida](verification.md#evolução-de-perfis-e-lineage-em-12102026).
+
+As seções seguintes preservam o contexto das revisões históricas.
+
 A [revisão de 03/10/2026](SECURITY-REVIEW-2026-10-03.md) acrescenta um quarto build identificado: o módulo Parquet Jackson 1.18.1 com core/databind 2.22.3. Ele corrige quatro HIGH encontrados na cópia sombreada 2.22.2, conservando a configuração oficial e os metadados. O scan novo tem zero HIGH/CRITICAL e mantém o MEDIUM de Commons Lang. Os resultados de 22/09 abaixo continuam vinculados às imagens e fontes daquela data.
 
 Compatibilidade Spark 4.2/Delta 4.4 e artefato Scala 2.13 conferidos nas [notas oficiais Delta 4.4.0](https://github.com/delta-io/delta/releases/tag/v4.4.0) e no [runtime oficial Spark 4.2](https://spark.apache.org/docs/4.2.0/). O suporte do upstream não certifica os rebuilds locais; estes dependem dos artefatos e testes identificados abaixo.
@@ -9,7 +17,7 @@ O batch passou de Spark 3.5.9/Delta 3.2.1 para Spark 4.2.0/Delta 4.4.0, Scala 2.
 ## O que mudou fisicamente
 
 - Os locks Python e os dois JARs Delta foram atualizados com SHA-256.
-- `runtime-jars.lock.json` fixa 45 substituições completas: famílias Netty 4.2.18, Jackson 2.21.7, Log4j 2.25.5, Vert.x 4.5.34, Parquet 1.18.1 e LZ4 1.11.3. Artefatos da mesma família são atualizados juntos. Os metadados Maven permanecem dentro dos JARs.
+- `runtime-jars.lock.json` fixa 45 substituições completas: famílias Netty 4.2.18, Jackson 2.21.7, Log4j 2.25.5, Vert.x 4.5.34, Parquet 1.18.1 e LZ4 1.11.4. LZ4 era 1.11.3 nas provas históricas de setembro. Artefatos da mesma família são atualizados juntos. Os metadados Maven permanecem dentro dos JARs.
 - 22 artefatos opcionais foram removidos integralmente: cliente REPL remoto Spark Connect, Derby, Hive/Thrift e shell JLine. Nome, hash anterior e motivo constam no mesmo lock. O build falha se encontrar um binário de origem diferente do esperado.
 - A aplicação continua com Spark SQL, catálogo em memória, Delta por caminho, CLI Python, relatório, reprocessamento, cancelamento e recuperação. Hive metastore, servidor Thrift, Spark Connect REPL, Derby SQL/LDAP e shell Telnet não fazem parte desse runtime. Não use esta imagem como distribuição Spark genérica.
 - A ingestão ganhou orçamento configurável por arquivo/JSON/entrega e número de arquivos, contado durante a cópia. A evidência parcial é identificada explicitamente; veja [contrato](data-contract.md).

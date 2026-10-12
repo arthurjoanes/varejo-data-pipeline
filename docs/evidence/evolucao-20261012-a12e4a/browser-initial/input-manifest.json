@@ -1,0 +1,54 @@
+{
+  "scope": "HTML captured by real Spark/Delta prove_evolution; browser check starts no Spark",
+  "recorded_at": "2026-10-12T05:39:03.445028+00:00",
+  "scenario": "initial",
+  "source_commit": "bc6696856f61d66366748becdca2c57c6ac8f9de",
+  "pipeline_image_id": "sha256:8165ad96042fa91bdd62d8477c38ec17984fd136c6d536092aba0ab72335a6e8",
+  "browser": "155.0.4283.45",
+  "profile_contract_version": 1,
+  "profile_calculation_version": "silver-profile-v1",
+  "profile_validation": "PASSED",
+  "publication_state": "PUBLISHED",
+  "profile_status": "AVAILABLE",
+  "comparison_status": "NO_BASELINE",
+  "publication_id": "3ba460ae8949421fb6a2c4d7eaad6d04",
+  "run_id": "fe482201333f409a9fcc08fd3562b3bf",
+  "baseline_publication_id": null,
+  "official_profile_sha256": "341fc13e654198ba8cdfc98fe833c37531acb3937171f53b23d28991dd21187b",
+  "totals": {
+    "active_lines": 4,
+    "discount_brl": "3.50",
+    "gross_revenue_brl": "67.50",
+    "net_revenue_brl": "64.00",
+    "sales": 3,
+    "units": 7
+  },
+  "warnings": 0,
+  "delta_versions": {
+    "bronze": 0,
+    "gold_product_day": 0,
+    "gold_store_day": 0,
+    "history": 0,
+    "silver": 0
+  },
+  "source_sha256": {
+    "src/retail_pipeline/report_model.py": "188bad2cd7391fddc563c60bdc5e5bcec6cc951d01cfd813220158c314777431",
+    "src/retail_pipeline/report_view.py": "fe827614cec5871d1023ee6a3b7b7c3afedc2c688885ee5a38c2679d54c082d3",
+    "src/retail_pipeline/reporting.py": "aeb7a598e04840f063f56560d14aefb205391a5d8624152e761c253f92a24267",
+    "src/retail_pipeline/report.js": "7cc33136d7329c191bf6c77b22f554087a802c6d8dc42778d2c58aeac0f31c5e",
+    "src/retail_pipeline/report.css": "56516942f8780781a0999e74ae6209ff38535bd31a50148cf23d6dade414d1b5",
+    "scripts/profile-report-review.cjs": "22d9c1dac0a77b472b21010292e6cdc3f947e963f5cf319e690cbb97e6dbabf4"
+  },
+  "files_sha256": {
+    "artifacts\\evolucao-20261012-a12e4a\\evolution-demo\\initial.html": "efc93e7d15e3d2bf18d153b0c2099874a6d48c27c044ed6d3c26583dda3f96c1",
+    "artifacts\\evolucao-20261012-a12e4a\\evolution-demo\\initial-profile.json": "9ca0e07b64d70619108cf613549e1682045560c74f1a6398633af11261e8344e",
+    "artifacts\\evolucao-20261012-a12e4a\\evolution-demo\\initial-publication.json": "1a5954eaefb8e1c467deb4d8d89fef78824393425fb89a21e71c96fa3bd355ab",
+    "artifacts\\evolucao-20261012-a12e4a\\browser-initial\\profile-functional.json": "4e773881ae3bc4319ca2fa4891360adccc6f44b9da3fb6a0f7e1aafe7023086c",
+    "artifacts\\evolucao-20261012-a12e4a\\browser-initial\\profile-1440.png": "f0c0a3cd5775b3ac7813a261c827d86f71d3e46e2a814458ffe12cd721b50ec4",
+    "artifacts\\evolucao-20261012-a12e4a\\browser-initial\\profile-320.png": "8b301597913469132da2f43921422b8bc912536841a7b316fd7e4052027c18d9"
+  },
+  "lineage_reexport_schema": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/OpenLineage.json#/$defs/RunEvent",
+  "lineage_reexport_validation": "PASSED",
+  "lineage_reexport_type": "COMPLETE",
+  "lineage_reexport_sha256": "39e9a309688fdbee7dc7be82c0b2a11c3c62af12e0bc7a16017aedbde41b3bb6"
+}

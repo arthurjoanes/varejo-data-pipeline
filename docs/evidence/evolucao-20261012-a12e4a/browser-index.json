@@ -1,0 +1,23 @@
+{
+  "scope": "Actual Spark/Delta synthetic fixtures; functional browser checks only, no complete UX/a11y review.",
+  "records": [
+    {
+      "scenario": "initial",
+      "local_raw_result_sha256": "4e773881ae3bc4319ca2fa4891360adccc6f44b9da3fb6a0f7e1aafe7023086c",
+      "public_result_sha256": "caeba9674d7520653dc553226b75f3e0d1953ea7512080cf7ca4a279d404433b",
+      "sanitization": "Only input absolute host path replaced with artifact-relative path; checks preserved. Raw local receipt retained under artifacts."
+    },
+    {
+      "scenario": "comparable",
+      "local_raw_result_sha256": "444762a2b65782066aee66cc266157c37656723acf71b967060e2f2553127ea2",
+      "public_result_sha256": "325d512e5c2f10d2477cd5120629eb1435125327b036b48faecf05837bae4539",
+      "sanitization": "Only input absolute host path replaced with artifact-relative path; checks preserved. Raw local receipt retained under artifacts."
+    },
+    {
+      "scenario": "incomparable",
+      "local_raw_result_sha256": "97a6a0cc6a0d0cda73cdbbf4b5562b48bb77e11f84382de9aafa801710c288ca",
+      "public_result_sha256": "d65b373e748108a34688dac57bb7640966f33cb5ae4af14aabd64ff362091479",
+      "sanitization": "Only input absolute host path replaced with artifact-relative path; checks preserved. Raw local receipt retained under artifacts."
+    }
+  ]
+}

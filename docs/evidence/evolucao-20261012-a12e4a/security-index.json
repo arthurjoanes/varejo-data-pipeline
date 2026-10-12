@@ -1,0 +1,195 @@
+{
+  "contract_version": 1,
+  "packaged_at": "2026-10-12T04:59:08.727959+00:00",
+  "execution_id": "evolucao-20261012-a12e4a",
+  "source_commit": "0ddab5e15f34bd28101a3124a42cc6a5e04ac60f",
+  "scope": "Completed OS/JVM/Python security scans and LZ4 API/native interoperability proof. Other gates have their own receipts.",
+  "scanner": "aquasec/trivy:0.74.0@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969",
+  "no_findings_ignored": true,
+  "initial": {
+    "image_id": "sha256:c4418ea4b90220a72138a5a9b7b1482fde2045c7d3a3113beca5d423938923e3",
+    "scan_exit_code": 0,
+    "gate_exit_code": 1,
+    "high": 1,
+    "critical": 0,
+    "report": "security-initial-scan.json",
+    "summary": [
+      {
+        "type": "alpine",
+        "class": "os-pkgs",
+        "target": "pf-varejo-data:evolucao-20261012-a12e4a (alpine 3.24.2)",
+        "packages": 52,
+        "severity": {
+          "MEDIUM": 1
+        }
+      },
+      {
+        "type": "jar",
+        "class": "lang-pkgs",
+        "target": "Java",
+        "packages": 441,
+        "severity": {
+          "HIGH": 1,
+          "MEDIUM": 2,
+          "LOW": 1
+        }
+      },
+      {
+        "type": "python-pkg",
+        "class": "lang-pkgs",
+        "target": "Python",
+        "packages": 37,
+        "severity": {}
+      }
+    ]
+  },
+  "correction": {
+    "cve": "CVE-2026-106451",
+    "severity_in_initial_scan": "HIGH",
+    "maven_package": "at.yawk.lz4:lz4-java",
+    "previous_version": "1.11.3",
+    "fixed_version": "1.11.4",
+    "source_from_pyspark": "lz4-java-1.11.0.jar",
+    "source_sha256_unchanged": "535c5578cab5dcd0a438e202df80091632b873c0370c25d9b1c1ad1d73577207",
+    "previous_replacement_sha256": "ffdfceacabf20fef15547ab2113374cb2c2b42634f5ac14be72c296a77fd49f8",
+    "fixed_jar_sha256": "58c8e0b813960d2a248e050c353baea73139b48a2ffc55382d42c69707e17325",
+    "maven_license": "Apache-2.0"
+  },
+  "final": {
+    "image_id": "sha256:d510a4c939b714b5e3c1bd7199f7d19ad9b0575fe631ce34590c2912675eef87",
+    "scan_exit_code": 0,
+    "gate_exit_code": 0,
+    "high": 0,
+    "critical": 0,
+    "medium": 2,
+    "report": "security-scan.json",
+    "summary": [
+      {
+        "type": "alpine",
+        "class": "os-pkgs",
+        "target": "pf-varejo-data@sha256:d510a4c939b714b5e3c1bd7199f7d19ad9b0575fe631ce34590c2912675eef87 (alpine 3.24.2)",
+        "packages": 52,
+        "severity": {
+          "MEDIUM": 1
+        }
+      },
+      {
+        "type": "jar",
+        "class": "lang-pkgs",
+        "target": "Java",
+        "packages": 441,
+        "severity": {
+          "MEDIUM": 1
+        }
+      },
+      {
+        "type": "python-pkg",
+        "class": "lang-pkgs",
+        "target": "Python",
+        "packages": 37,
+        "severity": {}
+      }
+    ]
+  },
+  "lz4_proof": {
+    "api_receipt": "lz4-api-comparison.json",
+    "runtime_receipt": "lz4-runtime-probe.json",
+    "final_runtime_exit_code": 0,
+    "native_loaded": true,
+    "jvm_version": "17.0.20",
+    "tested_vector_bytes": [
+      0,
+      1,
+      16384,
+      65536
+    ],
+    "first_attempt": {
+      "log": "lz4-runtime-probe-cleanup-failure.log",
+      "exit_code": 1,
+      "functional_checks_before_cleanup": "PASSED",
+      "failure": "Py4J process.wait timed out after 10 seconds while the gateway stdin was still open.",
+      "correction": "Close each gateway process stdin before waiting. Only the evidence probe script changed; candidate sources did not change."
+    },
+    "limit": "Four vectors on the observed Linux x86_64/Java 17 runtime; no benchmark or claim for other platforms."
+  },
+  "primary_sources": [
+    "https://github.com/yawkat/lz4-java/security/advisories/GHSA-mcr4-qmvw-px4g",
+    "https://github.com/yawkat/lz4-java/releases/tag/v1.11.4",
+    "https://github.com/yawkat/lz4-java/blob/v1.11.4/README.md",
+    "https://repo.maven.apache.org/maven2/at/yawk/lz4/lz4-java/1.11.4/lz4-java-1.11.4.jar",
+    "https://repo.maven.apache.org/maven2/at/yawk/lz4/lz4-java/1.11.4/lz4-java-1.11.4.pom"
+  ],
+  "privacy_review": "Selected files contain no detected personal host paths or credential values. Paths within image/proof containers remain in raw evidence.",
+  "files": [
+    {
+      "path": "security-initial-scan.json",
+      "bytes": 480404,
+      "sha256": "ed0989a805e7439317c1b8e691ab83b24fca506fcc8c2d468aac1b75eba39937"
+    },
+    {
+      "path": "security-initial-scan.log",
+      "bytes": 94855,
+      "sha256": "84d4a65e6939c0f4fbf8c861143dc6467c93383c5da377d5ced82d0aa1685ac5"
+    },
+    {
+      "path": "security-initial-gate.log",
+      "bytes": 172,
+      "sha256": "f6669eb3a54847e70a79cbf6622095a3e90d02396289b2ab3392691afaf96188"
+    },
+    {
+      "path": "security-initial-summary.json",
+      "bytes": 791,
+      "sha256": "236c710a0af3ef0445a92c6fb616f9dc74e17d567d9c326c99d8323fa459b40b"
+    },
+    {
+      "path": "security-initial-execution.json",
+      "bytes": 1281,
+      "sha256": "4f151238ed377a48a0e9774917493d2a2cd074194b0a0366b92bbf25b6f90763"
+    },
+    {
+      "path": "security-scan.json",
+      "bytes": 470728,
+      "sha256": "0d888851619fba9dc0dfa1e6fb79b0454560cdfbed8f308b497638711e325a6e"
+    },
+    {
+      "path": "security-scan.log",
+      "bytes": 904,
+      "sha256": "f3432c88e597e392a6c5b094fd4b440bfe9bdbad4ce06846bf4033ff394dc233"
+    },
+    {
+      "path": "security-gate.log",
+      "bytes": 26,
+      "sha256": "93d21027ec2b96919f56b4770640ca18fa10cebec7cc53ba56ca2ce1f34a030c"
+    },
+    {
+      "path": "security-summary.json",
+      "bytes": 799,
+      "sha256": "2a657e65d905763ee6b6604f18928b63bd303d237ddc33429f41849190d729d9"
+    },
+    {
+      "path": "security-scan-execution.json",
+      "bytes": 1728,
+      "sha256": "189a0a38a4570f194f3545590857b09ceae767e626e9554226c9a2695a2ac4a3"
+    },
+    {
+      "path": "lz4-api-comparison.json",
+      "bytes": 2127,
+      "sha256": "e0eaaed01ae2aeb3564e6cde4f16f1c9e516f44680247036de7a0e1a1d3fb76e"
+    },
+    {
+      "path": "lz4-runtime-probe.json",
+      "bytes": 1992,
+      "sha256": "16999fe25548d6b16bb7bccd041004af372d12dd4480dc720b659717ce62529c"
+    },
+    {
+      "path": "lz4-runtime-probe.log",
+      "bytes": 1902,
+      "sha256": "9dee1063d2e164d42441fb6c32d5c1a4082cf80ac52e637e1a8c7b652a802708"
+    },
+    {
+      "path": "lz4-runtime-probe-cleanup-failure.log",
+      "bytes": 2511,
+      "sha256": "25ad89e3c3e5255a20990e48b7d9d69db93b999b064df7dd1b0152c03cf4b1d9"
+    }
+  ]
+}

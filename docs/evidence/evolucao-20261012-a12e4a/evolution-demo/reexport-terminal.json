@@ -1,0 +1,690 @@
+{
+  "eventTime": "2026-10-12T05:36:07.682665+00:00",
+  "eventType": "COMPLETE",
+  "inputs": [
+    {
+      "facets": {
+        "schema": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/SchemaDatasetFacet.json#/$defs/SchemaDatasetFacet",
+          "fields": [
+            {
+              "name": "source_system",
+              "type": "string"
+            },
+            {
+              "name": "store_id",
+              "type": "string"
+            },
+            {
+              "name": "sale_id",
+              "type": "string"
+            },
+            {
+              "name": "line_id",
+              "type": "string"
+            },
+            {
+              "name": "revision",
+              "type": "string"
+            },
+            {
+              "name": "operation",
+              "type": "string"
+            },
+            {
+              "name": "product_id",
+              "type": "string"
+            },
+            {
+              "name": "sold_at",
+              "type": "string"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "unit_price_brl",
+              "type": "string"
+            },
+            {
+              "name": "line_discount_brl",
+              "type": "string"
+            },
+            {
+              "name": "source_updated_at",
+              "type": "string"
+            },
+            {
+              "name": "batch_id",
+              "type": "string"
+            },
+            {
+              "name": "run_id",
+              "type": "string"
+            },
+            {
+              "name": "source_file",
+              "type": "string"
+            },
+            {
+              "name": "source_line",
+              "type": "integer"
+            },
+            {
+              "name": "payload_hash",
+              "type": "string"
+            },
+            {
+              "name": "raw_payload",
+              "type": "string"
+            },
+            {
+              "name": "errors",
+              "type": "array<string>"
+            }
+          ]
+        },
+        "varejo_provenance": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "urn:sha256:807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a#/$defs/VarejoProvenanceDatasetFacet",
+          "accepted": true,
+          "batchId": "comparable",
+          "manifestHash": "6f83333212d0432534f3858a616b0077d36648d4246a79cf08573e736aca287a",
+          "operatorReferenceHash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+          "referenceHashes": {
+            "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+            "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+            "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+            "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+            "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+          },
+          "sourceRunId": "09eaa168-67e2-4271-ac9d-990935c577dc"
+        },
+        "version": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/DatasetVersionDatasetFacet.json#/$defs/DatasetVersionDatasetFacet",
+          "datasetVersion": "0"
+        }
+      },
+      "name": "bronze/09eaa168-67e2-4271-ac9d-990935c577dc",
+      "namespace": "urn:varejo-data-pipeline:delta"
+    },
+    {
+      "facets": {
+        "schema": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/SchemaDatasetFacet.json#/$defs/SchemaDatasetFacet",
+          "fields": [
+            {
+              "name": "source_system",
+              "type": "string"
+            },
+            {
+              "name": "store_id",
+              "type": "string"
+            },
+            {
+              "name": "sale_id",
+              "type": "string"
+            },
+            {
+              "name": "line_id",
+              "type": "string"
+            },
+            {
+              "name": "revision",
+              "type": "string"
+            },
+            {
+              "name": "operation",
+              "type": "string"
+            },
+            {
+              "name": "product_id",
+              "type": "string"
+            },
+            {
+              "name": "sold_at",
+              "type": "string"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "unit_price_brl",
+              "type": "string"
+            },
+            {
+              "name": "line_discount_brl",
+              "type": "string"
+            },
+            {
+              "name": "source_updated_at",
+              "type": "string"
+            },
+            {
+              "name": "batch_id",
+              "type": "string"
+            },
+            {
+              "name": "run_id",
+              "type": "string"
+            },
+            {
+              "name": "source_file",
+              "type": "string"
+            },
+            {
+              "name": "source_line",
+              "type": "integer"
+            },
+            {
+              "name": "payload_hash",
+              "type": "string"
+            },
+            {
+              "name": "raw_payload",
+              "type": "string"
+            },
+            {
+              "name": "errors",
+              "type": "array<string>"
+            }
+          ]
+        },
+        "varejo_provenance": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "urn:sha256:807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a#/$defs/VarejoProvenanceDatasetFacet",
+          "accepted": true,
+          "batchId": "initial",
+          "manifestHash": "9b1b914f424a0d15a433dba5e22728478828c79cc31f696430a11b6fc4ef91f6",
+          "operatorReferenceHash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+          "referenceHashes": {
+            "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+            "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+            "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+            "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+            "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+          },
+          "sourceRunId": "fe482201-333f-409a-9fcc-08fd3562b3bf"
+        },
+        "version": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/DatasetVersionDatasetFacet.json#/$defs/DatasetVersionDatasetFacet",
+          "datasetVersion": "0"
+        }
+      },
+      "name": "bronze/fe482201-333f-409a-9fcc-08fd3562b3bf",
+      "namespace": "urn:varejo-data-pipeline:delta"
+    },
+    {
+      "name": "approved/sha256:acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+      "namespace": "urn:varejo-data-pipeline:references"
+    },
+    {
+      "name": "catalog.json/sha256:91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+      "namespace": "urn:varejo-data-pipeline:references"
+    },
+    {
+      "name": "operator_catalog_hash/sha256:ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+      "namespace": "urn:varejo-data-pipeline:references"
+    },
+    {
+      "name": "operator_reference_hash/sha256:acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+      "namespace": "urn:varejo-data-pipeline:references"
+    },
+    {
+      "name": "operator_schedule_hash/sha256:6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+      "namespace": "urn:varejo-data-pipeline:references"
+    },
+    {
+      "name": "schedule.json/sha256:c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd",
+      "namespace": "urn:varejo-data-pipeline:references"
+    }
+  ],
+  "job": {
+    "name": "retail.publish",
+    "namespace": "urn:varejo-data-pipeline:local"
+  },
+  "outputs": [
+    {
+      "facets": {
+        "schema": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/SchemaDatasetFacet.json#/$defs/SchemaDatasetFacet",
+          "fields": [
+            {
+              "name": "source_system",
+              "type": "string"
+            },
+            {
+              "name": "store_id",
+              "type": "string"
+            },
+            {
+              "name": "sale_id",
+              "type": "string"
+            },
+            {
+              "name": "line_id",
+              "type": "string"
+            },
+            {
+              "name": "revision",
+              "type": "string"
+            },
+            {
+              "name": "operation",
+              "type": "string"
+            },
+            {
+              "name": "product_id",
+              "type": "string"
+            },
+            {
+              "name": "sold_at",
+              "type": "string"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "unit_price_brl",
+              "type": "string"
+            },
+            {
+              "name": "line_discount_brl",
+              "type": "string"
+            },
+            {
+              "name": "source_updated_at",
+              "type": "string"
+            },
+            {
+              "name": "batch_id",
+              "type": "string"
+            },
+            {
+              "name": "run_id",
+              "type": "string"
+            },
+            {
+              "name": "source_file",
+              "type": "string"
+            },
+            {
+              "name": "source_line",
+              "type": "integer"
+            },
+            {
+              "name": "payload_hash",
+              "type": "string"
+            },
+            {
+              "name": "raw_payload",
+              "type": "string"
+            },
+            {
+              "name": "errors",
+              "type": "array<string>"
+            }
+          ]
+        },
+        "varejo_provenance": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "urn:sha256:807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a#/$defs/VarejoProvenanceDatasetFacet",
+          "accepted": true,
+          "publicationId": "cb44bc5a82b4459dbccb75d405d9601c"
+        },
+        "version": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/DatasetVersionDatasetFacet.json#/$defs/DatasetVersionDatasetFacet",
+          "datasetVersion": "0"
+        }
+      },
+      "name": "bronze/09eaa168-67e2-4271-ac9d-990935c577dc",
+      "namespace": "urn:varejo-data-pipeline:delta"
+    },
+    {
+      "facets": {
+        "schema": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/SchemaDatasetFacet.json#/$defs/SchemaDatasetFacet",
+          "fields": [
+            {
+              "name": "business_date",
+              "type": "date"
+            },
+            {
+              "name": "product_id",
+              "type": "string"
+            },
+            {
+              "name": "net_revenue_brl",
+              "type": "decimal(28,2)"
+            },
+            {
+              "name": "units",
+              "type": "long"
+            },
+            {
+              "name": "item_lines",
+              "type": "long"
+            }
+          ]
+        },
+        "varejo_provenance": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "urn:sha256:807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a#/$defs/VarejoProvenanceDatasetFacet",
+          "accepted": true,
+          "publicationId": "cb44bc5a82b4459dbccb75d405d9601c"
+        },
+        "version": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/DatasetVersionDatasetFacet.json#/$defs/DatasetVersionDatasetFacet",
+          "datasetVersion": "1"
+        }
+      },
+      "name": "gold_product_day",
+      "namespace": "urn:varejo-data-pipeline:delta"
+    },
+    {
+      "facets": {
+        "schema": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/SchemaDatasetFacet.json#/$defs/SchemaDatasetFacet",
+          "fields": [
+            {
+              "name": "business_date",
+              "type": "date"
+            },
+            {
+              "name": "store_id",
+              "type": "string"
+            },
+            {
+              "name": "net_revenue_brl",
+              "type": "decimal(28,2)"
+            },
+            {
+              "name": "units",
+              "type": "long"
+            },
+            {
+              "name": "item_lines",
+              "type": "long"
+            },
+            {
+              "name": "sales_count",
+              "type": "long"
+            },
+            {
+              "name": "average_ticket_brl",
+              "type": "decimal(28,2)"
+            }
+          ]
+        },
+        "varejo_provenance": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "urn:sha256:807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a#/$defs/VarejoProvenanceDatasetFacet",
+          "accepted": true,
+          "publicationId": "cb44bc5a82b4459dbccb75d405d9601c"
+        },
+        "version": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/DatasetVersionDatasetFacet.json#/$defs/DatasetVersionDatasetFacet",
+          "datasetVersion": "1"
+        }
+      },
+      "name": "gold_store_day",
+      "namespace": "urn:varejo-data-pipeline:delta"
+    },
+    {
+      "facets": {
+        "schema": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/SchemaDatasetFacet.json#/$defs/SchemaDatasetFacet",
+          "fields": [
+            {
+              "name": "source_system",
+              "type": "string"
+            },
+            {
+              "name": "store_id",
+              "type": "string"
+            },
+            {
+              "name": "sale_id",
+              "type": "string"
+            },
+            {
+              "name": "line_id",
+              "type": "string"
+            },
+            {
+              "name": "revision",
+              "type": "integer"
+            },
+            {
+              "name": "operation",
+              "type": "string"
+            },
+            {
+              "name": "product_id",
+              "type": "string"
+            },
+            {
+              "name": "sold_at",
+              "type": "timestamp"
+            },
+            {
+              "name": "quantity",
+              "type": "integer"
+            },
+            {
+              "name": "unit_price_brl",
+              "type": "decimal(18,2)"
+            },
+            {
+              "name": "line_discount_brl",
+              "type": "decimal(18,2)"
+            },
+            {
+              "name": "source_updated_at",
+              "type": "timestamp"
+            },
+            {
+              "name": "batch_id",
+              "type": "string"
+            },
+            {
+              "name": "run_id",
+              "type": "string"
+            },
+            {
+              "name": "source_file",
+              "type": "string"
+            },
+            {
+              "name": "source_line",
+              "type": "integer"
+            },
+            {
+              "name": "payload_hash",
+              "type": "string"
+            },
+            {
+              "name": "raw_payload",
+              "type": "string"
+            },
+            {
+              "name": "errors",
+              "type": "array<string>"
+            },
+            {
+              "name": "business_date",
+              "type": "date"
+            },
+            {
+              "name": "line_net_brl",
+              "type": "decimal(24,2)"
+            }
+          ]
+        },
+        "varejo_provenance": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "urn:sha256:807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a#/$defs/VarejoProvenanceDatasetFacet",
+          "accepted": true,
+          "publicationId": "cb44bc5a82b4459dbccb75d405d9601c"
+        },
+        "version": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/DatasetVersionDatasetFacet.json#/$defs/DatasetVersionDatasetFacet",
+          "datasetVersion": "1"
+        }
+      },
+      "name": "history",
+      "namespace": "urn:varejo-data-pipeline:delta"
+    },
+    {
+      "facets": {
+        "schema": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/SchemaDatasetFacet.json#/$defs/SchemaDatasetFacet",
+          "fields": [
+            {
+              "name": "source_system",
+              "type": "string"
+            },
+            {
+              "name": "store_id",
+              "type": "string"
+            },
+            {
+              "name": "sale_id",
+              "type": "string"
+            },
+            {
+              "name": "line_id",
+              "type": "string"
+            },
+            {
+              "name": "revision",
+              "type": "integer"
+            },
+            {
+              "name": "operation",
+              "type": "string"
+            },
+            {
+              "name": "product_id",
+              "type": "string"
+            },
+            {
+              "name": "sold_at",
+              "type": "timestamp"
+            },
+            {
+              "name": "quantity",
+              "type": "integer"
+            },
+            {
+              "name": "unit_price_brl",
+              "type": "decimal(18,2)"
+            },
+            {
+              "name": "line_discount_brl",
+              "type": "decimal(18,2)"
+            },
+            {
+              "name": "source_updated_at",
+              "type": "timestamp"
+            },
+            {
+              "name": "batch_id",
+              "type": "string"
+            },
+            {
+              "name": "run_id",
+              "type": "string"
+            },
+            {
+              "name": "source_file",
+              "type": "string"
+            },
+            {
+              "name": "source_line",
+              "type": "integer"
+            },
+            {
+              "name": "payload_hash",
+              "type": "string"
+            },
+            {
+              "name": "raw_payload",
+              "type": "string"
+            },
+            {
+              "name": "errors",
+              "type": "array<string>"
+            },
+            {
+              "name": "business_date",
+              "type": "date"
+            },
+            {
+              "name": "line_net_brl",
+              "type": "decimal(24,2)"
+            }
+          ]
+        },
+        "varejo_provenance": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "urn:sha256:807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a#/$defs/VarejoProvenanceDatasetFacet",
+          "accepted": true,
+          "publicationId": "cb44bc5a82b4459dbccb75d405d9601c"
+        },
+        "version": {
+          "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+          "_schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/facets/DatasetVersionDatasetFacet.json#/$defs/DatasetVersionDatasetFacet",
+          "datasetVersion": "1"
+        }
+      },
+      "name": "silver",
+      "namespace": "urn:varejo-data-pipeline:delta"
+    }
+  ],
+  "producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+  "run": {
+    "facets": {
+      "varejo_outcome": {
+        "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+        "_schemaURL": "urn:sha256:807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a#/$defs/VarejoOutcomeRunFacet",
+        "acceptedBatches": [
+          "initial",
+          "comparable"
+        ],
+        "jobMode": "publish",
+        "newPublication": true,
+        "publicationId": "cb44bc5a82b4459dbccb75d405d9601c",
+        "reasonCodes": [],
+        "state": "PUBLISHED"
+      },
+      "varejo_timing": {
+        "_producer": "https://github.com/arthurjoanes/varejo-data-pipeline",
+        "_schemaURL": "urn:sha256:807344139607784ad2370ba0f478b8410feadbc09cc835760c5a0b33e51eae7a#/$defs/VarejoTimingRunFacet",
+        "eventTimeSource": "attempt.finished_at",
+        "identityMapping": "uuid",
+        "originalEventTime": "2026-10-12T05:36:07.682665+00:00",
+        "originalTimeAvailable": true,
+        "reconstructedAt": "2026-10-12T05:36:08.928719+00:00"
+      }
+    },
+    "runId": "09eaa168-67e2-4271-ac9d-990935c577dc"
+  },
+  "schemaURL": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/OpenLineage.json#/$defs/RunEvent"
+}
