@@ -76,9 +76,9 @@
     {
       "source": "lz4-java-1.11.0.jar",
       "source_sha256": "535c5578cab5dcd0a438e202df80091632b873c0370c25d9b1c1ad1d73577207",
-      "target": "lz4-java-1.11.3.jar",
-      "url": "https://repo.maven.apache.org/maven2/at/yawk/lz4/lz4-java/1.11.3/lz4-java-1.11.3.jar",
-      "sha256": "ffdfceacabf20fef15547ab2113374cb2c2b42634f5ac14be72c296a77fd49f8"
+      "target": "lz4-java-1.11.4.jar",
+      "url": "https://repo.maven.apache.org/maven2/at/yawk/lz4/lz4-java/1.11.4/lz4-java-1.11.4.jar",
+      "sha256": "58c8e0b813960d2a248e050c353baea73139b48a2ffc55382d42c69707e17325"
     },
     {
       "source": "netty-all-4.2.13.Final.jar",
