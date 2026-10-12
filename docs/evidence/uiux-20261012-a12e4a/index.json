@@ -1046,6 +1046,10 @@
       "bytes": 71083,
       "sha256": "dcc5b639abbd84978867b24b9d7f50b8cdeb1945d7167ba38ca35d2270dea5c7"
     },
+    "public-checksum-verification.json": {
+      "bytes": 1322,
+      "sha256": "07f9f750b6497caae33effa4881f0806e89d177ab95da1afeeba14ad45436db3"
+    },
     "qa-final-edge-v5.log": {
       "bytes": 8166,
       "sha256": "9dc88fb3d2fc7c4a2a44256817fce2a10c380c9ddfd751fd1de4100d119d111f"
@@ -1293,6 +1297,46 @@
     "research.json": {
       "bytes": 14018,
       "sha256": "d96c8f576176ba987836f3e20da0d6ea9705f6a3d4b4748fd2b45313a3f8d679"
+    },
+    "security-control-negative-other-path.json": {
+      "bytes": 3722,
+      "sha256": "358612d2679c29060db89e4d24d873f09ddf4607e5ecbedae2c591bc8f7e77c3"
+    },
+    "security-control-negative-other-path.log": {
+      "bytes": 131,
+      "sha256": "770dfb771bb3e6052bfbf8657e82ea438e5541dac71c86e861d979b3c0540fd1"
+    },
+    "security-control-negative-same-path.json": {
+      "bytes": 669,
+      "sha256": "07f8858f57ef06eb17022a52ab9572c040e64722802bd2746ed9bdb2ed3115fa"
+    },
+    "security-control-negative-same-path.log": {
+      "bytes": 131,
+      "sha256": "94b51fbc760ee415c64eccdb8b312b2e59cfb6d52e71e36cb0cd35be77e78a83"
+    },
+    "security-control-positive.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "security-control-positive.log": {
+      "bytes": 129,
+      "sha256": "910a19a755b760b4df9548177ce38b4d676d412815df1e3e331d4d31142ed175"
+    },
+    "security-control-summary.json": {
+      "bytes": 426,
+      "sha256": "3fd1eab4562a849b7f51b56961ca7552584e9fea7db8b6f17f28df23ab75b403"
+    },
+    "security-first-report.json": {
+      "bytes": 6360,
+      "sha256": "3e37be6bb60f985a9b167c23f6fd32cabf9add91ad126155a7a2c0dd4283a1df"
+    },
+    "security-first-summary.json": {
+      "bytes": 288,
+      "sha256": "f400bf7e134b264a90d810e9fa2739a42bcd026e549087cc958a413baad391da"
+    },
+    "security-first.log": {
+      "bytes": 188,
+      "sha256": "9620286077ecd8f6fe05adfd993fb235adc546abccdea39ef680150179b93075"
     },
     "source-candidate-v5-after.json": {
       "bytes": 10338,

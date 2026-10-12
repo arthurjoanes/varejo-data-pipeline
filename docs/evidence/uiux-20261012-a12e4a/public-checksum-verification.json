@@ -1,0 +1,36 @@
+{
+  "checksums": [
+    {
+      "file": "playwright/lib/loader/loaderProcessEntry.js",
+      "sha256": "45681332f4178770c204b33e5b8dcbba940baf3bc6fc86506bab24027cb513f3",
+      "byte_equality": true
+    },
+    {
+      "file": "playwright/lib/loader/loaderProcessEntry.js.txt",
+      "sha256": "0fc4ad550d17a23e9f1cbc78f646e57461f4feb22253dd5220034ef44091005c",
+      "byte_equality": true
+    },
+    {
+      "file": "playwright/lib/worker/workerProcessEntry.js",
+      "sha256": "3d6676ca271c075b1e7c8e2cd6ad5331430cf29a3332d1f621054ff7d8e06478",
+      "byte_equality": true
+    },
+    {
+      "file": "playwright/lib/worker/workerProcessEntry.js.txt",
+      "sha256": "7b4f3a6e64023f52319739dd1026636d0e769edecf1eccd4b7f03bf8a4b54865",
+      "byte_equality": true
+    },
+    {
+      "file": "firefox/AccessibleMarshal.dll",
+      "sha256": "a896bb91861bf6ab839c2e50eb2cceb7eda1da858e333fc460b062c2649c5acb",
+      "byte_equality": true
+    },
+    {
+      "file": "firefox/gmp-clearkey/0.1/clearkey.dll",
+      "sha256": "8b669874cf01ad1d0f0ac2f7eea6279c4e9ec2415e184e372ec81e9859d6d3b2",
+      "byte_equality": true
+    }
+  ],
+  "rules_scope": "AND exact six checksums plus exact one manifest path; default rules unchanged",
+  "synthetic_control_hash": "28a20f773ac93a2531c9dc7b2a8b4cf036dd09da2b213af29acbe7f0a72c62b5"
+}

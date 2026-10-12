@@ -18,3 +18,28 @@ paths = [
   '''^docs/evidence/evolucao-20261012-a12e4a/security-delivery-scan\.json$''',
 ]
 regexes = ['''^A035C8C19219BA821ECEA86B64E628F8D684696D$''']
+
+[[rules.allowlists]]
+description = "Exact public Playwright/Firefox file SHA256 checksums verified from official developer tooling"
+condition = "AND"
+regexTarget = "secret"
+paths = ['''^docs/evidence/uiux-20261012-a12e4a/tooling-manifest\.public\.json$''']
+regexes = [
+  '''^a896bb91861bf6ab839c2e50eb2cceb7eda1da858e333fc460b062c2649c5acb$''',
+  '''^8b669874cf01ad1d0f0ac2f7eea6279c4e9ec2415e184e372ec81e9859d6d3b2$''',
+]
+
+[[rules]]
+id = "sentry-access-token"
+
+[[rules.allowlists]]
+description = "Exact public Playwright/Firefox file SHA256 checksums verified from official developer tooling"
+condition = "AND"
+regexTarget = "secret"
+paths = ['''^docs/evidence/uiux-20261012-a12e4a/tooling-manifest\.public\.json$''']
+regexes = [
+  '''^45681332f4178770c204b33e5b8dcbba940baf3bc6fc86506bab24027cb513f3$''',
+  '''^0fc4ad550d17a23e9f1cbc78f646e57461f4feb22253dd5220034ef44091005c$''',
+  '''^3d6676ca271c075b1e7c8e2cd6ad5331430cf29a3332d1f621054ff7d8e06478$''',
+  '''^7b4f3a6e64023f52319739dd1026636d0e769edecf1eccd4b7f03bf8a4b54865$''',
+]
