@@ -1,4 +1,8 @@
-*.json -text
-*.log -text
-*.xml -text
-*.diff -text
+# Receipts retain original bytes, including CRLF and terminal padding.
+/.gitattributes -text whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.md -text whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.json -text whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.log -text -whitespace
+*.xml -text whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.diff -text -whitespace
+*.html -text -whitespace
