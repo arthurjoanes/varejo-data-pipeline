@@ -58,3 +58,9 @@ A cobertura depende das bases públicas do scanner. O aviso de Trivy sobre a ver
 ## Integridade da cópia e recuperação
 
 A [prova de restauração](state-recovery.md) acrescenta inventário por SHA-256, limite de tamanho/entradas, recusa de links e caminhos fora da raiz, destino vazio e validação antes de instalar o estado. Controles reais recusaram tar adulterado e destino ocupado. A origem e suas publicações permaneceram iguais. O contrato protege referências de publicações, sem executar exclusão ou VACUUM. São controles de integridade de uma cópia local: não incluem criptografia, agendamento ou sobrevivência à perda do computador.
+
+## Checksums das ferramentas de revisão da interface
+
+O scan do histórico da revisão de UI/UX sinalizou seis SHA-256 de arquivos oficiais do Playwright/Firefox como possíveis tokens. Os seis valores foram recalculados nos arquivos locais e coincidem com o manifesto das ferramentas. A configuração conserva as regras padrão e combina `AND` entre o caminho exato de `tooling-manifest.public.json` e esses seis hashes; não libera outros valores nem caminhos. [Verificação dos bytes](evidence/uiux-20261012-a12e4a/public-checksum-verification.json).
+
+Os controles aceitaram os checksums conhecidos, detectaram um hash desconhecido no mesmo campo e detectaram os seis valores fora do caminho permitido. [Resultados](evidence/uiux-20261012-a12e4a/security-control-summary.json). O scan inicial foi preservado com valores redigidos; os dados são hashes públicos de arquivos, sem credenciais. Esta alteração de scanner é posterior aos gates de UI e não muda runtime, permissões ou dados.
