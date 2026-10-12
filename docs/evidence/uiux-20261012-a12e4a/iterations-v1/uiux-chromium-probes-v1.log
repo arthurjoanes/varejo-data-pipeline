@@ -1,0 +1,16 @@
+{"engine":"chromium","phase":"before","name":"actual-comparable","step":"goto"}
+{"engine":"chromium","phase":"before","name":"actual-comparable","step":"loaded"}
+{"engine":"chromium","phase":"before","name":"actual-comparable","step":"fonts","status":"loaded"}
+{"engine":"chromium","phase":"before","name":"actual-comparable","step":"complete","document":320}
+{"engine":"chromium","phase":"before","name":"fixture-long","step":"goto"}
+{"engine":"chromium","phase":"before","name":"fixture-long","step":"loaded"}
+{"engine":"chromium","phase":"before","name":"fixture-long","step":"fonts","status":"loaded"}
+{"engine":"chromium","phase":"before","name":"fixture-long","step":"complete","document":320}
+{"engine":"chromium","phase":"after","name":"actual-comparable","step":"goto"}
+{"engine":"chromium","phase":"after","name":"actual-comparable","step":"loaded"}
+{"engine":"chromium","phase":"after","name":"actual-comparable","step":"fonts","status":"loaded"}
+{"engine":"chromium","phase":"after","name":"actual-comparable","step":"complete","document":320}
+{"engine":"chromium","phase":"after","name":"fixture-long","step":"goto"}
+{"engine":"chromium","phase":"after","name":"fixture-long","step":"loaded"}
+{"engine":"chromium","phase":"after","name":"fixture-long","step":"fonts","status":"loaded"}
+{"engine":"chromium","phase":"after","name":"fixture-long","step":"complete","document":320}

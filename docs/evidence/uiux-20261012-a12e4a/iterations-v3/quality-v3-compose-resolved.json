@@ -1,0 +1,49 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "-p",
+    "pf-varejo-evolucao-a12e4a",
+    "-f",
+    "compose.yaml",
+    "-f",
+    "artifacts/evolucao-20261012-a12e4a/compose.override.yaml",
+    "-f",
+    "artifacts/uiux-20261012-a12e4a/compose.capture.yaml",
+    "config",
+    "--format",
+    "json"
+  ],
+  "exit_code": 0,
+  "project": "pf-varejo-evolucao-a12e4a",
+  "image": "sha256:e54034991f90d5fc612bb0ae3b4c9369e439d2fbcc06c0cf96185e370615ccb8",
+  "network_mode": "none",
+  "read_only": true,
+  "memory_bytes": 3221225472,
+  "cpus": 2.0,
+  "pids_limit": 1024,
+  "volumes": [
+    {
+      "type": "bind",
+      "source": "<workspace>",
+      "target": "/app",
+      "read_only": true
+    },
+    {
+      "type": "bind",
+      "source": "<workspace>\\artifacts\\uiux-20261012-a12e4a",
+      "target": "/app/artifacts"
+    },
+    {
+      "type": "volume",
+      "source": "data",
+      "target": "/data"
+    },
+    {
+      "type": "bind",
+      "source": "<workspace>\\artifacts\\evolucao-20261012-a12e4a\\evolution-demo",
+      "target": "/evolution-evidence",
+      "read_only": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "implementation_commit": "b070eb4fcc866b4e8dccf5b6cd08e0922d7707fc",
+  "candidate": "source-candidate-v5.json",
+  "verified_git_blobs": 94,
+  "mismatches": [],
+  "local_byte_hashes_recorded_separately": true,
+  "recorded_at": "2026-10-12T14:10:27.238075+00:00"
+}

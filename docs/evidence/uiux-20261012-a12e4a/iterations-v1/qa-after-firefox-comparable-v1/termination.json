@@ -1,0 +1,10 @@
+{
+  "status": "terminated_without_completion",
+  "reason": "First case did not complete while both full Edge rounds completed; exact pending step requires investigation",
+  "terminated_utc": "2026-10-12T07:01:23.4971472Z",
+  "elapsed_since_output_creation_seconds": 548.4,
+  "remaining_matching_owned_nodes": 0,
+  "output": "qa-after-firefox-comparable-v1",
+  "no_result_claim": true,
+  "previous_receipt_write_error": "PowerShell boolean literal typo; execution.json null retained, this receipt corrects the metadata only"
+}

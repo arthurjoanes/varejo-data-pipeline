@@ -1,0 +1,2 @@
+{"phase":"before","browser":"chromium","case":"actual-comparable","checks":165,"completed":true}
+{"output":"artifacts/uiux-20261012-a12e4a/qa-before-edge-probe1","phase":"before","browser":"155.0.4283.45","cases":1,"checks":169,"screenshots":10,"gating_failures":0,"presentation_findings":3,"axe_violations":0,"axe_incomplete_manual_review":9,"remote_requests":0,"failed_requests":0,"page_errors":0}

@@ -1,0 +1,19 @@
+{
+  "browser": "155.0",
+  "captured_at": "2026-10-12T07:04:38.169Z",
+  "records": [
+    {
+      "engine": "firefox",
+      "phase": "after",
+      "name": "actual-comparable",
+      "javaScriptEnabled": true,
+      "fonts": "loaded",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "profile_top": -3163,
+      "warning_relative_y": 90,
+      "first_rule_relative_y": 1276.5
+    }
+  ]
+}

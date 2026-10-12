@@ -1,0 +1,15 @@
+* -text whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.json whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.md whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.py whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.cjs whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.css whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.js whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.svg whitespace=blank-at-eol,space-before-tab,cr-at-eol
+*.log -whitespace
+*.diff -whitespace
+*.html -whitespace
+*.xml whitespace=blank-at-eol,space-before-tab,cr-at-eol
+
+# Preserve the upstream OFL license bytes, including its original trailing space.
+renderer-before/retail_pipeline/assets/source-sans-LICENSE.md -whitespace

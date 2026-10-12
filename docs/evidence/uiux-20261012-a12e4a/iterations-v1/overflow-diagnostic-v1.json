@@ -1,0 +1,2172 @@
+{
+  "observed_at": "2026-10-12T06:58:54.920Z",
+  "browser": "155.0.4283.45",
+  "findings": [
+    {
+      "phase": "before",
+      "name": "actual-comparable",
+      "spacing": false,
+      "view": "qualidade",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "actual-comparable",
+      "spacing": false,
+      "view": "indicadores",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "actual-comparable",
+      "spacing": false,
+      "view": "proveniencia",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "actual-comparable",
+      "spacing": true,
+      "view": "qualidade",
+      "viewport": 320,
+      "document": 326,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 252.515625,
+          "right": 325.640625,
+          "width": 73.125,
+          "top": -103,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 254.515625,
+          "text_right": 323.640625,
+          "scroll_width": 73,
+          "client_width": 73
+        }
+      ],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "actual-comparable",
+      "spacing": true,
+      "view": "indicadores",
+      "viewport": 320,
+      "document": 327,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 253.65625,
+          "right": 326.78125,
+          "width": 73.125,
+          "top": -103,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 255.65625,
+          "text_right": 324.78125,
+          "scroll_width": 73,
+          "client_width": 73
+        }
+      ],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "actual-comparable",
+      "spacing": true,
+      "view": "proveniencia",
+      "viewport": 320,
+      "document": 326,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 250.5625,
+          "right": 326.375,
+          "width": 75.8125,
+          "top": -103,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 252.5625,
+          "text_right": 324.375,
+          "scroll_width": 76,
+          "client_width": 76
+        }
+      ],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "fixture-long",
+      "spacing": false,
+      "view": "qualidade",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "class": "",
+          "label": "Tentativa sem publicaçãoDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+          "left": 37,
+          "right": 4342,
+          "width": 4305,
+          "top": 1824.6875,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 4342,
+          "scroll_width": 4305,
+          "client_width": 4305
+        },
+        {
+          "tag": "P",
+          "id": "",
+          "class": "",
+          "label": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+          "left": 37,
+          "right": 4342,
+          "width": 4305,
+          "top": 1845.6875,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 4342,
+          "scroll_width": 4305,
+          "client_width": 4305
+        },
+        {
+          "tag": "P",
+          "id": "",
+          "class": "meta",
+          "label": "Lote fixture-…aaaa · — · execução fixture-…bbbb",
+          "left": 37,
+          "right": 4342,
+          "width": 4305,
+          "top": 1874.6875,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 329.75,
+          "scroll_width": 4305,
+          "client_width": 4305
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "class": "id-link",
+          "label": "fixture-…bbbb",
+          "left": 236.828125,
+          "right": 329.75,
+          "width": 92.921875,
+          "top": 1876.6875,
+          "display": "inline",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 236.828125,
+          "text_right": 329.75,
+          "scroll_width": 0,
+          "client_width": 0
+        }
+      ],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "fixture-long",
+      "spacing": false,
+      "view": "indicadores",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "fixture-long",
+      "spacing": false,
+      "view": "proveniencia",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "fixture-long",
+      "spacing": true,
+      "view": "qualidade",
+      "viewport": 320,
+      "document": 326,
+      "escaped": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "class": "",
+          "label": "Tentativa sem publicaçãoDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+          "left": 37,
+          "right": 5182,
+          "width": 5145,
+          "top": 2410,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 5182,
+          "scroll_width": 5145,
+          "client_width": 5145
+        },
+        {
+          "tag": "P",
+          "id": "",
+          "class": "",
+          "label": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+          "left": 37,
+          "right": 5182,
+          "width": 5145,
+          "top": 2431,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 5182,
+          "scroll_width": 5145,
+          "client_width": 5145
+        },
+        {
+          "tag": "P",
+          "id": "",
+          "class": "meta",
+          "label": "Lote fixture-…aaaa · — · execução fixture-…bbbb",
+          "left": 37,
+          "right": 5182,
+          "width": 5145,
+          "top": 2480,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 415.5625,
+          "scroll_width": 5145,
+          "client_width": 5145
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "class": "id-link",
+          "label": "fixture-…bbbb",
+          "left": 302.359375,
+          "right": 415.5625,
+          "width": 113.203125,
+          "top": 2482,
+          "display": "inline",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 302.359375,
+          "text_right": 415.5625,
+          "scroll_width": 0,
+          "client_width": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 252.515625,
+          "right": 325.640625,
+          "width": 73.125,
+          "top": -123,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 254.515625,
+          "text_right": 323.640625,
+          "scroll_width": 73,
+          "client_width": 73
+        }
+      ],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "fixture-long",
+      "spacing": true,
+      "view": "indicadores",
+      "viewport": 320,
+      "document": 327,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 253.65625,
+          "right": 326.78125,
+          "width": 73.125,
+          "top": -123,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 255.65625,
+          "text_right": 324.78125,
+          "scroll_width": 73,
+          "client_width": 73
+        }
+      ],
+      "cards": []
+    },
+    {
+      "phase": "before",
+      "name": "fixture-long",
+      "spacing": true,
+      "view": "proveniencia",
+      "viewport": 320,
+      "document": 326,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 250.5625,
+          "right": 326.375,
+          "width": 75.8125,
+          "top": -123,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 252.5625,
+          "text_right": 324.375,
+          "scroll_width": 76,
+          "client_width": 76
+        }
+      ],
+      "cards": []
+    },
+    {
+      "phase": "after",
+      "name": "actual-comparable",
+      "spacing": false,
+      "view": "qualidade",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "actual-comparable",
+      "spacing": false,
+      "view": "indicadores",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 2026.015625,
+          "bottom": 2410.78125,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 94.84375,
+              "right": 154.5,
+              "top": 2215.109375,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 197.390625,
+              "right": 265,
+              "top": 2215.109375,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 94.84375,
+              "right": 154.5,
+              "top": 2283,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 184.203125,
+              "right": 265,
+              "top": 2283,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 105.515625,
+              "right": 154.5,
+              "top": 2370.390625,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 2426.78125,
+          "bottom": 2799.546875,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 93.34375,
+              "right": 153,
+              "top": 2599.875,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 221.34375,
+              "right": 281,
+              "top": 2599.875,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 93.34375,
+              "right": 153,
+              "top": 2667.765625,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 208.15625,
+              "right": 281,
+              "top": 2667.765625,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 104.015625,
+              "right": 153,
+              "top": 2755.15625,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "actual-comparable",
+      "spacing": false,
+      "view": "proveniencia",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "actual-comparable",
+      "spacing": true,
+      "view": "qualidade",
+      "viewport": 320,
+      "document": 326,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 252.515625,
+          "right": 325.640625,
+          "width": 73.125,
+          "top": -103,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 254.515625,
+          "text_right": 323.640625,
+          "scroll_width": 73,
+          "client_width": 73
+        }
+      ],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "actual-comparable",
+      "spacing": true,
+      "view": "indicadores",
+      "viewport": 320,
+      "document": 327,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 253.65625,
+          "right": 326.78125,
+          "width": 73.125,
+          "top": -103,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 255.65625,
+          "text_right": 324.78125,
+          "scroll_width": 73,
+          "client_width": 73
+        }
+      ],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 2779.5,
+          "bottom": 3259,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 79.484375,
+              "right": 154.5,
+              "top": 3040,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 180.109375,
+              "right": 265,
+              "top": 3040,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 79.484375,
+              "right": 154.5,
+              "top": 3109.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 168.5,
+              "right": 268.484375,
+              "top": 3129,
+              "overflow_x": "auto",
+              "element_scroll_width": 102,
+              "element_client_width": 99
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 94,
+              "right": 154.5,
+              "top": 3218,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 3275,
+          "bottom": 3736.5,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 77.984375,
+              "right": 153,
+              "top": 3513.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 205.984375,
+              "right": 281,
+              "top": 3513.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 77.984375,
+              "right": 153,
+              "top": 3583,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 190.875,
+              "right": 281,
+              "top": 3602.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 92.5,
+              "right": 153,
+              "top": 3691.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "actual-comparable",
+      "spacing": true,
+      "view": "proveniencia",
+      "viewport": 320,
+      "document": 326,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 250.5625,
+          "right": 326.375,
+          "width": 75.8125,
+          "top": -103,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 252.5625,
+          "text_right": 324.375,
+          "scroll_width": 76,
+          "client_width": 76
+        }
+      ],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "fixture-long",
+      "spacing": false,
+      "view": "qualidade",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "class": "",
+          "label": "Tentativa sem publicaçãoDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+          "left": 37,
+          "right": 4342,
+          "width": 4305,
+          "top": 1824.6875,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 4342,
+          "scroll_width": 4305,
+          "client_width": 4305
+        },
+        {
+          "tag": "P",
+          "id": "",
+          "class": "",
+          "label": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+          "left": 37,
+          "right": 4342,
+          "width": 4305,
+          "top": 1845.6875,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 4342,
+          "scroll_width": 4305,
+          "client_width": 4305
+        },
+        {
+          "tag": "P",
+          "id": "",
+          "class": "meta",
+          "label": "Lote fixture-…aaaa · — · execução fixture-…bbbb",
+          "left": 37,
+          "right": 4342,
+          "width": 4305,
+          "top": 1874.6875,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 329.75,
+          "scroll_width": 4305,
+          "client_width": 4305
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "class": "id-link",
+          "label": "fixture-…bbbb",
+          "left": 236.828125,
+          "right": 329.75,
+          "width": 92.921875,
+          "top": 1876.6875,
+          "display": "inline",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 236.828125,
+          "text_right": 329.75,
+          "scroll_width": 0,
+          "client_width": 0
+        }
+      ],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "fixture-long",
+      "spacing": false,
+      "view": "indicadores",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 2025.515625,
+          "bottom": 2410.28125,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 94.84375,
+              "right": 154.5,
+              "top": 2214.609375,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 197.390625,
+              "right": 265,
+              "top": 2214.609375,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 94.84375,
+              "right": 154.5,
+              "top": 2282.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 184.203125,
+              "right": 265,
+              "top": 2282.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 105.515625,
+              "right": 154.5,
+              "top": 2369.890625,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 2426.28125,
+          "bottom": 2799.046875,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 93.34375,
+              "right": 153,
+              "top": 2599.375,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 221.34375,
+              "right": 281,
+              "top": 2599.375,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 93.34375,
+              "right": 153,
+              "top": 2667.265625,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 208.15625,
+              "right": 281,
+              "top": 2667.265625,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 104.015625,
+              "right": 153,
+              "top": 2754.65625,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "fixture-long",
+      "spacing": false,
+      "view": "proveniencia",
+      "viewport": 320,
+      "document": 320,
+      "escaped": [],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "fixture-long",
+      "spacing": true,
+      "view": "qualidade",
+      "viewport": 320,
+      "document": 326,
+      "escaped": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "class": "",
+          "label": "Tentativa sem publicaçãoDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+          "left": 37,
+          "right": 5182,
+          "width": 5145,
+          "top": 2410,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 5182,
+          "scroll_width": 5145,
+          "client_width": 5145
+        },
+        {
+          "tag": "P",
+          "id": "",
+          "class": "",
+          "label": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+          "left": 37,
+          "right": 5182,
+          "width": 5145,
+          "top": 2431,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 5182,
+          "scroll_width": 5145,
+          "client_width": 5145
+        },
+        {
+          "tag": "P",
+          "id": "",
+          "class": "meta",
+          "label": "Lote fixture-…aaaa · — · execução fixture-…bbbb",
+          "left": 37,
+          "right": 5182,
+          "width": 5145,
+          "top": 2480,
+          "display": "block",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 37,
+          "text_right": 415.5625,
+          "scroll_width": 5145,
+          "client_width": 5145
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "class": "id-link",
+          "label": "fixture-…bbbb",
+          "left": 302.359375,
+          "right": 415.5625,
+          "width": 113.203125,
+          "top": 2482,
+          "display": "inline",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 302.359375,
+          "text_right": 415.5625,
+          "scroll_width": 0,
+          "client_width": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 252.515625,
+          "right": 325.640625,
+          "width": 73.125,
+          "top": -123,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 254.515625,
+          "text_right": 323.640625,
+          "scroll_width": 73,
+          "client_width": 73
+        }
+      ],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "fixture-long",
+      "spacing": true,
+      "view": "indicadores",
+      "viewport": 320,
+      "document": 327,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 253.65625,
+          "right": 326.78125,
+          "width": 73.125,
+          "top": -123,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 255.65625,
+          "text_right": 324.78125,
+          "scroll_width": 73,
+          "client_width": 73
+        }
+      ],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 2798.5,
+          "bottom": 3278,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 79.484375,
+              "right": 154.5,
+              "top": 3059,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 180.109375,
+              "right": 265,
+              "top": 3059,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 79.484375,
+              "right": 154.5,
+              "top": 3128.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 168.5,
+              "right": 268.484375,
+              "top": 3148,
+              "overflow_x": "auto",
+              "element_scroll_width": 102,
+              "element_client_width": 99
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 94,
+              "right": 154.5,
+              "top": 3237,
+              "overflow_x": "auto",
+              "element_scroll_width": 99,
+              "element_client_width": 99
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 3294,
+          "bottom": 3755.5,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 77.984375,
+              "right": 153,
+              "top": 3532.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 205.984375,
+              "right": 281,
+              "top": 3532.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 77.984375,
+              "right": 153,
+              "top": 3602,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 190.875,
+              "right": 281,
+              "top": 3621.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 92.5,
+              "right": 153,
+              "top": 3710.5,
+              "overflow_x": "auto",
+              "element_scroll_width": 116,
+              "element_client_width": 116
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "name": "fixture-long",
+      "spacing": true,
+      "view": "proveniencia",
+      "viewport": 320,
+      "document": 326,
+      "escaped": [
+        {
+          "tag": "A",
+          "id": "",
+          "class": "",
+          "label": "Arquivos",
+          "left": 250.5625,
+          "right": 326.375,
+          "width": 75.8125,
+          "top": -123,
+          "display": "flex",
+          "gap": "normal",
+          "flex_wrap": "nowrap",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "text_left": 252.5625,
+          "text_right": 324.375,
+          "scroll_width": 76,
+          "client_width": 76
+        }
+      ],
+      "cards": [
+        {
+          "metric": "unit_price_mean_brl",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "9,642857",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "15,357143",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "5,714286",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "59,259300%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        },
+        {
+          "metric": "quantity_mean",
+          "top": 0,
+          "bottom": 0,
+          "values": [
+            {
+              "field": "previous",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "current",
+              "text": "1,750000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "difference",
+              "text": "0,000000",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "relative_change",
+              "text": "0,000000%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            },
+            {
+              "field": "threshold",
+              "text": "25,00%",
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "overflow_x": "auto",
+              "element_scroll_width": 0,
+              "element_client_width": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

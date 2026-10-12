@@ -1,6 +1,74 @@
 # Qualidade da interface de fechamento
 
+## Revisão de UI/UX em 12/10/2026
+
+Quem confere o fechamento precisa reconhecer a decisão registrada, investigar uma pendência ou variação e conferir os valores e sua origem. As [quatro jornadas](interface.md#quatro-jornadas-de-consulta) atravessam Execução, Indicadores e Arquivos. O HTML continua sendo um snapshot somente leitura: navegação, consulta e cópia de IDs não publicam dados nem iniciam Spark.
+
+### Diagnóstico e escolha de composição
+
+A captura anterior da comparação válida mostrou o aviso de preço depois dos gráficos, numa tabela de oito colunas. Em 390 px, a entrada do perfil mostrava contexto e ID antes da regra. Isso foi observado na interface. A hipótese de design é que aproximar a comparação dos totais e mostrar os valores da regra em uma lista reduz a procura pela explicação. Não houve entrevista, teste com usuários ou medição de produtividade.
+
+| Problema observado | Quem encontra | Evidência | Prioridade | Mudança | Teste de aceite |
+| ------------------ | ------------- | --------- | ---------- | ------- | --------------- |
+| Aviso de preço depois dos gráficos e oito colunas para ler a regra | Quem explica uma variação | Captura anterior da comparação válida, 390 px; [direção](evidence/uiux-20261012-a12e4a/design-plan.md) | P2 | Comparação junto dos totais e lista de regras, aviso primeiro | Contexto precede regra; anterior, atual e diferença legíveis em 320 e 390 px, com tabela exata disponível. |
+| Com espaçamento de texto em 320 px, a navegação gera largura global de 326/327 px | Quem amplia o espaçamento para leitura | [Diagnóstico v1](evidence/uiux-20261012-a12e4a/iterations-v1/overflow-diagnostic-v1.json); comportamento também observado no BEFORE | P1 | Navegação pode quebrar e encolher dentro do viewport | Todas as vistas permanecem em 320 px sob os overrides de texto, sem overflow global. |
+| Percentual de aviso ocupa 102 px em um campo de 99 px | Quem lê a variação de preço em tela estreita | [Registro v1](evidence/uiux-20261012-a12e4a/iterations-v1/qa-v1-index.json), com espaçamento de texto | P1 | Reorganizar a largura dos valores da regra | Percentual e valores principais ficam completos, sem rolagem interna do campo, em 320 px. |
+| Nome desconhecido de métrica no novo H5 gera documento de 339 px em 320 px | Quem abre um input de apresentação com rótulo fora do contrato | [Probe do marcador](evidence/uiux-20261012-a12e4a/iterations-v1/uiux-chromium-probes-unknown-v1.json) | P2 | Quebra de texto literal escapado e colunas que podem encolher | Mesmo marcador antes/depois, com e sem JavaScript, sem alargar a página. O reader continua recusando métrica fora do contrato. |
+| Rótulos de métricas nas tabelas de alterações e lote usam células comuns | Quem consulta relações entre rótulo e valor | [Registro v1](evidence/uiux-20261012-a12e4a/iterations-v1/qa-v1-index.json) | P2 | Cabeçalhos de linha para os rótulos dessas tabelas | Caption, cabeçalhos de coluna e `th scope="row"` nas métricas, mantendo valores e ordem. |
+
+P1 indica um problema de leitura ou layout que exige correção nesta rodada; P2 indica hierarquia, conteúdo de fronteira ou semântica. A consequência das falhas está na apresentação. Os testes não encontraram uma divergência financeira nesses casos.
+
+### Correções do oracle e falhas da interface
+
+O [registro das correções do oracle](evidence/uiux-20261012-a12e4a/iterations-v1/oracle-corrections-v2.json) preserva as premissas corrigidas. Sem publicação, o relatório deve mostrar quatro indicadores indisponíveis; o oracle v1 esperava ausência de elementos. As verificações de período passaram a comparar datas e quantidade, permitindo a gramática singular e a descrição de um conjunto vazio. Cabeçalhos de linha são exigidos onde o primeiro campo identifica uma métrica, sem impor a mesma forma a toda tabela. A espera de fontes do Firefox recebeu prazo finito e retorno serializável; uma tentativa interrompida não foi registrada como aprovação.
+
+Essas correções do teste não resolvem os defeitos de layout ou semântica listados acima. Os gates de overflow, leitura dos valores e cabeçalhos de métricas continuaram ativos. Os relatórios v1, inclusive falhas e tentativas incompletas, permanecem em [iterations-v1](evidence/uiux-20261012-a12e4a/iterations-v1/); o resultado da fonte final depende do QA v2.
+
+### Duas composições
+
+| Composição | Ordem de leitura | Decisão |
+| ---------- | ---------------- | ------- |
+| A: fechamento, comparação e análise | Identidade e totais; recorte e contexto; aviso e valores das regras; matriz e gráficos | Escolhida para manter a explicação de uma mudança junto dos indicadores publicados. |
+| B: panorama e chamada de perfil | Identidade e totais com chamada; matriz e gráficos; perfil ao fim | Mantém a análise comercial na entrada, mas exige um salto para investigar a comparação. |
+
+Essas duas composições pertencem à revisão atual. A comparação A/B da v4, preservada abaixo, usou outro diagnóstico e outra fonte. Os [recibos de direção e pesquisa](evidence/uiux-20261012-a12e4a/) e as [imagens da revisão](images/uiux-20261012-a12e4a/) têm registros próprios no [índice final](evidence/uiux-20261012-a12e4a/index.json).
+
+A implementação conserva Source Sans 3 local, licença OFL e a marca existente. Valores usam algarismos tabulares. Cor acompanha o estado escrito; foco, aviso e bloqueio têm funções distintas. O contexto conhecido, parcial ou ausente aparece antes da variação. O aviso vem primeiro na lista de regras, e a tabela completa permanece num detalhe nativo. Informações de origem e distribuições continuam acessíveis sem ocupar a decisão inicial.
+
+### Pesquisa aplicada
+
+As referências foram consultadas em 12/10/2026. A [WCAG 2.2](https://www.w3.org/WAI/WCAG22/quickref/) orientou os critérios de contraste, foco, reflow, espaçamento de texto e alvos. As [tabelas da WAI](https://www.w3.org/WAI/tutorials/tables/two-headers/) orientaram a relação entre cabeçalhos e valores. [Details](https://design-system.service.gov.uk/components/details/) e [summary list](https://design-system.service.gov.uk/components/summary-list/) do GOV.UK apoiaram o uso de detalhes nativos para conteúdo secundário e pares de rótulo/valor para contexto. As [notificações do Carbon](https://www.carbondesignsystem.com/building-blocks/core/components/notification/guidelines) foram referência para a posição de avisos persistentes. A [Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md) orientou semântica, foco e conteúdo longo.
+
+Foram adaptados os mecanismos de apresentação; código, templates, marcas e assets dessas referências não foram copiados. Documentação de componentes não comprova usabilidade deste produto. O [guia do Playwright](https://playwright.dev/docs/accessibility-testing) também separa os testes automáticos das avaliações manuais de acessibilidade.
+
+### Mesmo corpus antes e depois
+
+O corpus tem 22 inputs imutáveis. Três contêm o ReportPayload real das publicações inicial, comparável e sem recorte comum, relido com `versionAsOf` em uma única sessão Spark. Os 174 arquivos duráveis da demonstração permaneceram iguais; nenhum lote foi executado nessa captura. Cinco são os payloads históricos já versionados. Os 14 restantes são fixtures de apresentação identificadas no HTML e no manifesto.
+
+Os três HTMLs anteriores coincidem byte a byte com os hashes da captura real. O renderer anterior, CSS, JavaScript, fontes e SVGs têm uma cópia congelada. O replay posterior usa os mesmos JSONs, sem reler Delta ou gerar indicadores. Os [recibos finais](evidence/uiux-20261012-a12e4a/README.md) identificam os hashes de cada input, HTML e fonte, além do viewport e motor executados. O candidato final tem 94 fontes inventariadas antes e depois dos gates, sem alterações.
+
+Receita conserva os centavos: R$ 64,00 na primeira publicação, R$ 104,00 na revisão comparável e R$ 64,00 no período sem interseção. As médias preservam suas casas decimais; quantis continuam aproximações com algoritmo e precisão informados. A fixture de valor extenso usa `1234567890123.45` e ticket `411522630041.15`, calculado com Decimal para três vendas. Zero aditivo confirmado, ticket indefinido, campo ausente e ausência de publicação têm apresentações distintas.
+
+### Validação da fonte final
+
+A paleta da marca usa azul petróleo `#245B64` para marca, links, ações e gráficos. Azul escuro, branco e cinza claro sustentam a folha de conferência; verde, ocre e vermelho conservam suas funções semânticas. A [paleta e seus usos](interface.md#paleta-e-identidade) e o README registram os códigos. Fonte e marca existentes foram reaproveitadas.
+
+- **374 unitários passaram**, incluindo 91 do relatório, em 25,04 s no Linux. Ruff passou; formato conferiu 64 arquivos e mypy conferiu 20 módulos. O wheel final contém 34 arquivos iguais à fonte e gerou HTML num import isolado. [Gates e ambiente](evidence/uiux-20261012-a12e4a/quality-final.public.json).
+- **Edge 155.0.4283.45:** 22 inputs, cinco larguras, 3.560 checks e 18 capturas; nenhuma falha de aceite. **Firefox 155.0:** três casos, 479 checks e 11 capturas, incluindo comparação, matriz e dinheiro extenso. [Edge](evidence/uiux-20261012-a12e4a/qa-final-edge-v5/uiux-review.json) · [Firefox](evidence/uiux-20261012-a12e4a/qa-final-firefox-v5/uiux-review.json).
+- As jornadas passaram por teclado, Tab/Shift+Tab, âncoras, histórico, detalhes nativos, cópia/fallback e leitura sem JavaScript. Os valores capturados, IDs, tabelas e fontes foram preservados. Não houve requisição remota, falha de rede ou erro de página. Conteúdo longo, reflow, movimento reduzido e espaçamento de texto foram conferidos em 320, 390, 768, 1024 e 1440 CSS px.
+- **Axe 4.13.0:** zero violações nas regras WCAG selecionadas. Edge conservou 80 resultados `incomplete` e Firefox 11, todos de contraste; SVGs, fundos e regiões de rolagem/sticky não viram aprovação automática. A [revisão dos grupos e limites](evidence/uiux-20261012-a12e4a/manual-review-v5.json) registra razões e seletores. Scanner sem violações não certifica WCAG 2.2 AA.
+- As 960 amostras textuais do Edge e 138 do Firefox tiveram mínimo de **5,000:1**, sem resultado calculado abaixo do requisito. Foco branco na faixa escura: 12 alvos, mínimo **12,866:1**. Seleção/hover nas seis cores da matriz: 12 amostras numa fixture DOM separada, mínimo **3,904:1** para o anel mais visível. Esta fixture verifica apresentação, sem executar Spark. [Foco](evidence/uiux-20261012-a12e4a/focus-state-v5.json) · [Paleta](evidence/uiux-20261012-a12e4a/focus-palette-v5/probe.json).
+- No Edge, 6.311 alvos satisfizeram o retângulo de 24 × 24 CSS px, 224 usaram a exceção de link em texto e 90 o espaçamento; no Firefox, 632, 33 e 15, respectivamente. São medições de retângulos/espaçamento, sem ensaio de toque físico ou hit-testing de toda forma.
+
+As 18 [comparações de imagem](evidence/uiux-20261012-a12e4a/image-pairs.json) usam o mesmo input, estado e viewport. Capturas de perfil, bloqueio e conteúdo longo foram abertas em tamanho legível; aviso, contexto, valores e IDs continuam disponíveis. O dinheiro extenso conserva centavos, com rolagem local focável quando necessária, e a legenda pode quebrar entre valores inteiros.
+
+Os overrides de texto usam line-height 1,5, intervalo de parágrafo 2em, letras 0,12em e palavras 0,16em. Reflow e esses overrides não comprovam zoom nativo. **Zoom nativo, leitor de tela e forced-colors permanecem NV**. Também não houve estudo com usuários, medida de produtividade, ensaio de hardware lento ou paginação integral de PDF. A suíte Spark/Delta anterior permanece vinculada à sua fonte; esta revisão não reprocessou lotes ou repetiu benchmark.
+
+Para reproduzir os 22 payloads offline e testar outra captura sem sobrescrever os recibos, consulte [comandos e proveniência](evidence/uiux-20261012-a12e4a/README.md). A fonte final está em `source-candidate-v5.json`; os candidatos anteriores, falhas e correções do oracle continuam preservados.
+
 ## Interface funcional de perfis, 12/10/2026
+
+Os registros desta seção descrevem a entrega funcional anterior à revisão de UI/UX acima. Seus testes, capturas e limites permanecem vinculados às fontes originais.
 
 Em Indicadores, o link “Perfil e comparação” abre a seção da publicação capturada. O relatório identifica a publicação anterior, mostra mudanças de período, catálogo e lojas antes das regras e conserva tabelas para os totais originais e o recorte equivalente. A cobertura histórica parcialmente conhecida aparece antes das diferenças. O lote recebido tem suas próprias contagens e cobertura, separados do estado Silver ativo.
 
@@ -136,6 +204,8 @@ A matriz mantém rolagem horizontal local em telas estreitas. Isso preserva eixo
 
 ## Matriz de onze dimensões — antes e depois
 
+Esta matriz é o histórico da revisão v4 de 22/09/2026. Suas classificações C, PC, NA e NV descrevem aquele baseline, candidato e protocolo. O resultado de outros motores, por exemplo, permaneceu NV na v4; ele não classifica o candidato de UI/UX de outubro.
+
 Legenda: **C** = Conforme no escopo descrito; **PC** = Parcialmente conforme; **NC** = Não conforme; **NV** = Não verificado; **NA** = Não aplicável, com motivo. Cada célula compara **antes → depois**. Não há nota média nem certificação. A classificação é uma avaliação técnica das provas, não aprovação de usuários.
 
 O antes é exclusivamente o baseline visual `636e8408f1108ce387ddc291318d2d1ebe042dee`; o depois é a fonte v4 identificada no manifesto. Os [14 pares](evidence/interface-v4/comparison.json) usam os mesmos cinco payloads, estados e dimensões. As [provas v3](evidence/interface-v3/review-manifest.json) descrevem as capacidades já existentes no baseline; não se creditam navegação, separação tentativa/publicação ou tabelas exatas como funcionalidades novas. A demonstração editorial posterior tem outros dados e não substitui essa comparação.
@@ -169,9 +239,11 @@ As prioridades abaixo expressam o impacto do problema observado, sem transformar
 | Todas / contexto móvel             | O header compacto ocultava a condição de snapshot                                                   | P2                         | “Snapshot · somente leitura” junto do título de contexto                                  | Capturas móveis e `refinements` no registro do navegador                                   |
 | Indicadores / publicação vazia     | O leitor retornava `None` para soma de zero linhas; o novo formatter revelou a ausência indevida    | P1, preexistente no leitor | Contagem explícita de linhas e zero apenas para totais aditivos vazios; correção separada | Integrações de fronteiras e checks integrados, sem reatribuir o resultado à mudança visual |
 
-Próxima validação segura: **P2**, tecnologia assistiva, zoom nativo e outro motor de navegador; **P3**, hardware lento e PDF página a página. A dimensão 8 permanece PC, a 9 permanece PC e a paginação integral do PDF permanece NV. Axe, tamanho do arquivo e screenshots não substituem essas verificações.
+No encerramento da v4, as próximas validações eram **P2**, tecnologia assistiva, zoom nativo e outro motor de navegador; **P3**, hardware lento e PDF página a página. Naquela matriz, a dimensão 8 permaneceu PC, a 9 permaneceu PC e a paginação integral do PDF permaneceu NV. Axe, tamanho do arquivo e screenshots não substituem essas verificações.
 
 ## Verificação, origem e limites
+
+Os resultados abaixo pertencem à revisão v4 e à sua integração de setembro. As contagens de 200 e 234 unitários, o axe, o contraste e os limites de navegador não foram reatribuídos à fonte de UI/UX de outubro. Os recibos vinculados conservam seus números, datas e hashes originais.
 
 - **200 testes unitários no candidato**, incluindo 50 do renderer; Ruff, formatação e mypy. Após integrar os 34 testes da prova de estado, **234 unitários**, lint, formato, tipos, wheel e smoke isolado passaram na fonte combinada. [Verificação após integração](evidence/interface-v4/merged/checks.json). [Comandos/versões](evidence/interface-v4/checks.json), [JUnit](evidence/interface-v4/unit-tests.xml). O primeiro gate de tipos pediu uma anotação `list[str]`, corrigida; nenhuma regra foi afrouxada.
 - Wheel construído sem rede; oito recursos de CSS/JS/fonte/marca/licença correspondem aos bytes da fonte. Um Python isolado importou o wheel e gerou HTML com fonte e OFL. O módulo Python do loader também foi conferido no pacote.
@@ -188,6 +260,8 @@ O replay de interface não reexecutou lotes, demo ou benchmark. Em trabalho sepa
 A apresentação está em [report_view.py](../src/retail_pipeline/report_view.py), [report.css](../src/retail_pipeline/report.css), [report.js](../src/retail_pipeline/report.js) e [report_assets.py](../src/retail_pipeline/report_assets.py). Regressões: `_store_matrix`, `_product_ranking`, `_revenue_chart` e o [teste de relatório](../tests/unit/test_reporting.py); recursos empacotados no [pyproject.toml](../pyproject.toml). A normalização LF aplica-se somente a textos: WOFF2 é binário e seu SHA cobre os bytes originais.
 
 ## Reprodução e histórico
+
+Os comandos abaixo geram uma nova rodada com a fonte presente no checkout. Para reproduzir os bytes da v4, é preciso usar a fonte identificada no manifesto histórico e os mesmos inputs. Executá-los na fonte de outubro não renova os resultados da v4 nem substitui o protocolo atual de 22 casos.
 
 ```sh
 PYTHONPATH=src python scripts/render_review.py

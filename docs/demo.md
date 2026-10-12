@@ -6,6 +6,19 @@ O [roteiro de evolução](evolution.md) usa estado, imagem, volume e exportaçõ
 
 O mesmo executor injeta falha na exportação terminal depois da publicação, verifica `PUBLISHED`, reexporta um COMPLETE e confere preservação de bytes e idempotência. `profile` consulta o JSON do snapshot, e `lineage` permite repetir explicitamente a reconciliação. [Mapeamento OpenLineage](openlineage.md).
 
+## Conferir a revisão da interface
+
+A revisão de 12/10/2026 usa os HTMLs capturados das três publicações da evolução e os mesmos dados antes e depois. Os totais são R$ 64,00, R$ 104,00 e R$ 64,00. A captura releu as versões já publicadas em uma única sessão Spark, sem executar novos lotes. O replay da apresentação usa somente os JSONs capturados; abrir o HTML não atualiza o pipeline.
+
+1. Em Indicadores, confira identidade, horário e totais da publicação inicial. O perfil informa que ainda não existe baseline para comparação.
+2. No relatório histórico bloqueado, abra Execução, ocorrência e cobertura. S02 está ausente; Indicadores conserva os R$ 64,00 da publicação anterior.
+3. Na publicação comparável, confira datas e lojas do recorte antes do aviso de preço. Na publicação de 10/01, confira a falta de datas em comum com 01/01; o estado não comparável não apresenta uma variação relativa válida.
+4. Em Arquivos e nos detalhes do perfil, consulte e copie os IDs completos, confira a publicação anterior e as versões Delta. Nenhuma ação da página publica, corrige ou reprocessa a entrega.
+
+O corpus inclui os cinco payloads históricos e 14 fixtures de apresentação, além das três publicações da evolução. Fixtures de baseline zero, falta de amostra, perfil ausente ou inválido, publicação vazia e campos não informados ajudam a conferir os textos e valores; não registram novas execuções de domínio. Os horários de setembro permanecem nos payloads históricos.
+
+Os [recibos atuais](evidence/uiux-20261012-a12e4a/) e as [capturas antes/depois](images/uiux-20261012-a12e4a/) registram a fonte final, 18 pares de imagens e os gates aprovados; [reprodução offline](evidence/uiux-20261012-a12e4a/README.md). O [guia da interface](interface.md) explica as jornadas e [Qualidade da interface](frontend-quality.md#revisão-de-uiux-em-12102026) registra o diagnóstico, as duas composições e o protocolo. Zoom nativo e leitor de tela permanecem não verificados. Os roteiros de processamento abaixo continuam separados da reprodução visual.
+
 ## Testar o problema e a correção
 
 Após o setup, execute em uma janela sem outro Spark:

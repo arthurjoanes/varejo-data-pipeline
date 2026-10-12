@@ -1,0 +1,89 @@
+{
+  "domain_files": 174,
+  "domain_unchanged": true,
+  "elapsed_seconds": 22.65357190299983,
+  "image": "sha256:e54034991f90d5fc612bb0ae3b4c9369e439d2fbcc06c0cf96185e370615ccb8",
+  "new_batch_executions": 0,
+  "outputs": [
+    {
+      "comparison_status": "NO_BASELINE",
+      "delta_versions": {
+        "bronze": 0,
+        "gold_product_day": 0,
+        "gold_store_day": 0,
+        "history": 0,
+        "silver": 0
+      },
+      "html_sha256": "efc93e7d15e3d2bf18d153b0c2099874a6d48c27c044ed6d3c26583dda3f96c1",
+      "payload_sha256": "a3458f6494347140ca72427ad4056641478d88c87c80c4ff401da5780600d58f",
+      "profile_status": "AVAILABLE",
+      "publication_id": "3ba460ae8949421fb6a2c4d7eaad6d04",
+      "run_id": "fe482201333f409a9fcc08fd3562b3bf",
+      "state": "initial",
+      "summary": {
+        "average_ticket_brl": "21.33333333333333333333333333",
+        "first_date": "2026-01-01",
+        "item_lines": 4,
+        "last_date": "2026-01-01",
+        "net_revenue_brl": "64.00",
+        "sales_count": 3,
+        "units": 7
+      }
+    },
+    {
+      "comparison_status": "COMPARABLE",
+      "delta_versions": {
+        "bronze": 0,
+        "gold_product_day": 1,
+        "gold_store_day": 1,
+        "history": 1,
+        "silver": 1
+      },
+      "html_sha256": "841fa790fc1c5e4a1b39cc9ec822ee172e0308d83fec06b9728a2ad7378df39c",
+      "payload_sha256": "3ef1426c60ee5582eabe1e19848cd7aa39ea510dc906b0f567156b93623ee744",
+      "profile_status": "AVAILABLE",
+      "publication_id": "cb44bc5a82b4459dbccb75d405d9601c",
+      "run_id": "09eaa16867e24271ac9d990935c577dc",
+      "state": "comparable",
+      "summary": {
+        "average_ticket_brl": "34.66666666666666666666666667",
+        "first_date": "2026-01-01",
+        "item_lines": 4,
+        "last_date": "2026-01-01",
+        "net_revenue_brl": "104.00",
+        "sales_count": 3,
+        "units": 7
+      }
+    },
+    {
+      "comparison_status": "NOT_COMPARABLE",
+      "delta_versions": {
+        "bronze": 0,
+        "gold_product_day": 2,
+        "gold_store_day": 2,
+        "history": 2,
+        "silver": 2
+      },
+      "html_sha256": "07b26ecced6afc760cb81bf6973da11d66807294596ff42c3be64ad09adda034",
+      "payload_sha256": "cea3db6e1cea413846c3b0732e1d1bd69149e4e5d0a4db2ea1b6774b20253a86",
+      "profile_status": "AVAILABLE",
+      "publication_id": "306b52c7f4c745079e35ec1bcf951d1c",
+      "run_id": "03dfb4bc7900482ab7676b66457ffeb7",
+      "state": "incomparable",
+      "summary": {
+        "average_ticket_brl": "21.33333333333333333333333333",
+        "first_date": "2026-01-10",
+        "item_lines": 4,
+        "last_date": "2026-01-10",
+        "net_revenue_brl": "64.00",
+        "sales_count": 3,
+        "units": 7
+      }
+    }
+  ],
+  "passed": true,
+  "script_sha256": "de68275149b2ab017dfaa827333f35eb5cc89670e3d9e30db5f6b5d709b07007",
+  "source_files": 88,
+  "sources_unchanged": true,
+  "temporary_spark_files_excluded": true
+}
