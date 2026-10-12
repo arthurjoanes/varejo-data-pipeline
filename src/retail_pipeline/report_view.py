@@ -1,10 +1,11 @@
 from collections.abc import Mapping, Sequence
 from datetime import date, datetime, timedelta
-from decimal import ROUND_CEILING, ROUND_FLOOR, ROUND_HALF_UP, Decimal, localcontext
+from decimal import ROUND_HALF_UP, Decimal, localcontext
 from html import escape
 from importlib.resources import files
 
 from retail_pipeline.report_assets import BRAND_MARK, FAVICON, FONT_CSS, FONT_NOTICE
+from retail_pipeline.report_charts import product_mix, sales_trend, store_ranking
 from retail_pipeline.report_model import (
     CHART_LIMIT,
     PRODUCT_LIMIT,
@@ -212,11 +213,13 @@ def _chips(values: object, limit: int = 40) -> str:
 
 def _card(label: str, value: str, note: str, *, metric: str, accent: bool = False) -> str:
     css = "metric accent" if accent else "metric"
+    if len(value) > 12:
+        css += " metric-mobile-wide"
     if len(value) > 18:
         css += " metric-wide"
     overflow = (
         f' tabindex="0" role="region" aria-label="{_text(label)}: valor completo"'
-        if len(value) > 18
+        if len(value) > 12
         else ""
     )
     return (
@@ -261,124 +264,6 @@ def _short_id_link(
     return f'<a class="id-link" href="#{_text(field_id)}" aria-label="Ver ID completo {_text(label)} em {_text(section_label)}">{_text(short)}</a>'
 
 
-def _axis_scale(maximum: Decimal) -> tuple[Decimal, int]:
-    """Intervalos 1/2/5 em potência de dez, sem converter dinheiro para float."""
-    target = maximum / 4 if maximum > 0 else Decimal("0.25")
-    magnitude = Decimal(10) ** target.adjusted()
-    step = next(Decimal(n) * magnitude for n in (1, 2, 5, 10) if Decimal(n) * magnitude >= target)
-    step = max(step, Decimal("0.01"))
-    intervals = max(1, int((maximum / step).to_integral_value(rounding=ROUND_CEILING)))
-    return step, intervals
-
-
-def _axis_money(value: Decimal) -> str:
-    for divisor, suffix in (
-        (Decimal("1000000000"), "bi"),
-        (Decimal("1000000"), "mi"),
-        (Decimal("1000"), "mil"),
-    ):
-        if value >= divisor:
-            numeric = format(value / divisor, ".1f").rstrip("0").rstrip(".").replace(".", ",")
-            return f"R$ {numeric} {suffix}"
-    return _money(value)
-
-
-def _revenue_chart(rows: Sequence[Mapping[str, object]]) -> str:
-    if not rows:
-        return '<p class="empty">Sem receita publicada.</p>'
-    missing_values = any(row.get("net_revenue_brl") is None for row in rows)
-    rows = [row for row in rows if row.get("net_revenue_brl") is not None]
-    if not rows:
-        return '<p class="empty">Receita não informada neste recorte. Consulte a tabela de valores.</p>'
-    width, left, right, top, bottom = 900, 110, 20, 20, 210
-    plot_width = width - left - right
-    try:
-        dates = [date.fromisoformat(str(row.get("business_date"))) for row in rows]
-    except ValueError:
-        dates = []
-    date_span = (max(dates) - min(dates)).days if dates else 0
-    values = [_decimal(row.get("net_revenue_brl")) for row in rows]
-    minimum = min(Decimal(0), min(values))
-    step, intervals = _axis_scale(max(values) - minimum)
-    floor = (minimum / step).to_integral_value(rounding=ROUND_FLOOR) * step
-    ceiling = max(Decimal(0), (max(values) / step).to_integral_value(rounding=ROUND_CEILING) * step)
-    if ceiling == floor:
-        ceiling = floor + step
-    intervals = int((ceiling - floor) / step)
-    zero_y = bottom - int(-floor / (ceiling - floor) * (bottom - top))
-    points: list[str] = []
-    grid: list[str] = []
-    for index in range(intervals + 1):
-        y = top + (bottom - top) * index // intervals
-        label = _axis_money(ceiling - step * index)
-        grid.append(
-            f'<line x1="{left}" x2="{width - right}" y1="{y}" y2="{y}" '
-            f'stroke="#dae2ec"/><text x="{left - 12}" y="{y + 4}" '
-            f'text-anchor="end" class="chart-label">{_text(label)}</text>'
-        )
-    for index, value in enumerate(values):
-        if dates:
-            x = left + (plot_width * (dates[index] - min(dates)).days // max(1, date_span))
-        else:
-            x = left + plot_width * index // max(1, len(values) - 1)
-        y = bottom - int((value - floor) / (ceiling - floor) * (bottom - top))
-        points.append(f"{x},{y}")
-    ticks = sorted({0, len(rows) // 2, len(rows) - 1})
-    labels = "".join(
-        f'<text x="{points[index].split(",")[0]}" '
-        f'y="240" text-anchor="{"end" if index == len(rows) - 1 else "middle"}" class="chart-label">'
-        f"{_text(_date(rows[index].get('business_date')))}</text>"
-        for index in ticks
-    )
-    segments: list[list[str]] = []
-    for index, point in enumerate(points):
-        if index and dates and (dates[index] - dates[index - 1]).days == 1:
-            segments[-1].append(point)
-        else:
-            segments.append([point])
-    paths = []
-    for segment in segments:
-        if len(segment) < 2:
-            continue
-        area = (
-            f"{segment[0].split(',')[0]},{zero_y} "
-            + " ".join(segment)
-            + f" {segment[-1].split(',')[0]},{zero_y}"
-        )
-        paths.append(
-            f'<polygon points="{area}" fill="#e4eef8"/>'
-            f'<polyline points="{" ".join(segment)}" fill="none" '
-            'stroke="#245b64" stroke-width="3" stroke-linejoin="round"/>'
-        )
-    dots = "".join(
-        f'<circle cx="{point.split(",")[0]}" cy="{point.split(",")[1]}" '
-        f'r="4" fill="#245b64"><title>{_text(_date(row.get("business_date")))}: '
-        f"{_text(_money(row.get('net_revenue_brl')))}</title></circle>"
-        for point, row in zip(points, rows, strict=True)
-    )
-    return (
-        '<svg viewBox="0 0 900 260" role="img" '
-        'aria-label="Receita líquida por dia comercial, em reais">'
-        "<title>Receita líquida por dia comercial</title>"
-        + "".join(grid)
-        + "".join(paths)
-        + dots
-        + labels
-        + "</svg>"
-        + (
-            '<p class="footnote">Receitas não informadas não foram desenhadas como zero; consulte a tabela.</p>'
-            if missing_values
-            else ""
-        )
-        + (
-            '<p class="footnote">Trechos separados indicam datas sem observação contínua. '
-            "Dias sem observação não representam receita zero.</p>"
-            if len(segments) > 1
-            else ""
-        )
-    )
-
-
 def _table(
     rows: Sequence[Mapping[str, object]],
     columns: Sequence[tuple[str, str, str]],
@@ -421,29 +306,6 @@ def _table(
         + "</tr></thead><tbody>"
         + "".join(body)
         + "</tbody></table></div>"
-    )
-
-
-def _product_ranking(rows: Sequence[Mapping[str, object]]) -> str:
-    """Compara unidades do recorte já ordenado; não recalcula o ranking no navegador."""
-    if not rows:
-        return '<p class="empty">Sem produtos neste recorte.</p>'
-    maximum = max((_decimal(row.get("units")) for row in rows), default=Decimal(0))
-    items = []
-    for row in rows:
-        value = row.get("units")
-        units = _decimal(value)
-        width = max(Decimal(0), units) / maximum * 100 if maximum > 0 else Decimal(0)
-        label = _integer(value)
-        items.append(
-            '<li class="ranking-row">'
-            f'<span class="ranking-name">{_text(row.get("product_id"))}</span>'
-            f'<span class="ranking-track" aria-hidden="true"><span style="width:{width:.3f}%"></span></span>'
-            f'<strong class="numeric">{_text(label)}</strong></li>'
-        )
-    return (
-        '<p class="ranking-scale">Unidades · escala a partir de zero</p>'
-        f'<ol class="product-ranking" aria-label="Unidades por produto, na ordem do ranking publicado">{"".join(items)}</ol>'
     )
 
 
@@ -1067,8 +929,36 @@ def _profile_rule_cards(rules: Sequence[object]) -> str:
             if rule.get("severity") == "WARNING"
             else PROFILE_RULE_STATES.get(str(rule.get("status")), str(rule.get("status")))
         )
+        short_label = {
+            "unit_price_mean_brl": "Preço médio por unidade",
+            "quantity_mean": "Quantidade média por linha",
+        }.get(metric, PROFILE_RULES.get(metric, metric))
         parts.append(
-            f'<li class="profile-rule" data-profile-rule data-profile-metric="{_text(metric)}" data-severity="{_text(rule.get("severity"))}" aria-labelledby="profile-rule-{index}"><div class="profile-rule-heading"><h5 id="profile-rule-{index}">{_text(PROFILE_RULES.get(metric, metric))}</h5><p class="profile-rule-state">{_text(state)}</p></div><p class="profile-rule-reason">{_text(rule.get("reason"))}</p><dl class="profile-rule-values">'
+            f'<li class="profile-rule" data-profile-rule data-profile-metric="{_text(metric)}" data-severity="{_text(rule.get("severity"))}" aria-labelledby="profile-rule-{index}"><div class="profile-rule-heading"><h5 id="profile-rule-{index}">{_text(short_label)}</h5><p class="profile-rule-state">{_text(state)}</p></div>'
+        )
+        values = [rule.get("previous"), rule.get("current")]
+        if all(value is not None for value in values):
+            amounts = [_decimal(value) for value in values]
+            if all(value.is_finite() and value >= 0 for value in amounts):
+                maximum = max(amounts) or Decimal(1)
+                unit = {
+                    "unit_price_mean_brl": "BRL · antes dos descontos",
+                    "quantity_mean": "Unidades",
+                }.get(metric, "Unidade não informada")
+                parts.append(
+                    f'<p class="comparison-unit">{unit} · escala a partir de zero</p><div class="comparison-bars">'
+                )
+                for label, amount, css in zip(
+                    ("Anterior", "Atual"), amounts, ("previous", "current"), strict=True
+                ):
+                    width = format(amount / maximum * 100, ".4f")
+                    parts.append(
+                        f'<div class="comparison-bar {css}"><span>{label}</span><div class="comparison-track" aria-hidden="true"><i style="width:{width}%"></i></div><strong>{_text(_exact_decimal(amount))}</strong></div>'
+                    )
+                parts.append("</div>")
+        parts.append(
+            f'<p class="comparison-change"><strong>{_text(_profile_percentage(rule.get("relative_change")))}</strong> de variação <span>Limite de aviso: {_text(_profile_percentage(rule.get("threshold")))}</span></p>'
+            f'<details class="rule-details"><summary>Valores e motivo</summary><p class="profile-rule-reason">{_text(rule.get("reason"))}</p><dl class="profile-rule-values">'
         )
         for key, label in (
             ("previous", "Anterior"),
@@ -1092,7 +982,7 @@ def _profile_rule_cards(rules: Sequence[object]) -> str:
             parts.append(
                 f'<div><dt>{label}</dt><dd class="numeric" data-profile-value="{key}"{raw_attribute}{focus}>{_text(display)}</dd></div>'
             )
-        parts.append("</dl></li>")
+        parts.append("</dl></details></li>")
     return "".join(parts) + "</ol>"
 
 
@@ -1123,7 +1013,7 @@ def _profile_comparison(
     }.get(str(context.get("catalog_reference_origin")), "Catálogo de referência")
     parts = [
         '<div class="profile-comparison" id="profile-comparison" tabindex="-1">',
-        f'<header class="profile-decision {"warning" if warning else "neutral"}" data-profile-comparison-state="{_text(status)}"{count_attribute}><h4 class="profile-verdict">{_text(verdict)}</h4>',
+        f'<header class="profile-decision {"warning" if warning else "neutral"}" data-profile-comparison-state="{_text(status)}"{count_attribute}><h3 class="profile-verdict">{_text(verdict)}</h3>',
         f'<p class="profile-comparison-state">{_text(state)}</p>' if verdict != state else "",
         f'<p>{_text(comparison.get("reason"))}</p>' if comparison.get("reason") else "",
     ]
@@ -1132,6 +1022,9 @@ def _profile_comparison(
             '<p class="profile-warning-note">Aviso para conferência. O fechamento continua publicado.</p>'
         )
     parts.append("</header>")
+    parts.append(
+        '<details class="comparison-context"><summary>Períodos, lojas e publicações comparadas</summary>'
+    )
     if publication_id is not None:
         parts.append(
             '<p class="profile-publication">Publicação do perfil: '
@@ -1218,11 +1111,12 @@ def _profile_comparison(
         + "".join(f"<div><dt>{_text(label)}</dt><dd>{value}</dd></div>" for label, value in fields)
         + "</dl>"
     )
+    parts.append("</details>")
     if scope:
         parts.append(
             '<div class="profile-scope"><h4>Recorte equivalente</h4><p>'
             + _text(_profile_date_range(scope.get("dates")))
-            + '</p><p class="meta">Interseção explícita das datas e lojas das duas publicações.</p><div class="chips" role="group" aria-label="Lojas do recorte equivalente">'
+            + '</p><div class="chips" role="group" aria-label="Lojas do recorte equivalente">'
             + _chips(scope.get("stores"), PROFILE_GROUP_LIMIT)
             + "</div></div>"
         )
@@ -1243,7 +1137,7 @@ def _profile_comparison(
     rules = _sequence(comparison.get("rules"))[:PROFILE_QUANTILE_LIMIT]
     if rules:
         parts.append(
-            '<h4>Regras explicáveis de comparação</h4><p class="meta">Limiares demonstrativos, configurados nesta publicação. A tabela completa conserva as razões decimais.</p>'
+            '<h4>O que mudou nas métricas</h4><p class="meta">Mesmas datas e lojas. Limiares demonstrativos.</p>'
             + _profile_rule_cards(rules)
         )
         rule_rows = []
@@ -1560,7 +1454,7 @@ def _profile_section(payload: ReportPayload) -> str:
     ):
         status = "INVALID"
     parts = [
-        '<section class="data-section profile-section" id="perfil" tabindex="-1" aria-labelledby="profile-title"><h3 id="profile-title">Perfil e comparação de publicações</h3>'
+        '<section class="panel data-section profile-section" id="perfil" data-report-view tabindex="-1" aria-labelledby="profile-title"><div class="view-heading"><div><h2 id="profile-title">O que mudou</h2><p class="meta">Perfil e comparação de publicações</p></div><a class="text-action" href="#indicadores">Voltar às vendas</a></div>'
     ]
     if status != "AVAILABLE":
         parts.append(
@@ -1592,6 +1486,44 @@ def _profile_section(payload: ReportPayload) -> str:
     )
     parts.append(_profile_details(profile))
     return "".join(parts) + "</section>"
+
+
+def _nav_icon(name: str) -> str:
+    paths = {
+        "overview": '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+        "stores": '<path d="M3 10h18l-2-6H5l-2 6Zm2 0v10h14V10M9 20v-6h6v6M3 10c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0"/>',
+        "change": '<path d="M4 17V7m6 10V4m6 13v-6m5 9H3"/>',
+        "quality": '<path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/>',
+        "files": '<path d="M4 4h6l2 3h8v13H4V4Z"/><path d="M8 12h8m-8 4h5"/>',
+    }
+    return f'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths[name]}</svg>'
+
+
+def _overview_notice(payload: ReportPayload) -> str:
+    attempt = payload.latest_attempt or {}
+    result = payload.profile_result or {}
+    profile = _mapping(result.get("profile"))
+    comparison = _mapping(profile.get("comparison"))
+    notices = []
+    if attempt.get("state") in {"BLOCKED", "TECHNICAL_FAILURE", "RUNNING"} or attempt.get(
+        "audit_incomplete"
+    ):
+        title, reason, _ = _decision(payload)
+        notices.append(
+            f'<a class="overview-notice attention" href="#qualidade">{_nav_icon("quality")}<span><strong>{_text(title)}</strong><span>{_text(reason)}</span></span><b>Conferir</b></a>'
+        )
+    valid = (
+        result.get("status") == "AVAILABLE"
+        and payload.snapshot is not None
+        and profile.get("publication_id") == payload.snapshot.get("publication_id")
+        and profile.get("run_id") == payload.snapshot.get("run_id")
+    )
+    count = comparison.get("warnings")
+    if valid and comparison.get("status") == "COMPARABLE" and type(count) is int and count > 0:
+        notices.append(
+            f'<a class="overview-notice" href="#perfil">{_nav_icon("change")}<span><strong>{count} {"mudança pede" if count == 1 else "mudanças pedem"} conferência</strong><span>Aviso de perfil. O fechamento continua publicado.</span></span><b>Comparar</b></a>'
+        )
+    return '<div class="overview-notices">' + "".join(notices) + "</div>" if notices else ""
 
 
 def build_report_html(payload: ReportPayload) -> str:
@@ -1744,11 +1676,16 @@ def build_report_html(payload: ReportPayload) -> str:
 <title>Fechamento de vendas · Varejo Data Pipeline</title><link rel="icon" type="image/svg+xml" href="{FAVICON}"><style>{CSS}</style></head><body>
 <a class="skip-link" href="#content">Ir para o fechamento</a>
 <div class="app-shell"><header class="app-bar">
-<a class="brand" href="#qualidade">{BRAND_MARK}<span>Varejo <span>Data Pipeline</span></span></a>
-<nav class="report-nav" aria-label="Seções do relatório"><a href="#qualidade" data-view-link="qualidade">Execução</a><a href="#indicadores" data-view-link="indicadores">Indicadores</a><a href="#proveniencia" data-view-link="proveniencia">Arquivos</a></nav>
-<span class="snapshot-label">Snapshot · somente leitura</span></header>
-<main id="content" tabindex="-1">
-<div class="report-caption"><h1>Conferência de fechamento</h1><p class="mobile-snapshot">Snapshot · somente leitura</p>{'<p class="demo-label">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else ""}</div>
+<a class="brand" href="#indicadores">{BRAND_MARK}<span>Varejo <span>Data Pipeline</span></span></a>
+<nav class="report-nav" aria-label="Seções do relatório">
+<a href="#indicadores" data-view-link="indicadores">{_nav_icon("overview")}<span>Visão geral</span></a>
+<a href="#lojas" data-view-link="lojas">{_nav_icon("stores")}<span>Lojas</span></a>
+<a href="#perfil" data-view-link="perfil">{_nav_icon("change")}<span>O que mudou</span></a>
+<a href="#qualidade" data-view-link="qualidade">{_nav_icon("quality")}<span>Qualidade</span></a>
+<a href="#proveniencia" data-view-link="proveniencia">{_nav_icon("files")}<span>Arquivos</span></a></nav>
+<div class="sidebar-note"><span class="snapshot-label">Relatório de vendas</span><p>Snapshot · somente leitura</p></div></header>
+<main id="content" tabindex="-1" data-default-view="{'qualidade' if attempt.get('state') in {'BLOCKED', 'TECHNICAL_FAILURE', 'RUNNING'} or attempt.get('audit_incomplete') else 'indicadores'}">
+<div class="report-caption"><h1>Fechamento de vendas</h1>{'<p class="demo-label">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else '<p class="demo-label">Snapshot · somente leitura</p>'}</div>
 <section class="panel" id="qualidade" data-report-view tabindex="-1" aria-labelledby="execution-title">
 <div class="closing-sheet">
 <header class="decision-record" data-state="{_text(attempt.get("state", "UNKNOWN"))}"><div class="decision-copy"><h2 id="execution-title">{_text(decision_title)}</h2><p class="decision-reason">{_text(decision_reason)}</p><div class="decision-actions">{decision_actions}</div></div>
@@ -1758,17 +1695,21 @@ def build_report_html(payload: ReportPayload) -> str:
 <div class="publication-bridge"><p><strong>{publication_label}.</strong> {_text(_publication_context(payload))}</p>{'<a href="#indicadores">Ver a publicação disponível</a>' if published else ''}</div>
 {_failure_notice(payload)}</section>
 <section class="panel" id="indicadores" data-report-view tabindex="-1" aria-labelledby="indicators-title">
-<div class="publication-band"><header class="publication-heading"><h2 id="indicators-title">Indicadores de vendas</h2><p class="publication-window">{_text(window)}</p><p class="publication-note">{publication_note}</p></header>
-<section class="metrics" aria-label="Indicadores da publicação">{cards}</section></div>
-<p class="publication-context"><strong>{publication_label}.</strong> {_text(_publication_context(payload))}</p>
-<nav class="subnav" aria-label="Recortes dos indicadores"><a href="#perfil">Perfil e comparação</a><a href="#lojas">Loja / dia</a><a href="#receita">Receita por dia</a><a href="#produtos">Produtos</a></nav>
+<header class="view-heading"><div><h2 id="indicators-title">Visão geral</h2><p class="view-subtitle">O resultado das vendas publicadas.</p></div><div class="period-label"><span>Período das vendas</span><strong>{_text(window)}</strong></div></header>
+<div class="publication-stamp"><span class="publication-status">{publication_label}</span><p>{publication_note}</p></div>
+<section class="metrics" aria-label="Indicadores da publicação">{cards}</section>
+{_overview_notice(payload)}
+<div class="dashboard-grid">
+<section id="receita" class="data-section trend-panel" tabindex="-1"><div class="chart-heading"><div><h3>Receita ao longo dos dias</h3><p class="meta">Receita líquida · BRL</p></div><a class="text-action" href="#daily-values">Ver valores</a></div>{sales_trend(payload.daily)}<p class="footnote">{daily_note}</p>
+<details class="data-detail" id="daily-values" tabindex="-1"><summary>Valores por dia ({len(payload.daily)} {"dia exibido" if len(payload.daily) == 1 else "dias exibidos"})</summary>{daily_values}</details></section>
+<section class="data-section store-panel"><div class="chart-heading"><div><h3>Receita por loja</h3><p class="meta">Participação no recorte exibido</p></div><a class="text-action" href="#lojas">Explorar</a></div>{store_ranking(payload.stores, truncated=payload.stores_truncated)}</section>
+<section class="data-section product-panel" id="produtos" tabindex="-1"><div class="chart-heading"><div><h3>Produtos mais vendidos</h3><p class="meta">Participação em unidades</p></div><a class="text-action" href="#product-values">Ver valores</a></div>{product_mix(payload.products, truncated=payload.products_truncated)}{f'<p class="footnote">{product_note}</p>' if product_note else ""}<details class="data-detail" id="product-values" tabindex="-1"><summary>Valores por produto ({len(payload.products)})</summary>{products}</details></section>
+</div><details class="data-detail metric-definitions"><summary>Como ler os indicadores</summary><p>Receita líquida em BRL, com descontos aplicados e cancelados excluídos. Vendas distintas por loja e dia comercial. Ticket médio é a receita dividida pelas vendas no período.</p><p>{_text(_publication_context(payload))}</p></details></section>
+<section class="panel stores-view" id="lojas" data-report-view tabindex="-1" aria-labelledby="stores-title"><header class="view-heading"><div><h2 id="stores-title">Vendas por loja</h2><p class="view-subtitle">Compare a participação e consulte cada dia.</p></div><div class="period-label"><span>Período das vendas</span><strong>{_text(window)}</strong></div></header>
+<div class="publication-stamp"><span class="publication-status">{publication_label}</span><p>{publication_note}</p></div>
+<section class="data-section matrix-section"><div class="chart-heading"><div><h3>Receita por loja e dia</h3><p class="meta">A intensidade da cor representa a receita.</p></div><a class="text-action" href="#store-values">Ver tabela</a></div>{f'<p class="footnote">{store_note}</p>' if store_note else ""}{_store_matrix(payload.stores)}
+<details class="data-detail" id="store-values" tabindex="-1"><summary>Valores por loja e dia ({len(payload.stores)} {"linha exibida" if len(payload.stores) == 1 else "linhas exibidas"})</summary>{stores}</details></section></section>
 {_profile_section(payload)}
-<section class="data-section matrix-section" id="lojas" tabindex="-1"><h3>Receita por loja e dia</h3>{f'<p class="footnote">{store_note}</p>' if store_note else ""}{_store_matrix(payload.stores)}
-<details class="data-detail" id="store-values" tabindex="-1"><summary>Valores por loja e dia ({len(payload.stores)} {"linha exibida" if len(payload.stores) == 1 else "linhas exibidas"})</summary>{stores}</details></section>
-<div class="analytics-grid"><section id="receita" class="data-section" tabindex="-1"><div class="diagnostic-heading"><h3>Receita por dia</h3><span class="meta">BRL · dia comercial</span></div><div class="chart" tabindex="0" role="region" aria-label="Gráfico de receita por dia; rolagem horizontal disponível em telas estreitas">{_revenue_chart(payload.daily)}</div><p class="footnote">{daily_note}</p>
-<details class="data-detail"><summary>Valores por dia ({len(payload.daily)} {"dia exibido" if len(payload.daily) == 1 else "dias exibidos"})</summary>{daily_values}</details></section>
-<section class="data-section" id="produtos" tabindex="-1"><h3>Produtos mais vendidos</h3>
-<p class="meta">Ordem: unidades, receita e ID. Cancelados excluídos.</p>{_product_ranking(payload.products)}{f'<p class="footnote">{product_note}</p>' if product_note else ""}<details class="data-detail"><summary>Valores por produto ({len(payload.products)})</summary>{products}</details></section></div></section>
 <section class="panel" id="proveniencia" data-report-view tabindex="-1" aria-labelledby="files-title"><div class="section-head"><div><h2 id="files-title">Arquivos e versões</h2><p class="meta">{source_count} {source_label}. Referências capturadas no manifesto da publicação.</p><p class="meta">Publicada em {_text(_timestamp(snapshot.get("published_at")))}.</p></div></div>
 <div class="provenance-workspace"><aside class="identity-register"><h3>Publicação identificada</h3>{_copy_field(snapshot.get("publication_id"), "ID da publicação", "publication-id")}{_copy_field(snapshot.get("run_id"), "Execução que publicou", "publication-run-id")}
 <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>

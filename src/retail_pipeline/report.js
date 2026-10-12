@@ -2,15 +2,18 @@
 // O HTML completo e os detalhes nativos continuam legíveis sem JavaScript.
 const views = [...document.querySelectorAll('[data-report-view]')];
 const navigation = [...document.querySelectorAll('[data-view-link]')];
+let currentView = null;
 
 function showLocation(focus = false) {
   let id;
   try { id = decodeURIComponent(location.hash.slice(1)); } catch { id = ''; }
   const target = document.getElementById(id);
   const view = target?.closest('[data-report-view]')
-    || (target && views.find(panel => !panel.hidden))
+    || (target && currentView)
+    || document.getElementById(document.getElementById('content').dataset.defaultView)
     || views[0];
   if (!view) return;
+  currentView = view;
   for (const panel of views) panel.hidden = panel !== view;
   for (const link of navigation) {
     if (link.dataset.viewLink === view.id) link.setAttribute('aria-current', 'page');
