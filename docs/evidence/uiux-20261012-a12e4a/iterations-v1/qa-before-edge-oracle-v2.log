@@ -1,0 +1,13 @@
+{"phase":"before","browser":"chromium","case":"fixture-no-publication","step":"data"}
+{"phase":"before","browser":"chromium","case":"fixture-no-publication","step":"viewports"}
+{"phase":"before","browser":"chromium","case":"fixture-no-publication","step":"journey"}
+{"phase":"before","browser":"chromium","case":"fixture-no-publication","checks":112,"completed":true}
+{"phase":"before","browser":"chromium","case":"fixture-running","step":"data"}
+{"phase":"before","browser":"chromium","case":"fixture-running","step":"viewports"}
+{"phase":"before","browser":"chromium","case":"fixture-running","step":"journey"}
+{"phase":"before","browser":"chromium","case":"fixture-running","checks":231,"completed":true}
+{"phase":"before","browser":"chromium","case":"historical-quality-review","step":"data"}
+{"phase":"before","browser":"chromium","case":"historical-quality-review","step":"viewports"}
+{"phase":"before","browser":"chromium","case":"historical-quality-review","step":"journey"}
+{"phase":"before","browser":"chromium","case":"historical-quality-review","checks":356,"completed":true}
+{"output":"artifacts/uiux-20261012-a12e4a/qa-before-edge-oracle-v2","phase":"before","browser":"155.0.4283.45","cases":3,"checks":360,"screenshots":0,"gating_failures":0,"presentation_findings":9,"axe_violations":0,"axe_incomplete_manual_review":0,"remote_requests":0,"failed_requests":0,"page_errors":0}

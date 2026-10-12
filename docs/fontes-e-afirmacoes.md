@@ -25,6 +25,30 @@ Os testes e capturas dessa evolução possuem diretório próprio em `evidence/e
 
 A correção do LZ4 usa a [release 1.11.4](https://github.com/yawkat/lz4-java/releases/tag/v1.11.4) e o [advisory upstream](https://github.com/yawkat/lz4-java/security/advisories/GHSA-mcr4-qmvw-px4g), com hash no lock, comparação de API, interoperabilidade Java/nativa e integração Spark. [Procedência e limites](runtime-upgrade.md#correção-de-lz4-em-12102026).
 
+## Fontes da revisão de UI/UX consultadas em 12/10/2026
+
+| Fonte primária | Aplicação e limite |
+| -------------- | ------------------ |
+| [WCAG 2.2](https://www.w3.org/WAI/WCAG22/quickref/) e entendimento de [alvos](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html), [reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) e [espaçamento](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html) | Critérios para contraste, foco, 24 × 24 CSS px ou exceção aplicável, 320 CSS px e overrides de texto. Reflow não comprova zoom nativo; resultados parciais não certificam WCAG. |
+| [Cabeçalhos de tabelas, WAI](https://www.w3.org/WAI/tutorials/tables/two-headers/) | Caption e associação entre cabeçalhos e valores; rótulos de métricas recebem cabeçalhos de linha. |
+| [Links](https://www.w3.org/WAI/ARIA/apg/patterns/link/) e [tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/), WAI-ARIA APG | Navegação por links nativos com hash e histórico. Aparência de aba não justifica trocar a semântica por um widget de tabs incompleto. |
+| [Table](https://design-system.service.gov.uk/components/table/), [details](https://design-system.service.gov.uk/components/details/) e [summary list](https://design-system.service.gov.uk/components/summary-list/), GOV.UK | Comparação tabular, detalhes secundários e contexto em pares rótulo/valor. Fonte e CSS do projeto foram conservados; templates não foram copiados. |
+| [Notifications, Carbon](https://www.carbondesignsystem.com/building-blocks/core/components/notification/guidelines) | Aviso contextual persistente na leitura do snapshot. A aparência IBM e convenções de tempo não foram importadas. |
+| [Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md) | Semântica nativa, foco, âncoras, números tabulares e conteúdo longo. O renderer é HTML/CSS/JavaScript local; regras de React não se aplicam. |
+| [Teste de acessibilidade, Playwright](https://playwright.dev/docs/accessibility-testing) | Axe nas vistas abertas, teclado e avaliações complementares. Varredura automática cobre somente parte dos problemas; `incomplete` requer revisão. |
+
+O [registro de pesquisa](evidence/uiux-20261012-a12e4a/research.json) identifica a consulta e o mecanismo adaptado. Não houve cópia de código, marcas, templates ou assets dessas referências. Source Sans 3 e sua licença OFL permanecem nos recursos locais. A pesquisa orienta escolhas de interface; não é entrevista com usuários nem medição de produtividade.
+
+| Afirmação da rodada de UI/UX | Fonte e limite |
+| -------------------------- | -------------- |
+| 22 inputs: três payloads reais da evolução, cinco históricos e 14 fixtures | [Corpus anterior](evidence/uiux-20261012-a12e4a/corpus-before.json) e [inputs](evidence/uiux-20261012-a12e4a/inputs/). Fixtures são apresentação; não documentam novas entregas. |
+| Captura releu as versões existentes, sem processar lotes; 174 arquivos duráveis iguais | [Resultado de captura](evidence/uiux-20261012-a12e4a/capture-result.json) e inventários antes/depois. Arquivos temporários de Spark foram excluídos desse inventário durável. |
+| Três HTMLs anteriores iguais aos bytes da captura | [Conferência de hashes](evidence/uiux-20261012-a12e4a/before-capture-byte-equality.json). A igualdade diz respeito aos HTMLs e à fonte anterior identificados. |
+| Caminhos privados têm derivados públicos; originais e falhas v1 foram preservados | [Proveniência pública](evidence/uiux-20261012-a12e4a/provenance-public.json) e [correções do oracle](evidence/uiux-20261012-a12e4a/iterations-v1/oracle-corrections-v2.json). Derivação de caminho não altera números ou estados de negócio. |
+| Resultados finais de navegador e gates da fonte de entrega | [Guia da rodada](evidence/uiux-20261012-a12e4a/README.md) e [índice final](evidence/uiux-20261012-a12e4a/index.json), ainda aguardando o QA v2. Zoom nativo e leitor de tela permanecem não verificados. |
+
+O [README](../README.md#demonstração) mostra a captura da comparação atual; [interface](interface.md#quatro-jornadas-de-consulta) descreve os quatro percursos e [qualidade](frontend-quality.md#revisão-de-uiux-em-12102026) distingue diagnóstico observado, hipótese e teste de aceite. As provas v4 e os resultados operacionais de setembro e outubro conservam suas próprias fontes e datas.
+
 ## Afirmações principais
 
 | Afirmação                                                                                      | Conclusão e fonte primária                                                                                                                                                                                                                                                      | Data ou tipo de fonte                | Limite                                                                                                   |

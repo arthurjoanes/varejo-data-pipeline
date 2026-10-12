@@ -1,0 +1,160 @@
+{
+  "method": "historical_payload_replay",
+  "payload": {
+    "daily": [],
+    "daily_truncated": false,
+    "last_failed_attempt": {
+      "batch_id": "quality-review",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 15.1687,
+      "issues": [
+        {
+          "code": "UNKNOWN_PRODUCT",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_QUANTITY",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_UNIT_PRICE_BRL",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_SOLD_AT",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        }
+      ],
+      "publication_id": null,
+      "run_id": "2cf99f37afbf4cc9b91c5921bcb60a6e",
+      "stages": {
+        "ingestion": 15.1674
+      },
+      "started_at": "2026-09-21T23:36:17.756151+00:00",
+      "state": "BLOCKED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 0,
+        "received": 5,
+        "rejected": 1,
+        "revision_checks_executed": 0,
+        "stale": 0,
+        "valid": 4,
+        "violations": 4
+      }
+    },
+    "latest_attempt": {
+      "batch_id": "quality-review",
+      "coverage": {
+        "expected": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "missing": [],
+        "received": [
+          "S01",
+          "S02",
+          "S03"
+        ],
+        "zero_movement": [
+          "S03"
+        ]
+      },
+      "duration_seconds": 15.1687,
+      "issues": [
+        {
+          "code": "UNKNOWN_PRODUCT",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_QUANTITY",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_UNIT_PRICE_BRL",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        },
+        {
+          "code": "INVALID_SOLD_AT",
+          "count": 1,
+          "file": "S01.csv",
+          "line": 5,
+          "scope": "row",
+          "severity": "ERROR"
+        }
+      ],
+      "publication_id": null,
+      "run_id": "2cf99f37afbf4cc9b91c5921bcb60a6e",
+      "stages": {
+        "ingestion": 15.1674
+      },
+      "started_at": "2026-09-21T23:36:17.756151+00:00",
+      "state": "BLOCKED",
+      "stats": {
+        "conflicts": 0,
+        "duplicates": 0,
+        "received": 5,
+        "rejected": 1,
+        "revision_checks_executed": 0,
+        "stale": 0,
+        "valid": 4,
+        "violations": 4
+      }
+    },
+    "products": [],
+    "products_truncated": false,
+    "snapshot": null,
+    "stores": [],
+    "stores_truncated": false,
+    "summary": {},
+    "synthetic_data": true
+  },
+  "presentation_only": false,
+  "selection": "Previously captured real Delta report payload; no new domain execution.",
+  "source_evidence": "docs\\evidence\\interface\\payloads\\quality-review.json",
+  "source_sha256": "c3c07e46ca9d1e1f44087e556c7490f57acdcf2f4fda8cb5e18933364f1758ef"
+}

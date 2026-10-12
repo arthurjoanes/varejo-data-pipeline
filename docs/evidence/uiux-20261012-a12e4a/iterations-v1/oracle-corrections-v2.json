@@ -1,0 +1,37 @@
+{
+  "recorded_on": "2026-10-12",
+  "original_results_preserved": ["qa-before-edge-v1/uiux-review.json", "qa-after-edge-v1/uiux-review.json"],
+  "original_helper_preserved": "uiux-review.v1.cjs",
+  "corrections": [
+    {
+      "check": "summary_metrics without publication",
+      "reason": "The report intentionally renders four unavailable placeholders (em dash). The v1 oracle incorrectly expected no metric elements.",
+      "change": "Expect four em dashes, never fabricated zero values.",
+      "affected_v1": "Three checks in each phase; no financial data discrepancy."
+    },
+    {
+      "check": "date period/context",
+      "reason": "AFTER changes singular grammar and names an empty date set as Sem datas registradas. V1 compared an old presentation phrase instead of the recorded dates/count.",
+      "change": "Compare start/end/date_count semantics, allowing those two valid empty/singular phrases.",
+      "affected_v1": "Twenty-seven AFTER checks; no recorded date/count discrepancy."
+    },
+    {
+      "check": "table semantics",
+      "reason": "V1 indiscriminately required a row header for every table's first cell. This is stricter than the research recommendation.",
+      "change": "Require row headers for clear metric/dimension labels. Keep column-scope/caption checks for all profile tables; version-table row-header use remains a useful implementation choice.",
+      "affected_v1": "Underlying missing metric row headers in changes/batch are still checked; this does not hide them."
+    },
+    {
+      "check": "font readiness",
+      "reason": "Firefox v1 did not finish the first case before a scoped termination. A separate real-file probe resolves fonts.ready and returns the serializable status string successfully.",
+      "change": "Return the status string after awaiting readiness, add finite readiness/axe deadlines and step logs. No completed Firefox v1 result is claimed.",
+      "affected_v1": "Pending Firefox attempt preserved with termination metadata."
+    },
+    {
+      "check": "main rule values and overflow",
+      "reason": "TextSpacing320 exposes navigation overflow and a small internal scrollbar for 59,259300%. These are implementation findings.",
+      "change": "Gates remain enabled. Record text-spacing state and relative card/decision positions more explicitly; require correction in the UI.",
+      "affected_v1": "No layout gate removed to make results pass."
+    }
+  ]
+}

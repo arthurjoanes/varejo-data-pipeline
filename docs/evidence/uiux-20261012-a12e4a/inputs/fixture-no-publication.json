@@ -1,0 +1,17 @@
+{
+  "method": "presentation_fixture",
+  "payload": {
+    "latest_attempt": null,
+    "profile_result": {
+      "profile": null,
+      "reason": null,
+      "status": "NO_PUBLICATION"
+    },
+    "snapshot": null,
+    "synthetic_data": true
+  },
+  "presentation_only": true,
+  "selection": "No publication; no figures or financial zero invented.",
+  "source_evidence": "artifacts\\uiux-20261012-a12e4a\\inputs\\actual-comparable.json",
+  "source_sha256": "3ef1426c60ee5582eabe1e19848cd7aa39ea510dc906b0f567156b93623ee744"
+}

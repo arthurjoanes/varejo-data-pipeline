@@ -1,0 +1,320 @@
+{
+  "phase": "v5",
+  "presentation_only": true,
+  "checked_at": "2026-10-12T13:54:46.115Z",
+  "browser": "155.0.4283.45",
+  "source_receipts": {
+    "candidate": "source-candidate-v5.json",
+    "candidate_sha256": "57f3e72ee5ca9298acd2f488d2a105f59031fb8f53c645c3bee21c887f53914a",
+    "css": {
+      "path": "src/retail_pipeline/report.css",
+      "sha256": "bc55f0ec76287d0fad3bf769bc6530ead79eb990c3a4db4ac195b249fdbdf079"
+    },
+    "renderer": {
+      "path": "src/retail_pipeline/report_view.py",
+      "sha256": "326074ee643a70552e06a53d6d75b69eb6f6ad22faaea3d5393ef95714ef68e9"
+    },
+    "helper": {
+      "path": "artifacts/uiux-20261012-a12e4a/focus-palette-probe.cjs",
+      "sha256": "35dfa473666ef23bd2305557790416f77d34e423712a63ca836d8c23c03adfcc"
+    },
+    "fixture": {
+      "path": "artifacts/uiux-20261012-a12e4a/focus-palette-v5/fixture.html",
+      "sha256": "00053068d724fdef687892de02cea238c3ed618b931b28202558b62b7e6dc2da"
+    }
+  },
+  "palette": [
+    "#e6f1f2",
+    "#c3dce0",
+    "#96bdc4",
+    "#6695a0",
+    "#3d7380",
+    "#245b64"
+  ],
+  "samples": [
+    {
+      "palette_index": 0,
+      "declared_color": "#e6f1f2",
+      "state": "hover",
+      "background": "rgb(230, 241, 242)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": null,
+      "hover": true,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 1.1520182054414267
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 11.168078145008916
+        }
+      ],
+      "strongest_ring_contrast": 11.168078145008916,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 0,
+      "declared_color": "#e6f1f2",
+      "state": "selected",
+      "background": "rgb(230, 241, 242)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": "true",
+      "hover": false,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 1.1520182054414267
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 11.168078145008916
+        }
+      ],
+      "strongest_ring_contrast": 11.168078145008916,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 1,
+      "declared_color": "#c3dce0",
+      "state": "hover",
+      "background": "rgb(195, 220, 224)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": null,
+      "hover": true,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 1.4350080821993076
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 8.965684237209656
+        }
+      ],
+      "strongest_ring_contrast": 8.965684237209656,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 1,
+      "declared_color": "#c3dce0",
+      "state": "selected",
+      "background": "rgb(195, 220, 224)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": "true",
+      "hover": false,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 1.4350080821993076
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 8.965684237209656
+        }
+      ],
+      "strongest_ring_contrast": 8.965684237209656,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 2,
+      "declared_color": "#96bdc4",
+      "state": "hover",
+      "background": "rgb(150, 189, 196)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": null,
+      "hover": true,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 2.0244966140405487
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 6.355075752468066
+        }
+      ],
+      "strongest_ring_contrast": 6.355075752468066,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 2,
+      "declared_color": "#96bdc4",
+      "state": "selected",
+      "background": "rgb(150, 189, 196)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": "true",
+      "hover": false,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 2.0244966140405487
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 6.355075752468066
+        }
+      ],
+      "strongest_ring_contrast": 6.355075752468066,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 3,
+      "declared_color": "#6695a0",
+      "state": "hover",
+      "background": "rgb(102, 149, 160)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": null,
+      "hover": true,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 3.295902546444032
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 3.9035830585233193
+        }
+      ],
+      "strongest_ring_contrast": 3.9035830585233193,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 3,
+      "declared_color": "#6695a0",
+      "state": "selected",
+      "background": "rgb(102, 149, 160)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": "true",
+      "hover": false,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 3.295902546444032
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 3.9035830585233193
+        }
+      ],
+      "strongest_ring_contrast": 3.9035830585233193,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 4,
+      "declared_color": "#3d7380",
+      "state": "hover",
+      "background": "rgb(61, 115, 128)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": null,
+      "hover": true,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 5.2997968726659765
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 2.4276080106388767
+        }
+      ],
+      "strongest_ring_contrast": 5.2997968726659765,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 4,
+      "declared_color": "#3d7380",
+      "state": "selected",
+      "background": "rgb(61, 115, 128)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": "true",
+      "hover": false,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 5.2997968726659765
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 2.4276080106388767
+        }
+      ],
+      "strongest_ring_contrast": 5.2997968726659765,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 5,
+      "declared_color": "#245b64",
+      "state": "hover",
+      "background": "rgb(36, 91, 100)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": null,
+      "hover": true,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 7.621210482020408
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 1.688160873288467
+        }
+      ],
+      "strongest_ring_contrast": 7.621210482020408,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    },
+    {
+      "palette_index": 5,
+      "declared_color": "#245b64",
+      "state": "selected",
+      "background": "rgb(36, 91, 100)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": "true",
+      "hover": false,
+      "rings": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast_with_cell": 7.621210482020408
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast_with_cell": 1.688160873288467
+        }
+      ],
+      "strongest_ring_contrast": 7.621210482020408,
+      "adjacent_ring_contrast": 12.86582934284279,
+      "pass": true
+    }
+  ],
+  "requests": {
+    "remote": [],
+    "failed": [],
+    "errors": []
+  },
+  "limits": [
+    "This labelled DOM fixture tests six palette colors using frozen CSS, not pipeline data or Spark.",
+    "Normal color mode only; no forced-colors, native zoom or screen-reader conformance claim.",
+    "State contrast passes when at least one of the two inset rings has >=3:1 against the cell, with >=3:1 between adjacent rings."
+  ],
+  "summary": {
+    "colors": 6,
+    "state_samples": 12,
+    "failures": 0,
+    "minimum_best_ring_contrast": 3.9035830585233193,
+    "minimum_adjacent_ring_contrast": 12.86582934284279,
+    "remote": 0,
+    "failed": 0,
+    "errors": 0
+  }
+}

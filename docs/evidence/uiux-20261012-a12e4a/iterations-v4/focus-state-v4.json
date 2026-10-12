@@ -1,0 +1,246 @@
+{
+  "phase": "v4",
+  "checked_at": "2026-10-12T13:48:26.422Z",
+  "browser": "155.0.4283.45",
+  "inputs": [
+    {
+      "name": "actual-comparable",
+      "sha256": "b142e52858fb1dbf88bc9258c0a7364733f5683df8ea4a23b4665377f2ea5282"
+    },
+    {
+      "name": "fixture-large-money",
+      "sha256": "f86d858620a9388d2b452df498bbf1a78a98a216c994f845c8511c80a5c98be9"
+    }
+  ],
+  "band_focus": [
+    {
+      "name": "actual-comparable",
+      "width": 320,
+      "tag": "A",
+      "label": "cb44bc5a…601c",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "actual-comparable",
+      "width": 390,
+      "tag": "A",
+      "label": "cb44bc5a…601c",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "actual-comparable",
+      "width": 1440,
+      "tag": "A",
+      "label": "cb44bc5a…601c",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "fixture-large-money",
+      "width": 320,
+      "tag": "A",
+      "label": "cb44bc5a…601c",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "fixture-large-money",
+      "width": 320,
+      "tag": "STRONG",
+      "label": "R$ 1.234.567.890.123,45",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "fixture-large-money",
+      "width": 320,
+      "tag": "STRONG",
+      "label": "R$ 411.522.630.041,15",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "fixture-large-money",
+      "width": 390,
+      "tag": "A",
+      "label": "cb44bc5a…601c",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "fixture-large-money",
+      "width": 390,
+      "tag": "STRONG",
+      "label": "R$ 1.234.567.890.123,45",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "fixture-large-money",
+      "width": 390,
+      "tag": "STRONG",
+      "label": "R$ 411.522.630.041,15",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "fixture-large-money",
+      "width": 1440,
+      "tag": "A",
+      "label": "cb44bc5a…601c",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "fixture-large-money",
+      "width": 1440,
+      "tag": "STRONG",
+      "label": "R$ 1.234.567.890.123,45",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    },
+    {
+      "name": "fixture-large-money",
+      "width": 1440,
+      "tag": "STRONG",
+      "label": "R$ 411.522.630.041,15",
+      "focus_visible": true,
+      "outline_color": "rgb(255, 255, 255)",
+      "outline_width": "3px",
+      "outline_style": "solid",
+      "band_background": "rgb(38, 50, 72)",
+      "outline_within_band": true,
+      "contrast_with_band": 12.86582934284279
+    }
+  ],
+  "matrix_states": [
+    {
+      "background": "rgb(75, 116, 181)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": "true",
+      "value": "S01 · 01/01/2026 · R$ 3.222,06",
+      "focus_visible": false,
+      "ring_contrasts_with_cell": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast": 4.703703864731878
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast": 2.7352549635001675
+        }
+      ],
+      "strongest_ring_contrast": 4.703703864731878
+    },
+    {
+      "background": "rgb(115, 150, 209)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": "true",
+      "value": "S01 · 03/01/2026 · R$ 3.174,05",
+      "focus_visible": false,
+      "ring_contrasts_with_cell": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast": 2.9947822393262014
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast": 4.296081756427634
+        }
+      ],
+      "strongest_ring_contrast": 4.296081756427634
+    },
+    {
+      "background": "rgb(40, 77, 142)",
+      "box_shadow": "rgb(255, 255, 255) 0px 0px 0px 2px inset, rgb(38, 50, 72) 0px 0px 0px 4px inset",
+      "aria_current": "true",
+      "value": "S04 · 22/01/2026 · R$ 3.993,13",
+      "focus_visible": false,
+      "ring_contrasts_with_cell": [
+        {
+          "color": "rgb(255, 255, 255)",
+          "contrast": 8.259999859986044
+        },
+        {
+          "color": "rgb(38, 50, 72)",
+          "contrast": 1.5576064843740238
+        }
+      ],
+      "strongest_ring_contrast": 8.259999859986044
+    }
+  ],
+  "requests": {
+    "remote": [],
+    "failed": [],
+    "errors": []
+  },
+  "limits": [
+    "Computed CSS/background measurements in normal color mode; no forced-colors, native zoom or screen-reader conformance claim.",
+    "Inset ring ratios are measured against cell backgrounds; focus outline outside the grid also borders the white cell gap."
+  ],
+  "summary": {
+    "band_targets": 12,
+    "band_min_contrast": 12.86582934284279,
+    "band_below_3": 0,
+    "cell_colors": 3,
+    "selection_min_best_ring_contrast": 4.296081756427634,
+    "selection_colors_below_3": 0
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "stage": "candidate-v1",
+  "recorded_utc": "2026-10-12T07:23:08.8683057Z",
+  "source_head": "64a9cf7769c9ea5225189d6dab0d9ca94548b63c",
+  "raw_reports_preserved": true,
+  "helper_v1_sha256": "804b4ca2cb9822a38f4cf34da20618196c1f48f8a8c7937e5be0e14fbe51954b",
+  "before_edge": {
+    "cases": 22,
+    "checks": 3197,
+    "screenshots": 18,
+    "gating_failures": 3,
+    "presentation_findings": 76,
+    "axe_violations": 0,
+    "axe_incomplete_manual_review": 119,
+    "remote_requests": 0,
+    "failed_requests": 0,
+    "page_errors": 0
+  },
+  "after_edge": {
+    "cases": 22,
+    "checks": 3560,
+    "screenshots": 18,
+    "gating_failures": 113,
+    "presentation_findings": 83,
+    "axe_violations": 0,
+    "axe_incomplete_manual_review": 118,
+    "remote_requests": 0,
+    "failed_requests": 0,
+    "page_errors": 0
+  },
+  "firefox_comparable": {
+    "cases": 1,
+    "checks": 219,
+    "screenshots": 10,
+    "gating_failures": 5,
+    "presentation_findings": 5,
+    "axe_violations": 0,
+    "axe_incomplete_manual_review": 9,
+    "remote_requests": 0,
+    "failed_requests": 0,
+    "page_errors": 0
+  },
+  "after_failure_groups": [
+    {
+      "Name": "comparison_scope",
+      "Count": 9
+    },
+    {
+      "Name": "current_period",
+      "Count": 9
+    },
+    {
+      "Name": "main_rule_values_mobile",
+      "Count": 5
+    },
+    {
+      "Name": "nojs_global_overflow",
+      "Count": 1
+    },
+    {
+      "Name": "page_overflow",
+      "Count": 67
+    },
+    {
+      "Name": "previous_period",
+      "Count": 9
+    },
+    {
+      "Name": "profile_table_semantics",
+      "Count": 10
+    },
+    {
+      "Name": "summary_metrics",
+      "Count": 3
+    }
+  ],
+  "after_incomplete_groups": [
+    {
+      "Name": "aria-prohibited-attr",
+      "Count": 38
+    },
+    {
+      "Name": "color-contrast",
+      "Count": 80
+    }
+  ],
+  "corrections": "oracle-corrections-v2.json",
+  "targeted_before_oracle_rerun": "qa-before-edge-oracle-v2/uiux-review.json",
+  "diagnostics": [
+    "overflow-diagnostic-v1.json",
+    "uiux-chromium-probes-unknown-v1.json",
+    "uiux-firefox-probes-v1.json"
+  ],
+  "findings": [
+    "TextSpacing320 navigation link Arquivos ends at x325.64-326.78; global width326/327",
+    "TextSpacing320 warning relative-change percentage needs internal scroll:102px text versus99px DD",
+    "Unknown metric label H5 causes document339 at320; noJS and JS need wrapping/shrink",
+    "Clear metric row labels in changes/batch tables should be row headers",
+    "Generic div with aria-label for equivalent stores produced aria-prohibited-attr incomplete; retain explicit review"
+  ],
+  "limits": [
+    "These are measured static local-report checks, not a full WCAG/screen-reader audit",
+    "No native browser zoom was tested",
+    "Firefox v1 native-v3 completed all journeys/noJS/axe checks for only actual-comparable; known v1 UI findings still make exit1",
+    "Original indefinite Firefox attempt and subsequent native fonts wait failure were preserved as incomplete attempts, not passes"
+  ]
+}

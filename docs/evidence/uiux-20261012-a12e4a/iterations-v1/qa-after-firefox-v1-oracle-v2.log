@@ -1,0 +1,5 @@
+{"phase":"after","browser":"firefox","case":"actual-comparable","step":"data"}
+{"phase":"after","browser":"firefox","case":"actual-comparable","step":"viewports"}
+{"phase":"after","browser":"firefox","case":"actual-comparable","step":"journey"}
+actual-comparable: font readiness timed out
+{"output":"artifacts/uiux-20261012-a12e4a/qa-after-firefox-v1-oracle-v2","phase":"after","browser":"155.0","cases":1,"checks":215,"screenshots":0,"gating_failures":6,"presentation_findings":5,"axe_violations":0,"axe_incomplete_manual_review":9,"remote_requests":0,"failed_requests":0,"page_errors":0}
