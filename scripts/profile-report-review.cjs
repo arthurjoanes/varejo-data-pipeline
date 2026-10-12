@@ -48,6 +48,12 @@ async function main() {
         assert.equal(await scroll.evaluate(element => document.activeElement === element), true, 'Table scroll is keyboard focusable');
         const baseline = page.locator('#profile-baseline-id');
         if (await baseline.count()) {
+          const baselineLink = page.locator('a[href="#profile-baseline-id"]');
+          if (await baselineLink.count()) {
+            await baselineLink.focus();
+            await page.keyboard.press('Enter');
+            await page.waitForFunction(() => document.activeElement?.id === 'profile-baseline-id');
+          }
           assert.ok((await baseline.inputValue()).length > 0, 'Baseline is identified');
           const copy = page.locator('[data-copy-target="profile-baseline-id"]');
           await copy.focus();

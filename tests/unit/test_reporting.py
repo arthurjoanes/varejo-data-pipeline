@@ -379,7 +379,7 @@ def test_chart_has_equivalent_table_and_localized_operational_metadata() -> None
     assert "1 fonte bronze" in html
     assert "50,53 s" in html and "1,234 s" in html
     assert "Valores equivalentes ao gráfico de receita diária" in html
-    assert '<td>03/01/2026</td><td class="numeric">R$ 21,34</td>' in html
+    assert '<th scope="row">03/01/2026</th><td class="numeric">R$ 21,34</td>' in html
     assert "<summary>Valores por loja e dia (1 linha exibida)</summary>" in html
 
 
@@ -655,8 +655,8 @@ def test_matrix_distinguishes_zero_missing_value_missing_day_and_negative() -> N
     )
     assert matrix.count("data-heat-cell ") == 2
     assert 'class="heat-cell heat-zero"' in matrix
-    assert 'aria-label="Sem observação"' in matrix
-    assert 'aria-label="Receita não informada"' in matrix
+    assert '<span class="sr-only">Sem observação</span>' in matrix
+    assert '<span class="sr-only">Receita não informada</span>' in matrix
     assert "S02 · 03/01/2026 · R$ -12,34" in matrix
     assert matrix.count('tabindex="0"') == 2  # scroll region + one active cell
     assert 'href="#store-row-2"' in matrix
@@ -783,6 +783,7 @@ def _profile_fixture() -> dict[str, object]:
         },
         "comparison": {
             "status": "COMPARABLE",
+            "warnings": 1,
             "baseline_publication_id": "pub-previous",
             "context": {
                 "dates_changed": True,
@@ -1018,5 +1019,194 @@ def test_profile_state_changes_include_cancelled_items_without_active_label() ->
     }
     page = _profile_html(profile)
     assert "<h4>Alterações do estado</h4>" in page
-    assert '<td>Itens cancelados</td><td class="numeric">1</td>' in page
+    assert '<th scope="row">Itens cancelados</th><td class="numeric">1</td>' in page
     assert "Alterações do estado ativo" not in page
+
+
+def test_profile_decision_and_scope_precede_financial_variations_and_analysis() -> None:
+    page = _profile_html(_profile_fixture())
+    assert page.index('id="perfil"') < page.index('id="lojas"')
+    assert page.index('href="#perfil"') < page.index('href="#lojas"')
+    section = page.split('id="perfil"', 1)[1].split('id="lojas"', 1)[0]
+    assert 'data-profile-warning-count="1"' in section
+    assert "1 aviso de perfil" in section
+    assert section.index("1 aviso de perfil") < section.index("profile-baseline-id")
+    assert section.index("Catálogo aprovado") < section.index('class="profile-rule-list"')
+    assert section.index("Recorte equivalente") < section.index('class="profile-rule-list"')
+    assert 'role="alert"' not in section
+    assert "Aviso para conferência. O fechamento continua publicado." in section
+
+
+def test_profile_rule_cards_preserve_large_decimals_reasons_and_original_table() -> None:
+    profile = _profile_fixture()
+    comparison = profile["comparison"]
+    assert isinstance(comparison, dict)
+    warning = comparison["rules"][0]
+    warning.update(
+        previous="9007199254740993.005001",
+        current="9007199254740993.205002",
+        difference="0.200001",
+        reason="<motivo> & preço",
+    )
+    comparison["rules"].insert(
+        0,
+        {
+            "metric": "quantity_mean",
+            "severity": "INFO",
+            "status": "STABLE",
+            "previous": "1.750000",
+            "current": "1.750000",
+            "difference": "0.000000",
+            "relative_change": "0.000000",
+            "threshold": "0.25",
+            "reason": "Dentro do limiar.",
+        },
+    )
+    page = _profile_html(profile)
+    cards = page.split('<ol class="profile-rule-list">', 1)[1].split("</ol>", 1)[0]
+    assert cards.index('data-profile-metric="unit_price_mean_brl"') < cards.index(
+        'data-profile-metric="quantity_mean"'
+    )
+    assert 'data-value-raw="9007199254740993.005001"' in cards
+    assert "9.007.199.254.740.993,005001</dd>" in cards
+    assert "9.007.199.254.740.993,205002</dd>" in cards
+    assert "0,200001</dd>" in cards
+    assert "19,900597014900%</dd>" in cards and "10,00%</dd>" in cards
+    assert "&lt;motivo&gt; &amp; preço" in cards and "<motivo>" not in page
+    table = page.split('class="data-detail profile-rules-table"', 1)[1].split("</details>", 1)[0]
+    assert table.index("Quantidade média") < table.index("Preço médio")
+    assert "0,199005970149" in table and "0,10" in table
+    assert '<th scope="row">Preço médio' in table
+    assert (
+        '<caption class="sr-only">Valores e motivos das regras no recorte equivalente</caption>'
+        in table
+    )
+
+
+@pytest.mark.parametrize("count", [None, "0", True, -1])
+def test_profile_unknown_warning_count_does_not_become_zero(count: object) -> None:
+    profile = _profile_fixture()
+    comparison = profile["comparison"]
+    assert isinstance(comparison, dict)
+    comparison["warnings"] = count
+    page = _profile_html(profile)
+    assert "Avisos de perfil não informados" in page
+    assert "Sem avisos de perfil" not in page
+    assert "data-profile-warning-count=" not in page
+
+
+@pytest.mark.parametrize(
+    "status", ["NO_BASELINE", "NOT_COMPARABLE", "EMPTY", "INSUFFICIENT_SAMPLE"]
+)
+def test_profile_unassessed_comparison_does_not_claim_no_warnings(status: str) -> None:
+    profile = _profile_fixture()
+    profile["comparison"] = {
+        "status": status,
+        "warnings": 0,
+        "reason": "Sem comparação avaliada.",
+        "rules": [],
+    }
+    page = _profile_html(profile)
+    assert "Sem avisos de perfil" not in page
+    assert 'class="profile-rule-list"' not in page
+    assert "Sem comparação avaliada." in page
+
+
+def test_profile_totals_have_row_headers_and_formatted_numeric_without_new_rounding() -> None:
+    page = _profile_html(_profile_fixture())
+    assert (
+        '<th scope="row">Receita líquida</th><td class="numeric">R$ 90.071.992.547.409,91</td>'
+        in page
+    )
+    assert '<th scope="row">Unidades</th><td class="numeric">12</td>' in page
+    assert '<caption class="sr-only">Totais exatos do perfil ativo publicado</caption>' in page
+    assert 'class="data-detail profile-distributions"' in page
+    assert 'class="data-detail profile-quantiles"' in page
+
+
+def test_baseline_identity_remains_complete_in_native_disclosure() -> None:
+    from html.parser import HTMLParser
+
+    baseline = "1234567890abcdef1234567890abcdef"
+    profile = _profile_fixture()
+    comparison = profile["comparison"]
+    assert isinstance(comparison, dict)
+    comparison["baseline_publication_id"] = baseline
+    page = _profile_html(profile)
+
+    class IdentityParser(HTMLParser):
+        nested = False
+        details_depth = 0
+
+        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+            attributes = dict(attrs)
+            if tag == "details":
+                self.details_depth += 1
+            if attributes.get("id") == "profile-baseline-id":
+                self.nested = self.details_depth > 0 and attributes.get("value") == baseline
+
+        def handle_endtag(self, tag: str) -> None:
+            if tag == "details":
+                self.details_depth -= 1
+
+    parsed = IdentityParser()
+    parsed.feed(page)
+    assert parsed.nested
+    assert 'href="#profile-baseline-id"' in page
+    assert 'aria-label="Ver ID completo da publicação comparada em Perfil e comparação"' in page
+    assert 'id="profile-copy-status"' in page
+
+
+@pytest.mark.parametrize("status", ["LEGACY", "MISSING", "INVALID"])
+def test_unavailable_profile_guides_to_publication_without_hiding_published_money(
+    status: str,
+) -> None:
+    page = build_report_html(
+        ReportPayload(
+            snapshot={"publication_id": "still-published"},
+            summary={"net_revenue_brl": Decimal("64.00")},
+            profile_result={"status": status, "reason": "Perfil indisponível."},
+        )
+    )
+    assert "Conferir publicação e versões</a>" in page
+    assert 'href="#proveniencia"' in page
+    assert "R$ 64,00" in page
+    assert 'class="profile-rule-list"' not in page
+
+
+@pytest.mark.parametrize(
+    "count,text", [(0, "Sem datas registradas"), (1, "1 dia registrado"), (2, "2 dias registrados")]
+)
+def test_profile_date_scope_plural_and_empty_are_explicit(count: int, text: str) -> None:
+    from retail_pipeline.report_view import _profile_date_range
+
+    interval = {
+        "start": "2026-01-01" if count else None,
+        "end": "2026-01-02" if count else None,
+        "date_count": count,
+    }
+    assert text in _profile_date_range(interval)
+
+
+@pytest.mark.parametrize(
+    "value,display",
+    [
+        (None, "—"),
+        ("0.25", "25,00%"),
+        ("-0.000001", "-0,000100%"),
+        (
+            "0.123456789012345678901234567890123456789",
+            "12,345678901234567890123456789012345678900%",
+        ),
+    ],
+)
+def test_profile_percentage_preserves_decimal_precision_with_small_global_context(
+    value: str | None, display: str
+) -> None:
+    from decimal import localcontext
+
+    from retail_pipeline.report_view import _profile_percentage
+
+    with localcontext() as context:
+        context.prec = 6
+        assert _profile_percentage(value) == display
