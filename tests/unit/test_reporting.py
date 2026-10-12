@@ -13,6 +13,41 @@ def _summary_values(page: str) -> dict[str, str]:
     return dict(re.findall(r'data-metric="([^"]+)">([^<]*)<', page))
 
 
+@pytest.mark.parametrize("state", ["BLOCKED", "TECHNICAL_FAILURE", "RUNNING"])
+def test_attention_states_open_quality_and_keep_overview_link_to_diagnosis(state: str) -> None:
+    page = build_report_html(
+        ReportPayload(
+            snapshot={"publication_id": "published", "run_id": "old"},
+            latest_attempt={"state": state, "run_id": "attempt"},
+            summary={"net_revenue_brl": "104.00"},
+        )
+    )
+    assert 'data-default-view="qualidade"' in page
+    overview = page.split('id="indicadores"', 1)[1].split('id="lojas"', 1)[0]
+    assert 'class="overview-notice attention" href="#qualidade"' in overview
+    assert _summary_values(page)["net_revenue"] == "R$ 104,00"
+
+
+def test_published_report_opens_sales_and_does_not_call_unrelated_profile_an_alert() -> None:
+    page = build_report_html(
+        ReportPayload(
+            snapshot={"publication_id": "published", "run_id": "run"},
+            latest_attempt={"state": "PUBLISHED", "run_id": "run"},
+            profile_result={
+                "status": "AVAILABLE",
+                "profile": {
+                    "publication_id": "wrong",
+                    "run_id": "run",
+                    "comparison": {"status": "COMPARABLE", "warnings": 2},
+                },
+            },
+        )
+    )
+    assert 'data-default-view="indicadores"' in page
+    assert "mudanças pedem conferência" not in page
+    assert "Perfil inválido ou adulterado" in page
+
+
 @pytest.mark.parametrize("reverse", [False, True])
 def test_missing_delivery_keeps_related_record_without_repeating_primary_incident(
     reverse: bool,
@@ -197,7 +232,7 @@ def test_chart_contains_observed_dates_and_values_without_float_money() -> None:
     )
     assert "01/01/2026: R$ 0,10" in html
     assert "02/01/2026: R$ 0,20" in html
-    assert '<svg viewBox="0 0 900 260"' in html
+    assert 'data-chart="sales-trend"' in html
 
 
 def test_reader_captures_pointer_once_even_when_it_changes_between_tables(
@@ -397,7 +432,7 @@ def test_chart_uses_readable_ticks_without_changing_exact_values(
     html = build_report_html(
         ReportPayload(daily=[{"business_date": "2026-01-01", "net_revenue_brl": Decimal(amount)}])
     )
-    svg = html.split('<svg viewBox="0 0 900 260"', 1)[1].split("</svg>", 1)[0]
+    svg = html.split('data-chart="sales-trend"', 1)[1].split("</figure>", 1)[0]
     for label in labels:
         assert label in svg
     assert "01/01/2026: R$ " in svg
@@ -452,16 +487,12 @@ def test_report_nav_includes_products_anchor() -> None:
             products=[{"product_id": "P01", "units": 3, "net_revenue_brl": Decimal("30.00")}],
         )
     )
-    # A nav aponta para a seção de produtos e o painel tem o id correspondente.
-    assert 'href="#produtos"' in html
-    assert ">Produtos<" in html
+    # Produtos fazem parte da visão geral; a tabela equivalente abre por âncora.
     assert 'id="produtos"' in html
-    # A navegação local acompanha a composição: matriz, série, ranking.
-    assert (
-        html.index('href="#indicadores"')
-        < html.index('href="#lojas"')
-        < html.index('href="#produtos"')
-    )
+    assert 'href="#product-values"' in html
+    assert 'id="product-values" tabindex="-1"' in html
+    assert 'href="#lojas" data-view-link="lojas"' in html
+    assert 'href="#perfil" data-view-link="perfil"' in html
 
 
 @pytest.mark.parametrize("state", ["TECHNICAL_FAILURE", "PUBLISHED"])
@@ -478,7 +509,7 @@ def test_publication_with_incomplete_audit_is_never_described_as_previous(state:
             latest_attempt=attempt,
         )
     )
-    context = html.split('<p class="publication-context">', 1)[1].split("</p>", 1)[0]
+    context = html.split('class="data-detail metric-definitions"', 1)[1].split("</details>", 1)[0]
     assert "Publicação disponível, com registro final da tentativa incompleto" in context
     assert "publicação anterior" not in context
     assert "falhou antes" not in context
@@ -624,7 +655,7 @@ def test_financial_formatter_preserves_sign_and_large_exact_value() -> None:
 
 
 def test_chart_preserves_calendar_gaps_without_inventing_observations() -> None:
-    from retail_pipeline.report_view import _revenue_chart
+    from retail_pipeline.report_charts import sales_trend as _revenue_chart
 
     chart = _revenue_chart(
         [
@@ -633,13 +664,12 @@ def test_chart_preserves_calendar_gaps_without_inventing_observations() -> None:
             {"business_date": "2026-01-05", "net_revenue_brl": "30.00"},
         ]
     )
-    assert chart.count("<polyline") == 1
-    assert chart.count("<circle") == 3
-    assert 'cx="110"' in chart and 'cx="302"' in chart and 'cx="880"' in chart
-    assert "Dias sem observação não representam receita zero" in chart
+    assert "<polyline" not in chart
+    assert chart.count("data-chart-date=") == 3
+    assert "Datas sem observação não representam receita zero" in chart
     assert "03/01/2026" not in chart and "04/01/2026" not in chart
     single = _revenue_chart([{"business_date": "2026-01-01", "net_revenue_brl": "0.00"}])
-    assert 'cx="110"' in single and "<polyline" not in single
+    assert 'data-sign="zero"' in single and "<polyline" not in single
     assert "01/01/2026: R$ 0,00" in single
 
 
@@ -700,8 +730,8 @@ def test_matrix_does_not_sum_duplicates_or_invent_scale_for_absent_values() -> N
     assert "Nenhum valor foi somado" in duplicate
 
 
-def test_product_ranking_preserves_input_order_exact_units_and_unknowns() -> None:
-    from retail_pipeline.report_view import _product_ranking
+def test_product_mix_preserves_exact_units_and_unknowns() -> None:
+    from retail_pipeline.report_charts import product_mix as _product_ranking
 
     ranking = _product_ranking(
         [
@@ -711,12 +741,13 @@ def test_product_ranking_preserves_input_order_exact_units_and_unknowns() -> Non
         ]
     )
     assert ranking.index("P03") < ranking.index("P01") < ranking.index("&lt;P02&gt;")
-    assert "width:100.000%" in ranking and ranking.count("width:0.000%") == 2
+    assert "width:100.000000%" in ranking
+    assert ranking.count('class="product-mix-segment"') == 1
     assert ">0</strong>" in ranking and ">—</strong>" in ranking
 
 
 def test_chart_excludes_unknown_without_zero_and_keeps_negative_sign() -> None:
-    from retail_pipeline.report_view import _revenue_chart
+    from retail_pipeline.report_charts import sales_trend as _revenue_chart
 
     chart = _revenue_chart(
         [
@@ -725,10 +756,10 @@ def test_chart_excludes_unknown_without_zero_and_keeps_negative_sign() -> None:
             {"business_date": "2026-01-03", "net_revenue_brl": "5.00"},
         ]
     )
-    assert chart.count("<circle") == 2 and "<polyline" not in chart
+    assert chart.count("data-chart-date=") == 2 and "<polyline" not in chart
     assert "01/01/2026: R$ -12,34" in chart
     assert "02/01/2026: R$ 0,00" not in chart
-    assert "Receitas não informadas não foram desenhadas como zero" in chart
+    assert "Datas sem observação não representam receita zero" in chart
 
 
 def test_font_and_brand_are_embedded_with_license_without_network() -> None:
@@ -850,7 +881,7 @@ def test_profile_reports_baseline_context_before_equivalent_decimal_variations()
     assert "01/10/2026 a 02/10/2026" in section
     assert section.index("Lojas acrescentadas") < section.index("Variação relativa (razão)")
     assert section.index("Catálogo aprovado") < section.index("Totais no recorte equivalente")
-    assert "Interseção explícita das datas e lojas" in section
+    assert "Recorte equivalente" in section
     assert "R$ 90.071.992.547.409,91" in section and "R$ 22,01" in section
     assert "1,005000" in section and "1,205001" in section and "0,200001" in section
     assert "0,199005970149" in section and "Aviso (WARNING)" in section
@@ -895,7 +926,7 @@ def test_profile_comparison_states_remain_explicit(state: str, label: str) -> No
     profile["comparison"] = {"status": state, "reason": "Não há denominador definido.", "rules": []}
     page = _profile_html(profile)
     assert label in page and "Não há denominador definido." in page
-    assert "Regras explicáveis de comparação" not in page
+    assert "O que mudou nas métricas" not in page
 
 
 def test_profile_hostile_fields_are_escaped_and_groups_are_bounded() -> None:
@@ -932,8 +963,8 @@ def test_profile_hostile_fields_are_escaped_and_groups_are_bounded() -> None:
 
 def test_profile_navigation_uses_native_focusable_targets_and_equivalent_tables() -> None:
     page = _profile_html(_profile_fixture())
-    assert 'href="#perfil">Perfil e comparação</a>' in page
-    assert 'id="perfil" tabindex="-1" aria-labelledby="profile-title"' in page
+    assert 'href="#perfil" data-view-link="perfil"' in page
+    assert 'id="perfil" data-report-view tabindex="-1" aria-labelledby="profile-title"' in page
     assert 'id="profile-comparison" tabindex="-1"' in page
     assert "<summary>Perfil do estado ativo publicado</summary>" in page
     assert (
@@ -969,7 +1000,7 @@ def test_profile_partial_coverage_precedes_rules_and_batch_coverage_is_separate(
     }
     page = _profile_html(profile)
     assert page.index("Cobertura histórica parcialmente conhecida") < page.index(
-        "Regras explicáveis de comparação"
+        "O que mudou nas métricas"
     )
     assert 'Lojas confirmadas na entrega</dt><dd><span class="chip">S02</span>' in page
     assert (
@@ -1023,11 +1054,11 @@ def test_profile_state_changes_include_cancelled_items_without_active_label() ->
     assert "Alterações do estado ativo" not in page
 
 
-def test_profile_decision_and_scope_precede_financial_variations_and_analysis() -> None:
+def test_profile_is_separate_from_overview_and_keeps_scope_before_variations() -> None:
     page = _profile_html(_profile_fixture())
-    assert page.index('id="perfil"') < page.index('id="lojas"')
-    assert page.index('href="#perfil"') < page.index('href="#lojas"')
-    section = page.split('id="perfil"', 1)[1].split('id="lojas"', 1)[0]
+    overview = page.split('id="indicadores"', 1)[1].split('id="lojas"', 1)[0]
+    assert "data-profile-rule" not in overview
+    section = page.split('id="perfil"', 1)[1].split('id="proveniencia"', 1)[0]
     assert 'data-profile-warning-count="1"' in section
     assert "1 aviso de perfil" in section
     assert section.index("1 aviso de perfil") < section.index("profile-baseline-id")
