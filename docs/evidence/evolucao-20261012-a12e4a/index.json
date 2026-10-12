@@ -5,8 +5,8 @@
       "sha256": "857a5dba6971fa58f955b33a980d7771ef9cf5d69708ad05b7a9876d27e72bf8"
     },
     "README.md": {
-      "bytes": 3043,
-      "sha256": "3489cfa345557d51914ab972d3fda0be001f316cd674799623c2f65bf85c83a5"
+      "bytes": 3333,
+      "sha256": "02af3229a9b7ede7ad0b90b542131126fc829bd2228bc8fc83596cd2a0a9300e"
     },
     "browser-comparable/input-manifest.json": {
       "bytes": 3184,
@@ -231,6 +231,38 @@
     "restore/target-inventory-after-refusal.json": {
       "bytes": 39097,
       "sha256": "2744d2dcd7760cfe0e243d15f1a65b9024c6fc2e65d302fc68c77c6a460b99a6"
+    },
+    "secrets-controls.json": {
+      "bytes": 1112,
+      "sha256": "b3b151f4d6242b008ada90fa85efdda9fc7aecc7e65c14d110710de601ad9f02"
+    },
+    "secrets-controls.log": {
+      "bytes": 195,
+      "sha256": "45a180fb2965b86e3444fa4020437f693ebc247fee43f9fdde66d44d10aba440"
+    },
+    "secrets-history-final.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "secrets-history-final.log": {
+      "bytes": 255,
+      "sha256": "0bb0908920ca78c2ec7a806092a4654c33536847a9ba644f582896d16a525dca"
+    },
+    "secrets-history-initial.json": {
+      "bytes": 6081,
+      "sha256": "0db99cd95192c2d9a4fe6bd00349de716a5d21359d068ed40a7a05fec878cc61"
+    },
+    "secrets-history-initial.log": {
+      "bytes": 255,
+      "sha256": "505e7e3cf3a062dae9a1d8668d46306089cfb4ad336f87e97ba344976a3ff7a5"
+    },
+    "secrets-initial.log": {
+      "bytes": 286,
+      "sha256": "d64a4df60460b2d1e31320122632fd8f0361b00e540965c6bd69fbe4ecc7f8d3"
+    },
+    "secrets-summary.json": {
+      "bytes": 1165,
+      "sha256": "b79e6ff3bab240278330317a726a0d75675af207d11e5a53b9391d217229aa2f"
     },
     "security-delivery-gate.log": {
       "bytes": 26,
