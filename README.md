@@ -15,6 +15,8 @@ Conferência de entregas e revisões de vendas antes de publicar um fechamento.
 
 O projeto responde a três perguntas: o total está completo, quais revisões foram aceitas e a qual publicação cada indicador pertence? Desenvolvi a ingestão, as regras de revisão, a [publicação por manifesto](src/retail_pipeline/publication.py) e o relatório para uma rede fictícia. Os dados são sintéticos; não há adoção comercial nem ganho financeiro medido.
 
+O fechamento também conserva um perfil da Silver ativa. A comparação identifica a publicação anterior e recalcula datas e lojas em comum antes de avaliar variações. Eventos OpenLineage ficam no disco e podem ser reexportados após uma falha. [Contratos e roteiros de evolução](docs/evolution.md).
+
 <a id="na-prática"></a>
 <a id="como-uma-falha-aparece-para-quem-consulta"></a>
 
@@ -56,15 +58,18 @@ flowchart TB
         Ingest["Ingestão e qualidade<br/>Hash, cobertura e revisões"]
         Tables[("Delta candidato<br/>history · silver · duas gold")]
         Gate["Reconciliação persistida<br/>Receita, unidades e linhas"]
+        Profile["Perfil candidato da Silver<br/>Totais, distribuição e comparação"]
         Ingest -->|"lote elegível"| Tables
         Tables -->|"reler gold"| Gate
+        Gate --> Profile
     end
 
     Input -->|"snapshot físico"| Batch
     Ref -->|"contrato esperado"| Batch
     Batch -->|"erro ou conflito: bloqueio"| Audit["Evidência da tentativa<br/>Bronze + quarentena"]
-    Batch -->|"reconciliado: troca atômica"| Pointer["publication.json<br/>Caminhos + versões Delta"]
+    Batch -->|"reconciliado e perfil pronto: troca atômica"| Pointer["publication.json<br/>Versões Delta + perfil com hash"]
     Pointer -->|"snapshot único · versionAsOf"| Reader["report / explain<br/>HTML local ou JSON"]
+    Pointer -->|"commit reconhecido"| Lineage["Eventos OpenLineage locais<br/>Exportação e reconciliação sob lock"]
 ```
 
 | Responsabilidade | Implementação e contrato |
@@ -74,6 +79,7 @@ flowchart TB
 | Resolver revisões e calcular indicadores | [`pipeline.py`](src/retail_pipeline/pipeline.py) coordena as etapas; [`transformations.py`](src/retail_pipeline/transformations.py) deduplica histórico, escolhe a maior revisão e agrega apenas `UPSERT` nas duas gold. |
 | Tornar várias tabelas visíveis juntas | [`publication.py`](src/retail_pipeline/publication.py) mantém `flock` de escritor único e substitui o ponteiro JSON com `fsync` + `os.replace`; leitores usam os caminhos e versões registrados. |
 | Consultar e apresentar o fechamento | [`reporting.py`](src/retail_pipeline/reporting.py) lê um snapshot; [`report_model.py`](src/retail_pipeline/report_model.py) define o payload e [`report_view.py`](src/retail_pipeline/report_view.py) renderiza o HTML. |
+| Comparar a composição e exportar proveniência | [`profiling.py`](src/retail_pipeline/profiling.py) conserva o perfil no snapshot e recalcula o recorte equivalente; [`lineage.py`](src/retail_pipeline/lineage.py) exporta estados duráveis em OpenLineage. |
 
 No caminho principal, `run` adquire o lock, copia a entrega e compara suas revisões com o **histórico da publicação anterior**. Sem conflitos, grava candidatos, relê e reconcilia as duas gold, então troca `publication.json`. Se houver falha entre gravações, o ponteiro anterior continua válido; a retomada recompõe o candidato a partir dele. Repetir um lote já publicado retorna `NO_CHANGE` após as validações. [Fluxo e falhas exercitados](tests/integration/test_pipeline.py).
 
@@ -116,6 +122,8 @@ Use Docker Desktop com containers Linux, Compose e PowerShell no Windows. Python
 .\scripts\pipeline.ps1 serve
 ```
 
+`profile` lê o perfil e sua comparação em JSON; `lineage` reconcilia os eventos locais sob o lock do escritor. Ambos dispensam a inicialização do Spark. Os limiares de perfil são parâmetros demonstrativos de `run`; avisos não impedem uma correção válida. [Exportação OpenLineage](docs/openlineage.md).
+
 Abra [localhost:3103/report.html](http://localhost:3103/report.html). No Linux, use `sh scripts/pipeline.sh` com os mesmos comandos. `demo` cria estado com UUID; as exportações em `artifacts/` representam a execução mais recente do comando. [Wrapper Linux](scripts/pipeline.sh) e [demo](src/retail_pipeline/demo.py). [Roteiro completo e limpeza](docs/demo.md).
 
 <a id="ler-e-verificar-o-fechamento"></a>
@@ -138,6 +146,8 @@ O [runner](scripts/verify_problem.py) chama o [teste de negócio](tests/integrat
 | [Scan da revisão editorial](docs/evidence/editorial-20260922/security.json) | 22/09/2026; resultado vinculado à imagem examinada                             |
 
 Resultados antigos não certificam commits posteriores. [Inventário das verificações](docs/verification.md) · [fontes e afirmações](docs/fontes-e-afirmacoes.md).
+
+A evolução de 12/10/2026 tem [recibos próprios](docs/evidence/evolucao-20261012-a12e4a/): suíte completa de 369 testes na fonte identificada, 352 unitários após os ajustes de rótulos, três integrações dirigidas na fonte de entrega, comparação e reexportação reais, restauração com perfis e controles funcionais dos três HTMLs. O [scan da imagem de entrega](docs/evidence/evolucao-20261012-a12e4a/security-delivery-summary.json) inventariou OS, JVM e Python e passou com zero HIGH/CRITICAL; dois MEDIUM permanecem registrados. [Roteiros reproduzíveis e saídas](docs/evolution.md).
 
 <a id="limites-e-manutenção"></a>
 <a id="limites-que-mantive-explícitos"></a>
@@ -166,3 +176,5 @@ Os limites de entrada são configuráveis: por padrão, 1 MiB por JSON, 64 MiB p
 <p><a href="https://www.linkedin.com/in/arthur-joanes-6a2967373/"><img src="docs/contact/linkedin.svg" width="24" height="24" alt=""> <strong>Arthur Joanes no LinkedIn</strong></a></p>
 
 [Licença MIT](LICENSE). Ícones da stack e LinkedIn: [Devicon, licença MIT](docs/stack/LICENSE.devicon).
+
+Schemas OpenLineage: [Apache-2.0 e atribuição upstream](src/retail_pipeline/schemas/README.md).

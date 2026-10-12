@@ -1,5 +1,11 @@
 # Demo
 
+## Comparar perfis e recuperar exportação
+
+O [roteiro de evolução](evolution.md) usa estado, imagem, volume e exportações exclusivos. A fixture começa em R$ 64,00; a revisão de preço mantém datas e lojas e permite comparação equivalente. Mover integralmente as vendas para outro dia elimina a interseção e produz `NOT_COMPARABLE`. Esses são resultados esperados pelo [executor com asserts](../scripts/prove_evolution.py); a execução e seus arquivos possuem registro próprio, separado das demos históricas abaixo.
+
+O mesmo executor injeta falha na exportação terminal depois da publicação, verifica `PUBLISHED`, reexporta um COMPLETE e confere preservação de bytes e idempotência. `profile` consulta o JSON do snapshot, e `lineage` permite repetir explicitamente a reconciliação. [Mapeamento OpenLineage](openlineage.md).
+
 ## Testar o problema e a correção
 
 Após o setup, execute em uma janela sem outro Spark:

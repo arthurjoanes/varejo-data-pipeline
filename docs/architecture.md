@@ -35,7 +35,7 @@ flowchart TB
 
 | Fronteira | Entrada e responsabilidade | Saída verificável |
 | --------- | ------------------------- | ----------------- |
-| [CLI](../src/retail_pipeline/cli.py) | Valida argumentos; escolhe `configure`, `generate`, `validate`, `run`, `report`, `explain` ou `demo`. `configure` e `generate` dispensam Spark. | Código de saída e JSON de resultado; os wrappers [PowerShell](../scripts/pipeline.ps1) e [shell](../scripts/pipeline.sh) invocam o container. |
+| [CLI](../src/retail_pipeline/cli.py) | Valida argumentos; escolhe `configure`, `generate`, `validate`, `run`, `report`, `explain`, `profile`, `lineage` ou `demo`. `configure`, `generate`, `profile` e `lineage` dispensam Spark. | Código de saída e JSON de resultado; os wrappers [PowerShell](../scripts/pipeline.ps1) e [shell](../scripts/pipeline.sh) invocam o container. |
 | [Referências do operador](../src/retail_pipeline/references.py) | `configure_references` valida catálogo/calendário sob o lock e impede substituição diferente no mesmo estado. | `operator-references.json` e digest canônico, independentes da pasta recebida. |
 | [Ingestão](../src/retail_pipeline/ingestion.py) | `prepare_batch` copia a entrega, aplica [limites](../src/retail_pipeline/input_limits.py), confere SHA-256/contagens/cobertura e chama os contratos de documento e linha. | `PreparedBatch`: caminho de `rows.ndjson`, hashes, contagens, cobertura e `issues`; bytes originais em `evidence/raw/`. |
 | [Orquestração](../src/retail_pipeline/pipeline.py) | `process_batch` obtém o lock; `_process` aplica os bloqueios, detecta repetição e coordena as gravações. | `RunResult`, `runs/<run_id>/attempt.json`, eventos por etapa e candidato de publicação. |
@@ -53,6 +53,10 @@ Docker Compose `pf-varejo-data`; volume nomeado exclusivo para entrada gerada, D
 Os valores vêm de [compose.yaml](../compose.yaml) e [spark.py](../src/retail_pipeline/spark.py). O batch monta `/app` somente para leitura, `/data` para estado e `/app/artifacts` para exportar. O `report-server` usa o perfil opcional `report`, usuário `65534:65534`, 128 MiB/0,25 CPU e recebe o bind de exportações somente para leitura. O [leitor HTTP](../src/retail_pipeline/report_server.py) aceita HTML regular na raiz e recusa os demais artefatos, links e listagens. O operador inicia cada comando; não há scheduler nem fila. Os limites de recursos são configurações locais e exigem medição para avaliar capacidade.
 
 ## Contratos
+
+O [perfil](../src/retail_pipeline/profiling.py) faz parte do snapshot. Depois da reconciliação, o batch lê as versões candidatas já fixadas, agrega a Silver ativa, compara com a publicação anterior e grava `profiles/<publication_id>.json`. O manifesto recebe caminho, SHA-256 e versão do contrato antes da troca de `publication.json`. O perfil de uma tentativa interrompida permanece órfão e não constitui baseline. `previous_publication_id` registra a cadeia de commits reconhecida pelo reconciliador de lineage.
+
+O [adaptador OpenLineage](../src/retail_pipeline/lineage.py) recebe o estado durável e exporta START e um terminal local. A exportação posterior ao commit é recuperável: falhar nela registra WARNING e conserva o fechamento. `lineage` usa o mesmo lock da escrita; candidatos e manifestos órfãos não anunciam saídas publicadas. Schemas e facetas são validados localmente, incluindo formatos. [Mapeamento de estados e procedência dos schemas](openlineage.md).
 
 - CSV UTF-8 com cabeçalho exato, uma revisão completa por registro. Chave: source_system/store_id/sale_id/line_id. Revisão inteira positiva. Dinheiro Decimal(18,2), quantidade positiva limitada; preço/desconto não negativos e desconto <= bruto.
 - CANCEL é imagem completa validada, retida no estado/histórico, excluída de métricas. Revisão maior UPSERT pode reativar. Revisões menores não regridem. Datas ISO-8601 com offset, normalizadas em UTC; data comercial deriva de sold_at em São Paulo.

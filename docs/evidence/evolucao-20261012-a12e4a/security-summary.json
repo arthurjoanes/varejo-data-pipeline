@@ -1,0 +1,32 @@
+{
+  "image_id": "sha256:d510a4c939b714b5e3c1bd7199f7d19ad9b0575fe631ce34590c2912675eef87",
+  "report_sha256": "0d888851619fba9dc0dfa1e6fb79b0454560cdfbed8f308b497638711e325a6e",
+  "bytes": 470728,
+  "results": [
+    {
+      "type": "alpine",
+      "class": "os-pkgs",
+      "target": "pf-varejo-data@sha256:d510a4c939b714b5e3c1bd7199f7d19ad9b0575fe631ce34590c2912675eef87 (alpine 3.24.2)",
+      "packages": 52,
+      "severity": {
+        "MEDIUM": 1
+      }
+    },
+    {
+      "type": "jar",
+      "class": "lang-pkgs",
+      "target": "Java",
+      "packages": 441,
+      "severity": {
+        "MEDIUM": 1
+      }
+    },
+    {
+      "type": "python-pkg",
+      "class": "lang-pkgs",
+      "target": "Python",
+      "packages": 37,
+      "severity": {}
+    }
+  ]
+}

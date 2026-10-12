@@ -1,0 +1,49 @@
+{
+  "executed_at": "2026-10-12T04:48:10.362082+00:00",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with",
+  "jvm_version": "17.0.20",
+  "patched_jar_sha256": "58c8e0b813960d2a248e050c353baea73139b48a2ffc55382d42c69707e17325",
+  "previous_jar_sha256": "ffdfceacabf20fef15547ab2113374cb2c2b42634f5ac14be72c296a77fd49f8",
+  "maven_metadata": "artifactId=lz4-java\ngroupId=at.yawk.lz4\nversion=1.11.4\n",
+  "native_loaded": true,
+  "patched_factory": "LZ4Factory:JNI",
+  "vectors": [
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "previous_encoded_bytes": 1,
+      "patched_encoded_bytes": 1,
+      "cross_version_roundtrip": true,
+      "java_native_roundtrip": true,
+      "xxhash64": "-1205034819632174695"
+    },
+    {
+      "bytes": 1,
+      "sha256": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881",
+      "previous_encoded_bytes": 2,
+      "patched_encoded_bytes": 2,
+      "cross_version_roundtrip": true,
+      "java_native_roundtrip": true,
+      "xxhash64": "6665539201184043299"
+    },
+    {
+      "bytes": 16384,
+      "sha256": "a1f259d4365ed4320c377ce26f5c8c56dcdc9a89e7b641bfd8eabfbbeac86654",
+      "previous_encoded_bytes": 330,
+      "patched_encoded_bytes": 330,
+      "cross_version_roundtrip": true,
+      "java_native_roundtrip": true,
+      "xxhash64": "4310238018687583162"
+    },
+    {
+      "bytes": 65536,
+      "sha256": "bea8b451fc9b393e5cfe458cbc1532d2d02cbf16acbf0645425960428a85a386",
+      "previous_encoded_bytes": 65794,
+      "patched_encoded_bytes": 65794,
+      "cross_version_roundtrip": true,
+      "java_native_roundtrip": true,
+      "xxhash64": "591694461520177755"
+    }
+  ],
+  "scope": "Four deterministic byte vectors; native/Java and 1.11.3/1.11.4 interoperability, not a benchmark or every platform."
+}

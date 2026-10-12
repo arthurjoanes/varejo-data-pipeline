@@ -1,0 +1,72 @@
+{
+  "bytes": 470587,
+  "command_options": [
+    "image",
+    "--image-src",
+    "docker",
+    "--scanners",
+    "vuln",
+    "--ignorefile",
+    "/dev/null",
+    "--list-all-pkgs",
+    "--format",
+    "json"
+  ],
+  "concurrent_project_work": "Directed Spark tests; this is not a performance benchmark.",
+  "container_name": "pf-varejo-evolucao-a12e4a-scan-delivery",
+  "cpus": 1,
+  "database_metadata": {
+    "trivy\\db\\metadata.json": {
+      "DownloadedAt": "2026-10-12T04:37:27.775491855Z",
+      "NextUpdate": "2026-10-13T01:14:57.362084798Z",
+      "UpdatedAt": "2026-10-12T01:14:57.362085088Z",
+      "Version": 2
+    },
+    "trivy\\java-db\\metadata.json": {
+      "DownloadedAt": "2026-10-12T04:40:02.137245059Z",
+      "NextUpdate": "2026-10-15T01:00:58.130815315Z",
+      "UpdatedAt": "2026-10-12T01:00:58.130815836Z",
+      "Version": 1
+    }
+  },
+  "finished_at": "2026-10-12T05:46:09.817235+00:00",
+  "gate_exit_code": 0,
+  "ignored_findings": false,
+  "image_id": "sha256:e54034991f90d5fc612bb0ae3b4c9369e439d2fbcc06c0cf96185e370615ccb8",
+  "image_id_after": "sha256:e54034991f90d5fc612bb0ae3b4c9369e439d2fbcc06c0cf96185e370615ccb8",
+  "memory": "2g",
+  "metadata_image_id": "sha256:e54034991f90d5fc612bb0ae3b4c9369e439d2fbcc06c0cf96185e370615ccb8",
+  "report_sha256": "7b7951a8395cafcd688be8c02e2409838c768bca98e4c57d4e087c0d03703794",
+  "results": [
+    {
+      "class": "os-pkgs",
+      "packages": 52,
+      "severity": {
+        "MEDIUM": 1
+      },
+      "type": "alpine"
+    },
+    {
+      "class": "lang-pkgs",
+      "packages": 441,
+      "severity": {
+        "MEDIUM": 1
+      },
+      "type": "jar"
+    },
+    {
+      "class": "lang-pkgs",
+      "packages": 37,
+      "severity": {},
+      "type": "python-pkg"
+    }
+  ],
+  "scan_exit_code": 0,
+  "scanner": "aquasec/trivy:0.74.0@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969",
+  "scope": [
+    "OS",
+    "JVM",
+    "Python"
+  ],
+  "started_at": "2026-10-12T05:45:52.266400+00:00"
+}

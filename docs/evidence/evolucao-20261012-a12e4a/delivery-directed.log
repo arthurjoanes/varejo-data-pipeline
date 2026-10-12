@@ -1,0 +1,32 @@
+ Container pf-varejo-evolucao-a12e4a-delivery-tests Creating 
+ Container pf-varejo-evolucao-a12e4a-delivery-tests Created 
+All checks passed!
+63 files already formatted
+Success: no issues found in 20 source files
+Picked up JAVA_TOOL_OPTIONS: -Djava.io.tmpdir=/data/tmp
+Picked up JAVA_TOOL_OPTIONS: -Djava.io.tmpdir=/data/tmp
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/12 05:44:12 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/10/12 05:44:13 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in standalone/kubernetes and LOCAL_DIRS in YARN).
+26/10/12 05:44:13 WARN MacAddressUtil: Failed to find a usable hardware address from the network interfaces; using random bytes: 54:fc:b6:82:71:47:3f:a4
+{"batch_id": "new-store-base", "counts": {"conflicts": 0, "duplicates": 0, "received": 4, "rejected": 0, "revision_checks_executed": 0, "stale": 0, "valid": 4, "violations": 0}, "duration_seconds": 10.9082, "run_id": "309eab03423644078cf182a7c9be11ae", "stage": "ingestion", "state": "RUNNING"}
+{"batch_id": "new-store-base", "counts": {"conflicts": 0, "duplicates": 0, "received": 4, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 4, "violations": 0}, "duration_seconds": 3.9114, "run_id": "309eab03423644078cf182a7c9be11ae", "stage": "quality", "state": "RUNNING"}
+{"batch_id": "new-store-base", "counts": {"conflicts": 0, "duplicates": 0, "received": 4, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 4, "violations": 0}, "duration_seconds": 7.3036, "run_id": "309eab03423644078cf182a7c9be11ae", "stage": "silver", "state": "RUNNING"}
+{"batch_id": "new-store-base", "counts": {"conflicts": 0, "duplicates": 0, "received": 4, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 4, "violations": 0}, "duration_seconds": 4.3814, "run_id": "309eab03423644078cf182a7c9be11ae", "stage": "gold", "state": "RUNNING"}
+{"batch_id": "new-store-base", "counts": {"conflicts": 0, "duplicates": 0, "received": 4, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 4, "violations": 0}, "duration_seconds": 1.4494, "run_id": "309eab03423644078cf182a7c9be11ae", "stage": "reconciliation", "state": "RUNNING"}
+{"batch_id": "new-store-base", "counts": {"conflicts": 0, "duplicates": 0, "received": 4, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 4, "violations": 0}, "duration_seconds": 3.8379, "run_id": "309eab03423644078cf182a7c9be11ae", "stage": "profile", "state": "RUNNING"}
+{"batch_id": "new-store-base", "counts": {"conflicts": 0, "duplicates": 0, "received": 4, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 4, "violations": 0}, "duration_seconds": 6.3758, "run_id": "309eab03423644078cf182a7c9be11ae", "stage": "publication", "state": "PUBLISHED"}
+{"batch_id": "new-store-base", "counts": {"conflicts": 0, "duplicates": 0, "received": 4, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 4, "violations": 0}, "duration_seconds": 34.4081, "run_id": "309eab03423644078cf182a7c9be11ae", "stage": "complete", "state": "PUBLISHED"}
+{"batch_id": "new-store-expanded", "counts": {"conflicts": 0, "duplicates": 0, "received": 5, "rejected": 0, "revision_checks_executed": 0, "stale": 0, "valid": 5, "violations": 0}, "duration_seconds": 3.195, "run_id": "11022c0b71464199a89ceb4fff3757b6", "stage": "ingestion", "state": "RUNNING"}
+{"batch_id": "new-store-expanded", "counts": {"conflicts": 0, "duplicates": 4, "received": 5, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 5, "violations": 0}, "duration_seconds": 4.5665, "run_id": "11022c0b71464199a89ceb4fff3757b6", "stage": "quality", "state": "RUNNING"}
+{"batch_id": "new-store-expanded", "counts": {"conflicts": 0, "duplicates": 4, "received": 5, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 5, "violations": 0}, "duration_seconds": 6.5279, "run_id": "11022c0b71464199a89ceb4fff3757b6", "stage": "silver", "state": "RUNNING"}
+{"batch_id": "new-store-expanded", "counts": {"conflicts": 0, "duplicates": 4, "received": 5, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 5, "violations": 0}, "duration_seconds": 3.5072, "run_id": "11022c0b71464199a89ceb4fff3757b6", "stage": "gold", "state": "RUNNING"}
+{"batch_id": "new-store-expanded", "counts": {"conflicts": 0, "duplicates": 4, "received": 5, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 5, "violations": 0}, "duration_seconds": 1.2604, "run_id": "11022c0b71464199a89ceb4fff3757b6", "stage": "reconciliation", "state": "RUNNING"}
+{"batch_id": "new-store-expanded", "counts": {"conflicts": 0, "duplicates": 4, "received": 5, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 5, "violations": 0}, "duration_seconds": 9.4421, "run_id": "11022c0b71464199a89ceb4fff3757b6", "stage": "profile", "state": "RUNNING"}
+{"batch_id": "new-store-expanded", "counts": {"conflicts": 0, "duplicates": 4, "received": 5, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 5, "violations": 0}, "duration_seconds": 11.6474, "run_id": "11022c0b71464199a89ceb4fff3757b6", "stage": "publication", "state": "PUBLISHED"}
+{"batch_id": "new-store-expanded", "counts": {"conflicts": 0, "duplicates": 4, "received": 5, "rejected": 0, "revision_checks_executed": 1, "stale": 0, "valid": 5, "violations": 0}, "duration_seconds": 30.713, "run_id": "11022c0b71464199a89ceb4fff3757b6", "stage": "complete", "state": "PUBLISHED"}
+...                                                                      [100%]
+3 passed in 79.14s (0:01:19)

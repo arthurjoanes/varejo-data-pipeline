@@ -1,8 +1,44 @@
 # Qualidade da interface de fechamento
 
+## Interface funcional de perfis, 12/10/2026
+
+Em Indicadores, o link “Perfil e comparação” abre a seção da publicação capturada. O relatório identifica a publicação anterior, mostra mudanças de período, catálogo e lojas antes das regras e conserva tabelas para os totais originais e o recorte equivalente. A cobertura histórica parcialmente conhecida aparece antes das diferenças. O lote recebido tem suas próprias contagens e cobertura, separados do estado Silver ativo.
+
+Receita, descontos e contribuições usam os valores decimais persistidos. Médias e diferenças preservam as casas do contrato; os quantis informam algoritmo e precisão e permanecem identificados como aproximações. A apresentação exibe até 20 grupos por dimensão, com aviso quando há mais grupos. A comparação usa as agregações completas nas versões Delta fixadas.
+
+Primeira publicação, recorte vazio, falta de amostra e ausência de recorte comum têm textos próprios. Publicação legada sem perfil, referência ausente e perfil inválido também são estados explícitos. Abrir o HTML usa somente os dados capturados; cálculo de perfil e leitura Delta pertencem à geração do relatório. A composição Matriz → Série → Ranking da v4 permanece, seguida da nova seção funcional.
+
+O [teste do renderer](../tests/unit/test_reporting.py) passou em **64 casos no Windows**, em 12/10/2026. Ele cobre escaping dos novos campos, limite de grupos, números extensos, médias sem arredondamento monetário, identificação da baseline, cobertura incompleta e separação entre tentativa bloqueada e publicação. Ruff, formato, mypy dirigido aos dois módulos de apresentação e sintaxe de JavaScript passaram. O primeiro teste completo no host encontrou a dependência Linux `fcntl`; a importação do leitor foi tornada tardia, e a execução completa seguinte passou. Esses testes do renderer não executam Spark.
+
+O renderer também integrou a suíte Linux de **369 testes aprovados, sem skips**, em 1.536,62 s, com a fonte congelada em `0ddab5e`. Ruff e formato passaram em 62 arquivos, e mypy passou em 20 módulos. Os [recibos dessa execução](verification.md#evolução-de-perfis-e-lineage-em-12102026) identificam fonte, imagem e isolamento.
+
+A revisão de rótulos `bc66968` passou em 69 casos dirigidos do renderer. Depois, **352 testes unitários passaram no Linux em 13,53 s**, e Ruff, formato e mypy passaram novamente. Os rótulos mostram "Datas registradas", distinguem catálogo aprovado de recebido e chamam as transições, inclusive CANCEL, de "Alterações do estado". Essa execução posterior tem [JUnit](evidence/evolucao-20261012-a12e4a/unit-labels.xml), [log](evidence/evolucao-20261012-a12e4a/unit-labels.log) e [inventário de fontes](evidence/evolucao-20261012-a12e4a/source-labels-before.json) próprios; a suíte completa de 369 testes permanece anterior a esses ajustes.
+
+O [probe funcional](../scripts/profile-report-review.cjs) passou no Edge **155.0.4283.45**, sobre uma fixture de apresentação explicitamente sintética e fontes do renderer copiadas para um diretório próprio. Conferiu 1440, 768, 390 e 320 px, âncora e foco por teclado, abertura nativa do perfil, região de tabela focável, seleção/cópia da baseline, leitura sem JavaScript e zero requisições HTTP externas. Não houve overflow global nem erro JavaScript. Duas capturas, em 1440 e 320 px, foram inspecionadas. Os arquivos locais dessa execução estão em `artifacts/profile-functional-20261012`, com hashes das fontes, HTML/JSON da fixture e resultado do navegador. São provas de apresentação; os gates Linux e os novos lotes têm registros próprios em [verificação](verification.md).
+
+### Relatórios gerados pela demonstração
+
+O probe também passou sobre os três HTMLs gerados com Spark/Delta e fixtures sintéticas, na fonte `bc66968` e imagem `8165ad96042f…`. Foram **12 combinações**, com os estados `NO_BASELINE`, `COMPARABLE` e `NOT_COMPARABLE` em 1440, 768, 390 e 320 px, no mesmo Edge 155.0.4283.45. As verificações cobriram âncora e foco por teclado, abertura do perfil, região de tabela focável, seleção da baseline pelo fallback de cópia, leitura sem JavaScript e modo offline. Nenhuma combinação apresentou erro JavaScript, requisição HTTP externa ou overflow global. O navegador leu os HTMLs capturados sem iniciar Spark.
+
+Os recibos de [primeira publicação](evidence/evolucao-20261012-a12e4a/browser-initial/profile-functional.public.json), [comparação válida](evidence/evolucao-20261012-a12e4a/browser-comparable/profile-functional.public.json) e [recorte não comparável](evidence/evolucao-20261012-a12e4a/browser-incomparable/profile-functional.public.json) têm manifestos de entrada com IDs, totais, versões Delta e hashes de fonte/HTML. Foram produzidas seis capturas. Dois recortes foram inspecionados: [comparação válida em 320 px](evidence/evolucao-20261012-a12e4a/browser-comparable/profile-320.png) e [não comparável em 1440 px](evidence/evolucao-20261012-a12e4a/browser-incomparable/profile-1440.png). O [índice](evidence/evolucao-20261012-a12e4a/browser-index.json) registra os hashes dos recibos originais e públicos; nos públicos, somente o caminho absoluto da entrada foi substituído pelo caminho relativo do artefato. Os originais continuam no diretório local de artifacts.
+
+Essa conferência verifica a interface funcional desta entrega. Avaliação completa de UX e acessibilidade, leitor de tela, zoom nativo e outros motores permanecem fora do percurso executado. As provas sintéticas anteriores e a revisão v4 abaixo conservam seus resultados e fontes.
+
+Para conferir um relatório novo já gerado, use as ferramentas opcionais de desenvolvimento:
+
+```powershell
+$env:PLAYWRIGHT_MODULE = 'C:\Users\arthu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\playwright'
+$env:PLAYWRIGHT_CHANNEL = 'msedge'
+node scripts/profile-report-review.cjs artifacts/profile-functional-20261012/fixture-profile.html artifacts/profile-functional-20261012/browser-replay
+```
+
+O primeiro argumento é o HTML capturado; o segundo é um diretório novo para o JSON de resultados e as capturas. O caminho de Playwright depende da instalação local. Esta etapa verifica a interface funcional; avaliação visual posterior, leitor de tela, zoom nativo e outros motores continuam pendentes. As capturas e os resultados v4 abaixo conservam sua data original.
+
+## Revisão visual v4
+
 Direção visual v4, revisada em 22/09/2026. Baseline visual: `636e8408f1108ce387ddc291318d2d1ebe042dee`. Esta revisão usa os mesmos cinco payloads históricos. O [manifesto da revisão](evidence/interface-v4/review-manifest.json) registra fontes, normalização de hashes, assets e capturas; a [comparação](evidence/interface-v4/comparison.json) contém 14 pares nas mesmas dimensões e estados. As evidências v2, v3 e de restauração continuam históricas, sem substituição de seus resultados.
 
-A [conferência posterior das imagens](image-review.md) reproduziu a fonte atual: renderer, CSS, JavaScript e assets continuam correspondendo à v4. Os resultados e comparações abaixo pertencem à revisão v4 original; seus arquivos não foram sobrescritos pela nova conferência.
+A [conferência posterior das imagens](image-review.md) reproduziu o renderer, CSS, JavaScript e assets v4 disponíveis naquela execução. Os resultados e comparações abaixo pertencem à revisão v4 original; seus arquivos não foram sobrescritos pela evolução de perfis.
 
 ## Produto, diagnóstico e duas composições
 

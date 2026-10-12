@@ -76,6 +76,18 @@ Grão: revisão completa de um item de venda. Todos os campos são obrigatórios
 
 Dinheiro não admite notação científica, sinal, vírgula, `NaN`, infinito ou arredondamento silencioso. Silver utiliza Decimal(18,2) em preço/desconto e Decimal(24,2) no líquido da linha; Gold utiliza Decimal(28,2) em receita/ticket; os limites por linha impedem overflow no bruto `quantity × unit_price_brl`. Desconto também deve caber em Decimal(18,2). `sold_at` e `source_updated_at` aceitam até 6 casas nos segundos. Datas sem timezone e datas impossíveis são bloqueadas. Minutos de offset devem ficar entre 00 e 59; o offset completo deve ser menor que 24 horas. O instante normalizado em UTC e o dia comercial de `sold_at` precisam caber nos anos 0001–9999 dos leitores Python. A persistência Parquet usa escrita `CORRECTED`, preservando o calendário gregoriano, inclusive em datas anteriores a 1900; não é uma conversão para calendários híbridos legados. Os timestamps são normalizados em UTC; source_updated_at é informativo e não ordena revisões nem impõe comparação causal entre relógios.
 
+## Perfil de publicação v1
+
+`Publication.profile` é opcional para compatibilidade com snapshots anteriores. Quando presente, contém `contract_version: 1`, `path` absoluto e `sha256`. O documento exige os mesmos `publication_id`, `run_id` e `delta_versions` do manifesto. O leitor distingue `AVAILABLE`, `NO_PUBLICATION`, `LEGACY`, `MISSING` e `INVALID`; snapshots legados não recebem métricas reconstruídas automaticamente.
+
+`batch` registra contagens e operações válidas recebidas, inclusive duplicatas/revisões antigas. `active_state` usa somente as maiores revisões válidas com `UPSERT`: linhas, vendas, unidades, receita líquida, bruto e desconto. `state_changes` identifica a origem das alterações, cancelamentos e reativações entre versões Silver. Uma publicação vazia tem totais aditivos zero; médias ficam ausentes. A ausência de publicação tem um estado próprio.
+
+`date_range` descreve as datas presentes na Silver, incluindo chaves canceladas. Totais, distribuições e contribuições comerciais filtram `UPSERT`. `batch.coverage` conserva a confirmação da entrega; `coverage` registra a união conhecida das confirmações aceitas. Uma história anterior sem perfil deixa `scope_complete=false`, apresentado antes das regras; lojas ativas não são inferidas como confirmação de cobertura.
+
+Receitas são texto decimal com duas casas no JSON. As médias usam numeradores completos e arredondamento HALF_EVEN a seis casas para apresentação. A regra de preço médio pondera pelas unidades (`gross_revenue_brl / units`); a distribuição de preços descreve linhas. Quantis de quantidade, preço e desconto usam `percentile_approx`, cinco probabilidades e precisão 10.000 por padrão. Quantis aproximados não fundamentam reconciliação financeira.
+
+As apresentações têm até 20 grupos por dimensão e 31 datas por padrão; a interseção de datas é feita integralmente no Spark. O JSON tem orçamento padrão de 256 KiB, teto configurável de 1 MiB, até nove quantis e até 1.000 lojas de escopo. Truncamento de apresentação é explícito e não altera os totais ou o recálculo da comparação. [Parâmetros e validação](../src/retail_pipeline/profiling.py).
+
 ## Revisão, cancelamento e identidade
 
 `CANCEL` exige a mesma imagem completa e as mesmas validações de um UPSERT. Mantém histórico e estado tipado, porém não contribui para indicadores. Uma revisão maior UPSERT pode reativar o item. Correções podem alterar produto, quantidade, preço, desconto e instante da venda; a chave permanece estável. Revisão menor nunca substitui a maior.
@@ -112,7 +124,7 @@ Gerador versão 2: `fixture` usa os exemplos manuais; `demo` usa 30 mil linhas, 
 
 Duplicatas, conflitos e revisões antigas só são avaliados depois que a integridade física e os contratos de linha passam. A flag revision_checks_executed diferencia zero ocorrências de verificação não executada; o relatório exibe Não avaliado nesses casos.
 
-Na apresentação monetária, o relatório arredonda valores calculados para duas casas com `ROUND_HALF_UP`, coerente com o cast decimal do ticket em Spark: `1.005` é exibido como `R$ 1,01`. Essa decisão afeta a apresentação de médias e não flexibiliza o contrato de entrada, que continua recusando dinheiro com mais de duas casas.
+Nos cartões monetários e no ticket, o relatório arredonda valores calculados para duas casas com `ROUND_HALF_UP`, coerente com o cast decimal do ticket em Spark: `1.005` é exibido como `R$ 1,01`. As médias do perfil conservam seis casas e `ROUND_HALF_EVEN`, com numeradores e denominadores no JSON. O contrato de entrada continua recusando dinheiro com mais de duas casas.
 
 ## Resumo sem vendas e apresentação
 

@@ -1,0 +1,1736 @@
+{
+  "cgroup_after": {
+    "memory.current": "1316675584",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "memory.peak": "1345388544",
+    "pids.current": "429",
+    "pids.events": "max 0",
+    "pids.max": "1024",
+    "pids.peak": "658"
+  },
+  "cgroup_before": {
+    "memory.current": "17338368",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "memory.peak": "21946368",
+    "pids.current": "2",
+    "pids.events": "max 0",
+    "pids.max": "1024",
+    "pids.peak": "6"
+  },
+  "observed": {
+    "current_publication_id": "0fb9067f443c4926b8c95904d71406a4",
+    "publications": [
+      {
+        "profile": {
+          "profile": {
+            "active_state": {
+              "cancelled_keys": 0,
+              "distributions": {
+                "line_discount_brl": {
+                  "max": "2.50",
+                  "mean": "0.875000",
+                  "min": "0.00",
+                  "quantiles": [
+                    {
+                      "probability": 0.0,
+                      "value": "0.00"
+                    },
+                    {
+                      "probability": 0.25,
+                      "value": "0.00"
+                    },
+                    {
+                      "probability": 0.5,
+                      "value": "0.00"
+                    },
+                    {
+                      "probability": 0.75,
+                      "value": "1.00"
+                    },
+                    {
+                      "probability": 1.0,
+                      "value": "2.50"
+                    }
+                  ]
+                },
+                "quantity": {
+                  "max": "3",
+                  "mean": "2.000000",
+                  "min": "1",
+                  "quantiles": [
+                    {
+                      "probability": 0.0,
+                      "value": "1"
+                    },
+                    {
+                      "probability": 0.25,
+                      "value": "1"
+                    },
+                    {
+                      "probability": 0.5,
+                      "value": "1"
+                    },
+                    {
+                      "probability": 0.75,
+                      "value": "3"
+                    },
+                    {
+                      "probability": 1.0,
+                      "value": "3"
+                    }
+                  ]
+                },
+                "unit_price_brl": {
+                  "max": "20.00",
+                  "mean": "10.875000",
+                  "min": "5.00",
+                  "quantiles": [
+                    {
+                      "probability": 0.0,
+                      "value": "5.00"
+                    },
+                    {
+                      "probability": 0.25,
+                      "value": "5.00"
+                    },
+                    {
+                      "probability": 0.5,
+                      "value": "7.50"
+                    },
+                    {
+                      "probability": 0.75,
+                      "value": "11.00"
+                    },
+                    {
+                      "probability": 1.0,
+                      "value": "20.00"
+                    }
+                  ]
+                }
+              },
+              "groups": {
+                "products": {
+                  "group_count": 3,
+                  "truncated": false,
+                  "values": [
+                    {
+                      "active_lines": 2,
+                      "net_revenue_brl": "52.00",
+                      "product_id": "P01",
+                      "sales": 2,
+                      "units": 4
+                    },
+                    {
+                      "active_lines": 1,
+                      "net_revenue_brl": "20.00",
+                      "product_id": "P03",
+                      "sales": 1,
+                      "units": 3
+                    },
+                    {
+                      "active_lines": 1,
+                      "net_revenue_brl": "5.00",
+                      "product_id": "P02",
+                      "sales": 1,
+                      "units": 1
+                    }
+                  ]
+                },
+                "stores": {
+                  "group_count": 2,
+                  "truncated": false,
+                  "values": [
+                    {
+                      "active_lines": 3,
+                      "net_revenue_brl": "57.00",
+                      "sales": 2,
+                      "store_id": "S01",
+                      "units": 7
+                    },
+                    {
+                      "active_lines": 1,
+                      "net_revenue_brl": "20.00",
+                      "sales": 1,
+                      "store_id": "S02",
+                      "units": 1
+                    }
+                  ]
+                }
+              },
+              "totals": {
+                "active_lines": 4,
+                "discount_brl": "3.50",
+                "gross_revenue_brl": "80.50",
+                "net_revenue_brl": "77.00",
+                "sales": 3,
+                "units": 8
+              }
+            },
+            "batch": {
+              "coverage": {
+                "expected": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "missing": [],
+                "received": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "zero_movement": [
+                  "S03"
+                ]
+              },
+              "received_operations": {
+                "valid_cancel_events": 0,
+                "valid_revision_gt1_events": 1
+              },
+              "received_operations_include_duplicates_and_stale": true,
+              "stats": {
+                "conflicts": 0,
+                "duplicates": 3,
+                "received": 4,
+                "rejected": 0,
+                "revision_checks_executed": 1,
+                "stale": 0,
+                "valid": 4,
+                "violations": 0
+              }
+            },
+            "calculation_version": "silver-profile-v1",
+            "comparison": {
+              "baseline_delta_versions": {
+                "bronze": {
+                  "path": "/data/proof/state/runs/f0f12dd3065745efa45d58b1bed38369/bronze",
+                  "version": 0
+                },
+                "gold_product_day": {
+                  "path": "/data/proof/state/tables/gold_product_day",
+                  "version": 1
+                },
+                "gold_store_day": {
+                  "path": "/data/proof/state/tables/gold_store_day",
+                  "version": 1
+                },
+                "history": {
+                  "path": "/data/proof/state/tables/history",
+                  "version": 1
+                },
+                "silver": {
+                  "path": "/data/proof/state/tables/silver",
+                  "version": 1
+                }
+              },
+              "baseline_publication_id": "f6dcf17b774c43a083e6e9a9068a8d77",
+              "context": {
+                "catalog_changed": false,
+                "catalog_identity_available": true,
+                "catalog_reference_origin": "approved_operator_catalog",
+                "current_date_range": {
+                  "date_count": 1,
+                  "dates": [
+                    "2026-01-01"
+                  ],
+                  "dates_truncated": false,
+                  "end": "2026-01-01",
+                  "start": "2026-01-01"
+                },
+                "current_reference_hashes": {
+                  "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                  "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                  "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                  "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                  "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+                },
+                "current_scope_complete": true,
+                "current_stores": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "dates_changed": false,
+                "previous_date_range": {
+                  "date_count": 1,
+                  "dates": [
+                    "2026-01-01"
+                  ],
+                  "dates_truncated": false,
+                  "end": "2026-01-01",
+                  "start": "2026-01-01"
+                },
+                "previous_reference_hashes": {
+                  "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                  "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                  "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                  "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                  "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+                },
+                "previous_scope_complete": true,
+                "previous_stores": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "stores_added": [],
+                "stores_removed": []
+              },
+              "equivalent_totals": {
+                "current": {
+                  "active_lines": 4,
+                  "discount_brl": "3.50",
+                  "gross_revenue_brl": "80.50",
+                  "net_revenue_brl": "77.00",
+                  "sales": 3,
+                  "units": 8
+                },
+                "previous": {
+                  "active_lines": 4,
+                  "discount_brl": "3.50",
+                  "gross_revenue_brl": "67.50",
+                  "net_revenue_brl": "64.00",
+                  "sales": 3,
+                  "units": 7
+                }
+              },
+              "original_totals": {
+                "current": {
+                  "active_lines": 4,
+                  "discount_brl": "3.50",
+                  "gross_revenue_brl": "80.50",
+                  "net_revenue_brl": "77.00",
+                  "sales": 3,
+                  "units": 8
+                },
+                "previous": {
+                  "active_lines": 4,
+                  "discount_brl": "3.50",
+                  "gross_revenue_brl": "67.50",
+                  "net_revenue_brl": "64.00",
+                  "sales": 3,
+                  "units": 7
+                }
+              },
+              "reason": "Métricas recalculadas nas mesmas datas e lojas.",
+              "rules": [
+                {
+                  "current": "2.000000",
+                  "current_denominator": 4,
+                  "current_numerator": "8",
+                  "difference": "0.250000",
+                  "metric": "quantity_mean",
+                  "previous": "1.750000",
+                  "previous_denominator": 4,
+                  "previous_numerator": "7",
+                  "reason": "Variação dentro do limiar demonstrativo.",
+                  "relative_change": "0.142857",
+                  "severity": "INFO",
+                  "status": "STABLE",
+                  "threshold": "0.25"
+                },
+                {
+                  "current": "10.062500",
+                  "current_denominator": 8,
+                  "current_numerator": "80.50",
+                  "difference": "0.419643",
+                  "metric": "unit_price_mean_brl",
+                  "previous": "9.642857",
+                  "previous_denominator": 7,
+                  "previous_numerator": "67.50",
+                  "reason": "Variação dentro do limiar demonstrativo.",
+                  "relative_change": "0.043519",
+                  "severity": "INFO",
+                  "status": "STABLE",
+                  "threshold": "0.25"
+                }
+              ],
+              "scope": {
+                "date_intersection_complete": true,
+                "dates": {
+                  "date_count": 1,
+                  "dates": [
+                    "2026-01-01"
+                  ],
+                  "dates_truncated": false,
+                  "end": "2026-01-01",
+                  "start": "2026-01-01"
+                },
+                "definition": "intersection_of_silver_business_dates_and_confirmed_coverage_stores",
+                "silver_versions": {
+                  "current": {
+                    "path": "/data/proof/state/tables/silver",
+                    "version": 2
+                  },
+                  "previous": {
+                    "path": "/data/proof/state/tables/silver",
+                    "version": 1
+                  }
+                },
+                "stores": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ]
+              },
+              "status": "COMPARABLE",
+              "warnings": 0
+            },
+            "contract_version": 1,
+            "coverage": {
+              "expected": [
+                "S01",
+                "S02",
+                "S03"
+              ],
+              "missing": [],
+              "origin": "cumulative_confirmed_stores_with_latest_batch_zero_movement",
+              "received": [
+                "S01",
+                "S02",
+                "S03"
+              ],
+              "scope_complete": true,
+              "zero_movement": [
+                "S03"
+              ]
+            },
+            "date_range": {
+              "date_count": 1,
+              "dates": [
+                "2026-01-01"
+              ],
+              "dates_truncated": false,
+              "end": "2026-01-01",
+              "start": "2026-01-01"
+            },
+            "delta_versions": {
+              "bronze": {
+                "path": "/data/proof/state/runs/2015dcfa9f1248a3a77196cd038723d7/bronze",
+                "version": 0
+              },
+              "gold_product_day": {
+                "path": "/data/proof/state/tables/gold_product_day",
+                "version": 2
+              },
+              "gold_store_day": {
+                "path": "/data/proof/state/tables/gold_store_day",
+                "version": 2
+              },
+              "history": {
+                "path": "/data/proof/state/tables/history",
+                "version": 2
+              },
+              "silver": {
+                "path": "/data/proof/state/tables/silver",
+                "version": 2
+              }
+            },
+            "parameters": {
+              "date_display_limit": 31,
+              "group_limit": 20,
+              "max_json_bytes": 262144,
+              "max_quantiles": 9,
+              "mean_decimal_places": 6,
+              "mean_rounding": "ROUND_HALF_EVEN",
+              "min_active_lines": 3,
+              "quantile_accuracy": 10000,
+              "quantile_algorithm": "pyspark.sql.functions.percentile_approx",
+              "quantile_probabilities": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0
+              ],
+              "quantity_mean_relative_threshold": "0.25",
+              "scope_limit": 1000,
+              "thresholds_are_demonstrative": true,
+              "unit_price_mean_relative_threshold": "0.25"
+            },
+            "publication_id": "0fb9067f443c4926b8c95904d71406a4",
+            "reference_hashes": {
+              "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+              "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+              "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+            },
+            "run_id": "2015dcfa9f1248a3a77196cd038723d7",
+            "state_changes": {
+              "cancelled_keys": 0,
+              "effective_changes": 1,
+              "new_keys": 0,
+              "origin": "compared_silver_versions",
+              "reactivated_keys": 0,
+              "revised_keys": 1
+            }
+          },
+          "reason": null,
+          "status": "AVAILABLE"
+        },
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid",
+            "missing-delivery",
+            "late-correction"
+          ],
+          "previous_publication_id": "f6dcf17b774c43a083e6e9a9068a8d77",
+          "profile": {
+            "contract_version": 1,
+            "path": "/data/proof/state/profiles/0fb9067f443c4926b8c95904d71406a4.json",
+            "sha256": "37b1e80e32c1b5c7fa4a69c3b8da350eb1e764827f7376d98687cd4ef9c6c31d"
+          },
+          "publication_id": "0fb9067f443c4926b8c95904d71406a4",
+          "published_at": "2026-10-12T05:40:13.744163+00:00",
+          "run_id": "2015dcfa9f1248a3a77196cd038723d7",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+              "bronze_version": 0,
+              "manifest_hash": "fc286f48c5d1faae2b95a91b0a946b0244eaff712b37a41f24bfcc777e276fb1",
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "79a75baf66834bbda6a8f25e70d462c1"
+            },
+            {
+              "batch_id": "missing-delivery",
+              "bronze_path": "/data/proof/state/runs/f0f12dd3065745efa45d58b1bed38369/bronze",
+              "bronze_version": 0,
+              "manifest_hash": "f15a076b6b4209c9f4be5cd1fad79985773bc831430245479c9258358e3d74a8",
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "f0f12dd3065745efa45d58b1bed38369"
+            },
+            {
+              "batch_id": "late-correction",
+              "bronze_path": "/data/proof/state/runs/2015dcfa9f1248a3a77196cd038723d7/bronze",
+              "bronze_version": 0,
+              "manifest_hash": "57526848a1b510015308ae376d67a59351437eccfc5f20b0b1312b0dfbb83ca5",
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "2015dcfa9f1248a3a77196cd038723d7"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/2015dcfa9f1248a3a77196cd038723d7/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 2
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 2
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 2
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 2
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "a862defed55714284c14d1b2ab0bd3107c4e0f07a03c02ba7093ebdff8a3bde1"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 7700,
+            "rows": 3,
+            "rows_sha256": "1ae4fdaf9c4cd5f4195f4775e332aa162806a17179890881cbf7863c7a6b4883"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 7700,
+            "rows": 2,
+            "rows_sha256": "cc940d52b268a57f771997b6ba3dbe135042e7d7d333899c5503def6cd210819"
+          },
+          "history": {
+            "rows": 5,
+            "rows_sha256": "dac3be0c2c244b09d05ae44e96072dc95094f35fec2147a722d0ec26827e205f"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "b1ca9623b0aba89db80e0fae2327402bd98777a96874835b922afd703a6027e7"
+          }
+        }
+      },
+      {
+        "profile": {
+          "profile": {
+            "active_state": {
+              "cancelled_keys": 0,
+              "distributions": {
+                "line_discount_brl": {
+                  "max": "2.50",
+                  "mean": "0.875000",
+                  "min": "0.00",
+                  "quantiles": [
+                    {
+                      "probability": 0.0,
+                      "value": "0.00"
+                    },
+                    {
+                      "probability": 0.25,
+                      "value": "0.00"
+                    },
+                    {
+                      "probability": 0.5,
+                      "value": "0.00"
+                    },
+                    {
+                      "probability": 0.75,
+                      "value": "1.00"
+                    },
+                    {
+                      "probability": 1.0,
+                      "value": "2.50"
+                    }
+                  ]
+                },
+                "quantity": {
+                  "max": "3",
+                  "mean": "1.750000",
+                  "min": "1",
+                  "quantiles": [
+                    {
+                      "probability": 0.0,
+                      "value": "1"
+                    },
+                    {
+                      "probability": 0.25,
+                      "value": "1"
+                    },
+                    {
+                      "probability": 0.5,
+                      "value": "1"
+                    },
+                    {
+                      "probability": 0.75,
+                      "value": "2"
+                    },
+                    {
+                      "probability": 1.0,
+                      "value": "3"
+                    }
+                  ]
+                },
+                "unit_price_brl": {
+                  "max": "20.00",
+                  "mean": "10.625000",
+                  "min": "5.00",
+                  "quantiles": [
+                    {
+                      "probability": 0.0,
+                      "value": "5.00"
+                    },
+                    {
+                      "probability": 0.25,
+                      "value": "5.00"
+                    },
+                    {
+                      "probability": 0.5,
+                      "value": "7.50"
+                    },
+                    {
+                      "probability": 0.75,
+                      "value": "10.00"
+                    },
+                    {
+                      "probability": 1.0,
+                      "value": "20.00"
+                    }
+                  ]
+                }
+              },
+              "groups": {
+                "products": {
+                  "group_count": 3,
+                  "truncated": false,
+                  "values": [
+                    {
+                      "active_lines": 2,
+                      "net_revenue_brl": "39.00",
+                      "product_id": "P01",
+                      "sales": 2,
+                      "units": 3
+                    },
+                    {
+                      "active_lines": 1,
+                      "net_revenue_brl": "20.00",
+                      "product_id": "P03",
+                      "sales": 1,
+                      "units": 3
+                    },
+                    {
+                      "active_lines": 1,
+                      "net_revenue_brl": "5.00",
+                      "product_id": "P02",
+                      "sales": 1,
+                      "units": 1
+                    }
+                  ]
+                },
+                "stores": {
+                  "group_count": 2,
+                  "truncated": false,
+                  "values": [
+                    {
+                      "active_lines": 3,
+                      "net_revenue_brl": "44.00",
+                      "sales": 2,
+                      "store_id": "S01",
+                      "units": 6
+                    },
+                    {
+                      "active_lines": 1,
+                      "net_revenue_brl": "20.00",
+                      "sales": 1,
+                      "store_id": "S02",
+                      "units": 1
+                    }
+                  ]
+                }
+              },
+              "totals": {
+                "active_lines": 4,
+                "discount_brl": "3.50",
+                "gross_revenue_brl": "67.50",
+                "net_revenue_brl": "64.00",
+                "sales": 3,
+                "units": 7
+              }
+            },
+            "batch": {
+              "coverage": {
+                "expected": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "missing": [],
+                "received": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "zero_movement": [
+                  "S03"
+                ]
+              },
+              "received_operations": {
+                "valid_cancel_events": 0,
+                "valid_revision_gt1_events": 0
+              },
+              "received_operations_include_duplicates_and_stale": true,
+              "stats": {
+                "conflicts": 0,
+                "duplicates": 0,
+                "received": 4,
+                "rejected": 0,
+                "revision_checks_executed": 1,
+                "stale": 0,
+                "valid": 4,
+                "violations": 0
+              }
+            },
+            "calculation_version": "silver-profile-v1",
+            "comparison": {
+              "baseline_delta_versions": null,
+              "baseline_publication_id": null,
+              "context": {
+                "current_date_range": {
+                  "date_count": 1,
+                  "dates": [
+                    "2026-01-01"
+                  ],
+                  "dates_truncated": false,
+                  "end": "2026-01-01",
+                  "start": "2026-01-01"
+                }
+              },
+              "equivalent_totals": null,
+              "original_totals": {
+                "current": {
+                  "active_lines": 4,
+                  "discount_brl": "3.50",
+                  "gross_revenue_brl": "67.50",
+                  "net_revenue_brl": "64.00",
+                  "sales": 3,
+                  "units": 7
+                },
+                "previous": null
+              },
+              "reason": "Primeira publicação; não existe publicação anterior.",
+              "rules": [],
+              "scope": null,
+              "status": "NO_BASELINE",
+              "warnings": 0
+            },
+            "contract_version": 1,
+            "coverage": {
+              "expected": [
+                "S01",
+                "S02",
+                "S03"
+              ],
+              "missing": [],
+              "origin": "cumulative_confirmed_stores_with_latest_batch_zero_movement",
+              "received": [
+                "S01",
+                "S02",
+                "S03"
+              ],
+              "scope_complete": true,
+              "zero_movement": [
+                "S03"
+              ]
+            },
+            "date_range": {
+              "date_count": 1,
+              "dates": [
+                "2026-01-01"
+              ],
+              "dates_truncated": false,
+              "end": "2026-01-01",
+              "start": "2026-01-01"
+            },
+            "delta_versions": {
+              "bronze": {
+                "path": "/data/proof/state/runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+                "version": 0
+              },
+              "gold_product_day": {
+                "path": "/data/proof/state/tables/gold_product_day",
+                "version": 0
+              },
+              "gold_store_day": {
+                "path": "/data/proof/state/tables/gold_store_day",
+                "version": 0
+              },
+              "history": {
+                "path": "/data/proof/state/tables/history",
+                "version": 0
+              },
+              "silver": {
+                "path": "/data/proof/state/tables/silver",
+                "version": 0
+              }
+            },
+            "parameters": {
+              "date_display_limit": 31,
+              "group_limit": 20,
+              "max_json_bytes": 262144,
+              "max_quantiles": 9,
+              "mean_decimal_places": 6,
+              "mean_rounding": "ROUND_HALF_EVEN",
+              "min_active_lines": 3,
+              "quantile_accuracy": 10000,
+              "quantile_algorithm": "pyspark.sql.functions.percentile_approx",
+              "quantile_probabilities": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0
+              ],
+              "quantity_mean_relative_threshold": "0.25",
+              "scope_limit": 1000,
+              "thresholds_are_demonstrative": true,
+              "unit_price_mean_relative_threshold": "0.25"
+            },
+            "publication_id": "2cae769d0fde4e1caf889855c55490ee",
+            "reference_hashes": {
+              "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+              "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+              "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+            },
+            "run_id": "79a75baf66834bbda6a8f25e70d462c1",
+            "state_changes": {
+              "cancelled_keys": 0,
+              "effective_changes": 4,
+              "new_keys": 4,
+              "origin": "initial_silver_state",
+              "reactivated_keys": 0,
+              "revised_keys": 0
+            }
+          },
+          "reason": null,
+          "status": "AVAILABLE"
+        },
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid"
+          ],
+          "previous_publication_id": null,
+          "profile": {
+            "contract_version": 1,
+            "path": "/data/proof/state/profiles/2cae769d0fde4e1caf889855c55490ee.json",
+            "sha256": "f9061870c1b6682f82b6b94049adea85af90e222504df814600d1b3aa8517ca0"
+          },
+          "publication_id": "2cae769d0fde4e1caf889855c55490ee",
+          "published_at": "2026-10-12T05:39:12.143116+00:00",
+          "run_id": "79a75baf66834bbda6a8f25e70d462c1",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+              "bronze_version": 0,
+              "manifest_hash": "fc286f48c5d1faae2b95a91b0a946b0244eaff712b37a41f24bfcc777e276fb1",
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "79a75baf66834bbda6a8f25e70d462c1"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 0
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 0
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 0
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 0
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "b8cfdcc25a1cd6ee5b8d4c6b29bac33a005890983dfc3fbff6096631698965b8"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 6400,
+            "rows": 3,
+            "rows_sha256": "e23f3127cbf28e1c8644f204a1f3ca23828a2bdb36aeb84b72947a81a91742ef"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 6400,
+            "rows": 2,
+            "rows_sha256": "7be2381d602f76dbd62fa64ea067cdee5d75660ca3f8b80451ba83816abcf659"
+          },
+          "history": {
+            "rows": 4,
+            "rows_sha256": "83421fe795ba10d0f48d70592dd820179d28ca91446ba6bf46bda4e83cb32ca6"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "83421fe795ba10d0f48d70592dd820179d28ca91446ba6bf46bda4e83cb32ca6"
+          }
+        }
+      },
+      {
+        "profile": {
+          "profile": {
+            "active_state": {
+              "cancelled_keys": 0,
+              "distributions": {
+                "line_discount_brl": {
+                  "max": "2.50",
+                  "mean": "0.875000",
+                  "min": "0.00",
+                  "quantiles": [
+                    {
+                      "probability": 0.0,
+                      "value": "0.00"
+                    },
+                    {
+                      "probability": 0.25,
+                      "value": "0.00"
+                    },
+                    {
+                      "probability": 0.5,
+                      "value": "0.00"
+                    },
+                    {
+                      "probability": 0.75,
+                      "value": "1.00"
+                    },
+                    {
+                      "probability": 1.0,
+                      "value": "2.50"
+                    }
+                  ]
+                },
+                "quantity": {
+                  "max": "3",
+                  "mean": "1.750000",
+                  "min": "1",
+                  "quantiles": [
+                    {
+                      "probability": 0.0,
+                      "value": "1"
+                    },
+                    {
+                      "probability": 0.25,
+                      "value": "1"
+                    },
+                    {
+                      "probability": 0.5,
+                      "value": "1"
+                    },
+                    {
+                      "probability": 0.75,
+                      "value": "2"
+                    },
+                    {
+                      "probability": 1.0,
+                      "value": "3"
+                    }
+                  ]
+                },
+                "unit_price_brl": {
+                  "max": "20.00",
+                  "mean": "10.625000",
+                  "min": "5.00",
+                  "quantiles": [
+                    {
+                      "probability": 0.0,
+                      "value": "5.00"
+                    },
+                    {
+                      "probability": 0.25,
+                      "value": "5.00"
+                    },
+                    {
+                      "probability": 0.5,
+                      "value": "7.50"
+                    },
+                    {
+                      "probability": 0.75,
+                      "value": "10.00"
+                    },
+                    {
+                      "probability": 1.0,
+                      "value": "20.00"
+                    }
+                  ]
+                }
+              },
+              "groups": {
+                "products": {
+                  "group_count": 3,
+                  "truncated": false,
+                  "values": [
+                    {
+                      "active_lines": 2,
+                      "net_revenue_brl": "39.00",
+                      "product_id": "P01",
+                      "sales": 2,
+                      "units": 3
+                    },
+                    {
+                      "active_lines": 1,
+                      "net_revenue_brl": "20.00",
+                      "product_id": "P03",
+                      "sales": 1,
+                      "units": 3
+                    },
+                    {
+                      "active_lines": 1,
+                      "net_revenue_brl": "5.00",
+                      "product_id": "P02",
+                      "sales": 1,
+                      "units": 1
+                    }
+                  ]
+                },
+                "stores": {
+                  "group_count": 2,
+                  "truncated": false,
+                  "values": [
+                    {
+                      "active_lines": 3,
+                      "net_revenue_brl": "44.00",
+                      "sales": 2,
+                      "store_id": "S01",
+                      "units": 6
+                    },
+                    {
+                      "active_lines": 1,
+                      "net_revenue_brl": "20.00",
+                      "sales": 1,
+                      "store_id": "S02",
+                      "units": 1
+                    }
+                  ]
+                }
+              },
+              "totals": {
+                "active_lines": 4,
+                "discount_brl": "3.50",
+                "gross_revenue_brl": "67.50",
+                "net_revenue_brl": "64.00",
+                "sales": 3,
+                "units": 7
+              }
+            },
+            "batch": {
+              "coverage": {
+                "expected": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "missing": [],
+                "received": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "zero_movement": [
+                  "S03"
+                ]
+              },
+              "received_operations": {
+                "valid_cancel_events": 0,
+                "valid_revision_gt1_events": 0
+              },
+              "received_operations_include_duplicates_and_stale": true,
+              "stats": {
+                "conflicts": 0,
+                "duplicates": 4,
+                "received": 4,
+                "rejected": 0,
+                "revision_checks_executed": 1,
+                "stale": 0,
+                "valid": 4,
+                "violations": 0
+              }
+            },
+            "calculation_version": "silver-profile-v1",
+            "comparison": {
+              "baseline_delta_versions": {
+                "bronze": {
+                  "path": "/data/proof/state/runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+                  "version": 0
+                },
+                "gold_product_day": {
+                  "path": "/data/proof/state/tables/gold_product_day",
+                  "version": 0
+                },
+                "gold_store_day": {
+                  "path": "/data/proof/state/tables/gold_store_day",
+                  "version": 0
+                },
+                "history": {
+                  "path": "/data/proof/state/tables/history",
+                  "version": 0
+                },
+                "silver": {
+                  "path": "/data/proof/state/tables/silver",
+                  "version": 0
+                }
+              },
+              "baseline_publication_id": "2cae769d0fde4e1caf889855c55490ee",
+              "context": {
+                "catalog_changed": false,
+                "catalog_identity_available": true,
+                "catalog_reference_origin": "approved_operator_catalog",
+                "current_date_range": {
+                  "date_count": 1,
+                  "dates": [
+                    "2026-01-01"
+                  ],
+                  "dates_truncated": false,
+                  "end": "2026-01-01",
+                  "start": "2026-01-01"
+                },
+                "current_reference_hashes": {
+                  "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                  "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                  "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                  "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                  "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+                },
+                "current_scope_complete": true,
+                "current_stores": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "dates_changed": false,
+                "previous_date_range": {
+                  "date_count": 1,
+                  "dates": [
+                    "2026-01-01"
+                  ],
+                  "dates_truncated": false,
+                  "end": "2026-01-01",
+                  "start": "2026-01-01"
+                },
+                "previous_reference_hashes": {
+                  "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                  "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                  "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                  "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                  "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+                },
+                "previous_scope_complete": true,
+                "previous_stores": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ],
+                "stores_added": [],
+                "stores_removed": []
+              },
+              "equivalent_totals": {
+                "current": {
+                  "active_lines": 4,
+                  "discount_brl": "3.50",
+                  "gross_revenue_brl": "67.50",
+                  "net_revenue_brl": "64.00",
+                  "sales": 3,
+                  "units": 7
+                },
+                "previous": {
+                  "active_lines": 4,
+                  "discount_brl": "3.50",
+                  "gross_revenue_brl": "67.50",
+                  "net_revenue_brl": "64.00",
+                  "sales": 3,
+                  "units": 7
+                }
+              },
+              "original_totals": {
+                "current": {
+                  "active_lines": 4,
+                  "discount_brl": "3.50",
+                  "gross_revenue_brl": "67.50",
+                  "net_revenue_brl": "64.00",
+                  "sales": 3,
+                  "units": 7
+                },
+                "previous": {
+                  "active_lines": 4,
+                  "discount_brl": "3.50",
+                  "gross_revenue_brl": "67.50",
+                  "net_revenue_brl": "64.00",
+                  "sales": 3,
+                  "units": 7
+                }
+              },
+              "reason": "Métricas recalculadas nas mesmas datas e lojas.",
+              "rules": [
+                {
+                  "current": "1.750000",
+                  "current_denominator": 4,
+                  "current_numerator": "7",
+                  "difference": "0.000000",
+                  "metric": "quantity_mean",
+                  "previous": "1.750000",
+                  "previous_denominator": 4,
+                  "previous_numerator": "7",
+                  "reason": "Variação dentro do limiar demonstrativo.",
+                  "relative_change": "0.000000",
+                  "severity": "INFO",
+                  "status": "STABLE",
+                  "threshold": "0.25"
+                },
+                {
+                  "current": "9.642857",
+                  "current_denominator": 7,
+                  "current_numerator": "67.50",
+                  "difference": "0.000000",
+                  "metric": "unit_price_mean_brl",
+                  "previous": "9.642857",
+                  "previous_denominator": 7,
+                  "previous_numerator": "67.50",
+                  "reason": "Variação dentro do limiar demonstrativo.",
+                  "relative_change": "0.000000",
+                  "severity": "INFO",
+                  "status": "STABLE",
+                  "threshold": "0.25"
+                }
+              ],
+              "scope": {
+                "date_intersection_complete": true,
+                "dates": {
+                  "date_count": 1,
+                  "dates": [
+                    "2026-01-01"
+                  ],
+                  "dates_truncated": false,
+                  "end": "2026-01-01",
+                  "start": "2026-01-01"
+                },
+                "definition": "intersection_of_silver_business_dates_and_confirmed_coverage_stores",
+                "silver_versions": {
+                  "current": {
+                    "path": "/data/proof/state/tables/silver",
+                    "version": 1
+                  },
+                  "previous": {
+                    "path": "/data/proof/state/tables/silver",
+                    "version": 0
+                  }
+                },
+                "stores": [
+                  "S01",
+                  "S02",
+                  "S03"
+                ]
+              },
+              "status": "COMPARABLE",
+              "warnings": 0
+            },
+            "contract_version": 1,
+            "coverage": {
+              "expected": [
+                "S01",
+                "S02",
+                "S03"
+              ],
+              "missing": [],
+              "origin": "cumulative_confirmed_stores_with_latest_batch_zero_movement",
+              "received": [
+                "S01",
+                "S02",
+                "S03"
+              ],
+              "scope_complete": true,
+              "zero_movement": [
+                "S03"
+              ]
+            },
+            "date_range": {
+              "date_count": 1,
+              "dates": [
+                "2026-01-01"
+              ],
+              "dates_truncated": false,
+              "end": "2026-01-01",
+              "start": "2026-01-01"
+            },
+            "delta_versions": {
+              "bronze": {
+                "path": "/data/proof/state/runs/f0f12dd3065745efa45d58b1bed38369/bronze",
+                "version": 0
+              },
+              "gold_product_day": {
+                "path": "/data/proof/state/tables/gold_product_day",
+                "version": 1
+              },
+              "gold_store_day": {
+                "path": "/data/proof/state/tables/gold_store_day",
+                "version": 1
+              },
+              "history": {
+                "path": "/data/proof/state/tables/history",
+                "version": 1
+              },
+              "silver": {
+                "path": "/data/proof/state/tables/silver",
+                "version": 1
+              }
+            },
+            "parameters": {
+              "date_display_limit": 31,
+              "group_limit": 20,
+              "max_json_bytes": 262144,
+              "max_quantiles": 9,
+              "mean_decimal_places": 6,
+              "mean_rounding": "ROUND_HALF_EVEN",
+              "min_active_lines": 3,
+              "quantile_accuracy": 10000,
+              "quantile_algorithm": "pyspark.sql.functions.percentile_approx",
+              "quantile_probabilities": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0
+              ],
+              "quantity_mean_relative_threshold": "0.25",
+              "scope_limit": 1000,
+              "thresholds_are_demonstrative": true,
+              "unit_price_mean_relative_threshold": "0.25"
+            },
+            "publication_id": "f6dcf17b774c43a083e6e9a9068a8d77",
+            "reference_hashes": {
+              "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+              "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+              "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+            },
+            "run_id": "f0f12dd3065745efa45d58b1bed38369",
+            "state_changes": {
+              "cancelled_keys": 0,
+              "effective_changes": 0,
+              "new_keys": 0,
+              "origin": "compared_silver_versions",
+              "reactivated_keys": 0,
+              "revised_keys": 0
+            }
+          },
+          "reason": null,
+          "status": "AVAILABLE"
+        },
+        "snapshot": {
+          "accepted_batches": [
+            "fixture-valid",
+            "missing-delivery"
+          ],
+          "previous_publication_id": "2cae769d0fde4e1caf889855c55490ee",
+          "profile": {
+            "contract_version": 1,
+            "path": "/data/proof/state/profiles/f6dcf17b774c43a083e6e9a9068a8d77.json",
+            "sha256": "b9c359aa6507fa07b4a87d4ec5f11a7ceb4c643c5a792381429a1a7775685075"
+          },
+          "publication_id": "f6dcf17b774c43a083e6e9a9068a8d77",
+          "published_at": "2026-10-12T05:39:43.846781+00:00",
+          "run_id": "f0f12dd3065745efa45d58b1bed38369",
+          "sources": [
+            {
+              "batch_id": "fixture-valid",
+              "bronze_path": "/data/proof/state/runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+              "bronze_version": 0,
+              "manifest_hash": "fc286f48c5d1faae2b95a91b0a946b0244eaff712b37a41f24bfcc777e276fb1",
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "79a75baf66834bbda6a8f25e70d462c1"
+            },
+            {
+              "batch_id": "missing-delivery",
+              "bronze_path": "/data/proof/state/runs/f0f12dd3065745efa45d58b1bed38369/bronze",
+              "bronze_version": 0,
+              "manifest_hash": "f15a076b6b4209c9f4be5cd1fad79985773bc831430245479c9258358e3d74a8",
+              "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+              "reference_hashes": {
+                "catalog.json": "91d1d2657f2dc93b6393966510088f0744df2d7df2c80acc54e0c0900f7fd091",
+                "operator_catalog_hash": "ba4b261937b9068e176d45f362c4caf30b298f8e135b82240a341c267ec3f8a9",
+                "operator_reference_hash": "acbf4d6322bc520b89e5ade485d11e0522648a4adbc5c04e7226b40406d9dbec",
+                "operator_schedule_hash": "6622159605083b38ac1daa85c49dba1f3e3f169d46225c266ad867e501217e96",
+                "schedule.json": "c21ed190d3a407884df324139a5b98cd53d27d74d15bc37876568aa521cc28cd"
+              },
+              "run_id": "f0f12dd3065745efa45d58b1bed38369"
+            }
+          ],
+          "tables": {
+            "bronze": {
+              "path": "/data/proof/state/runs/f0f12dd3065745efa45d58b1bed38369/bronze",
+              "version": 0
+            },
+            "gold_product_day": {
+              "path": "/data/proof/state/tables/gold_product_day",
+              "version": 1
+            },
+            "gold_store_day": {
+              "path": "/data/proof/state/tables/gold_store_day",
+              "version": 1
+            },
+            "history": {
+              "path": "/data/proof/state/tables/history",
+              "version": 1
+            },
+            "silver": {
+              "path": "/data/proof/state/tables/silver",
+              "version": 1
+            }
+          }
+        },
+        "tables": {
+          "bronze": {
+            "rows": 4,
+            "rows_sha256": "fd8425dd269488544e114a8cbf541c53300814486630ca44f90ebbccd118e5a9"
+          },
+          "gold_product_day": {
+            "net_revenue_cents": 6400,
+            "rows": 3,
+            "rows_sha256": "e23f3127cbf28e1c8644f204a1f3ca23828a2bdb36aeb84b72947a81a91742ef"
+          },
+          "gold_store_day": {
+            "net_revenue_cents": 6400,
+            "rows": 2,
+            "rows_sha256": "7be2381d602f76dbd62fa64ea067cdee5d75660ca3f8b80451ba83816abcf659"
+          },
+          "history": {
+            "rows": 4,
+            "rows_sha256": "83421fe795ba10d0f48d70592dd820179d28ca91446ba6bf46bda4e83cb32ca6"
+          },
+          "silver": {
+            "rows": 4,
+            "rows_sha256": "83421fe795ba10d0f48d70592dd820179d28ca91446ba6bf46bda4e83cb32ca6"
+          }
+        }
+      }
+    ]
+  },
+  "phase": "prepare",
+  "referenced_removal_refused": true,
+  "reports": [
+    {
+      "path": "reports/publication.html",
+      "publication_id": "2cae769d0fde4e1caf889855c55490ee",
+      "run_id": "79a75baf66834bbda6a8f25e70d462c1",
+      "sha256": "2c40ad33bebe1f8b4dcd4f29301abcfbd81f053314f4653644ed836b0f426036",
+      "state": "publication"
+    },
+    {
+      "path": "reports/blocked.html",
+      "publication_id": "2cae769d0fde4e1caf889855c55490ee",
+      "run_id": "626034e2377c491993b0c4ac5d205d1a",
+      "sha256": "fe7c1d3b8f37452b6b8376245d9e584f9cbc69e2cdf38c995a62f278316d60ec",
+      "state": "blocked"
+    },
+    {
+      "path": "reports/recovery.html",
+      "publication_id": "f6dcf17b774c43a083e6e9a9068a8d77",
+      "run_id": "f0f12dd3065745efa45d58b1bed38369",
+      "sha256": "f107a8bcdf356e005e24e28db826af18a03296af19f65ed3a20a1eb3bac6d047",
+      "state": "recovery"
+    },
+    {
+      "path": "reports/corrected.html",
+      "publication_id": "0fb9067f443c4926b8c95904d71406a4",
+      "run_id": "2015dcfa9f1248a3a77196cd038723d7",
+      "sha256": "fed69a9b77b2d933078cb4d83d58d370799cafa4f4634efc51332cb14dc1d1dc",
+      "state": "corrected"
+    }
+  ],
+  "retention": {
+    "current_publication_id": "0fb9067f443c4926b8c95904d71406a4",
+    "protected_paths": [
+      "profiles/0fb9067f443c4926b8c95904d71406a4.json",
+      "profiles/2cae769d0fde4e1caf889855c55490ee.json",
+      "profiles/f6dcf17b774c43a083e6e9a9068a8d77.json",
+      "publication.json",
+      "publications",
+      "runs/2015dcfa9f1248a3a77196cd038723d7/bronze",
+      "runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+      "runs/f0f12dd3065745efa45d58b1bed38369/bronze",
+      "tables/gold_product_day",
+      "tables/gold_store_day",
+      "tables/history",
+      "tables/silver"
+    ],
+    "publications": [
+      {
+        "publication_id": "0fb9067f443c4926b8c95904d71406a4",
+        "references": [
+          {
+            "kind": "profile",
+            "path": "profiles/0fb9067f443c4926b8c95904d71406a4.json",
+            "sha256": "37b1e80e32c1b5c7fa4a69c3b8da350eb1e764827f7376d98687cd4ef9c6c31d"
+          },
+          {
+            "kind": "table:bronze",
+            "path": "runs/2015dcfa9f1248a3a77196cd038723d7/bronze",
+            "version": 0
+          },
+          {
+            "kind": "table:gold_product_day",
+            "path": "tables/gold_product_day",
+            "version": 2
+          },
+          {
+            "kind": "table:gold_store_day",
+            "path": "tables/gold_store_day",
+            "version": 2
+          },
+          {
+            "kind": "table:history",
+            "path": "tables/history",
+            "version": 2
+          },
+          {
+            "kind": "table:silver",
+            "path": "tables/silver",
+            "version": 2
+          },
+          {
+            "kind": "bronze:fixture-valid",
+            "path": "runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+            "version": 0
+          },
+          {
+            "kind": "bronze:missing-delivery",
+            "path": "runs/f0f12dd3065745efa45d58b1bed38369/bronze",
+            "version": 0
+          },
+          {
+            "kind": "bronze:late-correction",
+            "path": "runs/2015dcfa9f1248a3a77196cd038723d7/bronze",
+            "version": 0
+          }
+        ]
+      },
+      {
+        "publication_id": "2cae769d0fde4e1caf889855c55490ee",
+        "references": [
+          {
+            "kind": "profile",
+            "path": "profiles/2cae769d0fde4e1caf889855c55490ee.json",
+            "sha256": "f9061870c1b6682f82b6b94049adea85af90e222504df814600d1b3aa8517ca0"
+          },
+          {
+            "kind": "table:bronze",
+            "path": "runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+            "version": 0
+          },
+          {
+            "kind": "table:gold_product_day",
+            "path": "tables/gold_product_day",
+            "version": 0
+          },
+          {
+            "kind": "table:gold_store_day",
+            "path": "tables/gold_store_day",
+            "version": 0
+          },
+          {
+            "kind": "table:history",
+            "path": "tables/history",
+            "version": 0
+          },
+          {
+            "kind": "table:silver",
+            "path": "tables/silver",
+            "version": 0
+          },
+          {
+            "kind": "bronze:fixture-valid",
+            "path": "runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+            "version": 0
+          }
+        ]
+      },
+      {
+        "publication_id": "f6dcf17b774c43a083e6e9a9068a8d77",
+        "references": [
+          {
+            "kind": "profile",
+            "path": "profiles/f6dcf17b774c43a083e6e9a9068a8d77.json",
+            "sha256": "b9c359aa6507fa07b4a87d4ec5f11a7ceb4c643c5a792381429a1a7775685075"
+          },
+          {
+            "kind": "table:bronze",
+            "path": "runs/f0f12dd3065745efa45d58b1bed38369/bronze",
+            "version": 0
+          },
+          {
+            "kind": "table:gold_product_day",
+            "path": "tables/gold_product_day",
+            "version": 1
+          },
+          {
+            "kind": "table:gold_store_day",
+            "path": "tables/gold_store_day",
+            "version": 1
+          },
+          {
+            "kind": "table:history",
+            "path": "tables/history",
+            "version": 1
+          },
+          {
+            "kind": "table:silver",
+            "path": "tables/silver",
+            "version": 1
+          },
+          {
+            "kind": "bronze:fixture-valid",
+            "path": "runs/79a75baf66834bbda6a8f25e70d462c1/bronze",
+            "version": 0
+          },
+          {
+            "kind": "bronze:missing-delivery",
+            "path": "runs/f0f12dd3065745efa45d58b1bed38369/bronze",
+            "version": 0
+          }
+        ]
+      }
+    ],
+    "scope": "Contrato conservador: preservar perfis referenciados e diretórios Delta completos, incluindo logs e arquivos de versões anteriores; não autoriza remoção individual ou VACUUM."
+  },
+  "root_exists": true,
+  "runtime": {
+    "python": "3.11.16",
+    "spark": "4.2.0"
+  },
+  "spark_startup_seconds": 35.01448230099959,
+  "startup_scope": "Chamada create_spark medida; inicialização lazy posterior permanece no processamento, sem subtração estimada.",
+  "status": "passed",
+  "steps": [
+    {
+      "batch_id": "fixture-valid",
+      "publication_id": "2cae769d0fde4e1caf889855c55490ee",
+      "run_id": "79a75baf66834bbda6a8f25e70d462c1",
+      "scenario": "valid",
+      "state": "PUBLISHED"
+    },
+    {
+      "batch_id": "missing-delivery",
+      "publication_id": "2cae769d0fde4e1caf889855c55490ee",
+      "run_id": "626034e2377c491993b0c4ac5d205d1a",
+      "scenario": "missing",
+      "state": "BLOCKED"
+    },
+    {
+      "batch_id": "missing-delivery",
+      "publication_id": "f6dcf17b774c43a083e6e9a9068a8d77",
+      "run_id": "f0f12dd3065745efa45d58b1bed38369",
+      "scenario": "valid",
+      "state": "PUBLISHED"
+    },
+    {
+      "batch_id": "late-correction",
+      "publication_id": "0fb9067f443c4926b8c95904d71406a4",
+      "run_id": "2015dcfa9f1248a3a77196cd038723d7",
+      "scenario": "corrected",
+      "state": "PUBLISHED"
+    }
+  ],
+  "total_seconds": 148.36288683800012
+}

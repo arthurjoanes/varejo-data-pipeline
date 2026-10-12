@@ -1,0 +1,19 @@
+{
+  "evidence_bytes_preserved": true,
+  "export": {
+    "contract_version": 1,
+    "errors": [],
+    "events": 4,
+    "paths": [
+      "/data/evolution-demo/lineage/events/09eaa168-67e2-4271-ac9d-990935c577dc/start.json",
+      "/data/evolution-demo/lineage/events/09eaa168-67e2-4271-ac9d-990935c577dc/terminal.json",
+      "/data/evolution-demo/lineage/events/fe482201-333f-409a-9fcc-08fd3562b3bf/start.json",
+      "/data/evolution-demo/lineage/events/fe482201-333f-409a-9fcc-08fd3562b3bf/terminal.json"
+    ],
+    "runs": 2,
+    "schema_url": "https://raw.githubusercontent.com/OpenLineage/OpenLineage/4e4a9186962094ce5fd29c5e4bc9d5ddb5fa39a8/spec/OpenLineage.json#/$defs/RunEvent"
+  },
+  "publication_preserved": true,
+  "run_id": "09eaa16867e24271ac9d990935c577dc",
+  "terminal_bytes_idempotent": true
+}

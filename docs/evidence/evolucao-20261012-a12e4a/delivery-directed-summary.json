@@ -1,0 +1,11 @@
+{
+  "errors": "0",
+  "failures": "0",
+  "head": "6c968333f8e54bcb37b7f48c93b94d9b9525c80e",
+  "image": "sha256:e54034991f90d5fc612bb0ae3b4c9369e439d2fbcc06c0cf96185e370615ccb8",
+  "skipped": "0",
+  "source_files": 317,
+  "source_unchanged": true,
+  "tests": "3",
+  "time": "79.133"
+}

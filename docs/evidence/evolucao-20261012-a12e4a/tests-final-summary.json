@@ -1,0 +1,21 @@
+{
+  "errors": 0.0,
+  "exit_code": 0,
+  "failures": 0.0,
+  "image": "sha256:d510a4c939b714b5e3c1bd7199f7d19ad9b0575fe631ce34590c2912675eef87",
+  "receipts": {
+    "candidate.diff": "9e701507844f7dadbfb573895ed22e2b1aa15f4715da458f42fdf0f6c89aba2f",
+    "check-final.log": "4f763b833b972360cbd9183a01adb1470ec33221b333d166546057c1d4ce84ed",
+    "smoke-final.xml": "a3281ee2221248c2b71af68fda7b72aea1ed1c8889ec6796f87cdbf08354c70b",
+    "source-after.json": "e682df842dca19553c6a2a0bd4d11130b760dadbba10ad0c33896798eb3a574c",
+    "source-before.json": "4c790f4b0621d282959ca7e5c46dc15226d99fe6569e3209698a66405c5b7c6a",
+    "tests-final.log": "0c414ebeeb0aa069882031cf192ec31a8acccdcb37499f19b4ab7afe5196b9fd",
+    "tests-final.xml": "c6b9ce70838158af0e3e93de5a2316bf7814d0b9f970771eb80ed4cf3e730d34"
+  },
+  "skipped": 0.0,
+  "source_files": 316,
+  "source_head": "0ddab5e15f34bd28101a3124a42cc6a5e04ac60f",
+  "source_unchanged": true,
+  "tests": 369.0,
+  "time": 1536.595
+}

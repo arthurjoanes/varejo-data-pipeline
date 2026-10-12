@@ -1,0 +1,30 @@
+{
+  "active_container": "pf-varejo-evolucao-a12e4a-report-server-1",
+  "active_url": "http://127.0.0.1:3117/profile-comparable.html#perfil",
+  "artifacts": "artifacts/evolucao-20261012-a12e4a",
+  "bound_ports": {
+    "3103/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "3117"
+      }
+    ]
+  },
+  "captured_at": "2026-10-12T05:52:32.554670+00:00",
+  "cleanup_command": "docker compose -p pf-varejo-evolucao-a12e4a -f compose.yaml -f artifacts/evolucao-20261012-a12e4a/compose.override.yaml --profile report down",
+  "cleanup_scope": "Own project only; preserves volumes. No prune, reset or VACUUM was executed.",
+  "compose_project": "pf-varejo-evolucao-a12e4a",
+  "http_status": 200,
+  "image_id": "sha256:e54034991f90d5fc612bb0ae3b4c9369e439d2fbcc06c0cf96185e370615ccb8",
+  "image_tag": "pf-varejo-data:evolucao-20261012-a12e4a",
+  "memory_bytes": 134217728,
+  "nano_cpus": 250000000,
+  "network": "pf-varejo-evolucao-a12e4a_default",
+  "private_restore_archives": "outside repository and OneDrive; not committed",
+  "volumes_preserved": [
+    "pf-varejo-evolucao-a12e4a_data",
+    "pf-varejo-proof-3503857bb22f-source",
+    "pf-varejo-proof-3503857bb22f-target",
+    "pf-varejo-proof-3503857bb22f-tampered-target"
+  ]
+}

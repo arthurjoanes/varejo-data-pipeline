@@ -17,6 +17,14 @@ Na demonstração de 22/09/2026, eu conferi três fronteiras diferentes: **quem 
 
 As seções abaixo detalham os compromissos dessas escolhas. Os links apontam para a implementação e as regressões existentes; as execuções e seus limites ficam no [registro de verificação](verification.md).
 
+## Perfis e proveniência local
+
+Adaptei a ideia de [perfis persistidos do whylogs](https://github.com/whylabs/whylogs#whylogs-profiles) às agregações PySpark existentes. A separação entre cálculo e avaliação segue o mecanismo descrito pelo [Deequ](https://github.com/awslabs/deequ): totais e recortes são calculados antes das regras explicáveis. Não instalei esses SDKs. A matriz Deequ consultada apresenta artefatos específicos para Spark 3.1 a 3.5; esta entrega usa Spark 4.2.0 e não depende de compatibilidade presumida.
+
+Comparar diretamente totais cumulativos confundiria crescimento do histórico com mudança de composição. Recalculo as duas Silver nas datas e lojas comuns, usando `versionAsOf` de cada publicação. Conservo também os totais originais e mostro mudança de datas, lojas e catálogo. Top-K e perfil global não reconstruiriam o recorte. As regras iniciais avaliam quantidade por linha e preço por unidade; 25% e três linhas são parâmetros demonstrativos, editáveis em `run`, sem interpretação universal para varejo.
+
+O [OpenLineage](openlineage.md) é um adaptador de exportação. Schemas locais fixados, UUID estável e eventos imutáveis permitem reconciliar uma falha depois do commit. Marquez, Airflow, Kafka, WhyLabs, telemetria, nuvem e processamento incremental ampliariam a operação sem serem necessários à conferência local. Não foi copiado código de cálculo externo; os schemas OpenLineage conservam licença e procedência.
+
 ## Grão, chaves e revisões
 
 O grão de entrada é uma imagem completa de uma revisão de um item de venda. A chave de negócio é `(source_system, store_id, sale_id, line_id)`. A revisão é inteira positiva e ordena o estado da mesma chave; chegada mais recente não significa informação mais atual.

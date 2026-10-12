@@ -1,0 +1,34 @@
+{
+  "image_id": "sha256:c4418ea4b90220a72138a5a9b7b1482fde2045c7d3a3113beca5d423938923e3",
+  "report_sha256": "ed0989a805e7439317c1b8e691ab83b24fca506fcc8c2d468aac1b75eba39937",
+  "bytes": 480404,
+  "results": [
+    {
+      "type": "alpine",
+      "class": "os-pkgs",
+      "target": "pf-varejo-data:evolucao-20261012-a12e4a (alpine 3.24.2)",
+      "packages": 52,
+      "severity": {
+        "MEDIUM": 1
+      }
+    },
+    {
+      "type": "jar",
+      "class": "lang-pkgs",
+      "target": "Java",
+      "packages": 441,
+      "severity": {
+        "HIGH": 1,
+        "MEDIUM": 2,
+        "LOW": 1
+      }
+    },
+    {
+      "type": "python-pkg",
+      "class": "lang-pkgs",
+      "target": "Python",
+      "packages": 37,
+      "severity": {}
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "memory": "2g",
+  "scanner": "aquasec/trivy:0.74.0@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969",
+  "image_id": "sha256:c4418ea4b90220a72138a5a9b7b1482fde2045c7d3a3113beca5d423938923e3",
+  "cpus": 1,
+  "concurrent_spark_tests": true,
+  "other_running_containers": 27,
+  "ignored_findings": false,
+  "scanners": [
+    "vuln"
+  ],
+  "scope": [
+    "OS",
+    "JVM",
+    "Python"
+  ],
+  "started_at": "2026-10-12T04:36:19.3066069Z",
+  "container_name": "pf-varejo-evolucao-a12e4a-scan",
+  "image_tag": "pf-varejo-data:evolucao-20261012-a12e4a",
+  "finished_at": "2026-10-12T04:40:09.7713031Z",
+  "scan_exit_code": 0,
+  "gate_exit_code": 1,
+  "image_id_after": "sha256:c4418ea4b90220a72138a5a9b7b1482fde2045c7d3a3113beca5d423938923e3",
+  "database_metadata": {
+    "trivy\\db\\metadata.json": {
+      "Version": 2,
+      "NextUpdate": "2026-10-13T01:14:57.362084798Z",
+      "UpdatedAt": "2026-10-12T01:14:57.362085088Z",
+      "DownloadedAt": "2026-10-12T04:37:27.775491855Z"
+    },
+    "trivy\\java-db\\metadata.json": {
+      "Version": 1,
+      "NextUpdate": "2026-10-15T01:00:58.130815315Z",
+      "UpdatedAt": "2026-10-12T01:00:58.130815836Z",
+      "DownloadedAt": "2026-10-12T04:40:02.137245059Z"
+    }
+  }
+}
