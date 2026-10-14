@@ -1,0 +1,11 @@
+{
+  "name": "varejo-browser-checks",
+  "private": true,
+  "version": "1.0.0",
+  "engines": { "node": ">=22" },
+  "scripts": { "install:browser": "playwright install chromium" },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "playwright": "1.64.0"
+  }
+}

@@ -59,7 +59,7 @@ O [executor](../scripts/prove_evolution.py) exige diretórios novos. Ele produz 
 | Revisão de preço, R$ 104,00 | `COMPARABLE`; mesmas datas/lojas, WARNING de preço médio e correção publicada. |
 | Todas as vendas movidas para outro dia, R$ 64,00 | `NOT_COMPARABLE`; nenhuma data em comum com a publicação anterior. |
 
-Em Indicadores, use o link "Perfil e comparação". Contexto e baseline precedem as variações; as tabelas preservam os valores exatos. Abrir o HTML não inicia Spark. O perfil conserva os totais originais e os do recorte equivalente; grupos e datas de apresentação truncados não alimentam o recálculo.
+Nos relatórios gerados pelo renderer atual, abra **O que mudou** para consultar a comparação. Nos HTMLs históricos preservados desta execução, abra **Indicadores** e use o link **Perfil e comparação**. Contexto e baseline precedem as variações; as tabelas preservam os valores exatos. Abrir o HTML não inicia Spark. O perfil conserva os totais originais e os do recorte equivalente; grupos e datas de apresentação truncados não alimentam o recálculo.
 
 Os parâmetros demonstrativos podem ser ajustados na execução publicadora:
 
@@ -97,5 +97,7 @@ O executor terminou com código 0 na fonte `bc66968`, usando Spark 4.2.0/Delta 4
 A falha injetada do exportador ocorreu depois do commit do segundo fechamento. A reconciliação criou o COMPLETE ausente e preservou publicação, perfil e evidências; a segunda exportação manteve os bytes do terminal. [Recibo](evidence/evolucao-20261012-a12e4a/evolution-demo/reexport.json) · [evento validado](evidence/evolucao-20261012-a12e4a/evolution-demo/reexport-terminal.json). O comando público `profile` e duas chamadas de `lineage` também terminaram com código 0; seus JSONs estão no mesmo diretório de evidências. Essa prova injeta erro no exportador; não simula desligamento do sistema operacional.
 
 Os HTMLs reais [inicial](evidence/evolucao-20261012-a12e4a/evolution-demo/initial.html), [comparável](evidence/evolucao-20261012-a12e4a/evolution-demo/comparable.html) e [não comparável](evidence/evolucao-20261012-a12e4a/evolution-demo/incomparable.html) passaram pelos controles funcionais em quatro larguras no Edge. [Resultados e capturas](frontend-quality.md). Os tempos de perfil, 3,6761 s, 9,8586 s e 6,2000 s, incluem carga concorrente e estão dentro do intervalo `publication`; não devem ser somados a ele nem usados como overhead percentual.
+
+As capturas de perfil no [índice desta execução](evidence/evolucao-20261012-a12e4a/browser-index.json) conservam a interface histórica e o estado dos detalhes naquele momento. Nas imagens estreitas, parte das colunas fica além da região visível da tabela; abra o HTML e role a tabela, ou consulte a captura desktop, para conferir todos os valores. O print móvel registra o arranjo e o foco visível, sem substituir a tabela completa como evidência numérica.
 
 O servidor desta execução ficou ativo em [127.0.0.1:3117](http://127.0.0.1:3117/profile-comparable.html#perfil), com cópias dos relatórios comparável e não comparável na raiz da exportação. Para repetir, copie `evolution-demo/comparable.html` para `profile-comparable.html` no diretório exportado antes de iniciar o servidor: ele serve HTMLs da raiz. Um volume Compose e três volumes da restauração foram preservados. [Recursos e comando de encerramento](evidence/evolucao-20261012-a12e4a/resources.json).

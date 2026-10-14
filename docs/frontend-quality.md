@@ -22,16 +22,20 @@ Limites de apresentação são 366 dias, 20 produtos e 500 registros de loja-dia
 
 Os JSONs em `tests/fixtures/reports/` incluem snapshots e fixtures explicitamente rotuladas. Renderizar esses dados não executa novas entregas ou leituras Spark.
 
-A partir da raiz, com Python, Node e as ferramentas de navegador disponíveis:
+A partir da raiz, com Python 3.11+ e Node 22+:
 
 ```sh
+npm ci --prefix tools/browser
+npm run install:browser --prefix tools/browser
 PYTHONPATH=src python scripts/render_report_fixtures.py tests/fixtures/reports artifacts/report-fixtures/html
 DASHBOARD_INPUTS=tests/fixtures/reports node scripts/dashboard-review.cjs after artifacts/report-fixtures/html artifacts/report-fixtures/qa
 ```
 
-O primeiro comando gera HTMLs e `corpus-after.json`, com hashes dos inputs, HTMLs e recursos do renderer. O segundo grava seus resultados em um diretório novo. Para repetir, escolha outra pasta-pai de renderização e outra saída de QA.
+`render_report_fixtures.py` gera HTMLs e `corpus-after.json`, com hashes dos inputs, HTMLs e recursos do renderer. `dashboard-review.cjs` grava seus resultados em um diretório novo. Para repetir, escolha outra pasta-pai de renderização e outra saída de QA.
 
-Playwright e `@axe-core/playwright` são ferramentas de desenvolvimento. Mantenha os módulos isolados em `artifacts/browser-tools/`; eles não são dependências do HTML.
+Playwright e `@axe-core/playwright` são ferramentas de desenvolvimento fixadas no manifesto e lock de `tools/browser/`. Os scripts resolvem os módulos desse pacote, sem instalação global; eles não são dependências do HTML. No Linux sem bibliotecas do navegador, use `tools/browser/node_modules/.bin/playwright install --with-deps chromium`.
+
+O job `browser` do CI renderiza o corpus sem Spark e verifica publicação, bloqueio, ausência de publicação e comparação em cinco larguras. A matriz completa continua disponível pelo comando acima. `DASHBOARD_CASES` limita a execução a nomes de fixtures separados por vírgula. Falha de valor, controle, reflow ou regra axe verificada resulta em código de saída não zero; recibos e imagens são preservados mesmo em falha.
 
 | Variável | Uso |
 | -------- | --- |

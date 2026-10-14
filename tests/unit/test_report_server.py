@@ -47,6 +47,33 @@ def request(server: HTTPServer, path: str, *, method: str = "GET", host: str | N
         return response.status, dict(response.getheaders()), response.read()
 
 
+@pytest.mark.skipif(os.name == "nt", reason="production uses Linux rename semantics")
+def test_atomic_export_keeps_inflight_response_complete(server, report_root, monkeypatch):
+    from retail_pipeline import report_server
+    from retail_pipeline.reporting import _publish_html
+
+    original = (report_root / "report.html").read_bytes()
+    replacement = "<!doctype html><title>New complete report</title>" + "x" * 200_000
+    original_open = report_server.open_report
+    replaced = False
+
+    def open_then_publish(root, path):
+        nonlocal replaced
+        handle = original_open(root, path)
+        if not replaced:
+            replaced = True
+            _publish_html(report_root / "report.html", replacement)
+        return handle
+
+    monkeypatch.setattr(report_server, "open_report", open_then_publish)
+    status, headers, body = request(server, "/report.html")
+    assert status == 200 and body == original
+    assert int(headers["Content-Length"]) == len(body)
+    status, headers, body = request(server, "/report.html")
+    assert status == 200 and body == replacement.encode()
+    assert int(headers["Content-Length"]) == len(body)
+
+
 @pytest.mark.parametrize("path", ["/report.html", "/", "/report.html?inspection=1"])
 def test_only_report_html_is_served_with_browser_protections(server: HTTPServer, path: str):
     status, headers, payload = request(server, path)

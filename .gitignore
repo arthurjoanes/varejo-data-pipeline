@@ -16,6 +16,7 @@ data/generated/
 artifacts/*
 !artifacts/README.md
 .visual-tools/
+node_modules/
 .DS_Store
 vendor/**/target/
 vendor/**/.cache/
