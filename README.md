@@ -101,7 +101,6 @@ O [Compose](compose.yaml) monta o estado em `/data`, o código somente para leit
 <p>
   <img src="docs/stack/python.svg" alt="Python" width="64" height="64">
   <img src="docs/stack/apachespark.svg" alt="Apache Spark" width="64" height="64">
-  <img src="docs/stack/java.svg" alt="Java" width="64" height="64">
   <img src="docs/stack/docker.svg" alt="Docker" width="64" height="64">
 </p>
 
@@ -109,11 +108,12 @@ O [Compose](compose.yaml) monta o estado em `/data`, o código somente para leit
 | ----------------------------- | --------------------------------------------------------------------------- |
 | Python/PySpark                | Validação de entrada e transformações em lote                               |
 | Delta Lake                    | Histórico e versões por tabela; o manifesto da aplicação reúne a publicação |
-| Java                          | Runtime do Spark dentro da imagem                                           |
 | Docker Compose                | Estado local isolado e servidor opcional do relatório                       |
 | HTML, CSS e JavaScript locais | Relatório portátil com leitura básica sem JavaScript                        |
 
-O projeto fixa **Spark 4.2.0 e Delta 4.4.0** nas [dependências Python](pyproject.toml), combinação prevista nas [notas oficiais Delta](https://github.com/delta-io/delta/releases/tag/v4.4.0). O [Dockerfile](Dockerfile) define o runtime; os artefatos JVM reconstruídos localmente não são apresentados como releases oficiais.
+A lógica do pipeline é escrita em Python/PySpark. O Java 17 instalado pelo [Dockerfile](Dockerfile) executa o Spark. Os quatro arquivos Java em `vendor/` verificam componentes das dependências; não implementam as regras de vendas.
+
+O projeto fixa **Spark 4.2.0 e Delta 4.4.0** nas [dependências Python](pyproject.toml), combinação prevista nas [notas oficiais Delta](https://github.com/delta-io/delta/releases/tag/v4.4.0). Os artefatos JVM reconstruídos localmente não são apresentados como releases oficiais.
 
 Recalcular o histórico simplifica revisões e retomadas, mas exige processamento e armazenamento adicionais. Não houve comparação que prove vantagem sobre uma solução menor. [Código da projeção](src/retail_pipeline/transformations.py); [alternativas e compromissos](docs/decisoes-tecnicas.md).
 
