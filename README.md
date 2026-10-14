@@ -102,6 +102,8 @@ O [Compose](compose.yaml) monta o estado em `/data`, o código somente para leit
   <img src="docs/stack/python.svg" alt="Python" width="64" height="64">
   <img src="docs/stack/apachespark.svg" alt="Apache Spark" width="64" height="64">
   <img src="docs/stack/deltalake.svg" alt="Delta Lake" width="64" height="64">
+  <img src="docs/stack/jsonschema.svg" alt="JSON Schema — validação com python-jsonschema" width="64" height="64">
+  <img src="docs/stack/openlineage.svg" alt="OpenLineage — formato de eventos locais" width="64" height="64">
   <img src="docs/stack/docker.svg" alt="Docker" width="64" height="64">
   <img src="docs/stack/html5.svg" alt="HTML" width="64" height="64">
   <img src="docs/stack/css3.svg" alt="CSS" width="64" height="64">
@@ -112,6 +114,8 @@ O [Compose](compose.yaml) monta o estado em `/data`, o código somente para leit
 | ----------------------------- | --------------------------------------------------------------------------- |
 | Python/PySpark                | Validação de entrada e transformações em lote                               |
 | Delta Lake                    | Histórico e versões por tabela; o manifesto da aplicação reúne a publicação |
+| JSON Schema (python-jsonschema) | Valida os eventos exportados, incluindo campos, UUIDs, datas e URIs. |
+| OpenLineage | Formato dos arquivos de eventos exportados localmente, sem SDK ou servidor OpenLineage. |
 | Docker Compose                | Estado local isolado e servidor opcional do relatório                       |
 | HTML, CSS e JavaScript locais | Relatório portátil com leitura básica sem JavaScript                        |
 

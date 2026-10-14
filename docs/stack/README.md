@@ -13,5 +13,9 @@ Os ícones de marcas vêm do [Devicon no commit `7330accdbc47`](https://github.c
 | [html5.svg](html5.svg) | [Devicon](https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/html5/html5-original.svg) |
 | [css3.svg](css3.svg) | [Devicon](https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/css3/css3-original.svg) |
 | [javascript.svg](javascript.svg) | [Devicon](https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/javascript/javascript-original.svg) |
+| [jsonschema.svg](jsonschema.svg) | Cartão tipográfico local com o nome do padrão validado pelo python-jsonschema; não é um logotipo. [Licença do projeto](../../LICENSE). |
+| [openlineage.svg](openlineage.svg) | Cartão tipográfico local com o nome do formato de eventos; não é um logotipo. [Licença do projeto](../../LICENSE). |
+
+JSON Schema identifica a [validação feita pelo python-jsonschema](../../src/retail_pipeline/lineage.py). OpenLineage identifica apenas o [formato dos arquivos de eventos locais](../openlineage.md); a demonstração não usa SDK nem servidor OpenLineage. Os cartões têm 72 × 72 pixels e são exibidos em 64 × 64 no README.
 
 As famílias Arial e Helvetica são referências de fonte do sistema; estes SVGs não incluem arquivos de fonte.
