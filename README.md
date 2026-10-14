@@ -101,7 +101,11 @@ O [Compose](compose.yaml) monta o estado em `/data`, o código somente para leit
 <p>
   <img src="docs/stack/python.svg" alt="Python" width="64" height="64">
   <img src="docs/stack/apachespark.svg" alt="Apache Spark" width="64" height="64">
+  <img src="docs/stack/deltalake.svg" alt="Delta Lake" width="64" height="64">
   <img src="docs/stack/docker.svg" alt="Docker" width="64" height="64">
+  <img src="docs/stack/html5.svg" alt="HTML" width="64" height="64">
+  <img src="docs/stack/css3.svg" alt="CSS" width="64" height="64">
+  <img src="docs/stack/javascript.svg" alt="JavaScript" width="64" height="64">
 </p>
 
 | Componente                    | Papel e escolha verificável                                                 |
@@ -190,3 +194,5 @@ Os limites de entrada são configuráveis: por padrão, 1 MiB por JSON, 64 MiB p
 Schemas OpenLineage: [Apache-2.0 e atribuição upstream](src/retail_pipeline/schemas/README.md).
 
 Source Sans 3: [SIL Open Font License](src/retail_pipeline/assets/source-sans-LICENSE.md).
+
+Fontes dos ícones e cartões: [documentação da stack](docs/stack/README.md).
