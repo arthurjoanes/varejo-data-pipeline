@@ -4,6 +4,12 @@
 
 Em 12/10/2026, a fonte de `a5b2a3b` passou em **402 testes unitários** no Linux. Ruff, verificação de formato e mypy também passaram. Os comandos para reprodução estão abaixo; os testes de navegador e seus limites estão no [guia de qualidade do relatório](frontend-quality.md). Esta execução unitária não substitui as integrações Spark/Delta identificadas nas seções históricas.
 
+## Testes de permissões do relatório
+
+Depois de construir a imagem com `setup`, execute `python scripts/check_report_permissions.py`. O comando cria um container descartável sem rede, com fonte somente leitura e arquivos temporários em memória. Somente esse container recebe as capabilities de troca de UID/GID e proprietário necessárias para conferir leitura pelo servidor, preservação de dono/grupo e falha ao preservá-los. O Compose do batch mantém suas restrições.
+
+Os três casos com o marcador `report_permissions` ficam ignorados na suíte comum e são obrigatórios em uma etapa separada do CI. O script ativa esses casos explicitamente; falta de permissão nessa etapa causa falha. Não conte os três skips da suíte comum como aprovação nem some os testes desmarcados da etapa isolada aos executados.
+
 ## Evolução de perfis e lineage em 12/10/2026
 
 Base da execução: `53f998d820d3b5e7a0f2231b370907f7dc77a7bb`. [Isolamento, comandos e saídas](evolution.md). Cada resultado abaixo identifica a fonte e a imagem utilizadas.

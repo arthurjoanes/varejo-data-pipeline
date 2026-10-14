@@ -76,10 +76,16 @@ def test_html_keeps_existing_reader_snapshot_and_mode(tmp_path):
     assert target.read_text() == "new document"
 
 
-@pytest.mark.skipif(
-    os.name != "posix" or os.geteuid() != 0, reason="requires isolated Linux root test process"
-)
-def test_new_report_is_readable_by_report_server_uid():
+@pytest.fixture
+def report_permission_controls():
+    if os.environ.get("RETAIL_REPORT_PERMISSION_TESTS") != "1":
+        pytest.skip("run python scripts/check_report_permissions.py in its isolated test container")
+    if os.name != "posix" or os.geteuid() != 0:
+        pytest.fail("permission checks require the isolated Linux root test container")
+
+
+@pytest.mark.report_permissions
+def test_new_report_is_readable_by_report_server_uid(report_permission_controls):
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         root.chmod(0o755)
@@ -99,10 +105,8 @@ def test_new_report_is_readable_by_report_server_uid():
         assert result.stdout.strip() == "complete report"
 
 
-@pytest.mark.skipif(
-    os.name != "posix" or os.geteuid() != 0, reason="requires isolated Linux root test process"
-)
-def test_existing_report_preserves_host_owner_and_group(tmp_path):
+@pytest.mark.report_permissions
+def test_existing_report_preserves_host_owner_and_group(tmp_path, report_permission_controls):
     target = tmp_path / "report.html"
     target.write_text("old document")
     os.chown(target, 1000, 1001)
@@ -113,10 +117,10 @@ def test_existing_report_preserves_host_owner_and_group(tmp_path):
     assert target.read_text() == "new document"
 
 
-@pytest.mark.skipif(
-    os.name != "posix" or os.geteuid() != 0, reason="requires isolated Linux root test process"
-)
-def test_owner_preservation_failure_keeps_previous_report(tmp_path, monkeypatch):
+@pytest.mark.report_permissions
+def test_owner_preservation_failure_keeps_previous_report(
+    tmp_path, monkeypatch, report_permission_controls
+):
     target = tmp_path / "report.html"
     target.write_text("old document")
     os.chown(target, 1000, 1001)

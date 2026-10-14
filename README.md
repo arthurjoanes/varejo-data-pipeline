@@ -52,23 +52,6 @@ A [prova de negócio](docs/evidence/editorial-20260922/business-thesis.json) exe
 <a id="implementação"></a>
 <a id="como-protejo-a-publicação"></a>
 
-### Paleta da marca
-
-![Paleta: azul petróleo, petróleo escuro, azul escuro, branco, cinza claro, verde, ocre e vermelho](docs/readme/palette.svg)
-
-| Cor | Código | Uso |
-| --- | --- | --- |
-| Azul petróleo | `#245B64` | Marca, links, ações e gráficos |
-| Petróleo escuro | `#163F46` | Navegação lateral |
-| Azul escuro | `#263248` | Texto e valores |
-| Branco | `#FFFFFF` | Papel e foco sobre fundo escuro |
-| Cinza claro | `#F2F3F5` | Fundo da página |
-| Verde | `#226348` | Entrega confirmada e sucesso |
-| Ocre | `#76550E` | Aviso para conferência |
-| Vermelho | `#923B35` | Pendência e bloqueio |
-
-Os estados combinam cor e texto. A matriz mantém zero, ausência e valores negativos distintos. [Convenções da interface](docs/interface.md).
-
 ## Arquitetura
 
 O fechamento passa pela entrega recebida, pelo cálculo do candidato e pela publicação autorizada para leitura. O batch é um processo Spark local; as tabelas Delta compartilham o volume de estado, mas cada uma tem sua própria versão. Por isso, o ponto de publicação é um manifesto que fixa o conjunto de versões.

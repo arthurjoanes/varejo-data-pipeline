@@ -40,11 +40,9 @@ Qualidade começa pela decisão da última tentativa. **Conferir pendência** le
 
 Arquivos permite selecionar ou copiar IDs completos e conferir caminhos, versões Delta, fontes bronze e hashes das referências. A publicação, a tentativa e a baseline têm identidades próprias.
 
-## Paleta e identidade
+## Recursos locais
 
-Azul petróleo `#245B64` identifica a marca, links, ações e gráficos. A navegação usa petróleo escuro `#163F46`; o texto usa `#263248`. Branco `#FFFFFF` e cinza claro `#F2F3F5` formam as superfícies. Sucesso mantém verde `#226348`, aviso usa ocre `#76550E` e bloqueio usa vermelho `#923B35`, com estado escrito. A [paleta](readme/palette.svg) e o [README](../README.md#paleta-da-marca) mostram esses papéis.
-
-A marca acompanha a cor principal por `currentColor`. O favicon e a matriz usam a mesma família; a seleção combina bordas internas clara e escura. Source Sans 3 é embutida no HTML com sua licença OFL, e a marca SVG é original e local.
+Source Sans 3 é embutida no HTML com sua licença OFL. Marca, favicon e scripts também são locais; a consulta ao snapshot não depende de serviços externos.
 
 ## Estados que não podem se confundir
 
