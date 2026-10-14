@@ -9,8 +9,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const {pathToFileURL} = require('node:url');
-const pw = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
-const AxeBuilder = require(process.env.AXE_MODULE || '@axe-core/playwright').default;
+const browserRequire = require('node:module').createRequire(path.join(__dirname, '../tools/browser/package.json'));
+const pw = require(process.env.PLAYWRIGHT_MODULE || browserRequire.resolve('playwright'));
+const AxeBuilder = require(process.env.AXE_MODULE || browserRequire.resolve('@axe-core/playwright')).default;
 const phase = process.argv[2];
 assert.ok(['before', 'after'].includes(phase), 'Expected before or after');
 const root = process.cwd();
@@ -107,8 +108,10 @@ async function deadline(promise, label, milliseconds = 15000) {
   finally {clearTimeout(timer);}
 }
 async function loaded(page, url, anchor = '') {
-  await page.goto(url + (anchor ? '#' + anchor : ''), {waitUntil: 'domcontentloaded'});
-  await page.waitForFunction(() => document.fonts.status === 'loaded', null, {timeout: 15000});
+  await page.goto(url + (anchor ? '#' + anchor : ''), {waitUntil: 'load'});
+  await page.bringToFront();
+  // Wait for the browser's font/layout promise, including contexts without app JS.
+  await deadline(page.evaluate(async () => { await document.fonts.ready; }), `fonts ready: ${url}#${anchor}`, 20000);
 }
 async function visit(page, id) {
   const link = page.locator(`a[href="#${id}"]`).first();

@@ -66,13 +66,29 @@ Abra o HTML em `artifacts`. O servidor local opcional usa `scripts/pipeline.ps1 
 
 ## Reproduzir fixtures de apresentação
 
-Os JSONs em `tests/fixtures/reports/` permitem renderizar os estados sem iniciar Spark ou executar entregas. A partir da raiz, com Python e Node configurados:
+Os JSONs em `tests/fixtures/reports/` permitem renderizar os estados sem iniciar Spark ou executar entregas. A partir da raiz, use Python 3.11+ e Node 22+. Instale as ferramentas de navegador pelo lock do projeto antes da primeira execução:
+
+```sh
+npm ci --prefix tools/browser
+npm run install:browser --prefix tools/browser
+```
+
+No shell POSIX:
 
 ```sh
 PYTHONPATH=src python scripts/render_report_fixtures.py tests/fixtures/reports artifacts/report-fixtures/html
 DASHBOARD_INPUTS=tests/fixtures/reports node scripts/dashboard-review.cjs after artifacts/report-fixtures/html artifacts/report-fixtures/qa
 ```
 
-O segundo comando exige Playwright e `@axe-core/playwright` no ambiente de desenvolvimento. `PLAYWRIGHT_MODULE`, `AXE_MODULE` e `PLAYWRIGHT_CHANNEL` permitem selecionar os módulos e o navegador locais. Use um diretório de saída novo para cada execução.
+No PowerShell:
+
+```powershell
+$env:PYTHONPATH = 'src'
+python scripts/render_report_fixtures.py tests/fixtures/reports artifacts/report-fixtures/html
+$env:DASHBOARD_INPUTS = 'tests/fixtures/reports'
+node scripts/dashboard-review.cjs after artifacts/report-fixtures/html artifacts/report-fixtures/qa
+```
+
+O harness resolve Playwright e `@axe-core/playwright` de `tools/browser/`. `PLAYWRIGHT_MODULE`, `AXE_MODULE` e `PLAYWRIGHT_CHANNEL` permitem selecionar outros módulos ou um navegador local. Use um diretório de saída novo para cada execução. A [documentação das verificações](frontend-quality.md#reproduzir-a-apresentação) inclui instalação das bibliotecas de sistema no Linux e os limites do teste.
 
 As verificações automáticas cobrem os casos executados. Zoom nativo e leitura com tecnologia assistiva exigem conferência própria; reflow por largura e espaçamento CSS não substituem essas avaliações.

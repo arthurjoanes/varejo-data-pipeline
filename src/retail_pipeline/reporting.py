@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import os
+import stat
+import tempfile
 from collections.abc import Mapping, Sequence
-from datetime import date
+from datetime import UTC, date, datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -21,13 +24,21 @@ def _read_attempts(
 ) -> tuple[dict[str, object] | None, dict[str, object] | None]:
     latest = None
     failed = None
-    files = sorted(
-        root.glob("runs/*/attempt.json"), key=lambda path: path.stat().st_mtime_ns, reverse=True
-    )
-    for path in files:
+    attempts = []
+    for path in root.glob("runs/*/attempt.json"):
         value = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(value, dict):
             raise ValueError(f"Registro de tentativa inválido: {path}")
+        try:
+            started = datetime.fromisoformat(str(value["started_at"]))
+            run_id = value["run_id"]
+            if started.utcoffset() is None or not isinstance(run_id, str) or not run_id:
+                raise ValueError("started_at com fuso e run_id são obrigatórios")
+        except (KeyError, ValueError) as exc:
+            raise ValueError(f"Cronologia de tentativa inválida: {path}") from exc
+        attempts.append((started.astimezone(UTC), run_id, value))
+    # Chronology belongs to the persisted record, not filesystem restoration time.
+    for _, _, value in sorted(attempts, key=lambda item: (item[0], item[1]), reverse=True):
         if (
             snapshot
             and value.get("run_id") == snapshot.get("run_id")
@@ -46,6 +57,38 @@ def _read_attempts(
         if latest is not None and failed is not None:
             break
     return latest, failed
+
+
+def _publish_html(output: Path, html: str) -> None:
+    """Replace a complete document, preserving existing POSIX ownership and mode."""
+    output.parent.mkdir(parents=True, exist_ok=True)
+    previous = output.stat() if output.exists() else None
+    mode = stat.S_IMODE(previous.st_mode) if previous else 0o644
+    descriptor, temporary = tempfile.mkstemp(prefix=".report-", dir=output.parent)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8", newline="") as handle:
+            handle.write(html)
+            handle.flush()
+            if previous is not None and hasattr(os, "fchown"):
+                current = os.fstat(handle.fileno())
+                if (current.st_uid, current.st_gid) != (previous.st_uid, previous.st_gid):
+                    # A root pipeline must not take ownership from a host user.
+                    # Failure leaves the old document intact instead of widening access.
+                    os.fchown(handle.fileno(), previous.st_uid, previous.st_gid)
+            # Only this exported HTML is public to the read-only report server
+            # (UID 65534). Existing restrictive permissions are never expanded.
+            os.chmod(temporary, mode)
+            os.fsync(handle.fileno())
+        os.replace(temporary, output)
+        if hasattr(os, "O_DIRECTORY"):
+            directory = os.open(output.parent, os.O_DIRECTORY)
+            try:
+                os.fsync(directory)
+            finally:
+                os.close(directory)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
 
 
 def _limited_rows(frame: DataFrame, limit: int) -> tuple[list[dict[str, object]], bool]:
@@ -135,8 +178,7 @@ def generate_report(
             products_truncated=products_truncated,
             profile_result=profile_result,
         )
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(build_report_html(payload), encoding="utf-8")
+    _publish_html(output, build_report_html(payload))
     return output
 
 

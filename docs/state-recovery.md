@@ -1,5 +1,7 @@
 # Recuperar o fechamento junto com seu histórico
 
+A interface ordena as tentativas pelo `started_at` persistido, convertido para UTC, em ordem decrescente; `run_id` desempata no mesmo sentido. É ordem de início, não de conclusão. A restauração pode mudar os horários dos arquivos sem mudar essa ordem. Registro legado sem data válida com fuso ou sem ID impede a geração do relatório com erro explícito; reconcilie-o com a evidência original antes de regenerar, sem inventar cronologia a partir de `mtime`.
+
 Um HTML de fechamento ou a última tabela gold não bastam para recuperar o pipeline. A publicação aponta para versões específicas de várias tabelas, e o histórico aceito determina quais correções podem entrar. Perder essas referências pode deixar totais aparentemente válidos sem o estado que permite conferi-los e continuar o processamento.
 
 **A restauração local e as seis amostras de recomputação passaram em 22/09/2026.** Três publicações foram recuperadas em volume novo, com IDs, versões, linhas e totais iguais à origem. A medição tem execução e limites próprios. [Índice de evidências](evidence/state-proof/index.json).

@@ -112,7 +112,13 @@ def test_rejects_incomplete_or_ambiguous_archive_even_with_matching_hash(
     assert not evidence.exists()
 
 
-@pytest.mark.parametrize("provenance", [b"[]", b" " * (1024 * 1024 + 1)])
+@pytest.mark.parametrize(
+    "provenance",
+    [
+        pytest.param(b"[]", id="invalid-root"),
+        pytest.param(b" " * (1024 * 1024 + 1), id="over-limit"),
+    ],
+)
 def test_rejects_unusable_provenance_before_copy(tmp_path, provenance):
     manifest, runtime, rebuilt, evidence, _ = prepare(tmp_path, provenance=provenance)
     with pytest.raises(ValueError):
