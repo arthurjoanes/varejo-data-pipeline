@@ -46,6 +46,8 @@ jobs:
         run: sh scripts/pipeline.sh setup
       - name: Lint, formato e tipos
         run: sh scripts/pipeline.sh check
+      - name: Permissões do relatório em container de teste isolado
+        run: python3 scripts/check_report_permissions.py
       - name: Regras e integração real (inclui recuperação)
         run: sh scripts/pipeline.sh test -q --junitxml=/app/artifacts/tests.xml
       - name: Inventário de vulnerabilidades OS, JVM e Python
