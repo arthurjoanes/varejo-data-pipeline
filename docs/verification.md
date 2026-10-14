@@ -10,6 +10,8 @@ Depois de construir a imagem com `setup`, execute `python scripts/check_report_p
 
 Os três casos com o marcador `report_permissions` ficam ignorados na suíte comum e são obrigatórios em uma etapa separada do CI. O script ativa esses casos explicitamente; falta de permissão nessa etapa causa falha. Não conte os três skips da suíte comum como aprovação nem some os testes desmarcados da etapa isolada aos executados.
 
+O teste com outro UID/GID usa CHOWN nesse ambiente isolado. Ele não prova que o batch restrito consegue substituir um arquivo de outro dono: nesse caso, a [regra de publicação segura](security.md#isolamento) conserva o HTML anterior quando não consegue preservar seu proprietário.
+
 ## Evolução de perfis e lineage em 12/10/2026
 
 Base da execução: `53f998d820d3b5e7a0f2231b370907f7dc77a7bb`. [Isolamento, comandos e saídas](evolution.md). Cada resultado abaixo identifica a fonte e a imagem utilizadas.
