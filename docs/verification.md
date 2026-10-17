@@ -2,6 +2,14 @@
 
 ## Validação atual
 
+O manifesto e `requirements.lock` incluem `tzdata`, com hashes publicados no PyPI,
+para carregar `America/Sao_Paulo` mesmo sem base IANA no sistema. A [documentação
+de zoneinfo](https://docs.python.org/3/library/zoneinfo.html#data-sources) descreve
+esse fallback. `tests/unit/test_timezone_runtime.py` o verifica em um processo
+separado com a busca de fusos do sistema desativada. O escritor e suas integrações
+continuam exigindo Linux (`fcntl`, fsync de diretórios) e Spark/Delta; executar a
+suíte diretamente no Windows não substitui o comando de teste no container.
+
 Em 12/10/2026, a fonte de `a5b2a3b` passou em **402 testes unitários** no Linux. Ruff, verificação de formato e mypy também passaram. Os comandos para reprodução estão abaixo; os testes de navegador e seus limites estão no [guia de qualidade do relatório](frontend-quality.md). Esta execução unitária não substitui as integrações Spark/Delta identificadas nas seções históricas.
 
 ## Testes de permissões do relatório
