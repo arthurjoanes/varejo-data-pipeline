@@ -13,7 +13,7 @@ Conferência de entregas e revisões de vendas antes de publicar um fechamento.
 
 ## Visão geral
 
-O projeto responde a três perguntas: o total está completo, quais revisões foram aceitas e a qual publicação cada indicador pertence? Desenvolvi a ingestão, as regras de revisão, a [publicação por manifesto](src/retail_pipeline/publication.py) e o relatório para uma rede fictícia. Os dados são sintéticos; não há adoção comercial nem ganho financeiro medido.
+Desenvolvi este pipeline para conferir entregas e revisões de vendas de uma rede fictícia. As regras conciliam os totais antes da [publicação por manifesto](src/retail_pipeline/publication.py), e o relatório conserva a origem de cada indicador. Os dados são sintéticos.
 
 O fechamento também conserva um perfil da Silver ativa. A comparação identifica a publicação anterior e recalcula datas e lojas em comum antes de avaliar variações. Eventos OpenLineage ficam no disco e podem ser reexportados após uma falha. [Contratos e roteiros de evolução](docs/evolution.md).
 

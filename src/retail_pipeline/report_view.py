@@ -1509,15 +1509,14 @@ def _sales_explorer(payload: ReportPayload) -> str:
         '<section class="panel" id="recorte" data-report-view tabindex="-1" '
         'aria-labelledby="slice-title"><header class="view-heading"><div>'
         '<h2 id="slice-title">Recortar vendas</h2><p class="view-subtitle">'
-        "Quais lojas e dias compõem a receita?</p></div></header>"
+        "Receita por loja e dia</p></div></header>"
     )
     if not (payload.snapshot or {}).get("publication_id"):
         return heading + '<p class="empty">Ainda não há publicação para recortar.</p></section>'
     if payload.stores_truncated:
         return heading + (
-            '<p class="empty">As linhas de loja e dia estão truncadas neste relatório. '
-            "Gere um relatório com período menor para filtrar sem apresentar totais parciais "
-            "como um fechamento completo.</p></section>"
+            '<p class="empty">Linhas de loja e dia truncadas. '
+            "Gere um relatório com período menor para recortar os dados.</p></section>"
         )
     fields = ("business_date", "store_id", "net_revenue_brl", "sales_count", "units")
     for row in payload.stores:
@@ -1539,8 +1538,7 @@ def _sales_explorer(payload: ReportPayload) -> str:
     ]
     data = json.dumps(rows, ensure_ascii=False, default=str).replace("<", "\\u003c")
     return heading + (
-        '<p class="meta">Consulta local das linhas publicadas. Dia comercial em '
-        "America/Sao_Paulo. A publicação completa e o mix de produtos permanecem na Visão geral.</p>"
+        '<p class="meta">Dia comercial · America/Sao_Paulo</p>'
         '<div id="sales-slice-controls" class="sales-slice-controls" hidden>'
         '<label>De<input id="sales-from" type="date"></label>'
         '<label>Até<input id="sales-to" type="date"></label>'

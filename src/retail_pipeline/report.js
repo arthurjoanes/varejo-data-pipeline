@@ -104,8 +104,8 @@ if (salesData) {
   const reference = recentSalesPeriod(rows, 1).to;
   document.getElementById('sales-slice-controls').hidden = false;
   document.getElementById('sales-slice-reference').textContent = reference
-    ? `Atalhos terminam em ${reference.split('-').reverse().join('/')}, último dia comercial deste snapshot. Não há atualização automática.`
-    : 'Este snapshot não contém linhas de loja e dia para recortar.';
+    ? `Referência: ${reference.split('-').reverse().join('/')} (último dia publicado)`
+    : 'Sem linhas de loja e dia.';
   [...new Set(rows.map(row => row.store_id))].sort().forEach(id => store.add(new Option(id, id)));
   const params = new URLSearchParams(location.search);
   const calendarDay = value => /^\d{4}-\d{2}-\d{2}$/.test(value || '') && !Number.isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0,10) === value;
@@ -125,7 +125,9 @@ if (salesData) {
       if (value) url.searchParams.set(key,value); else url.searchParams.delete(key);
     }
     history.replaceState(null,'',url);
-    note.textContent = slice.rows.length ? `${slice.rows.length} linhas de loja e dia no recorte. Valores ausentes ficam indisponíveis.` : 'Nenhuma observação nesse período e loja. Ausência de linha não é venda zero.';
+    const stores = new Set(slice.rows.map(row => row.store_id)).size;
+    const days = slice.daily.length;
+    note.textContent = slice.rows.length ? `${stores} ${stores === 1 ? 'loja' : 'lojas'} · ${days} ${days === 1 ? 'dia' : 'dias'}` : 'Nenhum dado neste recorte.';
     output.append(note);
     if (!slice.rows.length) return;
     const cards = document.createElement('div'); cards.className = 'metrics';
