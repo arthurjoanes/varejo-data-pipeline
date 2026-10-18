@@ -28,6 +28,7 @@ jobs:
           tools/browser/node_modules/.bin/playwright install --with-deps chromium
       - name: Renderizar fixtures sem Spark e verificar estados representativos
         run: |
+          node scripts/test_sales_slice.cjs
           PYTHONPATH=src python3 scripts/render_report_fixtures.py tests/fixtures/reports artifacts/browser/html
           DASHBOARD_INPUTS=tests/fixtures/reports DASHBOARD_CASES=historical-demo30k-report,historical-blocked-report,fixture-no-publication,actual-comparable node scripts/dashboard-review.cjs after artifacts/browser/html artifacts/browser/qa
       - name: Preservar recibos do navegador

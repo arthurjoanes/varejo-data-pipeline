@@ -1,3 +1,4 @@
+import json
 from collections.abc import Mapping, Sequence
 from datetime import date, datetime, timedelta
 from decimal import ROUND_HALF_UP, Decimal, localcontext
@@ -16,7 +17,11 @@ from retail_pipeline.report_model import (
 )
 
 CSS = FONT_CSS + files("retail_pipeline").joinpath("report.css").read_text(encoding="utf-8")
-SCRIPT = files("retail_pipeline").joinpath("report.js").read_text(encoding="utf-8")
+SCRIPT = (
+    files("retail_pipeline").joinpath("report_sales.js").read_text(encoding="utf-8")
+    + "\n"
+    + files("retail_pipeline").joinpath("report.js").read_text(encoding="utf-8")
+)
 
 STATE_LABELS = {
     "RUNNING": "Sem resultado final",
@@ -395,7 +400,7 @@ def _store_matrix(rows: Sequence[Mapping[str, object]]) -> str:
             if values
             else '<p class="meta">Sem receita informada para definir a escala.</p>'
         )
-        + '</div>'
+        + "</div>"
         '<p class="matrix-help" hidden>Selecione uma célula para consultar o valor. Use as setas para percorrer a matriz.</p>'
         '<div class="matrix-scroll" tabindex="0" role="region" aria-label="Matriz de receita por loja e dia, com rolagem horizontal">'
         f'<table class="store-matrix" style="width:{83 + 39 * span}px"><colgroup><col style="width:80px"><col span="{span}" style="width:36px"></colgroup><thead><tr class="matrix-months"><th scope="col">Mês</th>{month_header}</tr><tr><th scope="col">Loja / dia</th>{header}</tr></thead><tbody>{"".join(body)}</tbody></table></div>'
@@ -1015,7 +1020,7 @@ def _profile_comparison(
         '<div class="profile-comparison" id="profile-comparison" tabindex="-1">',
         f'<header class="profile-decision {"warning" if warning else "neutral"}" data-profile-comparison-state="{_text(status)}"{count_attribute}><h3 class="profile-verdict">{_text(verdict)}</h3>',
         f'<p class="profile-comparison-state">{_text(state)}</p>' if verdict != state else "",
-        f'<p>{_text(comparison.get("reason"))}</p>' if comparison.get("reason") else "",
+        f"<p>{_text(comparison.get('reason'))}</p>" if comparison.get("reason") else "",
     ]
     if warning:
         parts.append(
@@ -1499,6 +1504,58 @@ def _nav_icon(name: str) -> str:
     return f'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths[name]}</svg>'
 
 
+def _sales_explorer(payload: ReportPayload) -> str:
+    heading = (
+        '<section class="panel" id="recorte" data-report-view tabindex="-1" '
+        'aria-labelledby="slice-title"><header class="view-heading"><div>'
+        '<h2 id="slice-title">Recortar vendas</h2><p class="view-subtitle">'
+        "Quais lojas e dias compõem a receita?</p></div></header>"
+    )
+    if not (payload.snapshot or {}).get("publication_id"):
+        return heading + '<p class="empty">Ainda não há publicação para recortar.</p></section>'
+    if payload.stores_truncated:
+        return heading + (
+            '<p class="empty">As linhas de loja e dia estão truncadas neste relatório. '
+            "Gere um relatório com período menor para filtrar sem apresentar totais parciais "
+            "como um fechamento completo.</p></section>"
+        )
+    fields = ("business_date", "store_id", "net_revenue_brl", "sales_count", "units")
+    for row in payload.stores:
+        try:
+            date.fromisoformat(str(row.get("business_date")))
+        except ValueError:
+            return (
+                heading
+                + '<p class="empty">Datas incompletas no snapshot. Consulte as linhas em Lojas.</p></section>'
+            )
+        if not row.get("store_id"):
+            return (
+                heading
+                + '<p class="empty">Loja não identificada no snapshot. Consulte as linhas em Lojas.</p></section>'
+            )
+    rows = [
+        {key: str(row[key]) if row.get(key) is not None else None for key in fields}
+        for row in payload.stores
+    ]
+    data = json.dumps(rows, ensure_ascii=False, default=str).replace("<", "\\u003c")
+    return heading + (
+        '<p class="meta">Consulta local das linhas publicadas. Dia comercial em '
+        "America/Sao_Paulo. A publicação completa e o mix de produtos permanecem na Visão geral.</p>"
+        '<div id="sales-slice-controls" class="sales-slice-controls" hidden>'
+        '<label>De<input id="sales-from" type="date"></label>'
+        '<label>Até<input id="sales-to" type="date"></label>'
+        '<label>Loja<select id="sales-store"><option value="">Todas as lojas</option></select></label>'
+        '<div class="sales-slice-presets"><button type="button" data-sales-days="7">7 dias finais</button>'
+        '<button type="button" data-sales-days="14">14 dias finais</button>'
+        '<button type="button" data-sales-days="0">Período completo</button></div></div>'
+        '<p id="sales-slice-reference" class="meta"></p>'
+        '<div id="sales-slice-result" class="sales-slice-result" aria-live="polite"></div>'
+        '<noscript><p>Consulte os valores completos em <a href="#lojas">Lojas</a>. '
+        "O recorte interativo requer JavaScript e não consulta serviços externos.</p></noscript>"
+        f'<script type="application/json" id="sales-slice-data">{data}</script></section>'
+    )
+
+
 def _overview_notice(payload: ReportPayload) -> str:
     attempt = payload.latest_attempt or {}
     result = payload.profile_result or {}
@@ -1680,11 +1737,12 @@ def build_report_html(payload: ReportPayload) -> str:
 <nav class="report-nav" aria-label="Seções do relatório">
 <a href="#indicadores" data-view-link="indicadores">{_nav_icon("overview")}<span>Visão geral</span></a>
 <a href="#lojas" data-view-link="lojas">{_nav_icon("stores")}<span>Lojas</span></a>
+<a href="#recorte" data-view-link="recorte">{_nav_icon("change")}<span>Recortar vendas</span></a>
 <a href="#perfil" data-view-link="perfil">{_nav_icon("change")}<span>O que mudou</span></a>
 <a href="#qualidade" data-view-link="qualidade">{_nav_icon("quality")}<span>Qualidade</span></a>
 <a href="#proveniencia" data-view-link="proveniencia">{_nav_icon("files")}<span>Arquivos</span></a></nav>
 <div class="sidebar-note"><span class="snapshot-label">Relatório de vendas</span><p>Snapshot · somente leitura</p></div></header>
-<main id="content" tabindex="-1" data-default-view="{'qualidade' if attempt.get('state') in {'BLOCKED', 'TECHNICAL_FAILURE', 'RUNNING'} or attempt.get('audit_incomplete') else 'indicadores'}">
+<main id="content" tabindex="-1" data-default-view="{"qualidade" if attempt.get("state") in {"BLOCKED", "TECHNICAL_FAILURE", "RUNNING"} or attempt.get("audit_incomplete") else "indicadores"}">
 <div class="report-caption"><h1>Fechamento de vendas</h1>{'<p class="demo-label">Demonstração com dados sintéticos.</p>' if payload.synthetic_data else '<p class="demo-label">Snapshot · somente leitura</p>'}</div>
 <section class="panel" id="qualidade" data-report-view tabindex="-1" aria-labelledby="execution-title">
 <div class="closing-sheet">
@@ -1692,7 +1750,7 @@ def build_report_html(payload: ReportPayload) -> str:
 <div class="attempt-identity"><div><p class="record-label">Lote da tentativa</p><p class="batch-name">{_short_id_link(attempt.get("batch_id"), "do lote da tentativa", "attempt-batch-id")}</p></div><dl class="attempt-clock"><div><dt>Início registrado</dt><dd>{_text(_timestamp(attempt.get("started_at")))}</dd></div><div><dt>Período da entrega</dt><dd>Não informado no snapshot</dd></div></dl></div></header>
 {_attempt_details(payload.latest_attempt)}
 </div>
-<div class="publication-bridge"><p><strong>{publication_label}.</strong> {_text(_publication_context(payload))}</p>{'<a href="#indicadores">Ver a publicação disponível</a>' if published else ''}</div>
+<div class="publication-bridge"><p><strong>{publication_label}.</strong> {_text(_publication_context(payload))}</p>{'<a href="#indicadores">Ver a publicação disponível</a>' if published else ""}</div>
 {_failure_notice(payload)}</section>
 <section class="panel" id="indicadores" data-report-view tabindex="-1" aria-labelledby="indicators-title">
 <header class="view-heading"><div><h2 id="indicators-title">Visão geral</h2><p class="view-subtitle">O resultado das vendas publicadas.</p></div><div class="period-label"><span>Período das vendas</span><strong>{_text(window)}</strong></div></header>
@@ -1709,6 +1767,7 @@ def build_report_html(payload: ReportPayload) -> str:
 <div class="publication-stamp"><span class="publication-status">{publication_label}</span><p>{publication_note}</p></div>
 <section class="data-section matrix-section"><div class="chart-heading"><div><h3>Receita por loja e dia</h3><p class="meta">A intensidade da cor representa a receita.</p></div><a class="text-action" href="#store-values">Ver tabela</a></div>{f'<p class="footnote">{store_note}</p>' if store_note else ""}{_store_matrix(payload.stores)}
 <details class="data-detail" id="store-values" tabindex="-1"><summary>Valores por loja e dia ({len(payload.stores)} {"linha exibida" if len(payload.stores) == 1 else "linhas exibidas"})</summary>{stores}</details></section></section>
+{_sales_explorer(payload)}
 {_profile_section(payload)}
 <section class="panel" id="proveniencia" data-report-view tabindex="-1" aria-labelledby="files-title"><div class="section-head"><div><h2 id="files-title">Arquivos e versões</h2><p class="meta">{source_count} {source_label}. Referências capturadas no manifesto da publicação.</p><p class="meta">Publicada em {_text(_timestamp(snapshot.get("published_at")))}.</p></div></div>
 <div class="provenance-workspace"><aside class="identity-register"><h3>Publicação identificada</h3>{_copy_field(snapshot.get("publication_id"), "ID da publicação", "publication-id")}{_copy_field(snapshot.get("run_id"), "Execução que publicou", "publication-run-id")}

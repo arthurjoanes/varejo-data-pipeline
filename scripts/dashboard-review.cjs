@@ -21,7 +21,7 @@ const output = path.resolve(process.argv[4]);
 assert.ok(output.startsWith(root + path.sep) && !fs.existsSync(output), 'Use a new output directory in this project');
 const inputDirectory = path.resolve(process.env.DASHBOARD_INPUTS || path.join(path.dirname(htmlDirectory), 'inputs'));
 const widths = [320, 390, 768, 1024, 1440];
-const destinations = ['indicadores', 'lojas', 'perfil', 'qualidade', 'proveniencia'];
+const destinations = ['indicadores', 'lojas', 'recorte', 'perfil', 'qualidade', 'proveniencia'];
 const selected = process.env.DASHBOARD_CASES ? new Set(process.env.DASHBOARD_CASES.split(',')) : null;
 const files = fs.readdirSync(htmlDirectory).filter(name => name.endsWith('.html') && (!selected || selected.has(name.slice(0, -5)))).sort();
 assert.ok(files.length, 'No captured HTML selected');
@@ -237,6 +237,24 @@ async function dataChecks(page, name, payload) {
       ['average_ticket_brl', payload.snapshot ? money(payload.summary?.average_ticket_brl) : '—'],
     ]) equal(`${name}:kpi:${metric}`, await page.locator(`[data-metric="${metric}"]`).innerText(), expected);
     await chartChecks(page, name, payload);
+    await visit(page, 'recorte');
+    if (payload.snapshot?.publication_id && !payload.stores_truncated && payload.stores?.length) {
+      const row = payload.stores[0];
+      await page.locator('#sales-from').fill(row.business_date);
+      await page.locator('#sales-to').fill(row.business_date);
+      await page.locator('#sales-store').selectOption(row.store_id);
+      await page.locator('#sales-store').dispatchEvent('change');
+      const selected = payload.stores.filter(item => item.business_date === row.business_date && item.store_id === row.store_id);
+      if (selected.every(item => item.net_revenue_brl != null)) equal(`${name}:slice-exact-revenue`, await page.locator('[data-metric="slice-revenue"]').innerText(), money(sum(selected.map(item => item.net_revenue_brl))));
+      await page.reload({waitUntil:'load'});
+      equal(`${name}:slice-restores-store`, await page.locator('#sales-store').inputValue(), row.store_id);
+      await page.locator('#sales-from').fill('9999-01-01');
+      await page.locator('#sales-to').fill('9999-01-02');
+      await page.locator('#sales-to').dispatchEvent('change');
+      equal(`${name}:slice-empty-is-unavailable`, await page.locator('[data-metric="slice-revenue"]').count(), 0);
+      await page.getByRole('button',{name:'Período completo',exact:true}).click();
+      await page.locator('#sales-store').selectOption('');
+    } else equal(`${name}:slice-disabled-without-complete-publication`, await page.locator('#sales-slice-controls').count(), 0);
   }
   await visit(page, 'perfil');
   await openNativeDetails(page);

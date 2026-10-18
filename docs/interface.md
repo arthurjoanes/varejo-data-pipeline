@@ -2,7 +2,7 @@
 
 O relatório é um snapshot: a geração consulta o manifesto uma vez, lê as versões Delta correspondentes e captura a última tentativa e a última falha disponíveis. Abrir o HTML depois não consulta o pipeline nem atualiza seu estado.
 
-A navegação tem cinco áreas: Visão geral, Lojas, O que mudou, Qualidade e Arquivos. Um fechamento publicado abre em Visão geral. Bloqueio, falha técnica, execução sem resultado final ou auditoria incompleta abrem em Qualidade.
+A navegação tem seis áreas: Visão geral, Lojas, Recortar vendas, O que mudou, Qualidade e Arquivos. Um fechamento publicado abre em Visão geral. Bloqueio, falha técnica, execução sem resultado final ou auditoria incompleta abrem em Qualidade.
 
 ## Onde consultar
 
@@ -10,11 +10,18 @@ A navegação tem cinco áreas: Visão geral, Lojas, O que mudou, Qualidade e Ar
 | ---- | -------- |
 | Visão geral | Totais publicados, receita diária, ranking de lojas e participação dos produtos |
 | Lojas | Matriz de receita por loja e dia e tabela exata |
+| Recortar vendas | Receita, vendas e unidades por loja e período selecionados |
 | O que mudou | Valores anterior e atual, recorte equivalente e estado da comparação |
 | Qualidade | Decisão da tentativa, pendências, cobertura, contadores e etapas medidas |
 | Arquivos | IDs completos, fontes, hashes e versões Delta da publicação |
 
-No desktop, a navegação fica na lateral. Em telas estreitas, os links ficam acima do conteúdo. Âncoras conservam o histórico do navegador e revelam o detalhe que contém o destino. Sem JavaScript, as cinco áreas aparecem em sequência com seus detalhes nativos. Fonte, marca e scripts são locais; o HTML funciona offline.
+No desktop, a navegação fica na lateral. Em telas estreitas, os links ficam acima do conteúdo. Âncoras conservam o histórico do navegador e revelam o detalhe que contém o destino. Sem JavaScript, as seis áreas aparecem em sequência com seus detalhes nativos. Fonte, marca e scripts são locais; o HTML funciona offline.
+
+## Recortar vendas
+
+O recorte soma as linhas de loja/dia capturadas no snapshot, com limites de data inclusivos e loja opcional. Os atalhos de 7 e 14 dias terminam no último dia comercial disponível, identificado junto aos controles. A URL conserva a seleção. Isso não consulta o pipeline, não altera os totais publicados nem tenta recortar o mix de produtos, que já está agregado.
+
+Receitas usam centavos inteiros e contagens usam inteiros de precisão arbitrária. Um valor desconhecido mantém seu total indisponível; um filtro sem observações não vira venda zero. Relatórios com linhas truncadas não oferecem esse recorte. A tabela conserva os valores diários exatos, e a animação de entrada dos gráficos respeita a preferência por movimento reduzido.
 
 ## Ler os gráficos
 

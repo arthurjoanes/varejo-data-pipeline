@@ -12,7 +12,7 @@ p + p { margin-top:8px; }
 a { color:var(--blue); text-underline-offset:3px; }
 a:hover { text-decoration-thickness:2px; }
 a,button,summary { touch-action:manipulation; -webkit-tap-highlight-color:#dce5ff; }
-a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,[tabindex]:focus-visible { outline:3px solid var(--blue); outline-offset:4px; }
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible { outline:3px solid var(--blue); outline-offset:4px; }
 button,input { font:inherit; }
 button { cursor:pointer; }
 code { font:12px/1.6 Consolas,monospace; overflow-wrap:anywhere; }
@@ -361,7 +361,7 @@ a,button,summary { transition:color 180ms ease,background-color 180ms ease; }
  .issue,.metric,tr { break-inside:avoid; }
  h2,h3 { break-after:avoid; }
 }
-@media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; scroll-behavior:auto!important; } }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; animation:none!important; scroll-behavior:auto!important; } }
 /* Analysis workspace: navigation separates sales, comparisons and audit. */
 .sales-trend,.store-ranking,.product-mix { margin:0; }
 .sales-trend-frame { display:grid; grid-template-columns:76px minmax(0,1fr); gap:8px; padding-top:10px; }
@@ -372,6 +372,21 @@ a,button,summary { transition:color 180ms ease,background-color 180ms ease; }
 .sales-trend-grid { stroke:#e1e8e9; stroke-width:1; }
 .sales-trend-zero-line { stroke:#899da3; stroke-width:1; }
 .sales-trend-bar { fill:var(--brand); }
+.sales-trend-bar { transform-box:fill-box; transform-origin:center bottom; animation:sales-enter 220ms cubic-bezier(.23,1,.32,1) both; }
+.sales-trend-bar[data-sign="negative"] { transform-origin:center top; }
+@keyframes sales-enter { from { opacity:.5; transform:scaleY(.94); } to { opacity:1; transform:scaleY(1); } }
+.sales-slice-controls { display:flex; flex-wrap:wrap; align-items:end; gap:12px; padding:20px 0 12px; }
+.sales-slice-controls label { display:grid; gap:6px; font-size:14px; color:var(--muted); }
+.sales-slice-controls input,.sales-slice-controls select,.sales-slice-controls button { min-height:44px; border:1px solid var(--line); border-radius:6px; background:var(--paper); padding:8px 12px; color:var(--ink); font:inherit; }
+.sales-slice-controls select { min-width:160px; }
+.sales-slice-presets { display:flex; flex-wrap:wrap; gap:8px; }
+.sales-slice-presets button:hover { background:var(--context); }
+.sales-slice-result { margin-top:20px; padding:24px; background:var(--paper); border:1px solid var(--line); border-radius:10px; }
+.sales-slice-result .metrics { margin:16px 0 28px; grid-template-columns:repeat(3,minmax(0,1fr)); }
+.sales-slice-chart { display:block; width:100%; max-height:280px; margin:16px 0; }
+.sales-slice-chart text { fill:var(--muted); font-size:12px; }
+.slice-baseline { stroke:var(--line); }
+@media(max-width:600px) { .sales-slice-controls label { flex:1 1 120px; min-width:0; } .sales-slice-controls input,.sales-slice-controls select { width:100%; min-width:0; } .sales-slice-result { padding:16px; } .sales-slice-result .metrics { grid-template-columns:1fr; } }
 .sales-trend-bar[data-sign="negative"] { fill:var(--danger); }
 .sales-trend-zero-value { stroke:var(--brand); stroke-width:4; }
 .sales-trend-dates { position:relative; height:26px; margin:12px 14px 0; font-size:12px; color:var(--muted); }

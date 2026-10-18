@@ -28,10 +28,15 @@ _Dados sintéticos de 30 mil linhas de vendas entre 01 e 30/01/2026, publicados 
 
 [Ver no celular](docs/readme/dashboard-mobile.png) · [Guia do relatório](docs/interface.md)
 
+![Recorte da receita de S01 nos sete dias finais do snapshot](docs/readme/sales-slice-desktop.png)
+
+O recorte por loja e dia usa as linhas dessa publicação. Os atalhos terminam em 30/01/2026, último dia comercial capturado; abrir o HTML não atualiza as vendas. [Recorte no celular](docs/readme/sales-slice-mobile.png).
+
 | Área | O que consultar |
 | --- | --- |
 | Visão geral | Receita, vendas, unidades, ticket médio e evolução diária |
 | Lojas | Receita por loja e dia, com zero distinto de ausência |
+| Recortar vendas | Período e loja, com receita diária, vendas e unidades |
 | O que mudou | Comparação de métricas nas mesmas datas e lojas |
 | Qualidade | Pendências, bloqueios e resultado da última tentativa |
 | Arquivos | Origem, versões e identificadores da publicação |
