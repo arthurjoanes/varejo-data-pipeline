@@ -107,11 +107,13 @@ if (salesData) {
     ? `Referência: ${reference.split('-').reverse().join('/')} (último dia publicado)`
     : 'Sem linhas de loja e dia.';
   [...new Set(rows.map(row => row.store_id))].sort().forEach(id => store.add(new Option(id, id)));
-  const params = new URLSearchParams(location.search);
   const calendarDay = value => /^\d{4}-\d{2}-\d{2}$/.test(value || '') && !Number.isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0,10) === value;
-  from.value = calendarDay(params.get('salesFrom')) ? params.get('salesFrom') : '';
-  to.value = calendarDay(params.get('salesTo')) ? params.get('salesTo') : '';
-  if ([...store.options].some(option => option.value === params.get('salesStore'))) store.value = params.get('salesStore');
+  function restoreSalesSlice() {
+    const params = new URLSearchParams(location.search);
+    from.value = calendarDay(params.get('salesFrom')) ? params.get('salesFrom') : '';
+    to.value = calendarDay(params.get('salesTo')) ? params.get('salesTo') : '';
+    store.value = [...store.options].some(option => option.value === params.get('salesStore')) ? params.get('salesStore') : '';
+  }
   function renderSalesSlice() {
     output.replaceChildren();
     const note = document.createElement('p');
@@ -179,5 +181,10 @@ if (salesData) {
     const period = days ? recentSalesPeriod(rows,days) : {from:'',to:''};
     from.value=period.from; to.value=period.to; renderSalesSlice();
   }));
-  renderSalesSlice();
+  window.addEventListener('popstate', () => {
+    restoreSalesSlice();
+    renderSalesSlice();
+    showLocation();
+  });
+  restoreSalesSlice(); renderSalesSlice();
 }

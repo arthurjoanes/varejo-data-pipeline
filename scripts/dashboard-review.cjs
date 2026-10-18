@@ -248,10 +248,30 @@ async function dataChecks(page, name, payload) {
       if (selected.every(item => item.net_revenue_brl != null)) equal(`${name}:slice-exact-revenue`, await page.locator('[data-metric="slice-revenue"]').innerText(), money(sum(selected.map(item => item.net_revenue_brl))));
       await page.reload({waitUntil:'load'});
       equal(`${name}:slice-restores-store`, await page.locator('#sales-store').inputValue(), row.store_id);
+      const sliceState = () => page.evaluate(() => ({
+        url: location.href,
+        from: document.getElementById('sales-from').value,
+        to: document.getElementById('sales-to').value,
+        store: document.getElementById('sales-store').value,
+        revenue: document.querySelector('[data-metric="slice-revenue"]')?.textContent ?? null,
+      }));
+      const originalSlice = await sliceState();
+      await visit(page, 'lojas');
+      const storeViewUrl = page.url();
+      await visit(page, 'recorte');
       await page.locator('#sales-from').fill('9999-01-01');
       await page.locator('#sales-to').fill('9999-01-02');
-      await page.locator('#sales-to').dispatchEvent('change');
+      await page.locator('#sales-store').selectOption('');
       equal(`${name}:slice-empty-is-unavailable`, await page.locator('[data-metric="slice-revenue"]').count(), 0);
+      const emptySlice = await sliceState();
+      await page.goBack(); await page.waitForURL(storeViewUrl);
+      await page.goBack(); await page.waitForURL(originalSlice.url);
+      await page.locator('#recorte').waitFor({state: 'visible'});
+      equal(`${name}:slice-history-back`, await sliceState(), originalSlice);
+      await page.goForward(); await page.waitForURL(storeViewUrl);
+      await page.goForward(); await page.waitForURL(emptySlice.url);
+      await page.locator('#recorte').waitFor({state: 'visible'});
+      equal(`${name}:slice-history-forward`, await sliceState(), emptySlice);
       await page.getByRole('button',{name:'Período completo',exact:true}).click();
       await page.locator('#sales-store').selectOption('');
     } else equal(`${name}:slice-disabled-without-complete-publication`, await page.locator('#sales-slice-controls').count(), 0);
